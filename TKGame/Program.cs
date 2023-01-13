@@ -1,3 +1,3 @@
 ﻿
-using var game = new TKGame.Game1();
+using var game = new TKGame.TKGame();
 game.Run();
