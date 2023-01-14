@@ -1,3 +1,0 @@
-# TKGame
-
-Actually flush out the readme...
