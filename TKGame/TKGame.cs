@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Myra;
+using Myra.Graphics2D.UI;
 using System.Collections.Generic;
 
 namespace TKGame
@@ -9,6 +11,7 @@ namespace TKGame
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private Desktop desktop;
 
         // TODO: Refactor out of the main TKGame class
         List<Wall> walls;
@@ -29,6 +32,8 @@ namespace TKGame
             screenWidth = graphics.PreferredBackBufferWidth;
             screenHeight = graphics.PreferredBackBufferHeight;
 
+            MyraEnvironment.Game = this;
+
             // TODO: Remove magic numbers
             // We'll eventually probably want to generate walls based off level data (from a file).
             walls = new List<Wall>()
@@ -40,6 +45,11 @@ namespace TKGame
                 new Wall(screenWidth / 2, screenHeight / 2, 250, 250, graphics.GraphicsDevice)  // Extra wall to test collision on
             };
 
+            // Initialize debug information
+            GameDebug.Initialize();
+#if DEBUG
+            GameDebug.DebugMode = true;
+#endif
             base.Initialize();
         }
 
@@ -48,6 +58,10 @@ namespace TKGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            GameDebug.LoadContent();
+            desktop = new Desktop();
+            desktop.Root = GameDebug.VSP;
         }
 
         protected override void Update(GameTime gameTime)
@@ -57,6 +71,9 @@ namespace TKGame
                 Exit();
 
             // TODO: Add your update logic here
+            // Update debug information
+            GameDebug.Update();
+
             base.Update(gameTime);
         }
 
@@ -79,8 +96,11 @@ namespace TKGame
 
             spriteBatch.End();
 
-
+            desktop.Render();
             base.Draw(gameTime);
+
+            // Once everything has finished drawing, figure out the framerate
+            GameDebug.UpdateFPS(gameTime);
         }
     }
 }
