@@ -12,6 +12,8 @@ using System.IO;
 // https://github.com/rds1983/Myra
 using Myra;
 using Myra.Graphics2D.UI;
+using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace TKGame
 {
@@ -19,9 +21,10 @@ namespace TKGame
     {
         public static bool DebugMode { private get; set; }
         public static double FPS { get; private set; }
-        public static Label FPSText { get; set; }
         public static VerticalStackPanel VSP { get; private set; }
         private static FontSystem FS { get; set; }
+        private static Label FPSText { get; set; }
+        private static HorizontalStackPanel KeyboardOverlay { get; set; }
 
         // Readonly is used since static variables can't be const
         private static readonly int DEBUG_FONT_SIZE = 48;
@@ -37,6 +40,12 @@ namespace TKGame
             {
                 FPSText = new Label();
             }
+
+            if (KeyboardOverlay is null)
+            {
+                KeyboardOverlay = new HorizontalStackPanel();
+            }
+
             if(FS is null)
             {
                 // FontSystem is kinda like a font-handler. We can use this to retrieve the
@@ -57,11 +66,53 @@ namespace TKGame
             FPSText.Text = string.Empty;
             FPSText.TextColor = DEBUG_COLOR;
             FPSText.Font = FS.GetFont(DEBUG_FONT_SIZE);
-            FPSText.Margin = new Myra.Graphics2D.Thickness(100);
+            FPSText.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
             FPSText.Visible = DebugMode;
 
             // Add FPSText as a child of the VerticalStackPanel
             VSP.Widgets.Add(FPSText);
+
+            for (int i = 0; i < 4; i++)
+            {
+                Label keyText = new Label();
+
+                switch (i)
+                {
+                    case 0:
+                        {
+                            keyText.Id = "Left";
+                            break;
+                        }
+                    case 1:
+                        {
+                            keyText.Id = "Right";
+                            break;
+                        }
+                    case 2:
+                        {
+                            keyText.Id = "Up";
+                            break;
+                        }
+                    case 3:
+                        {
+                            keyText.Id = "Down";
+                            break;
+                        }
+                    default: { break; }
+                }
+
+                keyText.Text = keyText.Id;
+                keyText.Font = FS.GetFont(DEBUG_FONT_SIZE);
+                keyText.TextColor = Color.Red;
+                keyText.Visible = DebugMode;
+                keyText.Margin = new Myra.Graphics2D.Thickness(0, 0, 20, 0);
+
+                KeyboardOverlay.Widgets.Add(keyText);
+                
+            }
+            KeyboardOverlay.Margin = new Myra.Graphics2D.Thickness(100, 0, 100, 0);
+            VSP.Widgets.Add(KeyboardOverlay);
+
         }
 
         /// <summary>
@@ -99,6 +150,22 @@ namespace TKGame
         {
             // Round the FPS to 2 decimal places
             FPSText.Text = $"FPS: {Math.Round(FPS, 2)}";
+        }
+
+        public static void UpdateKeyboardOverlay(KeyboardState keyboardState)
+        {
+            IEnumerable<Widget> labels = ((Grid) KeyboardOverlay.GetChild(0)).GetChildren();
+
+
+            ((Label)labels.ElementAt(0)).TextColor = (keyboardState.IsKeyDown(Keys.Left)) ? Color.Lime : Color.Red;
+            ((Label)labels.ElementAt(1)).TextColor = (keyboardState.IsKeyDown(Keys.Right)) ? Color.Lime : Color.Red;
+            ((Label)labels.ElementAt(2)).TextColor = (keyboardState.IsKeyDown(Keys.Up)) ? Color.Lime : Color.Red;
+            ((Label)labels.ElementAt(3)).TextColor = (keyboardState.IsKeyDown(Keys.Down)) ? Color.Lime : Color.Red;
+
+            if (keyboardState.IsKeyDown(Keys.Space))
+            {
+                Debug.WriteLine("Space pressed");
+            }
         }
     }
 }
