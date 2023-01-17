@@ -89,7 +89,6 @@ namespace TKGame
 
             spriteBatch.End();
 
-
             base.Draw(gameTime);
         }
     }
