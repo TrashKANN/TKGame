@@ -12,7 +12,7 @@ namespace TKGame
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Desktop desktop;
-
+        private KeyboardState previousState, currentState;
         // TODO: Refactor out of the main TKGame class
         List<Wall> walls;
         int screenWidth, screenHeight;
@@ -46,6 +46,9 @@ namespace TKGame
                 new Wall(screenWidth / 2, screenHeight / 2, 250, 250, graphics.GraphicsDevice)  // Extra wall to test collision on
             };
 
+            // Initialize keyboard states (used for one-shot keyboard inputs)
+            previousState = currentState = new KeyboardState();
+
             // Initialize debug information
             GameDebug.Initialize();
 #if DEBUG
@@ -71,9 +74,23 @@ namespace TKGame
 
         protected override void Update(GameTime gameTime)
         {
+            // Get the current keyboard state
+            currentState = Keyboard.GetState();
+
             // Exit the game if Escape is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+#if DEBUG
+            // Toggle the debug UI's visibility once per key press
+            if (currentState.IsKeyDown(Keys.D) && !previousState.IsKeyDown(Keys.D))
+            {
+                GameDebug.ToggleVisibility();
+            }
+#endif
+
+            // Set the previous state now that we've checked for our desired inputs
+            previousState = currentState;
 
             // Update debug information
             GameDebug.Update();
