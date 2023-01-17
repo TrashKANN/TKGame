@@ -32,6 +32,7 @@ namespace TKGame
             screenWidth = graphics.PreferredBackBufferWidth;
             screenHeight = graphics.PreferredBackBufferHeight;
 
+            // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
 
             // TODO: Remove magic numbers
@@ -48,6 +49,7 @@ namespace TKGame
             // Initialize debug information
             GameDebug.Initialize();
 #if DEBUG
+            // For now, just enable DebugMode when building a Debug version
             GameDebug.DebugMode = true;
 #endif
             base.Initialize();
@@ -59,7 +61,10 @@ namespace TKGame
 
             // TODO: use this.Content to load your game content here
 
+            // Load debug content
             GameDebug.LoadContent();
+
+            // Continue setting up Myra
             desktop = new Desktop();
             desktop.Root = GameDebug.VSP;
         }
@@ -70,7 +75,6 @@ namespace TKGame
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
             // Update debug information
             GameDebug.Update();
 
@@ -96,6 +100,7 @@ namespace TKGame
 
             spriteBatch.End();
 
+            // Render UI elements from Myra
             desktop.Render();
             base.Draw(gameTime);
 
