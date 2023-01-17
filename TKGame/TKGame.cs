@@ -37,7 +37,7 @@ namespace TKGame
                 new Wall(0, 0, screenWidth, 50, graphics.GraphicsDevice),                       // Ceiling
                 new Wall(0, 0, 50, screenHeight - 250, graphics.GraphicsDevice),                // Left wall
                 new Wall(screenWidth - 50, 0, 50, screenHeight - 250, graphics.GraphicsDevice), // Right wall
-                new Wall(screenWidth / 2, screenHeight / 2, 250, 250, graphics.GraphicsDevice)
+                new Wall(screenWidth / 2, screenHeight / 2, 250, 250, graphics.GraphicsDevice)  // Extra wall to test collision on
             };
 
             base.Initialize();
@@ -52,11 +52,11 @@ namespace TKGame
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            // Exit the game if Escape is pressed
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
@@ -65,8 +65,13 @@ namespace TKGame
             GraphicsDevice.Clear(Color.SlateGray);
 
             // TODO: Add your drawing code here
+
+            // SpriteBatch sends your sprites in batches to the GPU. We can
+            // Begin and End a couple hundred batches per frame. Sprites that
+            // share the same shader are placed in the same batch.
             spriteBatch.Begin();
 
+            // Draw each wall to the screen
             foreach (Wall wall in walls)
             {
                 spriteBatch.Draw(wall.Texture, wall.Rect, Color.Beige);
