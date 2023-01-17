@@ -10,6 +10,9 @@ namespace TKGame
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        // Character class
+        Character player;
+
         // TODO: Refactor out of the main TKGame class
         List<Wall> walls;
         int screenWidth, screenHeight;
@@ -47,6 +50,10 @@ namespace TKGame
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // TODO: Load character graphic with actual texture
+            player = new Character(Content.Load<Texture2D>("Texture"),
+                new Vector2(50, 50)); 
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -56,15 +63,15 @@ namespace TKGame
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            // Update player state 
+            player.Update(gameTime);
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.SlateGray);
-
-            // TODO: Add your drawing code here
 
             // SpriteBatch sends your sprites in batches to the GPU. We can
             // Begin and End a couple hundred batches per frame. Sprites that
@@ -76,6 +83,9 @@ namespace TKGame
             {
                 spriteBatch.Draw(wall.Texture, wall.Rect, Color.Beige);
             }
+
+            // Draw the player
+            player.Draw(spriteBatch);
 
             spriteBatch.End();
 
