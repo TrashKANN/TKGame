@@ -211,6 +211,8 @@ namespace TKGame
         /// </summary>
         public static void DrawBoundingRectangle(SpriteBatch spriteBatch, Entity entity, Color color, int lineWidth)
         {
+            // Construct a Rectangle out of the entity's position and size so we can
+            // just use the other DrawBoundingRectangle() function to actually draw
             Rectangle entityRect = new Rectangle
             {
                 X = (int)(entity.Position.X - entity.Size.X / 2f),
