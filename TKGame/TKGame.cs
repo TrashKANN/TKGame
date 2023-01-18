@@ -20,6 +20,7 @@ namespace TKGame
         // TODO: Refactor out of the main TKGame class
         List<Wall> walls;
         int screenWidth, screenHeight;
+        bool paused = false;
 
         public TKGame()
         {
@@ -57,16 +58,29 @@ namespace TKGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Art.LoadContent(Content);
-            
+
+            EntityManager.Add(Player.Instance);
 
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
+            GameTime = gameTime;
+            Input.Update();
+
+            // Add pause stuff here
+
+
             // Exit the game if Escape is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            //Do if not paused
+            if (!paused)
+            {
+                EntityManager.Update();
+            }
 
             // TODO: Add your update logic here
             base.Update(gameTime);
@@ -76,13 +90,7 @@ namespace TKGame
         {
             GraphicsDevice.Clear(Color.SlateGray);
 
-            // TODO: Add your drawing code here
-
-            // SpriteBatch sends your sprites in batches to the GPU. We can
-            // Begin and End a couple hundred batches per frame. Sprites that
-            // share the same shader are placed in the same batch.
-            spriteBatch.Begin();
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             // Draw each wall to the screen
             foreach (Wall wall in walls)
             {
@@ -91,6 +99,18 @@ namespace TKGame
 
             spriteBatch.End();
 
+            // TODO: Add your drawing code here
+
+            // SpriteBatch sends your sprites in batches to the GPU. We can
+            // Begin and End a couple hundred batches per frame. Sprites that
+            // share the same shader are placed in the same batch.
+            // SpriteSortMode is set for sprite Textures, BlendState is apparently better for PNGs
+            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.NonPremultiplied);
+            EntityManager.Draw(spriteBatch);
+            spriteBatch.End();
+
+
+            // Add spriteBatch for everything else i.e. Text etc.
 
             base.Draw(gameTime);
         }
