@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+
+// Myra is a library that allows us to add GUI components.
+// https://github.com/rds1983/Myra
 using Myra;
 using Myra.Graphics2D.UI;
-using System.Collections.Generic;
 
 namespace TKGame
 {

@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 using System.IO;
-
-// Myra is a library that allows us to add GUI components.
-// https://github.com/rds1983/Myra
 using Myra.Graphics2D.UI;
 using Microsoft.Xna.Framework.Input;
 
@@ -13,7 +10,10 @@ namespace TKGame
 {
     public class GameDebug
     {
+        // Boolean to describe whether debug mode is on or off
         public static bool DebugMode { private get; set; }
+        
+        // Vertical stack panel that will hold all the UI elements for debug information
         public static VerticalStackPanel VSP { get; private set; }
         
         private static Dictionary<Keys, Label> keyboardLabelDict = new Dictionary<Keys, Label>()
@@ -26,8 +26,12 @@ namespace TKGame
         };
 
         private static double FPS { get; set; }
-        private static FontSystem FS { get; set; }
+
+        // FontSystems allow us to use fonts with Myra
+        private static FontSystem DebugFontSystem { get; set; }
         private static Label FPSText { get; set; }
+
+        // Horizontal stack panel so that the text for the keyboard overlay lines up nicely
         private static HorizontalStackPanel KeyboardOverlay { get; set; }
 
         // Readonly is used since static variables can't be const
@@ -52,13 +56,13 @@ namespace TKGame
                 KeyboardOverlay = new HorizontalStackPanel();
             }
 
-            if(FS is null)
+            if(DebugFontSystem is null)
             {
                 // FontSystem is kinda like a font-handler. We can use this to retrieve the
                 // font data to use in UI components
                 byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
-                FS = new FontSystem();
-                FS.AddFont(ttfData);
+                DebugFontSystem = new FontSystem();
+                DebugFontSystem.AddFont(ttfData);
             }
         }
 
@@ -71,7 +75,7 @@ namespace TKGame
             // Configure the FPSText panel
             FPSText.Text = string.Empty;
             FPSText.TextColor = DEBUG_COLOR;
-            FPSText.Font = FS.GetFont(DEBUG_FONT_SIZE);
+            FPSText.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
             FPSText.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
             FPSText.Visible = DebugMode;
 
@@ -82,7 +86,7 @@ namespace TKGame
             {
                 Label keyText = keyLabelPair.Value;
 
-                keyText.Font = FS.GetFont(DEBUG_FONT_SIZE);
+                keyText.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
                 keyText.TextColor = DEBUG_KEYBOARD_OVERLAY_INACTIVE_COLOR;
                 keyText.Visible = DebugMode;
                 keyText.Margin = new Myra.Graphics2D.Thickness(0, 0, 20, 0);
