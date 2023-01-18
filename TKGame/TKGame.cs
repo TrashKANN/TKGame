@@ -1,12 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
 using System.Collections.Generic;
 
 namespace TKGame
 {
     public class TKGame : Game
     {
+        public static TKGame Instance { get; private set; }
+        public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
+        public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
+        public static GameTime GameTime { get; private set; }
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
@@ -17,18 +24,21 @@ namespace TKGame
         // TODO: Refactor out of the main TKGame class
         List<Wall> walls;
         int screenWidth, screenHeight;
+        bool paused = false;
 
         public TKGame()
         {
+            Instance = this;
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
-            Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
+            this.Content.RootDirectory = "Content";
+
             // TODO: Add your initialization logic here
             screenWidth = graphics.PreferredBackBufferWidth;
             screenHeight = graphics.PreferredBackBufferHeight;
@@ -55,6 +65,9 @@ namespace TKGame
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            Art.LoadContent(Content);
+
+            EntityManager.Add(Player.Instance);
 
             //Loads Image into the Texture
             BackgroundImage.BackgroundTexture = this.Content.Load<Texture2D>(@"Cobble");
@@ -65,10 +78,21 @@ namespace TKGame
 
         protected override void Update(GameTime gameTime)
         {
+            GameTime = gameTime;
+            Input.Update();
+
+            // Add pause stuff here
+
+
             // Exit the game if Escape is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            //Do if not paused
+            if (!paused)
+            {
+                EntityManager.Update(gameTime);
+            }
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
@@ -95,6 +119,18 @@ namespace TKGame
 
             spriteBatch.End();
 
+            // TODO: Add your drawing code here
+
+            // SpriteBatch sends your sprites in batches to the GPU. We can
+            // Begin and End a couple hundred batches per frame. Sprites that
+            // share the same shader are placed in the same batch.
+            // SpriteSortMode is set for sprite Textures, BlendState is apparently better for PNGs
+            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.NonPremultiplied);
+            EntityManager.Draw(spriteBatch);
+            spriteBatch.End();
+
+
+            // Add spriteBatch for everything else i.e. Text etc.
 
             base.Draw(gameTime);
         }
