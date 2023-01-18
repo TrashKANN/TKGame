@@ -22,6 +22,25 @@ namespace TKGame
         public static bool DebugMode { private get; set; }
         public static double FPS { get; private set; }
         public static VerticalStackPanel VSP { get; private set; }
+
+        //private enum InputKeys
+        //{
+        //    LeftArrow,
+        //    RightArrow,
+        //    UpArrow,
+        //    DownArrow,
+        //    Space
+        //}
+
+        private static Dictionary<Keys, Label> keyboardLabelDict = new Dictionary<Keys, Label>()
+        {
+            { Keys.Left,  new Label() { Text = "Left" }   },
+            { Keys.Right, new Label() { Text = "Right" }  },
+            { Keys.Up,    new Label() { Text = "Up"}      },
+            { Keys.Down,  new Label() { Text = "Down" }   },
+            { Keys.Space, new Label() { Text = "Space" }  }
+        };
+
         private static FontSystem FS { get; set; }
         private static Label FPSText { get; set; }
         private static HorizontalStackPanel KeyboardOverlay { get; set; }
@@ -29,6 +48,8 @@ namespace TKGame
         // Readonly is used since static variables can't be const
         private static readonly int DEBUG_FONT_SIZE = 48;
         private static readonly Color DEBUG_COLOR = Color.Gainsboro;
+        private static readonly Color DEBUG_KEYBOARD_OVERLAY_ACTIVE_COLOR = Color.Lime;
+        private static readonly Color DEBUG_KEYBOARD_OVERLAY_INACTIVE_COLOR = Color.Red;
 
         /// <summary>
         /// Initialize debug elements (text, fonts, etc.)
@@ -72,38 +93,12 @@ namespace TKGame
             // Add FPSText as a child of the VerticalStackPanel
             VSP.Widgets.Add(FPSText);
 
-            for (int i = 0; i < 4; i++)
+            foreach (var entry in keyboardLabelDict)
             {
-                Label keyText = new Label();
+                Label keyText = entry.Value;
 
-                switch (i)
-                {
-                    case 0:
-                        {
-                            keyText.Id = "Left";
-                            break;
-                        }
-                    case 1:
-                        {
-                            keyText.Id = "Right";
-                            break;
-                        }
-                    case 2:
-                        {
-                            keyText.Id = "Up";
-                            break;
-                        }
-                    case 3:
-                        {
-                            keyText.Id = "Down";
-                            break;
-                        }
-                    default: { break; }
-                }
-
-                keyText.Text = keyText.Id;
                 keyText.Font = FS.GetFont(DEBUG_FONT_SIZE);
-                keyText.TextColor = Color.Red;
+                keyText.TextColor = DEBUG_KEYBOARD_OVERLAY_INACTIVE_COLOR;
                 keyText.Visible = DebugMode;
                 keyText.Margin = new Myra.Graphics2D.Thickness(0, 0, 20, 0);
 
@@ -154,17 +149,11 @@ namespace TKGame
 
         public static void UpdateKeyboardOverlay(KeyboardState keyboardState)
         {
-            IEnumerable<Widget> labels = ((Grid) KeyboardOverlay.GetChild(0)).GetChildren();
-
-
-            ((Label)labels.ElementAt(0)).TextColor = (keyboardState.IsKeyDown(Keys.Left)) ? Color.Lime : Color.Red;
-            ((Label)labels.ElementAt(1)).TextColor = (keyboardState.IsKeyDown(Keys.Right)) ? Color.Lime : Color.Red;
-            ((Label)labels.ElementAt(2)).TextColor = (keyboardState.IsKeyDown(Keys.Up)) ? Color.Lime : Color.Red;
-            ((Label)labels.ElementAt(3)).TextColor = (keyboardState.IsKeyDown(Keys.Down)) ? Color.Lime : Color.Red;
-
-            if (keyboardState.IsKeyDown(Keys.Space))
+            foreach (var entry in keyboardLabelDict)
             {
-                Debug.WriteLine("Space pressed");
+                entry.Value.TextColor = (Keyboard.GetState().IsKeyDown(entry.Key))
+                    ? DEBUG_KEYBOARD_OVERLAY_ACTIVE_COLOR
+                    : DEBUG_KEYBOARD_OVERLAY_INACTIVE_COLOR;
             }
         }
     }
