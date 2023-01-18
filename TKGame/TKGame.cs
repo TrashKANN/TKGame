@@ -39,13 +39,12 @@ namespace TKGame
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
+            Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
-            this.Content.RootDirectory = "Content";
-
             // TODO: Add your initialization logic here
             screenWidth = graphics.PreferredBackBufferWidth;
             screenHeight = graphics.PreferredBackBufferHeight;
@@ -88,10 +87,7 @@ namespace TKGame
             EntityManager.Add(Player.Instance);
 
             //Loads Image into the Texture
-            BackgroundImage.BackgroundTexture = this.Content.Load<Texture2D>(@"Cobble");
-
-
-            // TODO: use this.Content to load your game content here
+            BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Cobble");
 
             // Load debug content
             GameDebug.LoadContent();
@@ -109,6 +105,11 @@ namespace TKGame
             Input.Update();
 
             // Add pause stuff here
+            //Do if not paused
+            if (!paused)
+            {
+                EntityManager.Update(gameTime);
+            }
 
             // Exit the game if Escape is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -129,12 +130,6 @@ namespace TKGame
             // Update debug information
             GameDebug.Update();
 
-            //Do if not paused
-            if (!paused)
-            {
-                EntityManager.Update(gameTime);
-            }
-            // TODO: Add your update logic here
             base.Update(gameTime);
         }
 
@@ -147,7 +142,9 @@ namespace TKGame
             // SpriteBatch sends your sprites in batches to the GPU. We can
             // Begin and End a couple hundred batches per frame. Sprites that
             // share the same shader are placed in the same batch.
-            spriteBatch.Begin();
+
+            // Deferred rendering means things are drawn in the ordered they're called
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
             //Draws the image into the Background
             spriteBatch.Draw(BackgroundImage.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
@@ -158,15 +155,12 @@ namespace TKGame
                 spriteBatch.Draw(wall.Texture, wall.Rect, Color.Beige);
             }
 
-            // SpriteSortMode is set for sprite Textures, BlendState is apparently better for PNGs
-            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.NonPremultiplied);
+
             EntityManager.Draw(spriteBatch);
             spriteBatch.End();
 
             // Render UI elements from Myra
             desktop.Render();
-
-            // Add spriteBatch for everything else i.e. Text etc.
 
             base.Draw(gameTime);
 
