@@ -49,7 +49,6 @@ namespace TKGame
         public static Vector2 GetMovementDirection()
         {
             Vector2 direction = gamepadState.ThumbSticks.Left;
-            direction.Y = -1; // inverts the y-axis
 
             if (keyboardState.IsKeyDown(Keys.A))
                 direction.X -= 1;

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -38,14 +39,14 @@ namespace TKGame
             //    enemies.Add(entity as Enemy);
         }
 
-        public static void Update()
+        public static void Update(GameTime gameTime)
         {
             IsUpdating= true;
             // HandleCollision();
 
             // Update each entity that from previous frame
             foreach (var entity in entities)
-                entity.Update();
+                entity.Update(gameTime);
 
             IsUpdating= false;
 

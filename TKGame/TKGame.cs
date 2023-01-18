@@ -79,9 +79,8 @@ namespace TKGame
             //Do if not paused
             if (!paused)
             {
-                EntityManager.Update();
+                EntityManager.Update(gameTime);
             }
-
             // TODO: Add your update logic here
             base.Update(gameTime);
         }

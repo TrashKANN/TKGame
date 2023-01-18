@@ -9,7 +9,7 @@ namespace TKGame
         protected Color color = Color.White;
 
         public Vector2 Position, Velocity;
-        public float Orientation;
+        public SpriteEffects Orientation; // Flip Horizontal/Vertical
         public bool IsExpired;
 
         public Vector2 Size
@@ -20,11 +20,11 @@ namespace TKGame
             }
         }
 
-        public abstract void Update();
+        public abstract void Update(GameTime gameTime);
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, 1f, 0, 0);
+            spriteBatch.Draw(image, Position, null, color, 0, Size / 2f, 1f, Orientation, 0);
         }
     }
 }
