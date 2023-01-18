@@ -36,10 +36,13 @@ namespace TKGame
         public TKGame()
         {
             Instance = this;
+            Content.RootDirectory = "Content";
+            IsFixedTimeStep = true; // Time between frames is constant
+            TargetElapsedTime = TimeSpan.FromSeconds(1d / 240d); // Set target fps (240 for now)
             graphics = new GraphicsDeviceManager(this);
+            graphics.SynchronizeWithVerticalRetrace = false; // Disable v-sync
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
-            Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
