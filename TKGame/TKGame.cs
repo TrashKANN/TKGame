@@ -83,7 +83,8 @@ namespace TKGame
 
 #if DEBUG
             // Toggle the debug UI's visibility once per key press
-            if (currentState.IsKeyDown(Keys.D) && !previousState.IsKeyDown(Keys.D))
+            // TODO: Probably move this somewhere else
+            if (currentState.IsKeyDown(Keys.G) && !previousState.IsKeyDown(Keys.G))
             {
                 GameDebug.ToggleVisibility();
             }

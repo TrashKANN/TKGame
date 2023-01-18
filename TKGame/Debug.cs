@@ -1,46 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
 // Myra is a library that allows us to add GUI components.
 // https://github.com/rds1983/Myra
-using Myra;
 using Myra.Graphics2D.UI;
 using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
 
 namespace TKGame
 {
     public class GameDebug
     {
         public static bool DebugMode { private get; set; }
-        public static double FPS { get; private set; }
         public static VerticalStackPanel VSP { get; private set; }
-
-        //private enum InputKeys
-        //{
-        //    LeftArrow,
-        //    RightArrow,
-        //    UpArrow,
-        //    DownArrow,
-        //    Space
-        //}
-
+        
         private static Dictionary<Keys, Label> keyboardLabelDict = new Dictionary<Keys, Label>()
         {
-            { Keys.Left,  new Label() { Text = "Left"  } },
-            { Keys.Right, new Label() { Text = "Right" } },
-            { Keys.Up,    new Label() { Text = "Up"    } },
-            { Keys.Down,  new Label() { Text = "Down"  } },
+            { Keys.W,     new Label() { Text = "W"     } },
+            { Keys.A,     new Label() { Text = "A"     } },
+            { Keys.S,     new Label() { Text = "S"     } },
+            { Keys.D,     new Label() { Text = "D"     } },
             { Keys.Space, new Label() { Text = "Space" } }
         };
 
+        private static double FPS { get; set; }
         private static FontSystem FS { get; set; }
         private static Label FPSText { get; set; }
         private static HorizontalStackPanel KeyboardOverlay { get; set; }
@@ -93,9 +78,9 @@ namespace TKGame
             // Add FPSText as a child of the VerticalStackPanel
             VSP.Widgets.Add(FPSText);
 
-            foreach (var entry in keyboardLabelDict)
+            foreach (var keyLabelPair in keyboardLabelDict)
             {
-                Label keyText = entry.Value;
+                Label keyText = keyLabelPair.Value;
 
                 keyText.Font = FS.GetFont(DEBUG_FONT_SIZE);
                 keyText.TextColor = DEBUG_KEYBOARD_OVERLAY_INACTIVE_COLOR;
@@ -153,11 +138,17 @@ namespace TKGame
             UpdateKeyboardOverlay();
         }
 
+        /// <summary>
+        /// Update the colors of the keyboard overlay if a valid key is pressed
+        /// </summary>
         private static void UpdateKeyboardOverlay()
         {
-            foreach (var entry in keyboardLabelDict)
+            // For each key that is in the dictionary, check to see if it's
+            // pressed. If it is, make it the active color, if it isn't, make it
+            // the inactive color.
+            foreach (var keyLabelPair in keyboardLabelDict)
             {
-                entry.Value.TextColor = (Keyboard.GetState().IsKeyDown(entry.Key))
+                keyLabelPair.Value.TextColor = (Keyboard.GetState().IsKeyDown(keyLabelPair.Key))
                     ? DEBUG_KEYBOARD_OVERLAY_ACTIVE_COLOR
                     : DEBUG_KEYBOARD_OVERLAY_INACTIVE_COLOR;
             }
