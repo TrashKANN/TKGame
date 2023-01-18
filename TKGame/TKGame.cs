@@ -94,7 +94,6 @@ namespace TKGame
 
             // Update debug information
             GameDebug.Update();
-            GameDebug.UpdateKeyboardOverlay(currentState);
 
             base.Update(gameTime);
         }

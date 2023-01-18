@@ -136,6 +136,11 @@ namespace TKGame
             // TODO: Have some sort of list of all UI elements so we can 
             // use foreach
             FPSText.Visible = DebugMode;
+
+            foreach (var entry in keyboardLabelDict)
+            {
+                entry.Value.Visible = DebugMode;
+            }
         }
 
         /// <summary>
@@ -145,9 +150,10 @@ namespace TKGame
         {
             // Round the FPS to 2 decimal places
             FPSText.Text = $"FPS: {Math.Round(FPS, 2)}";
+            UpdateKeyboardOverlay();
         }
 
-        public static void UpdateKeyboardOverlay(KeyboardState keyboardState)
+        private static void UpdateKeyboardOverlay()
         {
             foreach (var entry in keyboardLabelDict)
             {
