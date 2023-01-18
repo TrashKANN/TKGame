@@ -15,6 +15,9 @@ namespace TKGame
 
         public static Vector2 MousePosition { get { return new Vector2(mouseState.X, mouseState.Y); } }
 
+        /// <summary>
+        /// Updates all game inputs every frame.
+        /// </summary>
         public static void Update()
         {
             // Maintain previous frame's state
@@ -35,29 +38,43 @@ namespace TKGame
         }
 
         // Checks if ANY key was just pressed
+        /// <summary>
+        /// Bool for if any key was not pressed during last frame and it was pressed this frame.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static bool WasKeyPressed(Keys key)
         {
             return lastKeyboardState.IsKeyUp(key) && keyboardState.IsKeyDown(key);
         }
 
         // Same but for GamePad
+        /// <summary>
+        /// Bool for if any button was not pressed during last frame and it was pressed this frame.
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns></returns>
         public static bool WasButtonPressed(Buttons button)
         {
             return lastGamepadState.IsButtonUp(button) && gamepadState.IsButtonDown(button);
         }
 
+        /// <summary>
+        /// Takes the input from Keyboard or GamePad and returns the value on the current frame for movement implementation.
+        /// </summary>
+        /// <returns></returns>
         public static Vector2 GetMovementDirection()
         {
             Vector2 direction = gamepadState.ThumbSticks.Left;
 
             if (keyboardState.IsKeyDown(Keys.A))
-                direction.X -= 1;
+                direction.X = -1;
             if (keyboardState.IsKeyDown(Keys.D))
-                direction.X += 1;
+                direction.X = 1;
             if (keyboardState.IsKeyDown(Keys.W))
-                direction.Y -= 1;
+                direction.Y = -1;
             if (keyboardState.IsKeyDown(Keys.S))
-                direction.Y += 1;
+                direction.Y = 1;
 
             //Clamp Vector length to a max of 1
             if (direction.LengthSquared() > 1)

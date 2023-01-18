@@ -10,50 +10,65 @@ namespace TKGame
     class Player : Entity
     {
         private static Player instance;
+        private static object syncRoot = new object();
         public static Player Instance
         {
             get
             {
                 // Creates the player if it doesn't already exist
+                // Uses thread locking to guarentee safety.
                 if (instance == null)
-                    instance = new Player();
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new Player();
+                    }
 
                 return instance;
             }
         }
 
+        /// <summary>
+        /// Player components.
+        /// </summary>
         private Player()
         {
-            image = Art.Player;
+            entityTexture = Art.PlayerTexture;
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             Position = new Vector2(1600/2, 900 - 40);
         }
 
+        /// <summary>
+        /// Grabs the input data, uses that and the deltaTime to update the Player's velocity and orientation.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             // Player Movement
-            Vector2 direction = Input.GetMovementDirection();
+            Velocity = Input.GetMovementDirection();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             const float movementSpeed = 1;
 
-            Velocity.X += movementSpeed * direction.X * deltaTime;
-            Velocity.Y += movementSpeed * direction.Y * deltaTime;
-            Position += Velocity;
+            Position.X += movementSpeed * Velocity.X * deltaTime;
+            Position.Y += movementSpeed * Velocity.Y * deltaTime;
+
             Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
 
-            if (direction.X > 0) 
+            if (Velocity.X > 0) 
             {
                 Orientation = SpriteEffects.None;
             }
-            else if (direction.X < 0)
+            else if (Velocity.X < 0)
             {
                 Orientation = SpriteEffects.FlipHorizontally;
             }
-
-            Velocity = Vector2.Zero; // Reset velocity at the end of the frame
         }
 
+        /// <summary>
+        /// Draws each Player Sprite.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

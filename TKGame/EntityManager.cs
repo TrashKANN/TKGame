@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace TKGame
 {
+    // Might change from static
     static class EntityManager
     {
         static List<Entity> entities = new List<Entity>();
@@ -21,8 +22,12 @@ namespace TKGame
         // This will be all the entities that are added this frame
         static List<Entity> addedEntities = new List<Entity>();
 
-        public static int Count { get { return entities.Count; } }
+        public static int EntityCount { get { return entities.Count; } }
 
+        /// <summary>
+        /// Adds any entities to the current entity list if the entity count is currently being updated, otherwise add it to the being added lists.
+        /// </summary>
+        /// <param name="entity"></param>
         public static void Add(Entity entity)
         {
             if (!IsUpdating)
@@ -31,6 +36,10 @@ namespace TKGame
                 addedEntities.Add(entity);
         }
 
+        /// <summary>
+        /// Adds entity to the World entity list.
+        /// </summary>
+        /// <param name="entity"></param>
         public static void AddEntity(Entity entity)
         {
             entities.Add(entity);
@@ -39,6 +48,10 @@ namespace TKGame
             //    enemies.Add(entity as Enemy);
         }
 
+        /// <summary>
+        /// Updates each entity in the World entity list. Then adds all new entities to the World list, then clears the new entity list as well as the Expired entities in the World.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public static void Update(GameTime gameTime)
         {
             IsUpdating= true;
@@ -62,6 +75,10 @@ namespace TKGame
             entities = entities.Where(x => !x.IsExpired).ToList();
         }
 
+        /// <summary>
+        /// Calls the Draw() function on each entity.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public static void Draw(SpriteBatch spriteBatch)
         {
             foreach (var entity in entities)
