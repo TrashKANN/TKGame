@@ -13,9 +13,22 @@ namespace TKGame
     internal class Background
     {
         // Variables to hold Background Image
-        public Rectangle BackgroundRect { get; private set;}
-        public Texture2D BackgroundTexture { get; private set; }
+        /// <summary>
+        /// Rectangle to hold the Background Texture
+        /// </summary>
+        public Rectangle BackgroundRect { get; set;}
 
+        /// <summary>
+        /// Texture to hold the Background Image
+        /// </summary>
+        public Texture2D BackgroundTexture { get; set; }
+
+        /// <summary>
+        /// Creates a new Rectangle and Texture2D the size of the provided width and height to store the image.
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="graphicsDevice"></param>
         public Background(int width, int height, GraphicsDevice graphicsDevice)
         {
             BackgroundRect = new Rectangle(0, 0, width, height);
