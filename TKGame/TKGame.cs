@@ -10,6 +10,10 @@ namespace TKGame
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        // Creates Background Texture
+        private Texture2D BackText;
+        private Rectangle BackRect;
+
         // TODO: Refactor out of the main TKGame class
         List<Wall> walls;
         int screenWidth, screenHeight;
@@ -29,6 +33,8 @@ namespace TKGame
             screenWidth = graphics.PreferredBackBufferWidth;
             screenHeight = graphics.PreferredBackBufferHeight;
 
+            BackRect = new Rectangle(0, 0, screenWidth, screenHeight);
+            
             // TODO: Remove magic numbers
             // We'll eventually probably want to generate walls based off level data (from a file).
             walls = new List<Wall>()
@@ -46,7 +52,7 @@ namespace TKGame
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            BackText = this.Content.Load<Texture2D>(@"Cobble");
             // TODO: use this.Content to load your game content here
         }
 
@@ -70,7 +76,7 @@ namespace TKGame
             // Begin and End a couple hundred batches per frame. Sprites that
             // share the same shader are placed in the same batch.
             spriteBatch.Begin();
-
+            spriteBatch.Draw(BackText, BackRect, Color.White);
             // Draw each wall to the screen
             foreach (Wall wall in walls)
             {
