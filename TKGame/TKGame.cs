@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
 using System.Collections.Generic;
 
 // Myra is a library that allows us to add GUI components.
@@ -12,25 +14,38 @@ namespace TKGame
 {
     public class TKGame : Game
     {
+        public static TKGame Instance { get; private set; }
+        public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
+        public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
+        public static GameTime GameTime { get; private set; }
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Desktop desktop;
         private KeyboardState previousState, currentState;
+
+
+        //Declare Background Object
+        private Background BackgroundImage;
+        
         // TODO: Refactor out of the main TKGame class
         List<Wall> walls;
         int screenWidth, screenHeight;
+        bool paused = false;
 
         public TKGame()
         {
+            Instance = this;
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
-            Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
+            this.Content.RootDirectory = "Content";
+
             // TODO: Add your initialization logic here
             screenWidth = graphics.PreferredBackBufferWidth;
             screenHeight = graphics.PreferredBackBufferHeight;
@@ -38,6 +53,9 @@ namespace TKGame
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
 
+            //Create New Background Object w/variables for setting Rectangle and Texture
+            BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
+ 
             // TODO: Remove magic numbers
             // We'll eventually probably want to generate walls based off level data (from a file).
             walls = new List<Wall>()
@@ -65,6 +83,14 @@ namespace TKGame
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            Art.LoadContent(Content);
+
+            EntityManager.Add(Player.Instance);
+
+            //Loads Image into the Texture
+            BackgroundImage.BackgroundTexture = this.Content.Load<Texture2D>(@"Cobble");
+
+
             // TODO: use this.Content to load your game content here
 
             // Load debug content
@@ -79,6 +105,10 @@ namespace TKGame
         {
             // Get the current keyboard state
             currentState = Keyboard.GetState();
+            GameTime = gameTime;
+            Input.Update();
+
+            // Add pause stuff here
 
             // Exit the game if Escape is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -99,6 +129,12 @@ namespace TKGame
             // Update debug information
             GameDebug.Update();
 
+            //Do if not paused
+            if (!paused)
+            {
+                EntityManager.Update(gameTime);
+            }
+            // TODO: Add your update logic here
             base.Update(gameTime);
         }
 
@@ -113,16 +149,25 @@ namespace TKGame
             // share the same shader are placed in the same batch.
             spriteBatch.Begin();
 
+            //Draws the image into the Background
+            spriteBatch.Draw(BackgroundImage.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
+
             // Draw each wall to the screen
             foreach (Wall wall in walls)
             {
                 spriteBatch.Draw(wall.Texture, wall.Rect, Color.Beige);
             }
 
+            // SpriteSortMode is set for sprite Textures, BlendState is apparently better for PNGs
+            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.NonPremultiplied);
+            EntityManager.Draw(spriteBatch);
             spriteBatch.End();
 
             // Render UI elements from Myra
             desktop.Render();
+
+            // Add spriteBatch for everything else i.e. Text etc.
+
             base.Draw(gameTime);
 
             // Once everything has finished drawing, figure out the framerate
