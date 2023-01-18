@@ -13,7 +13,7 @@ namespace TKGame
 
         public static void LoadContent(ContentManager content)
         {
-            Player = content.Load<Texture2D>("Art/Player"); // Will need to be modified when we create a better structure for our files.
+            Player = content.Load<Texture2D>(@"Art/Player"); // Will need to be modified when we create a better structure for our files.
         }
     }
 }
