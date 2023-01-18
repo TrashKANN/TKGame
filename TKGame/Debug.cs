@@ -138,6 +138,8 @@ namespace TKGame
             // TODO: Have some sort of list of all UI elements so we can 
             // use foreach
             FPSText.Visible = DebugMode;
+            PlayerPosText.Visible = DebugMode;
+            PlayerVelText.Visible = DebugMode;
 
             foreach (var entry in keyboardLabelDict)
             {

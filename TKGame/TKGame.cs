@@ -152,7 +152,7 @@ namespace TKGame
             // Draw each wall to the screen
             foreach (Wall wall in walls)
             {
-                spriteBatch.Draw(wall.Texture, wall.Rect, Color.Beige);
+                spriteBatch.Draw(wall.Texture, wall.Rect, new Color(0x9a, 0x9b, 0x9c, 0xFF));
                 if (GameDebug.DebugMode) 
                 { 
                     GameDebug.DrawBoundingRectangle(spriteBatch, wall.Rect, Color.Lime, 5); 
