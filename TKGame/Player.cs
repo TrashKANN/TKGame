@@ -47,8 +47,8 @@ namespace TKGame
         {
             // Player Movement
             Velocity = Input.GetMovementDirection();
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            const float movementSpeed = 1;
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            const float movementSpeed = 500;
 
             Position.X += movementSpeed * Velocity.X * deltaTime;
             Position.Y += movementSpeed * Velocity.Y * deltaTime;
