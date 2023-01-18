@@ -11,6 +11,8 @@ namespace TKGame
 {
     public class GameDebug
     {
+        #region Member Variables
+
         // Boolean to describe whether debug mode is on or off
         public static bool DebugMode { get; set; }
         
@@ -36,7 +38,7 @@ namespace TKGame
 
         // Horizontal stack panel so that the text for the keyboard overlay lines up nicely
         private static HorizontalStackPanel KeyboardOverlay { get; set; }
-        private static Texture2D hitboxTexture;
+        private static Texture2D HitboxTexture { get; set; }
 
         // Readonly is used since static variables can't be const
         private static readonly int DEBUG_FONT_SIZE = 48;
@@ -44,8 +46,10 @@ namespace TKGame
         private static readonly Color DEBUG_KEYBOARD_OVERLAY_ACTIVE_COLOR = Color.Lime;
         private static readonly Color DEBUG_KEYBOARD_OVERLAY_INACTIVE_COLOR = Color.Red;
 
+        #endregion
+
         /// <summary>
-        /// Initialize debug elements (text, fonts, etc.)
+        /// Initialize debug elements (labels, fonts, etc.)
         /// </summary>
         public static void Initialize()
         {
@@ -62,6 +66,9 @@ namespace TKGame
             DebugFontSystem.AddFont(ttfData);
         }
 
+        /// <summary>
+        /// Load/Stylize all debug text
+        /// </summary>
         public static void LoadContent()
         {
             // Create a VerticalStackPanel to put all the debug elements in so they look nice
@@ -113,7 +120,8 @@ namespace TKGame
         }
 
         /// <summary>
-        /// Updates the debug UI's FPS text using a given GameTime
+        /// Updates the debug UI's FPS text using a given GameTime. This should be
+        /// called at the *very end* of the game's Draw() function
         /// </summary>
         /// <param name="gameTime"></param>
         public static void UpdateFPS(GameTime gameTime)
@@ -170,9 +178,11 @@ namespace TKGame
             // For each key that is in the dictionary, check to see if it's
             // pressed. If it is, make it the active color, if it isn't, make it
             // the inactive color.
+            KeyboardState keyboardState = Keyboard.GetState();
+
             foreach (var keyLabelPair in keyboardLabelDict)
             {
-                keyLabelPair.Value.TextColor = (Keyboard.GetState().IsKeyDown(keyLabelPair.Key))
+                keyLabelPair.Value.TextColor = (keyboardState.IsKeyDown(keyLabelPair.Key))
                     ? DEBUG_KEYBOARD_OVERLAY_ACTIVE_COLOR
                     : DEBUG_KEYBOARD_OVERLAY_INACTIVE_COLOR;
             }
@@ -183,16 +193,17 @@ namespace TKGame
         /// </summary>
         public static void DrawBoundingRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color, int lineWidth)
         {
-            if (hitboxTexture is null)
+            if (HitboxTexture is null)
             {
-                hitboxTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-                hitboxTexture.SetData(new Color[] { Color.White });
+                HitboxTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                HitboxTexture.SetData(new Color[] { Color.White });
             }
 
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.X, rectangle.Y, lineWidth, rectangle.Height + lineWidth), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width + lineWidth, lineWidth), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.X + rectangle.Width, rectangle.Y, lineWidth, rectangle.Height + lineWidth), color);
-            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height, rectangle.Width + lineWidth, lineWidth), color);
+            // These will draw thin rectangles (essentially lines) on each edge of a rectangle
+            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X, rectangle.Y, lineWidth, rectangle.Height + lineWidth), color);
+            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width + lineWidth, lineWidth), color);
+            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X + rectangle.Width, rectangle.Y, lineWidth, rectangle.Height + lineWidth), color);
+            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height, rectangle.Width + lineWidth, lineWidth), color);
         }
 
         /// <summary>
