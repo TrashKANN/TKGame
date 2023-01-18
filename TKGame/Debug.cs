@@ -31,6 +31,8 @@ namespace TKGame
         // FontSystems allow us to use fonts with Myra
         private static FontSystem DebugFontSystem { get; set; }
         private static Label FPSText { get; set; }
+        private static Label PlayerPosText { get; set; }
+        private static Label PlayerVelText { get; set; }
 
         // Horizontal stack panel so that the text for the keyboard overlay lines up nicely
         private static HorizontalStackPanel KeyboardOverlay { get; set; }
@@ -48,24 +50,16 @@ namespace TKGame
         public static void Initialize()
         {
             DebugMode = false;
-            if (FPSText is null)
-            {
-                FPSText = new Label();
-            }
+            FPSText = new Label();
+            PlayerPosText = new Label();
+            PlayerVelText = new Label();
+            KeyboardOverlay = new HorizontalStackPanel();
 
-            if (KeyboardOverlay is null)
-            {
-                KeyboardOverlay = new HorizontalStackPanel();
-            }
-
-            if(DebugFontSystem is null)
-            {
-                // FontSystem is kinda like a font-handler. We can use this to retrieve the
-                // font data to use in UI components
-                byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
-                DebugFontSystem = new FontSystem();
-                DebugFontSystem.AddFont(ttfData);
-            }
+            // FontSystem is kinda like a font-handler. We can use this to retrieve the
+            // font data to use in UI components
+            byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
+            DebugFontSystem = new FontSystem();
+            DebugFontSystem.AddFont(ttfData);
         }
 
         public static void LoadContent()
@@ -84,6 +78,23 @@ namespace TKGame
             // Add FPSText as a child of the VerticalStackPanel
             VSP.Widgets.Add(FPSText);
 
+            // Configure the PlayerPosText panel
+            PlayerPosText.Text = string.Empty;
+            PlayerPosText.TextColor = DEBUG_COLOR;
+            PlayerPosText.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
+            PlayerPosText.Margin = new Myra.Graphics2D.Thickness(100, 0, 0, 0);
+            PlayerPosText.Visible = DebugMode;
+            VSP.Widgets.Add(PlayerPosText);
+
+            // Configure the PlayerVelText panel
+            PlayerVelText.Text = string.Empty;
+            PlayerVelText.TextColor = DEBUG_COLOR;
+            PlayerVelText.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
+            PlayerVelText.Margin = new Myra.Graphics2D.Thickness(100, 0, 0, 0);
+            PlayerVelText.Visible = DebugMode;
+            VSP.Widgets.Add(PlayerVelText);
+
+            // Configure all labels for the keyboard overlay
             foreach (var keyLabelPair in keyboardLabelDict)
             {
                 Label keyText = keyLabelPair.Value;
@@ -94,7 +105,7 @@ namespace TKGame
                 keyText.Margin = new Myra.Graphics2D.Thickness(0, 0, 20, 0);
 
                 KeyboardOverlay.Widgets.Add(keyText);
-                
+
             }
             KeyboardOverlay.Margin = new Myra.Graphics2D.Thickness(100, 0, 100, 0);
             VSP.Widgets.Add(KeyboardOverlay);
@@ -141,6 +152,11 @@ namespace TKGame
         {
             // Round the FPS to 2 decimal places
             FPSText.Text = $"FPS: {Math.Round(FPS, 2)}";
+            PlayerPosText.Text = $"x-pos: {Math.Round(Player.Instance.Position.X, 2)}"
+                + $"\ny-pos: {Math.Round(Player.Instance.Position.Y, 2)}";
+            PlayerVelText.Text = $"x-vel: {Math.Round(Player.Instance.Velocity.X, 2)}"
+                + $"\ny-vel: {Math.Round(Player.Instance.Velocity.Y, 2)}";
+
             UpdateKeyboardOverlay();
         }
 
@@ -160,6 +176,9 @@ namespace TKGame
             }
         }
 
+        /// <summary>
+        /// Draw bounding rectangle around a given rectangle.
+        /// </summary>
         public static void DrawBoundingRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color, int lineWidth)
         {
             if (hitboxTexture is null)
@@ -174,6 +193,9 @@ namespace TKGame
             spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height, rectangle.Width + lineWidth, lineWidth), color);
         }
 
+        /// <summary>
+        /// Draw a bounding rectangle around a given entity.
+        /// </summary>
         public static void DrawBoundingRectangle(SpriteBatch spriteBatch, Entity entity, Color color, int lineWidth)
         {
             Rectangle entityRect = new Rectangle
