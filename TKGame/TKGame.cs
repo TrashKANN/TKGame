@@ -101,7 +101,6 @@ namespace TKGame
         {
             GraphicsDevice.Clear(Color.SlateGray);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             // TODO: Add your drawing code here
 
             // SpriteBatch sends your sprites in batches to the GPU. We can
