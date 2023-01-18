@@ -34,11 +34,11 @@ namespace TKGame
 
         private static Dictionary<Keys, Label> keyboardLabelDict = new Dictionary<Keys, Label>()
         {
-            { Keys.Left,  new Label() { Text = "Left" }   },
-            { Keys.Right, new Label() { Text = "Right" }  },
-            { Keys.Up,    new Label() { Text = "Up"}      },
-            { Keys.Down,  new Label() { Text = "Down" }   },
-            { Keys.Space, new Label() { Text = "Space" }  }
+            { Keys.Left,  new Label() { Text = "Left"  } },
+            { Keys.Right, new Label() { Text = "Right" } },
+            { Keys.Up,    new Label() { Text = "Up"    } },
+            { Keys.Down,  new Label() { Text = "Down"  } },
+            { Keys.Space, new Label() { Text = "Space" } }
         };
 
         private static FontSystem FS { get; set; }
