@@ -5,13 +5,14 @@ using Microsoft.Xna.Framework;
 using System.IO;
 using Myra.Graphics2D.UI;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TKGame
 {
     public class GameDebug
     {
         // Boolean to describe whether debug mode is on or off
-        public static bool DebugMode { private get; set; }
+        public static bool DebugMode { get; set; }
         
         // Vertical stack panel that will hold all the UI elements for debug information
         public static VerticalStackPanel VSP { get; private set; }
@@ -33,6 +34,7 @@ namespace TKGame
 
         // Horizontal stack panel so that the text for the keyboard overlay lines up nicely
         private static HorizontalStackPanel KeyboardOverlay { get; set; }
+        private static Texture2D hitboxTexture;
 
         // Readonly is used since static variables can't be const
         private static readonly int DEBUG_FONT_SIZE = 48;
@@ -156,6 +158,32 @@ namespace TKGame
                     ? DEBUG_KEYBOARD_OVERLAY_ACTIVE_COLOR
                     : DEBUG_KEYBOARD_OVERLAY_INACTIVE_COLOR;
             }
+        }
+
+        public static void DrawBoundingRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color, int lineWidth)
+        {
+            if (hitboxTexture is null)
+            {
+                hitboxTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                hitboxTexture.SetData(new Color[] { Color.White });
+            }
+
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.X, rectangle.Y, lineWidth, rectangle.Height + lineWidth), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width + lineWidth, lineWidth), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.X + rectangle.Width, rectangle.Y, lineWidth, rectangle.Height + lineWidth), color);
+            spriteBatch.Draw(hitboxTexture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height, rectangle.Width + lineWidth, lineWidth), color);
+        }
+
+        public static void DrawBoundingRectangle(SpriteBatch spriteBatch, Entity entity, Color color, int lineWidth)
+        {
+            Rectangle entityRect = new Rectangle
+            {
+                X = (int)(entity.Position.X - entity.Size.X / 2f),
+                Y = (int)(entity.Position.Y - entity.Size.Y / 2f),
+                Width = (int)entity.Size.X,
+                Height = (int)entity.Size.Y
+            };
+            DrawBoundingRectangle(spriteBatch, entityRect, color, lineWidth);
         }
     }
 }

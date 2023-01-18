@@ -153,10 +153,23 @@ namespace TKGame
             foreach (Wall wall in walls)
             {
                 spriteBatch.Draw(wall.Texture, wall.Rect, Color.Beige);
+                if (GameDebug.DebugMode) 
+                { 
+                    GameDebug.DrawBoundingRectangle(spriteBatch, wall.Rect, Color.Lime, 5); 
+                }
             }
 
 
             EntityManager.Draw(spriteBatch);
+
+            foreach (Entity entity in EntityManager.GetEntities())
+            {
+                if (GameDebug.DebugMode)
+                {
+                    GameDebug.DrawBoundingRectangle(spriteBatch, entity, Color.Blue, 5);
+                }
+            }
+
             spriteBatch.End();
 
             // Render UI elements from Myra
