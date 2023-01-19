@@ -49,6 +49,7 @@ namespace TKGame
         private static readonly Color KEYBOARD_OVERLAY_ACTIVE_BACKGROUND_COLOR = Color.Gray;
         private static readonly Color KEYBOARD_OVERLAY_INACTIVE_TEXT_COLOR = Color.White;
         private static readonly Color KEYBOARD_OVERLAY_INACTIVE_BACKGROUND_COLOR = Color.DarkGray;
+        private static readonly Color KEYBOARD_OVERLAY_BORDER_COLOR = Color.DimGray;
 
         #endregion
 
@@ -166,7 +167,7 @@ namespace TKGame
                 keyText.TextAlign = FontStashSharp.RichText.TextHorizontalAlignment.Center;
 
                 keyText.Background = ActiveBackgroundBrush;
-                keyText.Border = new SolidBrush(Color.Black);
+                keyText.Border = new SolidBrush(KEYBOARD_OVERLAY_BORDER_COLOR);
                 keyText.BorderThickness = new Myra.Graphics2D.Thickness(1);
 
                 KeyboardGrid.Widgets.Add(keyText);
