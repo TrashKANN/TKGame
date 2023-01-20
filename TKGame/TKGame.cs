@@ -19,6 +19,9 @@ namespace TKGame
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static GameTime GameTime { get; private set; }
 
+        // TODO: Move this to another class eventually
+        private static readonly Color WALL_COLOR = new Color(0x9a, 0x9b, 0x9c, 0xFF);
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Desktop desktop;
@@ -155,10 +158,10 @@ namespace TKGame
             // Draw each wall to the screen
             foreach (Wall wall in walls)
             {
-                spriteBatch.Draw(wall.Texture, wall.Rect, new Color(0x9a, 0x9b, 0x9c, 0xFF));
+                spriteBatch.Draw(wall.Texture, wall.Rect, WALL_COLOR);
                 if (GameDebug.DebugMode) 
                 { 
-                    GameDebug.DrawBoundingRectangle(spriteBatch, wall.Rect, Color.Lime, 5); 
+                    GameDebug.DrawBoundingBox(spriteBatch, wall.Rect, Color.Lime, 5); 
                 }
             }
 
@@ -169,7 +172,7 @@ namespace TKGame
             {
                 if (GameDebug.DebugMode)
                 {
-                    GameDebug.DrawBoundingRectangle(spriteBatch, entity, Color.Blue, 5);
+                    GameDebug.DrawBoundingBox(spriteBatch, entity, Color.Blue, 5);
                 }
             }
 
