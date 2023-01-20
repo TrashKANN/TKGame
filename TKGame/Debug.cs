@@ -7,6 +7,8 @@ using Myra.Graphics2D.UI;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D.Brushes;
+using System.Diagnostics;
+using System.Linq;
 
 namespace TKGame
 {
@@ -41,6 +43,7 @@ namespace TKGame
         private static Texture2D HitboxTexture { get; set; }
         private static SolidBrush ActiveBackgroundBrush { get; set; }
         private static SolidBrush InactiveBackgroundBrush { get; set; }
+        private static List<Widget> UIWidgets { get; set; }
 
         // Readonly is used since static variables can't be const
         private static readonly int DEBUG_FONT_SIZE = 48;
@@ -66,6 +69,15 @@ namespace TKGame
             ActiveBackgroundBrush = new SolidBrush(KEYBOARD_OVERLAY_ACTIVE_BACKGROUND_COLOR);
             InactiveBackgroundBrush = new SolidBrush(KEYBOARD_OVERLAY_INACTIVE_BACKGROUND_COLOR);
 
+            // Create a VerticalStackPanel to put all the debug elements in so they look nice
+            // without needing to manually position every element
+            VSP = new VerticalStackPanel();
+
+            UIWidgets = new List<Widget>()
+            {
+                FPSText, PlayerPosText, PlayerVelText, KeyboardGrid
+            };
+
             // FontSystem is kinda like a font-handler. We can use this to retrieve the
             // font data to use in UI components
             byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
@@ -74,45 +86,31 @@ namespace TKGame
         }
 
         /// <summary>
-        /// Load/Stylize all debug text
+        /// Load/Stylize all debug UI elements
         /// </summary>
         public static void LoadContent()
         {
-            // Create a VerticalStackPanel to put all the debug elements in so they look nice
-            // without needing to manually position every element
-            VSP = new VerticalStackPanel();
+            VSP.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
 
-            // Configure the FPSText panel
-            FPSText.Text = string.Empty;
-            FPSText.TextColor = DEBUG_TEXT_COLOR;
-            FPSText.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
-            FPSText.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
-            FPSText.Visible = DebugMode;
+            // Configure labels 
+            foreach (var widget in UIWidgets)
+            {
+                if (widget is Label)
+                {
+                    ((Label)widget).Text = string.Empty;
+                    ((Label)widget).TextColor = DEBUG_TEXT_COLOR;
+                    ((Label)widget).Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
+                    ((Label)widget).Visible = DebugMode;
+                }
 
-            // Add FPSText as a child of the VerticalStackPanel
-            VSP.Widgets.Add(FPSText);
+                VSP.Widgets.Add(widget);
+            }
 
-            // Configure the PlayerPosText panel
-            PlayerPosText.Text = string.Empty;
-            PlayerPosText.TextColor = DEBUG_TEXT_COLOR;
-            PlayerPosText.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
-            PlayerPosText.Margin = new Myra.Graphics2D.Thickness(100, 0, 0, 0);
-            PlayerPosText.Visible = DebugMode;
-            VSP.Widgets.Add(PlayerPosText);
-
-            // Configure the PlayerVelText panel
-            PlayerVelText.Text = string.Empty;
-            PlayerVelText.TextColor = DEBUG_TEXT_COLOR;
-            PlayerVelText.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
-            PlayerVelText.Margin = new Myra.Graphics2D.Thickness(100, 0, 0, 0);
-            PlayerVelText.Visible = DebugMode;
-            VSP.Widgets.Add(PlayerVelText);
-
+            // Configure the KeyboardGrid
             KeyboardGrid.ShowGridLines = false;
             KeyboardGrid.ColumnSpacing = 0;
             KeyboardGrid.RowSpacing = 0;
             KeyboardGrid.AcceptsKeyboardFocus = false;
-            KeyboardGrid.Margin = new Myra.Graphics2D.Thickness(100, 0, 0, 0);
 
             // Make a 3x3 grid where each column is 52px wide, 
             // and each row is 56px tall
@@ -135,6 +133,7 @@ namespace TKGame
                 );
             }
 
+            // Place labels into grid
             keyboardLabelDict[Keys.W].GridRow = 0;
             keyboardLabelDict[Keys.W].GridColumn = 1;
 
@@ -154,23 +153,23 @@ namespace TKGame
             // Configure all labels for the keyboard overlay
             foreach (var keyLabelPair in keyboardLabelDict)
             {
-                Label keyText = keyLabelPair.Value;
-                keyText.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
-                keyText.TextColor = KEYBOARD_OVERLAY_INACTIVE_TEXT_COLOR;
-                keyText.Visible = DebugMode;
+                Label keyLabel = keyLabelPair.Value;
+                keyLabel.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
+                keyLabel.TextColor = KEYBOARD_OVERLAY_INACTIVE_TEXT_COLOR;
+                keyLabel.Visible = DebugMode;
 
                 // Stretch the Label to fit within the entirety of the grid cell
-                keyText.HorizontalAlignment = HorizontalAlignment.Stretch;
-                keyText.VerticalAlignment = VerticalAlignment.Stretch;
+                keyLabel.HorizontalAlignment = HorizontalAlignment.Stretch;
+                keyLabel.VerticalAlignment = VerticalAlignment.Stretch;
 
                 // Set the text to be centered within the label
-                keyText.TextAlign = FontStashSharp.RichText.TextHorizontalAlignment.Center;
+                keyLabel.TextAlign = FontStashSharp.RichText.TextHorizontalAlignment.Center;
 
-                keyText.Background = ActiveBackgroundBrush;
-                keyText.Border = new SolidBrush(KEYBOARD_OVERLAY_BORDER_COLOR);
-                keyText.BorderThickness = new Myra.Graphics2D.Thickness(1);
+                keyLabel.Background = ActiveBackgroundBrush;
+                keyLabel.Border = new SolidBrush(KEYBOARD_OVERLAY_BORDER_COLOR);
+                keyLabel.BorderThickness = new Myra.Graphics2D.Thickness(1);
 
-                KeyboardGrid.Widgets.Add(keyText);
+                KeyboardGrid.Widgets.Add(keyLabel);
             }
 
             VSP.Widgets.Add(KeyboardGrid);
@@ -240,11 +239,13 @@ namespace TKGame
 
             foreach (var keyLabelPair in keyboardLabelDict)
             {
-                keyLabelPair.Value.TextColor = (keyboardState.IsKeyDown(keyLabelPair.Key))
+                Label keyLabel = keyLabelPair.Value;
+
+                keyLabel.TextColor = (keyboardState.IsKeyDown(keyLabelPair.Key))
                     ? KEYBOARD_OVERLAY_ACTIVE_TEXT_COLOR
                     : KEYBOARD_OVERLAY_INACTIVE_TEXT_COLOR;
 
-                keyLabelPair.Value.Background = (keyboardState.IsKeyDown(keyLabelPair.Key))
+                keyLabel.Background = (keyboardState.IsKeyDown(keyLabelPair.Key))
                     ? ActiveBackgroundBrush
                     : InactiveBackgroundBrush;
             }
