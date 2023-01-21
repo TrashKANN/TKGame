@@ -75,6 +75,8 @@ namespace TKGame
                 direction.Y = -1;
             if (keyboardState.IsKeyDown(Keys.S))
                 direction.Y = 1;
+            if (WasKeyPressed(Keys.Space))
+                direction.Y = -5;
 
             //Clamp Vector length to a max of 1
             if (direction.LengthSquared() > 1)
