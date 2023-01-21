@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace TKGame
 {
-    abstract class Entity
+    public abstract class Entity
     {
         protected Texture2D entityTexture;
 

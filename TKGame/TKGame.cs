@@ -19,6 +19,9 @@ namespace TKGame
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static GameTime GameTime { get; private set; }
 
+        // TODO: Move this to another class eventually
+        private static readonly Color WALL_COLOR = new Color(0x9a, 0x9b, 0x9c, 0xFF);
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Desktop desktop;
@@ -36,10 +39,13 @@ namespace TKGame
         public TKGame()
         {
             Instance = this;
+            Content.RootDirectory = "Content";
+            IsFixedTimeStep = true; // Time between frames is constant
+            TargetElapsedTime = TimeSpan.FromSeconds(1d / 240d); // Set target fps (240 for now)
             graphics = new GraphicsDeviceManager(this);
+            graphics.SynchronizeWithVerticalRetrace = false; // Disable v-sync
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
-            Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
@@ -152,11 +158,24 @@ namespace TKGame
             // Draw each wall to the screen
             foreach (Wall wall in walls)
             {
-                spriteBatch.Draw(wall.Texture, wall.Rect, Color.Beige);
+                spriteBatch.Draw(wall.Texture, wall.Rect, WALL_COLOR);
+                if (GameDebug.DebugMode) 
+                { 
+                    GameDebug.DrawBoundingBox(spriteBatch, wall.Rect, Color.Lime, 5); 
+                }
             }
 
 
             EntityManager.Draw(spriteBatch);
+
+            foreach (Entity entity in EntityManager.GetEntities())
+            {
+                if (GameDebug.DebugMode)
+                {
+                    GameDebug.DrawBoundingBox(spriteBatch, entity, Color.Blue, 5);
+                }
+            }
+
             spriteBatch.End();
 
             // Render UI elements from Myra
