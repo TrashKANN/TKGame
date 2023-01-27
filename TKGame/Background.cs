@@ -32,7 +32,6 @@ namespace TKGame
         public Background(int width, int height, GraphicsDevice graphicsDevice)
         {
             BackgroundRect = new Rectangle(0, 0, width, height);
-            BackgroundTexture = new Texture2D(graphicsDevice, width, height);
         }
        
     }

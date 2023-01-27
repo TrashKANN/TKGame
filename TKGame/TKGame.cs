@@ -92,9 +92,7 @@ namespace TKGame
 
             EntityManager.Add(Player.Instance);
 
-            //Loads Image into the Texture
-            BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
-
+            
             // Load debug content
             GameDebug.LoadContent();
 
@@ -153,7 +151,7 @@ namespace TKGame
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
             //Draws the image into the Background
-            spriteBatch.Draw(BackgroundImage.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
+            spriteBatch.Draw(Art.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
 
             // Draw each wall to the screen
             foreach (Wall wall in walls)
