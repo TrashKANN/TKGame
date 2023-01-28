@@ -3,7 +3,6 @@ using System.Diagnostics;
 using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 namespace TKGame
@@ -12,7 +11,6 @@ namespace TKGame
     {
         private static Player instance;
         private static object syncRoot = new object();
-        private static readonly float GRAVITY = 1.0f;
         public static Player Instance
         {
             get
@@ -52,11 +50,10 @@ namespace TKGame
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             const float movementSpeed = 500;
 
-            Vector2 endVelocity = Velocity;
+            Position.X += movementSpeed * Velocity.X * deltaTime;
+            Position.Y += movementSpeed * Velocity.Y * deltaTime;
 
-            endVelocity.X += movementSpeed * Velocity.X * deltaTime;
-            endVelocity.Y += movementSpeed * Velocity.Y * deltaTime;
-
+            Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
 
             if (Velocity.X > 0) 
             {
@@ -66,15 +63,6 @@ namespace TKGame
             {
                 Orientation = SpriteEffects.FlipHorizontally;
             }
-
-            if (Input.WasKeyPressed(Keys.Space))
-                endVelocity.Y -= 100f;
-
-            endVelocity.Y += GRAVITY;
-
-            Position += endVelocity;
-
-            Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
         }
 
         /// <summary>
