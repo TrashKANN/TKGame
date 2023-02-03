@@ -11,6 +11,7 @@ namespace TKGame
         private static MouseState mouseState, lastMouseState;
         private static GamePadState gamepadState, lastGamepadState;
 
+        //No mouse input has been added, this is just for reference later on
         private static bool isAimingWithMouse = false;
 
         public static Vector2 MousePosition { get { return new Vector2(mouseState.X, mouseState.Y); } }
