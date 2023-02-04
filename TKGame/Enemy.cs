@@ -11,6 +11,7 @@ namespace TKGame
     {
         private static Enemy instance;
         private static object syncRoot = new object(); 
+        public Rectangle rectangle { get; private set; }
 
         public static Enemy Instance
         {
@@ -37,12 +38,11 @@ namespace TKGame
         {
             entityTexture = Art.EnemyTexture;
 
-            // Start position is currently set to middle of floor
-            Position = new Vector2(1600/2, 900 - 40); 
+            Position = new Vector2(700, 100);
         }
 
         /// <summary>
-        /// Updates the Enemy Sprite
+        /// Updates Enemy Sprite
         /// </summary>
         /// <param name="gameTime"></param>
         /// <exception cref="NotImplementedException"></exception>
@@ -52,7 +52,7 @@ namespace TKGame
         }
 
         /// <summary>
-        /// Draws each Enemy Sprite.
+        /// Draws Enemy Sprite
         /// </summary>
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
