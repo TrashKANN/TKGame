@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace TKGame
 {
-    internal class WeaponSystem
+    public class WeaponSystem
     {
+        #region Member Variables
+        List<string> weaponNames = new List<string>() { "Sword", "Spear", "Bow" };
+        List<bool> weaponBools = new List<bool>() { false, false, false };
+
+
+        #endregion
+
+        public static void Initialize()
+        {
+
+        }
+
+        public static void LoadContent()
+        {
+
+        }
+
+
     }
 }
