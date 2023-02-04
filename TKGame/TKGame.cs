@@ -92,6 +92,8 @@ namespace TKGame
 
             EntityManager.Add(Player.Instance);
 
+            EntityManager.Add(Enemy.Instance);
+
             //Loads Image into the Texture
             BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
 
