@@ -12,9 +12,9 @@ namespace TKGame.Level_Editor_Content
     {
         private static List<Stage> stages { get; set; }
 
-        public Map()
+        public Map(Stage devStage)
         {
-            stages = new List<Stage>();
+            stages = new List<Stage>(devStage);
         }
     }
 }

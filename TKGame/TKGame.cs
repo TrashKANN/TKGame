@@ -33,7 +33,7 @@ namespace TKGame
         private Background BackgroundImage;
 
         // TODO: Refactor out of the main TKGame class
-        Stage stage;
+        Stage defaultStage;
         int screenWidth, screenHeight;
         bool paused = false;
 
@@ -64,7 +64,7 @@ namespace TKGame
 
             // TODO: Remove magic numbers
             // Initialize a default stage.
-            stage = new Stage(graphics.GraphicsDevice);
+            defaultStage = new Stage(graphics.GraphicsDevice);
 
 
             // Initialize keyboard states (used for one-shot keyboard inputs)
@@ -123,6 +123,12 @@ namespace TKGame
             {
                 GameDebug.ToggleVisibility();
             }
+
+            // Toggle Editing mode for levels
+            if (currentState.IsKeyDown(Keys.L) && !previousState.IsKeyDown(Keys.L))
+            {
+                LevelEditor.ToggleEditor();
+            }
 #endif
 
             // Set the previous state now that we've checked for our desired inputs
@@ -151,7 +157,10 @@ namespace TKGame
             spriteBatch.Draw(BackgroundImage.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
 
             // Draw each wall to the screen
-            foreach (Wall wall in stage.walls)
+            // Update level editor
+            LevelEditor.BuildWall(defaultStage, graphics.GraphicsDevice);
+
+            foreach (Wall wall in defaultStage.walls)
             {
                 spriteBatch.Draw(wall.Texture, wall.Rect, WALL_COLOR);
                 if (GameDebug.DebugMode) 
