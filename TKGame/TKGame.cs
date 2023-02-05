@@ -9,6 +9,7 @@ using System.Collections.Generic;
 // https://github.com/rds1983/Myra
 using Myra;
 using Myra.Graphics2D.UI;
+using TKGame.Level_Editor_Content;
 
 namespace TKGame
 {
@@ -30,9 +31,9 @@ namespace TKGame
 
         //Declare Background Object
         private Background BackgroundImage;
-        
+
         // TODO: Refactor out of the main TKGame class
-        List<Wall> walls;
+        Stage stage;
         int screenWidth, screenHeight;
         bool paused = false;
 
@@ -60,17 +61,11 @@ namespace TKGame
 
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
- 
+
             // TODO: Remove magic numbers
-            // We'll eventually probably want to generate walls based off level data (from a file).
-            walls = new List<Wall>()
-            {
-                new Wall(0, screenHeight - 40, screenWidth, 50, graphics.GraphicsDevice),       // Floor 
-                new Wall(0, 0, screenWidth, 50, graphics.GraphicsDevice),                       // Ceiling
-                new Wall(0, 0, 50, screenHeight - 250, graphics.GraphicsDevice),                // Left wall
-                new Wall(screenWidth - 50, 0, 50, screenHeight - 250, graphics.GraphicsDevice), // Right wall
-                new Wall(screenWidth / 2, screenHeight / 2, 250, 250, graphics.GraphicsDevice)  // Extra wall to test collision on
-            };
+            // Initialize a default stage.
+            stage = new Stage(graphics.GraphicsDevice);
+
 
             // Initialize keyboard states (used for one-shot keyboard inputs)
             previousState = currentState = new KeyboardState();
@@ -156,7 +151,7 @@ namespace TKGame
             spriteBatch.Draw(BackgroundImage.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
 
             // Draw each wall to the screen
-            foreach (Wall wall in walls)
+            foreach (Wall wall in stage.walls)
             {
                 spriteBatch.Draw(wall.Texture, wall.Rect, WALL_COLOR);
                 if (GameDebug.DebugMode) 
