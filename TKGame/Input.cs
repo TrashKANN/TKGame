@@ -13,6 +13,7 @@ namespace TKGame
 
         //No mouse input has been added, this is just for reference later on
         private static bool isAimingWithMouse = false;
+        private static readonly float JUMP_HEIGHT = -25.0f;
 
         public static Vector2 MousePosition { get { return new Vector2(mouseState.X, mouseState.Y); } }
 
@@ -77,11 +78,11 @@ namespace TKGame
             if (keyboardState.IsKeyDown(Keys.S))
                 direction.Y = 1;
             if (WasKeyPressed(Keys.Space))
-                direction.Y = -5;
+                direction.Y = JUMP_HEIGHT;
 
             //Clamp Vector length to a max of 1
-            if (direction.LengthSquared() > 1)
-                direction.Normalize();
+            //if (direction.LengthSquared() > 1)
+            //    direction.Normalize();
 
             return direction;
         }
