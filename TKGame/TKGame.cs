@@ -114,7 +114,10 @@ namespace TKGame
 
             // Exit the game if Escape is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                LevelEditor.SaveStageDataToJSON(defaultStage);
                 Exit();
+            }
 
 #if DEBUG
             // Toggle the debug UI's visibility once per key press
@@ -158,7 +161,6 @@ namespace TKGame
 
             // Draw each wall to the screen
             // Update level editor
-            LevelEditor.BuildWall(defaultStage, graphics.GraphicsDevice);
 
             foreach (Wall wall in defaultStage.walls)
             {
@@ -169,6 +171,10 @@ namespace TKGame
                 }
             }
 
+            if (LevelEditor.EditMode == true)
+            {
+                LevelEditor.BuildWall(defaultStage, graphics.GraphicsDevice, spriteBatch);
+            }
 
             EntityManager.Draw(spriteBatch);
 
