@@ -24,8 +24,6 @@ namespace TKGame.Level_Editor_Content
     }
     static class LevelEditor
     {
-        //private static GraphicsDevice graphics;
-        //private static SpriteBatch spriteBatch;
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
         internal static bool EditMode = false;
@@ -57,7 +55,7 @@ namespace TKGame.Level_Editor_Content
 
                 Rectangle tempRect = new Rectangle((int)topLeftPosition.X, (int)topLeftPosition.Y, (int)size.X, (int)size.Y);
 
-                GameDebug.DrawBoundingBox(spriteBatch, tempRect, Color.Blue, 5);
+                GameDebug.DrawBoundingBox(spriteBatch, tempRect, Color.DeepPink, 5);
             }
             // If the left mouse button IS ALREADY pressed and WAS RELEASED this update, store coordinates for end position
             else if (previousMouseState.LeftButton == ButtonState.Pressed &&
@@ -79,6 +77,7 @@ namespace TKGame.Level_Editor_Content
 
         public static void SaveStageDataToJSON(Stage stage)
         {
+            // TO DO: Add a Stage name input, Probably take user input to determine the name it is saved as.
             List<WallData> wallDataList = new List<WallData>();
 
             // For each wall, Add the data to the WallData list
@@ -105,8 +104,8 @@ namespace TKGame.Level_Editor_Content
             });
 
             // Saves the json into the Level Editor Content Folder for now.
-            string directory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/"));
-            // = "[Your path into TKGames]\\TKGames\\TKGame\\Level Editor Content\\"
+            string directory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/Stages"));
+            // = "[Your path into TKGames]\\TKGames\\TKGame\\Level Editor Content\\Stages\\"
             // ^ So that we can change it later easily
 
             // Creates the Directory if it doesn't exist.
@@ -118,6 +117,25 @@ namespace TKGame.Level_Editor_Content
             string path = Path.Combine(directory, "stage_data.json");
 
             File.WriteAllText(path, json);
+        }
+
+        public static Stage LoadStageDataFromJSON(string stageName, GraphicsDevice graphics)
+        {
+            Stage newStage = new Stage(graphics);
+
+            string stagePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/Stages/" + stageName));
+
+            string json = System.IO.File.ReadAllText(stagePath);
+
+            List<WallData> jsonStageData = JsonSerializer.Deserialize<WallData[]>(json).ToList();
+
+            foreach (WallData wallData in jsonStageData)
+            {
+                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.width, wallData.height, graphics);
+                newStage.walls.Add(newWall);
+            }
+
+            return newStage;
         }
     }
 }
