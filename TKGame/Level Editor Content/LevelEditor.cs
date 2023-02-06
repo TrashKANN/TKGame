@@ -28,10 +28,22 @@ namespace TKGame.Level_Editor_Content
         private static Vector2 startPosition;
         internal static bool EditMode = false;
 
+        /// <summary>
+        /// Toggles the functionallity of the Level Editor
+        /// </summary>
         public static void ToggleEditor()
         {
             EditMode = !EditMode;
         }
+
+        /// <summary>
+        /// When Level Editing mod is active, create a wall wherever you click left mouse button and ends where you release it. The to-be-drawn wall will be outlined in Pink
+        /// Even if Debug Mode is turned off the pink outline will remain.
+        /// 
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <param name="graphics"></param>
+        /// <param name="spriteBatch"></param>
         public static void BuildWall(Stage stage, GraphicsDevice graphics, SpriteBatch spriteBatch)
         {
             MouseState currentMouseState = Mouse.GetState();
@@ -75,6 +87,14 @@ namespace TKGame.Level_Editor_Content
             previousMouseState = currentMouseState;
         }
 
+        /// <summary>
+        /// Goes through each wall within the given stage and serializes them into a JSON format for storage.
+        /// This allows the functionality of saving stages for later use.
+        /// Stages will automatically be saved to "/Level Editor Content/Stages/".
+        /// 
+        /// </summary>
+        /// <param name="stage"></param>
+        /// <param name="newStageName"></param>
         public static void SaveStageDataToJSON(Stage stage, string newStageName)
         {
             // TO DO: Add a Stage name input, Probably take user input to determine the name it is saved as.
@@ -119,6 +139,13 @@ namespace TKGame.Level_Editor_Content
             File.WriteAllText(path, json);
         }
 
+        /// <summary>
+        /// This will load a given stage name from the list of stages within "/Level Editor Content/Stages/".
+        /// The JSON is deserialized and for each set of WallData, a wall is created and loaded up into a Stage which is returned for assignment.
+        /// </summary>
+        /// <param name="stageName"></param>
+        /// <param name="graphics"></param>
+        /// <returns></returns>
         public static Stage LoadStageDataFromJSON(string stageName, GraphicsDevice graphics)
         {
             Stage newStage = new Stage(graphics);

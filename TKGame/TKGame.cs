@@ -116,7 +116,7 @@ namespace TKGame
             }
 
             // Exit the game if Escape is pressed
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Input.WasKeyPressed(Keys.Escape))
             {
                 LevelEditor.SaveStageDataToJSON(currentStage, "auto_saved_stage_data");
                 Exit();
@@ -131,13 +131,13 @@ namespace TKGame
             }
 
             // Toggle Editing mode for levels
-            if (currentState.IsKeyDown(Keys.L) && !previousState.IsKeyDown(Keys.L))
+            if (Input.WasKeyPressed(Keys.L))
             {
                 LevelEditor.ToggleEditor();
             }
 #endif
-
-            //if (currentState.IsKeyDown(Keys.U) && !previousState.IsKeyDown(Keys.U))
+            // Will Prompt the User for a string that it will use to save the stage
+            //if (Input.WasKeyPressed(Keys.U))
             //{
             //    Console.WriteLine("Enter in the name you'd like to save the stage under:");
             //    string newStageName = Console.ReadLine();
