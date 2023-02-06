@@ -75,7 +75,7 @@ namespace TKGame.Level_Editor_Content
             previousMouseState = currentMouseState;
         }
 
-        public static void SaveStageDataToJSON(Stage stage)
+        public static void SaveStageDataToJSON(Stage stage, string newStageName)
         {
             // TO DO: Add a Stage name input, Probably take user input to determine the name it is saved as.
             List<WallData> wallDataList = new List<WallData>();
@@ -114,7 +114,7 @@ namespace TKGame.Level_Editor_Content
                 Directory.CreateDirectory(directory);
             }
 
-            string path = Path.Combine(directory, "stage_data.json");
+            string path = Path.Combine(directory, newStageName + ".json");
 
             File.WriteAllText(path, json);
         }

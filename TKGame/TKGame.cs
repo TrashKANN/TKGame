@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System;
-using System.Collections.Generic;
 
 // Myra is a library that allows us to add GUI components.
 // https://github.com/rds1983/Myra
@@ -117,14 +118,14 @@ namespace TKGame
             // Exit the game if Escape is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                LevelEditor.SaveStageDataToJSON(currentStage);
+                LevelEditor.SaveStageDataToJSON(currentStage, "auto_saved_stage_data");
                 Exit();
             }
 
 #if DEBUG
             // Toggle the debug UI's visibility once per key press
             // TODO: Probably move this somewhere else
-            if (currentState.IsKeyDown(Keys.G) && !previousState.IsKeyDown(Keys.G))
+            if (Input.WasKeyPressed(Keys.G))
             {
                 GameDebug.ToggleVisibility();
             }
@@ -135,6 +136,14 @@ namespace TKGame
                 LevelEditor.ToggleEditor();
             }
 #endif
+
+            //if (currentState.IsKeyDown(Keys.U) && !previousState.IsKeyDown(Keys.U))
+            //{
+            //    Console.WriteLine("Enter in the name you'd like to save the stage under:");
+            //    string newStageName = Console.ReadLine();
+            //    Console.WriteLine("You Entere: " + newStageName);
+            //    LevelEditor.SaveStageDataToJSON(currentStage, newStageName);
+            //}
 
             // Set the previous state now that we've checked for our desired inputs
             previousState = currentState;
