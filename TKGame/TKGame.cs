@@ -33,7 +33,8 @@ namespace TKGame
         private Background BackgroundImage;
 
         // TODO: Refactor out of the main TKGame class
-        Stage defaultStage;
+        private static readonly string currentStageName = "defaultStage" + ".json";
+        Stage currentStage;
         int screenWidth, screenHeight;
         bool paused = false;
 
@@ -64,7 +65,8 @@ namespace TKGame
 
             // TODO: Remove magic numbers
             // Initialize a default stage.
-            defaultStage = new Stage(graphics.GraphicsDevice);
+            List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(currentStageName, graphics.GraphicsDevice)).walls;
+            currentStage = new Stage(stageWalls ,graphics.GraphicsDevice);
 
 
             // Initialize keyboard states (used for one-shot keyboard inputs)
@@ -115,7 +117,7 @@ namespace TKGame
             // Exit the game if Escape is pressed
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                LevelEditor.SaveStageDataToJSON(defaultStage);
+                LevelEditor.SaveStageDataToJSON(currentStage);
                 Exit();
             }
 
@@ -162,18 +164,13 @@ namespace TKGame
             // Draw each wall to the screen
             // Update level editor
 
-            foreach (Wall wall in defaultStage.walls)
+            foreach (Wall wall in currentStage.walls)
             {
                 spriteBatch.Draw(wall.Texture, wall.Rect, WALL_COLOR);
                 if (GameDebug.DebugMode) 
                 { 
                     GameDebug.DrawBoundingBox(spriteBatch, wall.Rect, Color.Lime, 5); 
                 }
-            }
-
-            if (LevelEditor.EditMode == true)
-            {
-                LevelEditor.BuildWall(defaultStage, graphics.GraphicsDevice, spriteBatch);
             }
 
             EntityManager.Draw(spriteBatch);
@@ -184,6 +181,12 @@ namespace TKGame
                 {
                     GameDebug.DrawBoundingBox(spriteBatch, entity, Color.Blue, 5);
                 }
+            }
+
+            // Draw the New Wall last so that the outline appears above all other images
+            if (LevelEditor.EditMode == true)
+            {
+                LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
             }
 
             spriteBatch.End();
