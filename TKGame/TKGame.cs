@@ -30,6 +30,9 @@ namespace TKGame
 
         //Declare Background Object
         private Background BackgroundImage;
+
+        // Declare Enemy Object
+        Enemy enemy;
         
         // TODO: Refactor out of the main TKGame class
         List<Wall> walls;

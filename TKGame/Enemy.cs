@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
+using System.Security.AccessControl;
 using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 namespace TKGame
@@ -10,8 +13,9 @@ namespace TKGame
     class Enemy : Entity
     {
         private static Enemy instance;
-        private static object syncRoot = new object(); 
-        public Rectangle rectangle { get; private set; }
+        private static object syncRoot = new object();
+        Vector2 startPosition = new Vector2(500, 650);
+        Vector2 stopPosition = new Vector2(1200, 650);
 
         public static Enemy Instance
         {
@@ -37,8 +41,7 @@ namespace TKGame
         private Enemy()
         {
             entityTexture = Art.EnemyTexture;
-
-            Position = new Vector2(700, 100);
+            Position = startPosition;
         }
 
         /// <summary>
@@ -48,7 +51,9 @@ namespace TKGame
         /// <exception cref="NotImplementedException"></exception>
         public override void Update(GameTime gameTime)
         {
-            //throw new NotImplementedException();
+            // enemy moves to right
+            Velocity.X = 1f;
+            Position += Velocity;
         }
 
         /// <summary>
@@ -57,7 +62,8 @@ namespace TKGame
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            if (Velocity.X > 0f)
+                base.Draw(spriteBatch);
         }
     }
 }
