@@ -14,8 +14,7 @@ namespace TKGame
     {
         private static Enemy instance;
         private static object syncRoot = new object();
-        Vector2 startPosition = new Vector2(500, 650);
-        Vector2 stopPosition = new Vector2(1200, 650);
+        Vector2 startPosition = new Vector2(500, 500);
 
         public static Enemy Instance
         {
@@ -45,7 +44,7 @@ namespace TKGame
         }
 
         /// <summary>
-        /// Updates Enemy Sprite
+        /// Updates Enemy sprite
         /// </summary>
         /// <param name="gameTime"></param>
         /// <exception cref="NotImplementedException"></exception>
@@ -57,13 +56,12 @@ namespace TKGame
         }
 
         /// <summary>
-        /// Draws Enemy Sprite
+        /// Draws Enemy sprite
         /// </summary>
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (Velocity.X > 0f)
-                base.Draw(spriteBatch);
+            base.Draw(spriteBatch);
         }
     }
 }
