@@ -173,6 +173,8 @@ namespace TKGame
                 }
             }
 
+            //Draw Triggers in gaps in the walls
+            //TODO: Add Functionality for Level Designer
             foreach (Trigger trigger in triggers)
             {
                 spriteBatch.Draw(trigger.texture, trigger.rectangle, Color.White);
