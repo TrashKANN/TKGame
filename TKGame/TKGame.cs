@@ -30,6 +30,9 @@ namespace TKGame
 
         //Declare Background Object
         private Background BackgroundImage;
+
+        //Declare Triggers
+        List<Trigger> triggers;
         
         // TODO: Refactor out of the main TKGame class
         List<Wall> walls;
@@ -60,7 +63,14 @@ namespace TKGame
 
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
- 
+
+            // Create Triggers
+            // TODO: Create Functionality for Procedural Generation with Level Designer
+            triggers = new List<Trigger>()
+            {
+                new Trigger(0,screenHeight - 240, 55, 195, GraphicsDevice),
+                new Trigger(screenWidth - 50, screenHeight - 240, 50, 195, GraphicsDevice),
+            };
             // TODO: Remove magic numbers
             // We'll eventually probably want to generate walls based off level data (from a file).
             walls = new List<Wall>()
@@ -162,6 +172,12 @@ namespace TKGame
                     GameDebug.DrawBoundingBox(spriteBatch, wall.Rect, Color.Lime, 5); 
                 }
             }
+
+            foreach (Trigger trigger in triggers)
+            {
+                spriteBatch.Draw(trigger.texture, trigger.rectangle, Color.White);
+            }
+            
 
 
             EntityManager.Draw(spriteBatch);
