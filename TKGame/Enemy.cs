@@ -15,7 +15,7 @@ namespace TKGame
         private static Enemy instance;
         private static object syncRoot = new object();
         Vector2 spawn = new Vector2(150, 785);           // to set initial Position
-        Vector2 speed = new Vector2((float)0.5, 1);      // to set initial Velocity
+        Vector2 speed = new Vector2((float)1.5, 1);      // to set initial Velocity
         int rightBoundary = 1500;                        // right boundary variable for Enemy's patrol
         int leftBoundary = 150;                          // left boundary variable for Enemy's patrol
 
@@ -59,24 +59,26 @@ namespace TKGame
         /// <exception cref="NotImplementedException"></exception>
         public override void Update(GameTime gameTime)
         {
-            UpdateLocation();
+            Patrol();
         }
 
         /// <summary>
-        /// Updates Enemy location 
+        /// Updates Enemy location for patrol animation 
         /// uses formula to make Enemy sprite move bakc and forth within boundaries
         /// </summary>
-        public void UpdateLocation()
+        public void Patrol()
         {
             Position.X += Velocity.X;                       // Enemy initially starts moving to right
 
-            if (Position.X >= rightBoundary)
+            if (Position.X == rightBoundary)
             {
                 Velocity.X = -speed.X;                      // Enemy moves left
+                Orientation = SpriteEffects.FlipHorizontally;
             }
-            else if (Position.X <= leftBoundary)
+            else if (Position.X == leftBoundary)
             {
                 Velocity.X = speed.X;                       // Enemy moves right
+                Orientation = SpriteEffects.None;
             }
         }
 
