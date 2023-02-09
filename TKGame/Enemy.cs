@@ -14,10 +14,10 @@ namespace TKGame
     {
         private static Enemy instance;
         private static object syncRoot = new object();
-        Vector2 spawn = new Vector2(250, 700);           // to set initial Position
-        Vector2 speed = new Vector2(1, 1);               // to set initial Velocity
-        int rightBoundary = 1000;                        // right boundary variable for Enemy's patrol
-        int leftBoundary = 200;                          // left boundary variable for Enemy's patrol
+        Vector2 spawn = new Vector2(150, 785);           // to set initial Position
+        Vector2 speed = new Vector2((float)0.5, 1);      // to set initial Velocity
+        int rightBoundary = 1500;                        // right boundary variable for Enemy's patrol
+        int leftBoundary = 150;                          // left boundary variable for Enemy's patrol
 
         /// <summary>
         /// Create instance of Enemy object with locking for gaurantee
@@ -70,13 +70,13 @@ namespace TKGame
         {
             Position.X += Velocity.X;                       // Enemy initially starts moving to right
 
-            if (Position.X >= 1000)
+            if (Position.X >= rightBoundary)
             {
-                Velocity.X = -speed.X;                      // turn around Enemy to move left
+                Velocity.X = -speed.X;                      // Enemy moves left
             }
-            else if (Position.X <= 200)
+            else if (Position.X <= leftBoundary)
             {
-                Velocity.X = speed.X;                       // Enemy goes back to right
+                Velocity.X = speed.X;                       // Enemy moves right
             }
         }
 

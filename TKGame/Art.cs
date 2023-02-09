@@ -18,7 +18,7 @@ namespace TKGame
         public static void LoadContent(ContentManager content)
         {
             PlayerTexture = content.Load<Texture2D>(@"Art/Player"); // Will need to be modified when we create a better structure for our files.
-            EnemyTexture = content.Load<Texture2D>(@"Art/Red");     // Temporary to show enemy
+            EnemyTexture = content.Load<Texture2D>(@"Art/DoomguyRightFacing");     // Temporary to show enemy
         }
     }
 }
