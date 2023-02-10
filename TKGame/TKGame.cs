@@ -81,6 +81,9 @@ namespace TKGame
             // For now, just enable DebugMode when building a Debug version
             GameDebug.DebugMode = true;
 #endif
+            //Initializing WeaponSystem
+            WeaponSystem.Initialize();
+
             base.Initialize();
         }
 
@@ -93,10 +96,13 @@ namespace TKGame
             EntityManager.Add(Player.Instance);
 
             //Loads Image into the Texture
-            BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
+            //BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
 
             // Load debug content
             GameDebug.LoadContent();
+
+            //Load WeaponSystem UI
+            WeaponSystem.LoadContent();
 
             // Continue setting up Myra
             desktop = new Desktop();
