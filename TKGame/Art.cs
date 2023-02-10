@@ -17,7 +17,7 @@ namespace TKGame
         /// <param name="content"></param>
         public static void LoadContent(ContentManager content)
         {
-            //PlayerTexture = content.Load<Texture2D>(@"Art/Player"); // Will need to be modified when we create a better structure for our files.
+            PlayerTexture = content.Load<Texture2D>(@"Art/Player"); // Will need to be modified when we create a better structure for our files.
         }
     }
 }
