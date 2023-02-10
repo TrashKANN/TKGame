@@ -7,7 +7,7 @@ namespace TKGame
     static class Art
     {
         public static Texture2D PlayerTexture { get; private set; }
-
+        public static Texture2D BackgroundTexture { get; private set; } 
         // "Enemy" will be the name of one such as "Goblin" since it has its own art
         // public static Texture2D Enemy { get; private set; }
 
@@ -18,6 +18,7 @@ namespace TKGame
         public static void LoadContent(ContentManager content)
         {
             PlayerTexture = content.Load<Texture2D>(@"Art/Player"); // Will need to be modified when we create a better structure for our files.
+            BackgroundTexture = content.Load<Texture2D>(@"Art/Cobble");
         }
     }
 }

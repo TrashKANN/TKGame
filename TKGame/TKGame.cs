@@ -33,6 +33,10 @@ namespace TKGame
         //Declare Background Object
         private Background BackgroundImage;
 
+
+        //Declare Triggers
+        List<Trigger> triggers;
+        
         // TODO: Refactor out of the main TKGame class
         private static readonly string currentStageName = "defaultStage" + ".json";
         Stage currentStage;
@@ -64,6 +68,14 @@ namespace TKGame
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
 
+            // Create Triggers
+            // TODO: Create Functionality for Procedural Generation with Level Designer
+            triggers = new List<Trigger>()
+            {
+                new Trigger(0,screenHeight - 240, 55, 195, GraphicsDevice),
+                new Trigger(screenWidth - 50, screenHeight - 240, 50, 195, GraphicsDevice),
+            };
+
             // TODO: Remove magic numbers
             // Initialize a default stage.
             List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(currentStageName, graphics.GraphicsDevice)).walls;
@@ -90,9 +102,7 @@ namespace TKGame
 
             EntityManager.Add(Player.Instance);
 
-            //Loads Image into the Texture
-            BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
-
+            
             // Load debug content
             GameDebug.LoadContent();
 
@@ -169,7 +179,7 @@ namespace TKGame
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
             //Draws the image into the Background
-            spriteBatch.Draw(BackgroundImage.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
+            spriteBatch.Draw(Art.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
 
             // Draw each wall to the screen
             // Update level editor
@@ -182,6 +192,15 @@ namespace TKGame
                     GameDebug.DrawBoundingBox(spriteBatch, wall.Rect, Color.Lime, 5); 
                 }
             }
+
+
+            //Draw Triggers in gaps in the walls
+            //TODO: Add Functionality for Level Designer
+            foreach (Trigger trigger in triggers)
+            {
+                spriteBatch.Draw(trigger.texture, trigger.rectangle, Color.White);
+            }
+            
 
             EntityManager.Draw(spriteBatch);
 
