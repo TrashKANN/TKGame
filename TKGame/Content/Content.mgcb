@@ -25,6 +25,7 @@
 /processorParam:TextureFormat=Color
 /build:Art/Cobble.jpg
 
+#begin Art/DoomguyRightFacing.png
 #begin Art/Cobble.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -35,6 +36,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
+/build:Art/DoomguyRightFacing.png
 /build:Art/Cobble.jpg
 
 #begin Art/Player.png

@@ -33,6 +33,8 @@ namespace TKGame
         //Declare Background Object
         private Background BackgroundImage;
 
+        // Declare Enemy Object
+        Enemy enemy;
 
         //Declare Triggers
         List<Trigger> triggers;
@@ -101,6 +103,11 @@ namespace TKGame
             Art.LoadContent(Content);
 
             EntityManager.Add(Player.Instance);
+
+            EntityManager.Add(Enemy.Instance);
+
+            //Loads Image into the Texture
+            BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
 
             
             // Load debug content
