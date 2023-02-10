@@ -130,10 +130,11 @@ namespace TKGame
                 GameDebug.ToggleVisibility();
             }
 
-            // Toggle Editing mode for levels
+            // Toggle Editing mode for levels, pauses the game to hault entity movement.
             if (Input.WasKeyPressed(Keys.L))
             {
                 LevelEditor.ToggleEditor();
+                paused = !paused;
             }
 #endif
             // Will Prompt the User for a string that it will use to save the stage
