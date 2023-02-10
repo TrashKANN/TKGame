@@ -3,8 +3,9 @@ using System.Diagnostics;
 using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace TKGame
 {
@@ -66,9 +67,6 @@ namespace TKGame
             {
                 Orientation = SpriteEffects.FlipHorizontally;
             }
-
-            if (Input.WasKeyPressed(Keys.Space))
-                endVelocity.Y -= 100f;
 
             endVelocity.Y += GRAVITY;
 
