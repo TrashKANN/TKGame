@@ -135,6 +135,13 @@ namespace TKGame.Level_Editor_Content
             }
 
             string path = Path.Combine(directory, newStageName + ".json");
+            for (int i = 1; i <= 100; i++)
+            {
+                if (File.Exists(path))
+                    path = Path.Combine(directory, newStageName + "_" + i.ToString() + ".json");
+                else
+                    break;
+            }
 
             File.WriteAllText(path, json);
         }
