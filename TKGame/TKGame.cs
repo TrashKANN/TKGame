@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -40,7 +41,7 @@ namespace TKGame
         List<Trigger> triggers;
         
         // TODO: Refactor out of the main TKGame class
-        private static readonly string currentStageName = "defaultStage" + ".json";
+        private static string currentStageName = "auto_saved_stage_data_5" + ".json";
         Stage currentStage;
         int screenWidth, screenHeight;
         bool paused = false;
@@ -80,6 +81,7 @@ namespace TKGame
 
             // TODO: Remove magic numbers
             // Initialize a default stage.
+            currentStageName = File.Exists(currentStageName) ? currentStageName : "defaultStage.json";
             List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(currentStageName, graphics.GraphicsDevice)).walls;
             currentStage = new Stage(stageWalls ,graphics.GraphicsDevice);
 

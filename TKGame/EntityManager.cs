@@ -61,7 +61,9 @@ namespace TKGame
 
             // Update each entity that from previous frame
             foreach (var entity in entities)
+            {
                 entity.Update(gameTime);
+            }
 
             IsUpdating= false;
 

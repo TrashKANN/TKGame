@@ -14,6 +14,7 @@ namespace TKGame
         private static Player instance;
         private static object syncRoot = new object();
         private static readonly float GRAVITY = 1.0f;
+        private static float MOVEMENT_SPEED = 500.0f;
         public static Player Instance
         {
             get
@@ -51,15 +52,27 @@ namespace TKGame
             // Player Movement
             Velocity = Input.GetMovementDirection();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            const float movementSpeed = 500;
+            UpdatePlayerPosition(deltaTime);
+        }
 
+        /// <summary>
+        /// Draws each Player Sprite.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+        }
+
+        private void UpdatePlayerPosition(float deltaTime)
+        {
             Vector2 endVelocity = Velocity;
 
-            endVelocity.X += movementSpeed * Velocity.X * deltaTime;
-            endVelocity.Y += movementSpeed * Velocity.Y * deltaTime;
+            endVelocity.X += MOVEMENT_SPEED * Velocity.X * deltaTime;
+            endVelocity.Y += MOVEMENT_SPEED * Velocity.Y * deltaTime;
 
 
-            if (Velocity.X > 0) 
+            if (Velocity.X > 0)
             {
                 Orientation = SpriteEffects.None;
             }
@@ -73,15 +86,6 @@ namespace TKGame
             Position += endVelocity;
 
             Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
-        }
-
-        /// <summary>
-        /// Draws each Player Sprite.
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
         }
     }
 }
