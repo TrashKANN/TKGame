@@ -43,7 +43,6 @@ namespace TKGame
 
         /// <summary>
         /// Enemy constructor
-        /// sets texture, initial spawn point, and x-coordinate velocity for Enemy
         /// </summary>
         private Enemy()
         {
@@ -54,7 +53,6 @@ namespace TKGame
 
         /// <summary>
         /// Enemy Update method
-        /// calls UpdateLocation() to handle the work for patrolling enemy animation
         /// </summary>
         /// <param name="gameTime"></param>
         /// <exception cref="NotImplementedException"></exception>
@@ -63,28 +61,20 @@ namespace TKGame
             Move();
         }
 
-        /// <summary>
-        /// Updates Enemy location for patrol animation 
-        /// uses formula to make Enemy sprite move bakc and forth within boundaries
-        /// </summary>
         public void Move()
         {
-            //Vector2 playerInput = Input.GetMovementDirection();
-            //if (playerInput.X == 1)
-            //    Position.X += Velocity.X;
+            Position.X += Velocity.X;                       // Enemy initially starts moving to right
 
-            //Position.X += Velocity.X;                       // Enemy initially starts moving to right
-
-            //if (Position.X == rightBoundary)
-            //{
-            //    Velocity.X = -speed.X;                      // Enemy moves left
-            //    Orientation = SpriteEffects.FlipHorizontally;
-            //}
-            //else if (Position.X == leftBoundary)
-            //{
-            //    Velocity.X = speed.X;                       // Enemy moves right
-            //    Orientation = SpriteEffects.None;
-            //}
+            if (Position.X == rightBoundary)
+            {
+                Velocity.X = -speed.X;                      // Enemy moves left
+                Orientation = SpriteEffects.FlipHorizontally;
+            }
+            else if (Position.X == leftBoundary)
+            {
+                Velocity.X = speed.X;                       // Enemy moves right
+                Orientation = SpriteEffects.None;
+            }
         }
 
         /// <summary>
