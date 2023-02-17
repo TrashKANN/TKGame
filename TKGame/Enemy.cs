@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using TKGame.Level_Editor_Content;
 
 namespace TKGame
 {
@@ -49,6 +50,8 @@ namespace TKGame
             entityTexture = Art.EnemyTexture;
             Position = spawn;
             Velocity.X = speed.X;
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
+
         }
 
         /// <summary>

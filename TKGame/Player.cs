@@ -5,7 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
-
+using System.Collections.Generic;
+using TKGame.Level_Editor_Content;
 
 namespace TKGame
 {
@@ -40,7 +41,8 @@ namespace TKGame
             entityTexture = Art.PlayerTexture;
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
-            Position = new Vector2(1600/2, 900 - 40);
+            Position = new Vector2(1600/2, 900 - 70);
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
         }
 
         /// <summary>
@@ -64,6 +66,11 @@ namespace TKGame
             base.Draw(spriteBatch);
         }
 
+        #region Update Helper Functions
+        /// <summary>
+        /// Updates the Player position based on the keyboard input and gravity.
+        /// </summary>
+        /// <param name="deltaTime"></param>
         private void UpdatePlayerPosition(float deltaTime)
         {
             Vector2 endVelocity = Velocity;
@@ -86,6 +93,11 @@ namespace TKGame
             Position += endVelocity;
 
             Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
+
+            HitBox.X = (int)Position.X - (int)Size.X / 2;
+            HitBox.Y = (int)Position.Y - (int)Size.Y / 2;
         }
+
+        #endregion Update Helper Functions
     }
 }

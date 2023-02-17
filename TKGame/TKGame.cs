@@ -131,7 +131,7 @@ namespace TKGame
             //Do if not paused
             if (!paused)
             {
-                EntityManager.Update(gameTime);
+                EntityManager.Update(gameTime, spriteBatch, currentStage);
             }
 
             // Exit the game if Escape is pressed
@@ -226,6 +226,8 @@ namespace TKGame
             {
                 LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
             }
+
+            Entity.DrawCollisionIntersections(spriteBatch, EntityManager.GetEntities()[0].collisions);
 
             spriteBatch.End();
 
