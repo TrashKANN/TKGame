@@ -81,7 +81,9 @@ namespace TKGame
 
             // TODO: Remove magic numbers
             // Initialize a default stage.
-            currentStageName = File.Exists(currentStageName) ? currentStageName : "defaultStage.json";
+            currentStageName = File.Exists(currentStageName) 
+                ? currentStageName 
+                : "defaultStage.json";
             List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(currentStageName, graphics.GraphicsDevice)).walls;
             currentStage = new Stage(stageWalls ,graphics.GraphicsDevice);
 
@@ -195,10 +197,10 @@ namespace TKGame
 
             foreach (Wall wall in currentStage.walls)
             {
-                spriteBatch.Draw(wall.Texture, wall.Rect, WALL_COLOR);
+                spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
                 if (GameDebug.DebugMode) 
                 { 
-                    GameDebug.DrawBoundingBox(spriteBatch, wall.Rect, Color.Lime, 5); 
+                    GameDebug.DrawBoundingBox(spriteBatch, wall.HitBox, Color.Lime, 5); 
                 }
             }
 

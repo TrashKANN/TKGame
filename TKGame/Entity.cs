@@ -6,13 +6,14 @@ using System.Collections;
 
 namespace TKGame
 {
-    public abstract class Entity
+    public abstract class Entity : ICollidable
     {
         protected Texture2D entityTexture;
 
         // Move to a Transform class later instead of having it only in the Entity class
         public Vector2 Position, Velocity;
-        public Rectangle HitBox;
+        public Rectangle hitBox;
+        public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }
         public SpriteEffects Orientation; // Flip Horizontal/Vertical
         // used for Drawing Sprites
         public Color color = Color.White;
@@ -29,6 +30,7 @@ namespace TKGame
 
         public abstract void Update(GameTime gameTime);
 
+        #region Intersection Hitboxes for Debugging
         public class Intersection
         {
             public Rectangle hitbox;
@@ -49,15 +51,25 @@ namespace TKGame
                 GameDebug.DrawBoundingBox(spriteBatch, inter.hitbox, inter.color, 5);
             }
         }
-        public void Collide(Stage stage)
+        #endregion Intersection Hitboxes
+
+        /// <summary>
+        /// Uses the Entity's hitbox and iterates through each hitbox passed to it and adjusts the Entity's position
+        /// outside of the hitbox it collides with.
+        /// </summary>
+        /// <param name="stage"></param>
+        public void Collide<T>(List<T> collidables) where T : ICollidable
         {
-            foreach (var wall in stage.walls)
+
+            //TODO: Collide with other entities.
+
+
+            foreach (var hitbox in collidables)
             {
-                bool collision = HitBox.Intersects(wall.Rect);
-                if (collision)
+                if (HitBox.Intersects(hitbox.HitBox))
                 {
                     // Calculate the depth of the intersection between Player and each Wall
-                    Rectangle intersection = Rectangle.Intersect(HitBox, wall.Rect);
+                    Rectangle intersection = Rectangle.Intersect(HitBox, hitbox.HitBox);
                     Vector2 depth = new Vector2(intersection.Width, intersection.Height);
 
                     //collisions.Add(new Intersection(intersection, Color.Red));
@@ -68,7 +80,7 @@ namespace TKGame
                     if (depth.X < depth.Y)
                     {
                         // Horizontal collision
-                        if (HitBox.Center.X < wall.Rect.Center.X)
+                        if (HitBox.Center.X < hitbox.HitBox.Center.X)
                         {
                             // Player is to the left of the wall
                             Position.X -= (int)depth.X;
@@ -82,7 +94,7 @@ namespace TKGame
                     else
                     {
                         // Vertical collision
-                        if (HitBox.Center.Y < wall.Rect.Center.Y)
+                        if (HitBox.Center.Y < hitbox.HitBox.Center.Y)
                         {
                             // Player is above the wall
                             Position.Y -= (int)depth.Y;
@@ -94,6 +106,22 @@ namespace TKGame
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Collide with a single hitbox. Used for special triggers such as doors, items, etc.
+        /// </summary>
+        /// <param name="hitbox"></param>
+        public bool Collide<T>(T hitbox) where T : ICollidable
+        {
+            if (HitBox.Intersects(hitbox.HitBox))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

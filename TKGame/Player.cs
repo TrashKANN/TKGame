@@ -42,7 +42,7 @@ namespace TKGame
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             Position = new Vector2(1600/2, 900 - 70);
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
+            HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
         /// <summary>
@@ -92,10 +92,10 @@ namespace TKGame
 
             Position += endVelocity;
 
-            Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
+            hitBox.X = (int)Position.X - (int)Size.X / 2;
+            hitBox.Y = (int)Position.Y - (int)Size.Y / 2;
 
-            HitBox.X = (int)Position.X - (int)Size.X / 2;
-            HitBox.Y = (int)Position.Y - (int)Size.Y / 2;
+            Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
         }
 
         #endregion Update Helper Functions
