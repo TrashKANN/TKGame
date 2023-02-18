@@ -82,7 +82,7 @@ namespace TKGame
                     else
                     {
                         // Vertical collision
-                        if (HitBox.Center.Y > depth.Y)
+                        if (HitBox.Center.Y < wall.Rect.Center.Y)
                         {
                             // Player is above the wall
                             Position.Y -= (int)depth.Y;
