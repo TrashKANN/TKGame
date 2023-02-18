@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
@@ -44,6 +45,7 @@ namespace TKGame
         {
             entityTexture = Art.ItemTexture;
             Position = new Vector2(1200, 840);
+            entityName = "DiamondSword"; // naming
         }
 
         /// <summary>
@@ -52,7 +54,8 @@ namespace TKGame
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            
+            Player player = EntityManager.GetEntities().FirstOrDefault(x => x.entityName == "Player" && x is Player) as Player;
+            // TODO: check if player is null
         }
 
         /// <summary>

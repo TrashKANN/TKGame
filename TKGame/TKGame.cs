@@ -102,10 +102,9 @@ namespace TKGame
 
             Art.LoadContent(Content);
 
+            // Manually adding entities at the moment...
             EntityManager.Add(Player.Instance);
-
             EntityManager.Add(Enemy.Instance);
-
             EntityManager.Add(Item.Instance);
 
             //Loads Image into the Texture

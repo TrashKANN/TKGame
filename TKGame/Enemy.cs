@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
@@ -49,6 +50,7 @@ namespace TKGame
             entityTexture = Art.EnemyTexture;
             Position = spawn;
             Velocity.X = speed.X;
+            entityName = "Doomguy"; // naming
         }
 
         /// <summary>
@@ -63,6 +65,9 @@ namespace TKGame
 
         public void Move()
         {
+            Player player = EntityManager.GetEntities().FirstOrDefault(x => x.entityName == "Player" && x is Player) as Player;
+            // TODO: check if player is null
+
             Position.X += Velocity.X;                       // Enemy initially starts moving to right
 
             if (Position.X == rightBoundary)

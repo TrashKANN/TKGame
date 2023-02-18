@@ -40,6 +40,7 @@ namespace TKGame
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             Position = new Vector2(1600/2, 900 - 40);
+            entityName = "Player"; // naming
         }
 
         /// <summary>
