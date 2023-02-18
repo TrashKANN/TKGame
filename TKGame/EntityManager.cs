@@ -64,7 +64,7 @@ namespace TKGame
             foreach (var entity in entities)
             {
                 entity.Update(gameTime);
-                entity.Collide(stage);
+                entity.Collide(stage.walls);
             }
 
             IsUpdating= false;
