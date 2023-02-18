@@ -29,7 +29,6 @@ namespace TKGame
         private Desktop desktop;
         private KeyboardState previousState, currentState;
 
-
         //Declare Background Object
         private Background BackgroundImage;
 
