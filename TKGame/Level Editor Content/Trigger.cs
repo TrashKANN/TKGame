@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TKGame
+namespace TKGame.Level_Editor_Content
 {
     internal class Trigger
     {
         public Rectangle rectangle { get; set; }
         public Texture2D texture { get; set; }
+
+        public Stage leftStage { get; set; }
+        public Stage rightStage { get; set; }
 
         /// <summary>
         /// Creates Trigger Objects given starting coordinates, width, height, and a GraphicsDevice object
@@ -28,5 +31,6 @@ namespace TKGame
             texture = new Texture2D(graphicsDevice, 1, 1);
             texture.SetData(new Color[] { Color.Yellow });
         }
+        
     }
 }
