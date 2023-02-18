@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
@@ -49,6 +50,7 @@ namespace TKGame
             entityTexture = Art.EnemyTexture;
             Position = spawn;
             Velocity.X = speed.X;
+            entityName = "enemy"; // name for current enemy class
         }
 
         /// <summary>
@@ -63,18 +65,50 @@ namespace TKGame
 
         public void Move()
         {
-            Position.X += Velocity.X;                       // Enemy initially starts moving to right
+            // getter for player class
+            Player player = EntityManager.GetEntities().FirstOrDefault(x => x.entityName == "player" && x is Player) as Player;
 
-            if (Position.X == rightBoundary)
+            // check if player is null
+            if (player != null)
             {
-                Velocity.X = -speed.X;                      // Enemy moves left
-                Orientation = SpriteEffects.FlipHorizontally;
+                Vector2 playerPosition = player.Position;
+                
+                if (Position.X > playerPosition.X)
+                {
+                    Position.X -= speed.X;
+                    Orientation = SpriteEffects.FlipHorizontally;
+                }
+                    
+                if (Position.X < playerPosition.X)
+                {
+                    Position.X += speed.X;
+                    Orientation = SpriteEffects.None;
+                }
+                if (Position.Y > playerPosition.Y)
+                {
+                    Position.Y -= speed.Y;
+                }
+                if (Position.Y < playerPosition.Y)
+                {
+                    Position.Y += speed.Y;
+                }
             }
-            else if (Position.X == leftBoundary)
-            {
-                Velocity.X = speed.X;                       // Enemy moves right
-                Orientation = SpriteEffects.None;
-            }
+
+            // Enemy initially starts moving to right
+            //Position.X += Velocity.X;
+
+            // Enemy moves left
+            //if (Position.X == rightBoundary)
+            //{
+            //    Velocity.X = -speed.X;                      
+            //    Orientation = SpriteEffects.FlipHorizontally;
+            //}
+            // Enemy moves right
+            //else if (Position.X == leftBoundary)
+            //{
+            //    Velocity.X = speed.X;                       
+            //    Orientation = SpriteEffects.None;
+            //}
         }
 
         /// <summary>
