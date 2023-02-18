@@ -73,14 +73,25 @@ namespace TKGame
             {
                 Vector2 playerPosition = player.Position;
                 
-                if (Position.X > playerPosition.X) 
+                if (Position.X > playerPosition.X)
+                {
                     Position.X -= speed.X;
+                    Orientation = SpriteEffects.FlipHorizontally;
+                }
+                    
                 if (Position.X < playerPosition.X)
+                {
                     Position.X += speed.X;
+                    Orientation = SpriteEffects.None;
+                }
                 if (Position.Y > playerPosition.Y)
+                {
                     Position.Y -= speed.Y;
+                }
                 if (Position.Y < playerPosition.Y)
+                {
                     Position.Y += speed.Y;
+                }
             }
 
             // Enemy initially starts moving to right
