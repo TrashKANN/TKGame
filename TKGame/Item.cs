@@ -56,6 +56,7 @@ namespace TKGame
         {
             Player player = EntityManager.GetEntities().FirstOrDefault(x => x.entityName == "Player" && x is Player) as Player;
             // TODO: check if player is null
+
         }
 
         /// <summary>
