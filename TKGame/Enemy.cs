@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using TKGame.Level_Editor_Content;
 
 namespace TKGame
 {
@@ -16,7 +17,7 @@ namespace TKGame
     {
         static Enemy instance;
         private static object syncRoot = new object();
-        Vector2 spawn = new Vector2(150, 785);           // to set initial Position
+        Vector2 spawn = new Vector2(150, 700);           // to set initial Position
         Vector2 speed = new Vector2((float)1.5, 1);      // to set initial Velocity
         int rightBoundary = 1500;                        // right boundary variable for Enemy's patrol
         int leftBoundary = 150;                          // left boundary variable for Enemy's patrol
@@ -51,6 +52,7 @@ namespace TKGame
             Position = spawn;
             Velocity.X = speed.X;
             entityName = "enemy"; // name for current enemy class
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
         }
 
         /// <summary>
