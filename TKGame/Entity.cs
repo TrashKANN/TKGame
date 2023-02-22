@@ -18,6 +18,7 @@ namespace TKGame
         // used for Drawing Sprites
         public Color color = Color.White;
         public bool IsExpired;
+        public string entityName; // to identify each entity by name
 
         public Vector2 Size
         {
