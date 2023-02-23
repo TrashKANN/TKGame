@@ -52,7 +52,8 @@ namespace TKGame
             Position = spawn;
             Velocity.X = speed.X;
             entityName = "enemy"; // name for current enemy class
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
+            //HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
+            HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
         /// <summary>
@@ -94,6 +95,10 @@ namespace TKGame
                 {
                     Position.Y += speed.Y;
                 }
+
+                hitBox.X = (int)Position.X - (int)Size.X / 2;
+                hitBox.Y = (int)Position.Y - (int)Size.Y / 2;
+                Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
             }
 
             // Enemy initially starts moving to right
