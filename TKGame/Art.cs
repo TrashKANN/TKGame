@@ -17,11 +17,11 @@ namespace TKGame
         /// <param name="content"></param>
         public static void LoadContent(ContentManager content)
         {
-            PlayerTexture = content.Load<Texture2D>(@"Art/Player"); // Will need to be modified when we create a better structure for our files.
+            PlayerTexture = content.Load<Texture2D>(@"C:/Users/Greywater/Documents/Git/TKGame/TKGame/Content/bin/DesktopGL/Art/Player"); // Will need to be modified when we create a better structure for our files.
 
-            EnemyTexture = content.Load<Texture2D>(@"Art/DoomguyRightFacing");     // Temporary to show enemy
+            EnemyTexture = content.Load<Texture2D>(@"C:/Users/Greywater/Documents/Git/TKGame/TKGame/Content/bin/DesktopGL/Art/DoomguyRightFacing");     // Temporary to show enemy
 
-            BackgroundTexture = content.Load<Texture2D>(@"Art/Cobble");
+            BackgroundTexture = content.Load<Texture2D>(@"C:/Users/Greywater/Documents/Git/TKGame/TKGame/Content/bin/DesktopGL/Art/Cobble");
         }
     }
 }

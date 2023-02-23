@@ -16,6 +16,7 @@ namespace TKGame
 {
     public class TKGame : Game
     {
+        #region Member Variables
         public static TKGame Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
@@ -29,7 +30,6 @@ namespace TKGame
         private Desktop desktop;
         private KeyboardState previousState, currentState;
 
-
         //Declare Background Object
         private Background BackgroundImage;
 
@@ -42,9 +42,11 @@ namespace TKGame
         // TODO: Refactor out of the main TKGame class
         private static readonly string currentStageName = "defaultStage" + ".json";
         Stage currentStage;
+        Stage leftStage;
+        Stage rightStage;
         int screenWidth, screenHeight;
         bool paused = false;
-
+        #endregion
         public TKGame()
         {
             Instance = this;
@@ -57,7 +59,6 @@ namespace TKGame
             graphics.PreferredBackBufferHeight = 900;
             IsMouseVisible = true;
         }
-
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -95,7 +96,6 @@ namespace TKGame
 #endif
             base.Initialize();
         }
-
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -107,7 +107,7 @@ namespace TKGame
             EntityManager.Add(Enemy.Instance);
 
             //Loads Image into the Texture
-            BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
+           // BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"C:/Users/");
 
             
             // Load debug content
@@ -117,7 +117,6 @@ namespace TKGame
             desktop = new Desktop();
             desktop.Root = GameDebug.VSP;
         }
-
         protected override void Update(GameTime gameTime)
         {
             // Get the current keyboard state
@@ -130,6 +129,18 @@ namespace TKGame
             if (!paused)
             {
                 EntityManager.Update(gameTime);
+            }
+
+            if (triggers[0].checkLeftTrigger(Player.Instance))
+            {
+                List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[0].leftStage, GraphicsDevice)).walls;
+                currentStage = new Stage(stageWalls, graphics.GraphicsDevice);
+            }
+
+            if (triggers[1].checkRightTrigger(Player.Instance))
+            {
+                List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[1].rightStage, GraphicsDevice)).walls;
+                currentStage = new Stage(stageWalls, graphics.GraphicsDevice);
             }
 
             // Exit the game if Escape is pressed
@@ -171,7 +182,6 @@ namespace TKGame
 
             base.Update(gameTime);
         }
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.SlateGray);

@@ -42,6 +42,8 @@ namespace TKGame
             Position = new Vector2(1600/2, 900 - 40);
         }
 
+        
+
         /// <summary>
         /// Grabs the input data, uses that and the deltaTime to update the Player's velocity and orientation.
         /// </summary>
@@ -53,6 +55,7 @@ namespace TKGame
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             const float movementSpeed = 500;
 
+            
             Vector2 endVelocity = Velocity;
 
             endVelocity.X += movementSpeed * Velocity.X * deltaTime;
