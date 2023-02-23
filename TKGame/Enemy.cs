@@ -69,7 +69,8 @@ namespace TKGame
         public void Move()
         {
             // getter for player class
-            Player player = EntityManager.GetEntities().FirstOrDefault(x => x.entityName == "player" && x is Player) as Player;
+            // Player player = EntityManager.GetEntities().FirstOrDefault(x => x.entityName == "player" && x is Player) as Player;
+            Player player = Player.Instance;
 
             // check if player is null
             if (player != null)
