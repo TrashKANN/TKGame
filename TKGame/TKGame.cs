@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -40,7 +41,7 @@ namespace TKGame
         List<Trigger> triggers;
         
         // TODO: Refactor out of the main TKGame class
-        private static readonly string currentStageName = "defaultStage" + ".json";
+        private static string currentStageName = "auto_saved_stage_data_5" + ".json";
         Stage currentStage;
         Stage leftStage;
         Stage rightStage;
@@ -81,6 +82,9 @@ namespace TKGame
 
             // TODO: Remove magic numbers
             // Initialize a default stage.
+            currentStageName = File.Exists(currentStageName) 
+                ? currentStageName 
+                : "defaultStage.json";
             List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(currentStageName, graphics.GraphicsDevice)).walls;
             currentStage = new Stage(stageWalls ,graphics.GraphicsDevice);
 
@@ -102,9 +106,10 @@ namespace TKGame
 
             Art.LoadContent(Content);
 
+            // Manually adding entities at the moment...
             EntityManager.Add(Player.Instance);
-
             EntityManager.Add(Enemy.Instance);
+            EntityManager.Add(Item.Instance);
 
             //Loads Image into the Texture
            // BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"C:/Users/");
@@ -128,7 +133,7 @@ namespace TKGame
             //Do if not paused
             if (!paused)
             {
-                EntityManager.Update(gameTime);
+                EntityManager.Update(gameTime, spriteBatch, currentStage);
             }
 
             if (triggers[0].checkLeftTrigger(Player.Instance))
@@ -203,10 +208,10 @@ namespace TKGame
 
             foreach (Wall wall in currentStage.walls)
             {
-                spriteBatch.Draw(wall.Texture, wall.Rect, WALL_COLOR);
+                spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
                 if (GameDebug.DebugMode) 
                 { 
-                    GameDebug.DrawBoundingBox(spriteBatch, wall.Rect, Color.Lime, 5); 
+                    GameDebug.DrawBoundingBox(spriteBatch, wall.HitBox, Color.Lime, 5); 
                 }
             }
 
@@ -234,6 +239,8 @@ namespace TKGame
             {
                 LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
             }
+
+            Entity.DrawCollisionIntersections(spriteBatch, EntityManager.GetEntities()[0].collisions);
 
             spriteBatch.End();
 

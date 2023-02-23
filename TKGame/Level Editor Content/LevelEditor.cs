@@ -103,14 +103,14 @@ namespace TKGame.Level_Editor_Content
             // For each wall, Add the data to the WallData list
             foreach (Wall wall in stage.walls)
             {
-                if (wall.Rect.Width != 0 && wall.Rect.Height != 0)
+                if (wall.HitBox.Width != 0 && wall.HitBox.Height != 0)
                 {
                     WallData walldata = new WallData()
                     {
-                        X = wall.Rect.X,
-                        Y = wall.Rect.Y,
-                        width = wall.Rect.Width,
-                        height = wall.Rect.Height,
+                        X = wall.HitBox.X,
+                        Y = wall.HitBox.Y,
+                        width = wall.HitBox.Width,
+                        height = wall.HitBox.Height,
                     };
 
                     wallDataList.Add(walldata);

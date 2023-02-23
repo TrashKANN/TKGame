@@ -9,18 +9,19 @@ using System.Collections;
 
 namespace TKGame.Level_Editor_Content
 {
-    internal class Stage : IEnumerable<Stage>
+    public class Stage : IEnumerable<Stage>
     {
         // Mainly just used for the default dev stage
         private static readonly int screenWidth = 1600;
         private static readonly int screenHeight = 900;
-        public List<Wall> walls { get; set; }
+        internal List<Wall> walls { get; set; }
+
         public Stage(GraphicsDevice graphics) 
         {
             this.walls = new List<Wall>() { };
         }
 
-        public Stage(List<Wall> walls, GraphicsDevice graphics) 
+        internal Stage(List<Wall> walls, GraphicsDevice graphics) 
         {
             this.walls = walls;
         }
