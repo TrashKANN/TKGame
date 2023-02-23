@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Graphics;
 // JSON includes
 using System.IO;
 using System.Text.Json;
+using Myra.Graphics2D.UI;
+
 
 namespace TKGame.Level_Editor_Content
 {
@@ -27,6 +29,7 @@ namespace TKGame.Level_Editor_Content
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
         internal static bool EditMode = false;
+        private static readonly int GRID_SIZE = 64;
 
         /// <summary>
         /// Toggles the functionallity of the Level Editor
@@ -65,6 +68,7 @@ namespace TKGame.Level_Editor_Content
                 topLeftPosition.Y = Math.Min(startPosition.Y, endPosition.Y);
                 size = new Vector2(Math.Abs(startPosition.X - endPosition.X), Math.Abs(startPosition.Y - endPosition.Y));
 
+                // Used for drawing the outline of the to be created wall
                 Rectangle tempRect = new Rectangle((int)topLeftPosition.X, (int)topLeftPosition.Y, (int)size.X, (int)size.Y);
 
                 GameDebug.DrawBoundingBox(spriteBatch, tempRect, Color.DeepPink, 5);
@@ -78,13 +82,39 @@ namespace TKGame.Level_Editor_Content
                 topLeftPosition.Y = Math.Min(startPosition.Y, endPosition.Y);
                 size = new Vector2(Math.Abs(startPosition.X - endPosition.X), Math.Abs(startPosition.Y - endPosition.Y));
 
+                // Align the rectangle to the grid
+                Rectangle alignedRect = AlignRectToGrid(new Rectangle(
+                                                        (int)topLeftPosition.X, 
+                                                        (int)topLeftPosition.Y, 
+                                                        (int)size.X, 
+                                                        (int)size.Y), 
+                                                        GRID_SIZE);
 
-                Wall newWall = new Wall(((int)topLeftPosition.X), ((int)topLeftPosition.Y), ((int)size.X), ((int)size.Y), graphics);
+                Wall newWall = new Wall(alignedRect, graphics);
 
                 stage.walls.Add(newWall);
             }
 
             previousMouseState = currentMouseState;
+        }
+
+        internal static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
+        {
+            // Calculate the position of the closest grid square
+            int snappedX = (int)Math.Round((double)rect.X / gridSize) * gridSize;
+            int snappedY = (int)Math.Round((double)rect.Y / gridSize) * gridSize;
+
+            // Calculate the width and height of the rectangle in grid units
+            int snappedWidth = (int)Math.Round((double)rect.Width / gridSize) * gridSize;
+            int snappedHeight = (int)Math.Round((double)rect.Height / gridSize) * gridSize;
+
+            // Update with new snapped position/size
+            rect.X = snappedX;
+            rect.Y = snappedY;
+            rect.Width = snappedWidth;
+            rect.Height = snappedHeight;
+
+            return rect;
         }
 
         /// <summary>

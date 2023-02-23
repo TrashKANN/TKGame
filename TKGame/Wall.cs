@@ -28,5 +28,12 @@ namespace TKGame
             Texture = new Texture2D(graphicsDevice, 1, 1);
             Texture.SetData(new Color[] { Color.White });
         }
+
+        public Wall(Rectangle rect, GraphicsDevice graphicsDevice)
+        {
+            Rect = rect;
+            Texture = new Texture2D(graphicsDevice, 1, 1);
+            Texture.SetData(new Color[] { Color.White });
+        }
     }
 }

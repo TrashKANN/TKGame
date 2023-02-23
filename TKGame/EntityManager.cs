@@ -56,10 +56,10 @@ namespace TKGame
         /// <param name="gameTime"></param>
         public static void Update(GameTime gameTime)
         {
-            IsUpdating= true;
+            IsUpdating = true;
             // HandleCollision();
-
-            // Update each entity that from previous frame
+            
+            // Update each entity from previous frame
             foreach (var entity in entities)
                 entity.Update(gameTime);
 
