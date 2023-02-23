@@ -12,8 +12,6 @@ using Microsoft.Xna.Framework.Graphics;
 // JSON includes
 using System.IO;
 using System.Text.Json;
-using Myra.Graphics2D.UI;
-
 
 namespace TKGame.Level_Editor_Content
 {
@@ -21,15 +19,15 @@ namespace TKGame.Level_Editor_Content
     {
         public int X { get; set;}
         public int Y { get; set;}
-        public int width { get; set;}
-        public int height { get; set;}
+        public int dataWidth { get; set;}
+        public int dataHeight { get; set;}
     }
     static class LevelEditor
     {
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
         internal static bool EditMode = false;
-        private static readonly int GRID_SIZE = 64;
+        private static readonly int GRID_SIZE = 16;
 
         /// <summary>
         /// Toggles the functionallity of the Level Editor
@@ -50,6 +48,8 @@ namespace TKGame.Level_Editor_Content
         public static void BuildWall(Stage stage, GraphicsDevice graphics, SpriteBatch spriteBatch)
         {
             MouseState currentMouseState = Mouse.GetState();
+            
+            // Can be simiplified to Vector2 ... = new(); since we know the type. Style guide discussion required.
             Vector2 topLeftPosition = new Vector2();
             Vector2 size = new Vector2();
 
@@ -98,6 +98,12 @@ namespace TKGame.Level_Editor_Content
             previousMouseState = currentMouseState;
         }
 
+        /// <summary>
+        /// Aligns any passed rectangles/hitboxes to the grid based on the passed size. GridSize is a constant.
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <param name="gridSize"></param>
+        /// <returns></returns>
         internal static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
         {
             // Calculate the position of the closest grid square
@@ -117,6 +123,27 @@ namespace TKGame.Level_Editor_Content
             return rect;
         }
 
+        internal static void DrawGridLines(SpriteBatch spriteBatch, int screenWidth, int screenHeight, Color color)
+        {
+            // Calculate the number of grid squares in each direction
+            int numHorizontalGridSquares = screenWidth / GRID_SIZE;
+            int numVerticalGridSquares = screenHeight / GRID_SIZE;
+
+            // Draw the horizontal grid lines
+            for (int i = 0; i < numVerticalGridSquares; i++)
+            {
+                int y = i * GRID_SIZE;
+                GameDebug.DrawBoundingBox(spriteBatch, new Rectangle(0, y, screenWidth, 1), color, 1);
+            }
+
+            // Draw the vertical grid lines
+            for (int i = 0; i < numHorizontalGridSquares; i++)
+            {
+                int x = i * GRID_SIZE;
+                GameDebug.DrawBoundingBox(spriteBatch, new Rectangle(x, 0, 1, screenHeight), color, 1);
+            }
+        }
+
         /// <summary>
         /// Goes through each wall within the given stage and serializes them into a JSON format for storage.
         /// This allows the functionality of saving stages for later use.
@@ -133,14 +160,14 @@ namespace TKGame.Level_Editor_Content
             // For each wall, Add the data to the WallData list
             foreach (Wall wall in stage.walls)
             {
-                if (wall.Rect.Width != 0 && wall.Rect.Height != 0)
+                if (wall.HitBox.Width != 0 && wall.HitBox.Height != 0)
                 {
                     WallData walldata = new WallData()
                     {
-                        X = wall.Rect.X,
-                        Y = wall.Rect.Y,
-                        width = wall.Rect.Width,
-                        height = wall.Rect.Height,
+                        X = wall.HitBox.X,
+                        Y = wall.HitBox.Y,
+                        dataWidth = wall.HitBox.Width,
+                        dataHeight = wall.HitBox.Height,
                     };
 
                     wallDataList.Add(walldata);
@@ -165,6 +192,13 @@ namespace TKGame.Level_Editor_Content
             }
 
             string path = Path.Combine(directory, newStageName + ".json");
+            for (int i = 1; i <= 100; i++)
+            {
+                if (File.Exists(path))
+                    path = Path.Combine(directory, newStageName + "_" + i.ToString() + ".json");
+                else
+                    break;
+            }
 
             File.WriteAllText(path, json);
         }
@@ -188,7 +222,7 @@ namespace TKGame.Level_Editor_Content
 
             foreach (WallData wallData in jsonStageData)
             {
-                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.width, wallData.height, graphics);
+                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, graphics);
                 newStage.walls.Add(newWall);
             }
 

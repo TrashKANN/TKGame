@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace TKGame
 {
-    internal class Wall
+    public class Wall : ICollidable
     {
-        public Rectangle Rect { get; private set; }
+        public Rectangle hitBox;
+        public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }
         public Texture2D Texture { get; private set; }
 
         /// <summary>
@@ -24,14 +25,14 @@ namespace TKGame
         /// <param name="graphicsDevice">Graphics device used to create textures with</param>
         public Wall(int x, int y, int width, int height, GraphicsDevice graphicsDevice)
         {
-            Rect = new Rectangle(x, y, width, height);
+            HitBox = new Rectangle(x, y, width, height);
             Texture = new Texture2D(graphicsDevice, 1, 1);
             Texture.SetData(new Color[] { Color.White });
         }
 
         public Wall(Rectangle rect, GraphicsDevice graphicsDevice)
         {
-            Rect = rect;
+            HitBox = rect;
             Texture = new Texture2D(graphicsDevice, 1, 1);
             Texture.SetData(new Color[] { Color.White });
         }

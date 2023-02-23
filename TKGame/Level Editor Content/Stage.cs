@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace TKGame.Level_Editor_Content
 {
-    internal class Stage : IEnumerable<Stage>
+    public class Stage : IEnumerable<Stage>
     {
         // Mainly just used for the default dev stage
         private static readonly int screenWidth = 1600;

@@ -263,10 +263,10 @@ namespace TKGame
             }
 
             // These will draw thin rectangles (essentially lines) on each edge of a rectangle
-            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X, rectangle.Y, lineWidth, rectangle.Height + lineWidth), color);
-            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width + lineWidth, lineWidth), color);
-            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X + rectangle.Width, rectangle.Y, lineWidth, rectangle.Height + lineWidth), color);
-            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height, rectangle.Width + lineWidth, lineWidth), color);
+            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X, rectangle.Y, lineWidth, rectangle.Height), color);
+            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, lineWidth), color);
+            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X + rectangle.Width - lineWidth, rectangle.Y, lineWidth, rectangle.Height), color);
+            spriteBatch.Draw(HitboxTexture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height - lineWidth, rectangle.Width, lineWidth), color);
         }
 
         /// <summary>

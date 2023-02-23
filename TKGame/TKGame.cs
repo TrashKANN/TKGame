@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,12 +30,17 @@ namespace TKGame
         private Desktop desktop;
         private KeyboardState previousState, currentState;
 
-
         //Declare Background Object
         private Background BackgroundImage;
 
+        // Declare Enemy Object
+        Enemy enemy;
+
+        //Declare Triggers
+        List<Trigger> triggers;
+        
         // TODO: Refactor out of the main TKGame class
-        private static readonly string currentStageName = "defaultStage" + ".json";
+        private static string currentStageName = "defaultStage" + ".json";
         Stage currentStage;
         int screenWidth, screenHeight;
         bool paused = false;
@@ -64,8 +70,19 @@ namespace TKGame
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
 
+            // Create Triggers
+            // TODO: Create Functionality for Procedural Generation with Level Designer
+            triggers = new List<Trigger>()
+            {
+                new Trigger(0,screenHeight - 240, 55, 195, GraphicsDevice),
+                new Trigger(screenWidth - 50, screenHeight - 240, 50, 195, GraphicsDevice),
+            };
+
             // TODO: Remove magic numbers
             // Initialize a default stage.
+            currentStageName = File.Exists(currentStageName) 
+                ? currentStageName 
+                : "defaultStage.json";
             List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(currentStageName, graphics.GraphicsDevice)).walls;
             currentStage = new Stage(stageWalls ,graphics.GraphicsDevice);
 
@@ -88,11 +105,15 @@ namespace TKGame
 
             Art.LoadContent(Content);
 
+            // Manually adding entities at the moment...
             EntityManager.Add(Player.Instance);
+            EntityManager.Add(Enemy.Instance);
+            EntityManager.Add(Item.Instance);
 
             //Loads Image into the Texture
             BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
 
+            
             // Load debug content
             GameDebug.LoadContent();
 
@@ -112,7 +133,7 @@ namespace TKGame
             //Do if not paused
             if (!paused)
             {
-                EntityManager.Update(gameTime);
+                EntityManager.Update(gameTime, spriteBatch, currentStage);
             }
 
             // Exit the game if Escape is pressed
@@ -169,18 +190,26 @@ namespace TKGame
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
             //Draws the image into the Background
-            spriteBatch.Draw(BackgroundImage.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
+            spriteBatch.Draw(Art.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
 
             // Draw each wall to the screen
             // Update level editor
 
             foreach (Wall wall in currentStage.walls)
             {
-                spriteBatch.Draw(wall.Texture, wall.Rect, WALL_COLOR);
+                spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
                 if (GameDebug.DebugMode) 
                 { 
-                    GameDebug.DrawBoundingBox(spriteBatch, wall.Rect, Color.Lime, 5); 
+                    GameDebug.DrawBoundingBox(spriteBatch, wall.HitBox, Color.Lime, 5); 
                 }
+            }
+
+
+            //Draw Triggers in gaps in the walls
+            //TODO: Add Functionality for Level Designer
+            foreach (Trigger trigger in triggers)
+            {
+                spriteBatch.Draw(trigger.texture, trigger.rectangle, Color.White);
             }
 
             EntityManager.Draw(spriteBatch);
@@ -197,7 +226,10 @@ namespace TKGame
             if (LevelEditor.EditMode == true)
             {
                 LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
+                LevelEditor.DrawGridLines(spriteBatch, screenWidth, screenHeight, Color.Black);
             }
+
+            Entity.DrawCollisionIntersections(spriteBatch, EntityManager.GetEntities()[0].collisions);
 
             spriteBatch.End();
 
