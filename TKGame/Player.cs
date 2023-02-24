@@ -47,6 +47,8 @@ namespace TKGame
             HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
+        
+
         /// <summary>
         /// Grabs the input data, uses that and the deltaTime to update the Player's velocity and orientation.
         /// </summary>
@@ -67,6 +69,7 @@ namespace TKGame
         {
             base.Draw(spriteBatch);
         }
+        
 
         #region Update Helper Functions
         /// <summary>
@@ -75,6 +78,7 @@ namespace TKGame
         /// <param name="deltaTime"></param>
         private void UpdatePlayerPosition(float deltaTime)
         {
+
             Vector2 endVelocity = Velocity;
 
             endVelocity.X += MOVEMENT_SPEED * Velocity.X * deltaTime;

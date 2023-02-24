@@ -19,7 +19,7 @@ namespace TKGame
         public static void LoadContent(ContentManager content)
         {
             PlayerTexture = content.Load<Texture2D>(@"Art/Player"); // Will need to be modified when we create a better structure for our files.
-            BackgroundTexture = content.Load<Texture2D>(@"Art/Cobble");
+            BackgroundTexture = content.Load<Texture2D>(@"Art/Cobble"); //Background image
             EnemyTexture = content.Load<Texture2D>(@"Art/DoomguyRightFacing"); // enemy as doomguy
             ItemTexture = content.Load<Texture2D>(@"Art/DiamondSwordLeftTilt"); // item as diamond sword 
         }
