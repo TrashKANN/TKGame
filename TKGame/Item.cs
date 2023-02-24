@@ -54,9 +54,30 @@ namespace TKGame
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            Player player = EntityManager.GetEntities().FirstOrDefault(x => x.entityName == "Player" && x is Player) as Player;
-            // TODO: check if player is null
+            PickUpItem();
+        }
 
+        /// <summary>
+        /// Method to simulate picking up item
+        /// Checks if player is within range of item,
+        /// if so, then transports item to corner
+        /// to simulate inventory
+        /// </summary>
+        public void PickUpItem()
+        {
+            Player player = Player.Instance;
+
+            if (player != null)
+            {
+                // if player is within range of item spawn position
+                if (player.Position.X >= Position.X - 20 &&
+                    player.Position.X <= Position.X + 20 &&
+                    player.Position.Y >= Position.Y - 80 &&
+                    player.Position.Y <= Position.Y + 80)    // TODO: CHANGE FROM MAGIC NUMBERS TO COLLISION DETECTION
+                {
+                    Position = new Vector2(1500, 100);       // temporarily move item to corner to imitate inventory
+                }
+            }
         }
 
         /// <summary>
