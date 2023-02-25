@@ -16,7 +16,7 @@ namespace TKGame
 {
     internal class WeaponSystem
     {
-        #region
+        #region Member Variables
         public static bool visible;
         public static VerticalStackPanel VSP { get; private set; }  //To hold weapon labels
 
