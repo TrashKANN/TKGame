@@ -19,8 +19,6 @@ namespace TKGame
         private static object syncRoot = new object();
         Vector2 spawn = new Vector2(150, 700);           // to set initial Position
         Vector2 speed = new Vector2((float)1.5, 1);      // to set initial Velocity
-        int rightBoundary = 1500;                        // right boundary variable for Enemy's patrol
-        int leftBoundary = 150;                          // left boundary variable for Enemy's patrol
 
         /// <summary>
         /// Create instance of Enemy object with locking for gaurantee
@@ -52,7 +50,6 @@ namespace TKGame
             Position = spawn;
             Velocity.X = speed.X;
             entityName = "enemy"; // name for current enemy class
-            //HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
             HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
@@ -68,8 +65,6 @@ namespace TKGame
 
         public void Move()
         {
-            // getter for player class
-            // Player player = EntityManager.GetEntities().FirstOrDefault(x => x.entityName == "player" && x is Player) as Player;
             Player player = Player.Instance;
 
             // check if player is null
@@ -82,7 +77,6 @@ namespace TKGame
                     Position.X -= speed.X;
                     Orientation = SpriteEffects.FlipHorizontally;
                 }
-                    
                 if (Position.X < playerPosition.X)
                 {
                     Position.X += speed.X;
@@ -101,22 +95,6 @@ namespace TKGame
                 hitBox.Y = (int)Position.Y - (int)Size.Y / 2;
                 Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
             }
-
-            // Enemy initially starts moving to right
-            //Position.X += Velocity.X;
-
-            // Enemy moves left
-            //if (Position.X == rightBoundary)
-            //{
-            //    Velocity.X = -speed.X;                      
-            //    Orientation = SpriteEffects.FlipHorizontally;
-            //}
-            // Enemy moves right
-            //else if (Position.X == leftBoundary)
-            //{
-            //    Velocity.X = speed.X;                       
-            //    Orientation = SpriteEffects.None;
-            //}
         }
 
         /// <summary>
