@@ -45,7 +45,7 @@ namespace TKGame
         {
             entityTexture = Art.ItemTexture;
             Position = new Vector2(1200, 840);
-            entityName = "item"; // name for current item class
+            entityName = "item"; 
         }
 
         /// <summary>
