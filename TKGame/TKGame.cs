@@ -23,6 +23,9 @@ namespace TKGame
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static GameTime GameTime { get; private set; }
 
+        //Declares public Vertical Stack Panel
+        public VerticalStackPanel VSP { get; protected set; }
+
         // TODO: Move this to another class eventually
         private static readonly Color WALL_COLOR = new Color(0x9a, 0x9b, 0x9c, 0xFF);
 
@@ -33,12 +36,14 @@ namespace TKGame
 
         //Declare Background Object
         private Background BackgroundImage;
+        
 
         // Declare Enemy Object
         Enemy enemy;
 
         //Declare Triggers
         List<Trigger> triggers;
+
         
         // TODO: Refactor out of the main TKGame class
         private static string currentStageName = "auto_saved_stage_data_5" + ".json";
@@ -55,6 +60,7 @@ namespace TKGame
             IsFixedTimeStep = true; // Time between frames is constant
             TargetElapsedTime = TimeSpan.FromSeconds(1d / 240d); // Set target fps (240 for now)
             graphics = new GraphicsDeviceManager(this);
+            VSP = new VerticalStackPanel();
             graphics.SynchronizeWithVerticalRetrace = false; // Disable v-sync
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
@@ -92,12 +98,16 @@ namespace TKGame
             // Initialize keyboard states (used for one-shot keyboard inputs)
             previousState = currentState = new KeyboardState();
 
+
             // Initialize debug information
             GameDebug.Initialize();
 #if DEBUG
             // For now, just enable DebugMode when building a Debug version
             GameDebug.DebugMode = true;
 #endif
+            //Initializing WeaponSystem
+            WeaponSystem.Initialize();
+
             base.Initialize();
         }
         protected override void LoadContent()
@@ -112,15 +122,23 @@ namespace TKGame
             EntityManager.Add(Item.Instance);
 
             //Loads Image into the Texture
+
+            //BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
+
+            // Load Weapon System Content
+            WeaponSystem.LoadContent(VSP);
            // BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"C:/Users/");
+
 
             
             // Load debug content
-            GameDebug.LoadContent();
+            GameDebug.LoadContent(VSP);
+
+
 
             // Continue setting up Myra
             desktop = new Desktop();
-            desktop.Root = GameDebug.VSP;
+            desktop.Root = VSP;
         }
         protected override void Update(GameTime gameTime)
         {
@@ -181,6 +199,9 @@ namespace TKGame
 
             // Set the previous state now that we've checked for our desired inputs
             previousState = currentState;
+
+            // Updates Weapon System
+            WeaponSystem.Update();
 
             // Update debug information
             GameDebug.Update();

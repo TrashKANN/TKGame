@@ -20,7 +20,7 @@ namespace TKGame
         public static bool DebugMode { get; set; }
 
         // Vertical stack panel that will hold all the UI elements for debug information
-        public static VerticalStackPanel VSP { get; private set; }
+        //public static VerticalStackPanel VSP { get; private set; }
 
         private static Dictionary<Keys, Label> keyboardLabelDict = new Dictionary<Keys, Label>()
         {
@@ -32,6 +32,11 @@ namespace TKGame
         };
 
         private static double FPS { get; set; }
+
+        //Spacers to separate VSP
+        private static Label spacer1 { get; set; }
+        private static Label spacer2 { get; set; }
+
 
         // FontSystems allow us to use fonts with Myra
         private static FontSystem DebugFontSystem { get; set; }
@@ -63,19 +68,17 @@ namespace TKGame
         {
             DebugMode = false;
             KeyboardGrid = new Grid();
+            spacer1 = new Label();
+            spacer2 = new Label();
             FPSText = new Label();
             PlayerPosText = new Label();
             PlayerVelText = new Label();
             ActiveBackgroundBrush = new SolidBrush(KEYBOARD_OVERLAY_ACTIVE_BACKGROUND_COLOR);
             InactiveBackgroundBrush = new SolidBrush(KEYBOARD_OVERLAY_INACTIVE_BACKGROUND_COLOR);
 
-            // Create a VerticalStackPanel to put all the debug elements in so they look nice
-            // without needing to manually position every element
-            VSP = new VerticalStackPanel();
-
             UIWidgets = new List<Widget>()
             {
-                FPSText, PlayerPosText, PlayerVelText, KeyboardGrid
+                spacer1, FPSText, PlayerPosText, PlayerVelText, KeyboardGrid
             };
 
             // FontSystem is kinda like a font-handler. We can use this to retrieve the
@@ -88,7 +91,7 @@ namespace TKGame
         /// <summary>
         /// Load/Stylize all debug UI elements
         /// </summary>
-        public static void LoadContent()
+        public static void LoadContent(VerticalStackPanel VSP)
         {
             VSP.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
 
@@ -173,7 +176,6 @@ namespace TKGame
             }
 
             VSP.Widgets.Add(KeyboardGrid);
-
         }
 
         /// <summary>
