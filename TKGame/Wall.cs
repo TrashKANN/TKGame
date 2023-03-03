@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TKGame
 {
-    internal class Wall : ICollidable
+    public class Wall : ICollidable
     {
         public Rectangle hitBox;
         public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }
@@ -26,6 +26,13 @@ namespace TKGame
         public Wall(int x, int y, int width, int height, GraphicsDevice graphicsDevice)
         {
             HitBox = new Rectangle(x, y, width, height);
+            Texture = new Texture2D(graphicsDevice, 1, 1);
+            Texture.SetData(new Color[] { Color.White });
+        }
+
+        public Wall(Rectangle rect, GraphicsDevice graphicsDevice)
+        {
+            HitBox = rect;
             Texture = new Texture2D(graphicsDevice, 1, 1);
             Texture.SetData(new Color[] { Color.White });
         }

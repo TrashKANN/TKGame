@@ -19,14 +19,15 @@ namespace TKGame.Level_Editor_Content
     {
         public int X { get; set;}
         public int Y { get; set;}
-        public int width { get; set;}
-        public int height { get; set;}
+        public int dataWidth { get; set;}
+        public int dataHeight { get; set;}
     }
     static class LevelEditor
     {
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
         internal static bool EditMode = false;
+        private static readonly int GRID_SIZE = 32;
 
         /// <summary>
         /// Toggles the functionallity of the Level Editor
@@ -47,6 +48,8 @@ namespace TKGame.Level_Editor_Content
         public static void BuildWall(Stage stage, GraphicsDevice graphics, SpriteBatch spriteBatch)
         {
             MouseState currentMouseState = Mouse.GetState();
+            
+            // Can be simiplified to Vector2 ... = new(); since we know the type. Style guide discussion required.
             Vector2 topLeftPosition = new Vector2();
             Vector2 size = new Vector2();
 
@@ -65,6 +68,7 @@ namespace TKGame.Level_Editor_Content
                 topLeftPosition.Y = Math.Min(startPosition.Y, endPosition.Y);
                 size = new Vector2(Math.Abs(startPosition.X - endPosition.X), Math.Abs(startPosition.Y - endPosition.Y));
 
+                // Used for drawing the outline of the to be created wall
                 Rectangle tempRect = new Rectangle((int)topLeftPosition.X, (int)topLeftPosition.Y, (int)size.X, (int)size.Y);
 
                 GameDebug.DrawBoundingBox(spriteBatch, tempRect, Color.DeepPink, 5);
@@ -78,13 +82,67 @@ namespace TKGame.Level_Editor_Content
                 topLeftPosition.Y = Math.Min(startPosition.Y, endPosition.Y);
                 size = new Vector2(Math.Abs(startPosition.X - endPosition.X), Math.Abs(startPosition.Y - endPosition.Y));
 
+                // Align the rectangle to the grid
+                Rectangle alignedRect = AlignRectToGrid(new Rectangle(
+                                                        (int)topLeftPosition.X, 
+                                                        (int)topLeftPosition.Y, 
+                                                        (int)size.X, 
+                                                        (int)size.Y), 
+                                                        GRID_SIZE);
 
-                Wall newWall = new Wall(((int)topLeftPosition.X), ((int)topLeftPosition.Y), ((int)size.X), ((int)size.Y), graphics);
+                Wall newWall = new Wall(alignedRect, graphics);
+
 
                 stage.walls.Add(newWall);
             }
 
             previousMouseState = currentMouseState;
+        }
+
+        /// <summary>
+        /// Aligns any passed rectangles/hitboxes to the grid based on the passed size. GridSize is a constant.
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <param name="gridSize"></param>
+        /// <returns></returns>
+        internal static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
+        {
+            // Calculate the position of the closest grid square
+            int snappedX = (int)Math.Round((double)rect.X / gridSize) * gridSize;
+            int snappedY = (int)Math.Round((double)rect.Y / gridSize) * gridSize;
+
+            // Calculate the width and height of the rectangle in grid units
+            int snappedWidth = (int)Math.Round((double)rect.Width / gridSize) * gridSize;
+            int snappedHeight = (int)Math.Round((double)rect.Height / gridSize) * gridSize;
+
+            // Update with new snapped position/size
+            rect.X = snappedX;
+            rect.Y = snappedY;
+            rect.Width = snappedWidth;
+            rect.Height = snappedHeight;
+
+            return rect;
+        }
+
+        internal static void DrawGridLines(SpriteBatch spriteBatch, int screenWidth, int screenHeight, Color color)
+        {
+            // Calculate the number of grid squares in each direction
+            int numHorizontalGridSquares = screenWidth / GRID_SIZE;
+            int numVerticalGridSquares = screenHeight / GRID_SIZE;
+
+            // Draw the horizontal grid lines
+            for (int i = 0; i < numVerticalGridSquares; i++)
+            {
+                int y = i * GRID_SIZE;
+                GameDebug.DrawBoundingBox(spriteBatch, new Rectangle(0, y, screenWidth, 1), color, 1);
+            }
+
+            // Draw the vertical grid lines
+            for (int i = 0; i < numHorizontalGridSquares; i++)
+            {
+                int x = i * GRID_SIZE;
+                GameDebug.DrawBoundingBox(spriteBatch, new Rectangle(x, 0, 1, screenHeight), color, 1);
+            }
         }
 
         /// <summary>
@@ -109,8 +167,8 @@ namespace TKGame.Level_Editor_Content
                     {
                         X = wall.HitBox.X,
                         Y = wall.HitBox.Y,
-                        width = wall.HitBox.Width,
-                        height = wall.HitBox.Height,
+                        dataWidth = wall.HitBox.Width,
+                        dataHeight = wall.HitBox.Height,
                     };
 
                     wallDataList.Add(walldata);
@@ -165,7 +223,7 @@ namespace TKGame.Level_Editor_Content
 
             foreach (WallData wallData in jsonStageData)
             {
-                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.width, wallData.height, graphics);
+                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, graphics);
                 newStage.walls.Add(newWall);
             }
 

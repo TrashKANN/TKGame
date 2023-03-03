@@ -46,7 +46,7 @@ namespace TKGame
 
         
         // TODO: Refactor out of the main TKGame class
-        private static string currentStageName = "auto_saved_stage_data_5" + ".json";
+        private static string currentStageName = "defaultStage" + ".json";
         Stage currentStage;
         Stage leftStage;
         Stage rightStage;
@@ -120,6 +120,10 @@ namespace TKGame
             EntityManager.Add(Player.Instance);
             EntityManager.Add(Enemy.Instance);
             EntityManager.Add(Item.Instance);
+
+            EntityManager.Add(Enemy.Instance);
+
+            EntityManager.Add(Enemy.Instance);
 
             //Loads Image into the Texture
 
@@ -243,7 +247,6 @@ namespace TKGame
             {
                 spriteBatch.Draw(trigger.texture, trigger.rectangle, Color.White);
             }
-            
 
             EntityManager.Draw(spriteBatch);
 
@@ -259,6 +262,7 @@ namespace TKGame
             if (LevelEditor.EditMode == true)
             {
                 LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
+                LevelEditor.DrawGridLines(spriteBatch, screenWidth, screenHeight, Color.Black);
             }
 
             Entity.DrawCollisionIntersections(spriteBatch, EntityManager.GetEntities()[0].collisions);
