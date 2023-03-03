@@ -27,7 +27,7 @@ namespace TKGame.Level_Editor_Content
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
         internal static bool EditMode = false;
-        private static readonly int GRID_SIZE = 16;
+        private static readonly int GRID_SIZE = 32;
 
         /// <summary>
         /// Toggles the functionallity of the Level Editor
