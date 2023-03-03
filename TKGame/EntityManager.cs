@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.Level_Editor_Content;
 
 namespace TKGame
 {
@@ -54,14 +55,17 @@ namespace TKGame
         /// Updates each entity in the World entity list. Then adds all new entities to the World list, then clears the new entity list as well as the Expired entities in the World.
         /// </summary>
         /// <param name="gameTime"></param>
-        public static void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime, SpriteBatch spriteBatch, Stage stage)
         {
             IsUpdating= true;
             // HandleCollision();
 
             // Update each entity that from previous frame
             foreach (var entity in entities)
+            {
                 entity.Update(gameTime);
+                entity.Collide(stage.walls);
+            }
 
             IsUpdating= false;
 

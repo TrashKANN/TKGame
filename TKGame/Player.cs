@@ -4,6 +4,9 @@ using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using TKGame.Level_Editor_Content;
 
 namespace TKGame
 {
@@ -11,6 +14,8 @@ namespace TKGame
     {
         private static Player instance;
         private static object syncRoot = new object();
+        private static readonly float GRAVITY = 1.0f;
+        private static float MOVEMENT_SPEED = 500.0f;
         public static Player Instance
         {
             get
@@ -37,7 +42,12 @@ namespace TKGame
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             Position = new Vector2(1600/2, 900 - 40);
+            entityName = "player"; // name for player class
+            Position = new Vector2(1600/2, 900 - 70);
+            HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
+
+        
 
         /// <summary>
         /// Grabs the input data, uses that and the deltaTime to update the Player's velocity and orientation.
@@ -48,21 +58,7 @@ namespace TKGame
             // Player Movement
             Velocity = Input.GetMovementDirection();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            const float movementSpeed = 500;
-
-            Position.X += movementSpeed * Velocity.X * deltaTime;
-            Position.Y += movementSpeed * Velocity.Y * deltaTime;
-
-            Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
-
-            if (Velocity.X > 0) 
-            {
-                Orientation = SpriteEffects.None;
-            }
-            else if (Velocity.X < 0)
-            {
-                Orientation = SpriteEffects.FlipHorizontally;
-            }
+            UpdatePlayerPosition(deltaTime);
         }
 
         /// <summary>
@@ -73,5 +69,41 @@ namespace TKGame
         {
             base.Draw(spriteBatch);
         }
+        
+
+        #region Update Helper Functions
+        /// <summary>
+        /// Updates the Player position based on the keyboard input and gravity.
+        /// </summary>
+        /// <param name="deltaTime"></param>
+        private void UpdatePlayerPosition(float deltaTime)
+        {
+
+            Vector2 endVelocity = Velocity;
+
+            endVelocity.X += MOVEMENT_SPEED * Velocity.X * deltaTime;
+            endVelocity.Y += MOVEMENT_SPEED * Velocity.Y * deltaTime;
+
+
+            if (Velocity.X > 0)
+            {
+                Orientation = SpriteEffects.None;
+            }
+            else if (Velocity.X < 0)
+            {
+                Orientation = SpriteEffects.FlipHorizontally;
+            }
+
+            endVelocity.Y += GRAVITY;
+
+            Position += endVelocity;
+
+            hitBox.X = (int)Position.X - (int)Size.X / 2;
+            hitBox.Y = (int)Position.Y - (int)Size.Y / 2;
+
+            Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
+        }
+
+        #endregion Update Helper Functions
     }
 }

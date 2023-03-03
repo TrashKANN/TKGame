@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D.Brushes;
 using System.ComponentModel;
 
+
 namespace TKGame
 {
     public class WeaponSystem
@@ -38,8 +39,13 @@ namespace TKGame
         private static readonly string spearText = "Spear";
         private static readonly string axeText = "Axe";
 
+        List<string> weaponNames = new List<string>() { "Sword", "Spear", "Bow" };
+        List<bool> weaponBools = new List<bool>() { false, false, false };
+
+
 
         #endregion
+
 
         /// <summary>
         /// Initialize Weapon System UI Elements
@@ -108,6 +114,16 @@ namespace TKGame
             swordLabel.Text = swordText;
             spearLabel.Text = spearText;
             axeLabel.Text = axeText;
+        }
+
+        public static void Initialize()
+        {
+
+        }
+
+        public static void LoadContent()
+        {
+
         }
     }
 }
