@@ -116,11 +116,6 @@ namespace TKGame
             axeLabel.Text = axeText;
         }
 
-        public static void Initialize()
-        {
-
-        }
-
         public static void LoadContent()
         {
 
