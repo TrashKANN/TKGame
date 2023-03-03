@@ -19,6 +19,9 @@ namespace TKGame
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static GameTime GameTime { get; private set; }
 
+        //Declares public Vertical Stack Panel
+        public VerticalStackPanel VSP { get; protected set; }
+
         // TODO: Move this to another class eventually
         private static readonly Color WALL_COLOR = new Color(0x9a, 0x9b, 0x9c, 0xFF);
 
@@ -30,6 +33,8 @@ namespace TKGame
 
         //Declare Background Object
         private Background BackgroundImage;
+
+        
         
         // TODO: Refactor out of the main TKGame class
         List<Wall> walls;
@@ -43,6 +48,7 @@ namespace TKGame
             IsFixedTimeStep = true; // Time between frames is constant
             TargetElapsedTime = TimeSpan.FromSeconds(1d / 240d); // Set target fps (240 for now)
             graphics = new GraphicsDeviceManager(this);
+            VSP = new VerticalStackPanel();
             graphics.SynchronizeWithVerticalRetrace = false; // Disable v-sync
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
@@ -100,17 +106,16 @@ namespace TKGame
             //BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
 
             // Load Weapon System Content
-            WeaponSystem.LoadContent();
+            WeaponSystem.LoadContent(VSP);
 
             // Load debug content
-            GameDebug.LoadContent();
+            GameDebug.LoadContent(VSP);
 
-            //Load WeaponSystem UI
-            WeaponSystem.LoadContent();
+
 
             // Continue setting up Myra
             desktop = new Desktop();
-            desktop.Root = GameDebug.VSP;
+            desktop.Root = VSP;
         }
 
         protected override void Update(GameTime gameTime)

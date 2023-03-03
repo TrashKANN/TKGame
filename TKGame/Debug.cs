@@ -20,7 +20,7 @@ namespace TKGame
         public static bool DebugMode { get; set; }
 
         // Vertical stack panel that will hold all the UI elements for debug information
-        public static VerticalStackPanel VSP { get; private set; }
+        //public static VerticalStackPanel VSP { get; private set; }
 
         private static Dictionary<Keys, Label> keyboardLabelDict = new Dictionary<Keys, Label>()
         {
@@ -33,15 +33,9 @@ namespace TKGame
 
         private static double FPS { get; set; }
 
-        //Weapon System Elements (Temporary) TODO: Get Working with Separate Weapon System Class
-        private static Label swordLabel { get; set; }
-        private static Label spearLabel { get; set; }
-        private static Label axeLabel { get; set; }
-        private static Texture2D weaponTexture { get; set; }
-
-        private static readonly string swordText = "Sword";
-        private static readonly string spearText = "Spear";
-        private static readonly string axeText = "Axe";
+        //Spacers to separate VSP
+        private static Label spacer1 { get; set; }
+        private static Label spacer2 { get; set; }
 
 
         // FontSystems allow us to use fonts with Myra
@@ -74,22 +68,17 @@ namespace TKGame
         {
             DebugMode = false;
             KeyboardGrid = new Grid();
+            spacer1 = new Label();
+            spacer2 = new Label();
             FPSText = new Label();
             PlayerPosText = new Label();
             PlayerVelText = new Label();
-            swordLabel = new Label();
-            spearLabel= new Label();
-            axeLabel = new Label();
             ActiveBackgroundBrush = new SolidBrush(KEYBOARD_OVERLAY_ACTIVE_BACKGROUND_COLOR);
             InactiveBackgroundBrush = new SolidBrush(KEYBOARD_OVERLAY_INACTIVE_BACKGROUND_COLOR);
 
-            // Create a VerticalStackPanel to put all the debug elements in so they look nice
-            // without needing to manually position every element
-            VSP = new VerticalStackPanel();
-
             UIWidgets = new List<Widget>()
             {
-                FPSText, PlayerPosText, PlayerVelText, KeyboardGrid
+                spacer1, FPSText, PlayerPosText, PlayerVelText, KeyboardGrid
             };
 
             // FontSystem is kinda like a font-handler. We can use this to retrieve the
@@ -102,7 +91,7 @@ namespace TKGame
         /// <summary>
         /// Load/Stylize all debug UI elements
         /// </summary>
-        public static void LoadContent()
+        public static void LoadContent(VerticalStackPanel VSP)
         {
             VSP.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
 
@@ -187,26 +176,6 @@ namespace TKGame
             }
 
             VSP.Widgets.Add(KeyboardGrid);
-
-            // WeaponSystem UI Elements
-            swordLabel.Text = string.Empty;
-            swordLabel.TextColor = DEBUG_TEXT_COLOR;
-            swordLabel.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
-            swordLabel.Visible = DebugMode;
-            VSP.Widgets.Add(swordLabel);
-
-            spearLabel.Text = string.Empty;
-            spearLabel.TextColor = DEBUG_TEXT_COLOR;
-            spearLabel.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
-            spearLabel.Visible = DebugMode;
-            VSP.Widgets.Add(spearLabel);
-
-            axeLabel.Text= string.Empty;
-            axeLabel.TextColor = DEBUG_TEXT_COLOR;
-            axeLabel.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
-            axeLabel.Visible = DebugMode;
-            VSP.Widgets.Add(axeLabel);
-
         }
 
         /// <summary>
@@ -256,9 +225,6 @@ namespace TKGame
                 + $"\ny-pos: {Math.Round(Player.Instance.Position.Y, 2)}";
             PlayerVelText.Text = $"x-vel: {Math.Round(Player.Instance.Velocity.X, 2)}"
                 + $"\ny-vel: {Math.Round(Player.Instance.Velocity.Y, 2)}";
-            swordLabel.Text = swordText;
-            spearLabel.Text = spearText;
-            axeLabel.Text = axeText;
 
             UpdateKeyboardOverlay();
         }

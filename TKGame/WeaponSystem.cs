@@ -70,9 +70,9 @@ namespace TKGame
         /// <summary>
         /// Load/Stylize all Weapon System UI elements
         /// </summary>
-        public static void LoadContent()
+        public static void LoadContent(VerticalStackPanel VSP)
         {
-            VSP.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
+            //VSP.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
 
             // Configure labels
                 // Sword Label
