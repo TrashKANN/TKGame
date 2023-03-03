@@ -92,6 +92,7 @@ namespace TKGame.Level_Editor_Content
 
                 Wall newWall = new Wall(alignedRect, graphics);
 
+
                 stage.walls.Add(newWall);
             }
 
