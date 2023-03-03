@@ -33,6 +33,17 @@ namespace TKGame
 
         private static double FPS { get; set; }
 
+        //Weapon System Elements (Temporary) TODO: Get Working with Separate Weapon System Class
+        private static Label swordLabel { get; set; }
+        private static Label spearLabel { get; set; }
+        private static Label axeLabel { get; set; }
+        private static Texture2D weaponTexture { get; set; }
+
+        private static readonly string swordText = "Sword";
+        private static readonly string spearText = "Spear";
+        private static readonly string axeText = "Axe";
+
+
         // FontSystems allow us to use fonts with Myra
         private static FontSystem DebugFontSystem { get; set; }
         private static Label FPSText { get; set; }
@@ -66,6 +77,9 @@ namespace TKGame
             FPSText = new Label();
             PlayerPosText = new Label();
             PlayerVelText = new Label();
+            swordLabel = new Label();
+            spearLabel= new Label();
+            axeLabel = new Label();
             ActiveBackgroundBrush = new SolidBrush(KEYBOARD_OVERLAY_ACTIVE_BACKGROUND_COLOR);
             InactiveBackgroundBrush = new SolidBrush(KEYBOARD_OVERLAY_INACTIVE_BACKGROUND_COLOR);
 
@@ -174,6 +188,25 @@ namespace TKGame
 
             VSP.Widgets.Add(KeyboardGrid);
 
+            // WeaponSystem UI Elements
+            swordLabel.Text = string.Empty;
+            swordLabel.TextColor = DEBUG_TEXT_COLOR;
+            swordLabel.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
+            swordLabel.Visible = DebugMode;
+            VSP.Widgets.Add(swordLabel);
+
+            spearLabel.Text = string.Empty;
+            spearLabel.TextColor = DEBUG_TEXT_COLOR;
+            spearLabel.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
+            spearLabel.Visible = DebugMode;
+            VSP.Widgets.Add(spearLabel);
+
+            axeLabel.Text= string.Empty;
+            axeLabel.TextColor = DEBUG_TEXT_COLOR;
+            axeLabel.Font = DebugFontSystem.GetFont(DEBUG_FONT_SIZE);
+            axeLabel.Visible = DebugMode;
+            VSP.Widgets.Add(axeLabel);
+
         }
 
         /// <summary>
@@ -223,6 +256,9 @@ namespace TKGame
                 + $"\ny-pos: {Math.Round(Player.Instance.Position.Y, 2)}";
             PlayerVelText.Text = $"x-vel: {Math.Round(Player.Instance.Velocity.X, 2)}"
                 + $"\ny-vel: {Math.Round(Player.Instance.Velocity.Y, 2)}";
+            swordLabel.Text = swordText;
+            spearLabel.Text = spearText;
+            axeLabel.Text = axeText;
 
             UpdateKeyboardOverlay();
         }

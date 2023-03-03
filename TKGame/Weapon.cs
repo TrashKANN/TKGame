@@ -18,7 +18,11 @@ namespace TKGame
         public int damageStat;
 
         public Vector2 size;
-
+        /// <summary>
+        /// Functionm to Damage Enemy
+        /// </summary>
+        /// <param name="weapon"></param>
+        /// <returns></returns>
         public abstract int DamageEnemy(Weapon weapon);
         public virtual void Draw(SpriteBatch spriteBatch)
         {

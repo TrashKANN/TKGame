@@ -75,6 +75,7 @@ namespace TKGame
             // Initialize keyboard states (used for one-shot keyboard inputs)
             previousState = currentState = new KeyboardState();
 
+
             // Initialize debug information
             GameDebug.Initialize();
 #if DEBUG
@@ -97,6 +98,9 @@ namespace TKGame
 
             //Loads Image into the Texture
             //BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
+
+            // Load Weapon System Content
+            WeaponSystem.LoadContent();
 
             // Load debug content
             GameDebug.LoadContent();
@@ -138,6 +142,9 @@ namespace TKGame
 
             // Set the previous state now that we've checked for our desired inputs
             previousState = currentState;
+
+            // Updates Weapon System
+            WeaponSystem.Update();
 
             // Update debug information
             GameDebug.Update();
