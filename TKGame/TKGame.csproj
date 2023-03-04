@@ -31,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Art\Weapons\" />
+    <Folder Include="Content\bin\DesktopGL\Art\" />
     <Folder Include="Core\" />
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -48,8 +49,8 @@ namespace TKGame
         // TODO: Refactor out of the main TKGame class
         private static string currentStageName = "defaultStage" + ".json";
         Stage currentStage;
-        Stage leftStage;
-        Stage rightStage;
+        //Stage leftStage;
+        //Stage rightStage;
         int screenWidth, screenHeight;
         bool paused = false;
         #endregion
@@ -115,6 +116,7 @@ namespace TKGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Art.LoadContent(Content);
+            Music.LoadContent(Content, 0.15f);
 
             // Manually adding entities at the moment...
             EntityManager.Add(Player.Instance);
