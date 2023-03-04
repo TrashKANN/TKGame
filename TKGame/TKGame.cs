@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 // https://github.com/rds1983/Myra
 using Myra;
 using Myra.Graphics2D.UI;
+using TKGame.Animations;
 using TKGame.Level_Editor_Content;
 
 namespace TKGame
@@ -37,7 +38,9 @@ namespace TKGame
 
         //Declare Background Object
         private Background BackgroundImage;
-        
+
+        //Declare Screen Animations
+        private ScreenAnimation screenAnimation;
 
         // Declare Enemy Object
         Enemy enemy;
@@ -78,6 +81,8 @@ namespace TKGame
 
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
+
+            screenAnimation = new ScreenAnimation(graphics.GraphicsDevice);
 
             // Create Triggers
             // TODO: Create Functionality for Procedural Generation with Level Designer
@@ -148,6 +153,8 @@ namespace TKGame
             currentState = Keyboard.GetState();
             GameTime = gameTime;
             Input.Update();
+
+            screenAnimation.Update(gameTime);
 
             // Add pause stuff here
             //Do if not paused
@@ -225,6 +232,9 @@ namespace TKGame
 
             //Draws the image into the Background
             spriteBatch.Draw(Art.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
+
+            screenAnimation.Draw(spriteBatch);
+
 
             // Draw each wall to the screen
             // Update level editor
