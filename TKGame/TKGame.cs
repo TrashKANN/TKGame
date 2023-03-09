@@ -120,8 +120,8 @@ namespace TKGame
 
             // Manually adding entities at the moment...
             EntityManager.Add(Player.Instance);
-            EntityManager.Add(Enemy.Instance);
-            EntityManager.Add(Item.Instance);
+            EntityManager.Add(Enemy.DoomguyEnemy.Instance);
+            EntityManager.Add(Item.DiamondSwordItem.Instance);
 
             //Loads Image into the Texture
 
