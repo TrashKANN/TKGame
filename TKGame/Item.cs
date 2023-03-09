@@ -9,24 +9,84 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TKGame.Item
+namespace TKGame
 {
-    public abstract class Item : Entity
+    class Item : Entity
     {
-        protected Texture2D itemTexture;
-        public Vector2 position, velocity;
-        public SpriteEffects orientation;
+        static Item instance;
+        private static object syncRoot = new object();
 
-        public override void Update(GameTime gameTime)
+        /// <summary>
+        /// lock Item instance
+        /// </summary>
+        public static Item Instance
         {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new Item();
+                        }
+                    }
+                }
+                return instance;
+            }
         }
 
+        /// <summary>
+        /// Item constructor
+        /// </summary>
+        private Item()
+        {
+            entityTexture = Art.ItemTexture;
+            Position = new Vector2(1200, 840);
+            entityName = "item"; 
+        }
+
+        /// <summary>
+        /// Update method for Item
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            PickUpItem();
+        }
+
+        /// <summary>
+        /// Method to simulate picking up item
+        /// Checks if player is within range of item,
+        /// if so, then transports item to corner
+        /// to simulate inventory
+        /// </summary>
+        public void PickUpItem()
+        {
+            Player player = Player.Instance;
+
+            if (player != null)
+            {
+                // if player is within range of item spawn position
+                if (player.Position.X >= Position.X - 20 &&
+                    player.Position.X <= Position.X + 20 &&
+                    player.Position.Y >= Position.Y - 80 &&
+                    player.Position.Y <= Position.Y + 80)    // TODO: CHANGE FROM MAGIC NUMBERS TO COLLISION DETECTION
+                {
+                    Position = new Vector2(1500, 100);       // temporarily move item to corner to imitate inventory
+                }
+            }
+        }
+
+        /// <summary>
+        /// Draw method for Item
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
+            base.Draw(spriteBatch);
         }
     }
 }
