@@ -118,7 +118,7 @@ namespace TKGame
             Art.LoadContent(Content);
             Music.LoadContent(Content, 0.15f);
 
-            // Manually adding entities at the moment...
+            // Manually adding entities at the moment
             EntityManager.Add(Player.Instance);
             EntityManager.Add(Enemy.Instance);
             EntityManager.Add(Item.Instance);
