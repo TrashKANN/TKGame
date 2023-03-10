@@ -38,10 +38,6 @@ namespace TKGame
         //Declare Background Object
         private Background BackgroundImage;
 
-
-        // Declare Enemy Object
-        Enemy.DoomguyEnemy enemy;
-
         //Declare Triggers
         List<Trigger> triggers;
 
