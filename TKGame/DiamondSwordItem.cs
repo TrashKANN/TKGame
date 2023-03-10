@@ -34,8 +34,8 @@ namespace TKGame.Item
 
         private DiamondSwordItem()
         {
-            itemTexture = Art.ItemTexture;
-            position = new Vector2(1200, 840);
+            entityTexture = Art.ItemTexture;
+            Position = new Vector2(1200, 840);
             entityName = "DiamondSwordItem";
         }
 
@@ -57,7 +57,7 @@ namespace TKGame.Item
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            spriteBatch.Draw(entityTexture, Position, null, color, 0, Size / 2f, 1f, Orientation, 0);
         }
     }
 }

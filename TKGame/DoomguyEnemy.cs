@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,10 +36,10 @@ namespace TKGame.Enemy
         private DoomguyEnemy()
         {
             entityTexture = Art.EnemyTexture;
-            position = new Vector2(150, 700);
+            Position = new Vector2(150, 700);
             velocity = new Vector2((float)1.5, 1);
             entityName = "DoomguyEnemy";
-            HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
+            HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
         public override void Update(GameTime gameTime)
@@ -77,7 +78,7 @@ namespace TKGame.Enemy
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            spriteBatch.Draw(entityTexture, Position, null, color, 0, Size / 2f, 1f, Orientation, 0);
         }
     }
 }
