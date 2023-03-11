@@ -37,10 +37,6 @@ namespace TKGame
 
         //Declare Background Object
         private Background BackgroundImage;
-        
-
-        // Declare Enemy Object
-        Enemy enemy;
 
         //Declare Triggers
         List<Trigger> triggers;
@@ -120,8 +116,8 @@ namespace TKGame
 
             // Manually adding entities at the moment
             EntityManager.Add(Player.Instance);
-            EntityManager.Add(Enemy.Instance);
-            EntityManager.Add(Item.Instance);
+            EntityManager.Add(Enemy.DoomguyEnemy.Instance);
+            EntityManager.Add(Item.DiamondSwordItem.Instance);
 
             //Loads Image into the Texture
 
@@ -132,11 +128,8 @@ namespace TKGame
            // BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"C:/Users/");
 
 
-            
             // Load debug content
             GameDebug.LoadContent(VSP);
-
-
 
             // Continue setting up Myra
             desktop = new Desktop();
