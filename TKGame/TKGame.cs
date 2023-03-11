@@ -128,11 +128,8 @@ namespace TKGame
            // BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"C:/Users/");
 
 
-            
             // Load debug content
             GameDebug.LoadContent(VSP);
-
-
 
             // Continue setting up Myra
             desktop = new Desktop();
