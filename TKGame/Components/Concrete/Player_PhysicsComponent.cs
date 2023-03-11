@@ -1,18 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
-using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
-    public class PhysicsComponent
+    internal class PlayerPhysicsComponent : PhysicsComponent
     {
         private static readonly float GRAVITY = 1.0f;
-        internal void Update(Entity /*&*/entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
+        void PhysicsComponent.Update(Entity /*&*/entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 

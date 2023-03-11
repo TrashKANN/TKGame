@@ -1,17 +1,20 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
-    public class InputComponent
+    public class PlayerInputComponent : InputComponent
     {
         private static readonly int WALK_ACCELERATION = 1;
-        internal void Update(Player player)
+        private static int framesSinceJump = 0;
+
+        void InputComponent.Update(Player player)
         {
             if (Input.KeyboardState.IsKeyDown(Keys.A))
                 player.Velocity.X = -WALK_ACCELERATION;
@@ -26,6 +29,16 @@ namespace TKGame.Components.Concrete
                 player.Velocity.Y = WALK_ACCELERATION;
             else
                 player.Velocity = Vector2.Zero;
+
+            if (Input.WasKeyPressed(Keys.Space))
+            {
+                ToggleJumping(player);
+            }
+        }
+
+        void ToggleJumping(Player player)
+        {
+            player.isJumping= !player.isJumping;
         }
     }
 }

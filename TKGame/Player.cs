@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using TKGame.Level_Editor_Content;
 using TKGame.Components.Concrete;
+using TKGame.Components.Interface;
 
 namespace TKGame
 {
@@ -17,10 +18,13 @@ namespace TKGame
         private static object syncRoot = new object();
 
         #region Components
-        InputComponent input = new InputComponent();
-        PhysicsComponent physics = new PhysicsComponent();
-        GraphicsComponent graphics = new GraphicsComponent();
+        InputComponent input;
+        PhysicsComponent physics;
+        GraphicsComponent graphics;
         #endregion Components
+
+        internal bool isJumping = false;
+
         public static Player Instance
         {
             get
@@ -31,7 +35,9 @@ namespace TKGame
                     lock (syncRoot)
                     {
                         if (instance == null)
-                            instance = new Player();
+                            instance = new Player(new PlayerInputComponent(),
+                                                  new PlayerPhysicsComponent(),
+                                                  new PlayerGraphicsComponent());
                     }
 
                 return instance;
@@ -41,8 +47,11 @@ namespace TKGame
         /// <summary>
         /// Player components.
         /// </summary>
-        private Player()
+        private Player(InputComponent input_, PhysicsComponent physics_, GraphicsComponent graphics_)
         {
+            input = input_;
+            physics = physics_;
+            graphics = graphics_;
             entityTexture = Art.PlayerTexture;
             MOVEMENT_SPEED = 500f;
             // Figure out how to not hard code for now
