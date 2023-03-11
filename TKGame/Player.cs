@@ -1,12 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using Microsoft.VisualBasic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using TKGame.Level_Editor_Content;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
 
@@ -35,9 +28,9 @@ namespace TKGame
                     lock (syncRoot)
                     {
                         if (instance == null)
-                            instance = new Player(new PlayerInputComponent(),
-                                                  new PlayerPhysicsComponent(),
-                                                  new PlayerGraphicsComponent());
+                            instance = new Player(new Player_InputComponent(),
+                                                  new Player_PhysicsComponent(),
+                                                  new Player_GraphicsComponent());
                     }
 
                 return instance;
@@ -52,6 +45,7 @@ namespace TKGame
             input = input_;
             physics = physics_;
             graphics = graphics_;
+
             entityTexture = Art.PlayerTexture;
             MOVEMENT_SPEED = 500f;
             // Figure out how to not hard code for now

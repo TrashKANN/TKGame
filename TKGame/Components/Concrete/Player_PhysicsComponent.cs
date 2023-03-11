@@ -8,7 +8,7 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
-    internal class PlayerPhysicsComponent : PhysicsComponent
+    internal class Player_PhysicsComponent : PhysicsComponent
     {
         private static readonly float GRAVITY = 1.0f;
         void PhysicsComponent.Update(Entity /*&*/entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
@@ -21,8 +21,10 @@ namespace TKGame.Components.Concrete
             endVel.Y = GRAVITY;
             entity.Position += endVel;
 
-            entity.hitBox.X = (int)entity.Position.X - (int)entity.Size.X / 2;
-            entity.hitBox.Y = (int)entity.Position.Y - (int)entity.Size.Y / 2;
+            entity.HitBox = new Rectangle(((int)entity.Position.X - ((int)entity.Size.X / 2)),
+                                            ((int)entity.Position.Y - (int)entity.Size.Y / 2),
+                                            (int)entity.Size.X,
+                                            (int)entity.Size.Y);
 
             //world.resolveCollisions(entity.Position, entity.HitBox);
             entity.Position = Vector2.Clamp(entity.Position, entity.Size / 2, TKGame.ScreenSize - entity.Size / 2);

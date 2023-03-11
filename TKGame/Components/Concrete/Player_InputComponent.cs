@@ -9,12 +9,12 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
-    public class PlayerInputComponent : InputComponent
+    public class Player_InputComponent : InputComponent
     {
         private static readonly int WALK_ACCELERATION = 1;
         private static int framesSinceJump = 0;
 
-        void InputComponent.Update(Player player)
+        void InputComponent.Update(Entity player)
         {
             if (Input.KeyboardState.IsKeyDown(Keys.A))
                 player.Velocity.X = -WALK_ACCELERATION;
@@ -32,7 +32,7 @@ namespace TKGame.Components.Concrete
 
             if (Input.WasKeyPressed(Keys.Space))
             {
-                ToggleJumping(player);
+                ToggleJumping((Player)player);
             }
         }
 

@@ -8,7 +8,7 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
-    internal class PlayerGraphicsComponent : GraphicsComponent
+    internal class Player_GraphicsComponent : GraphicsComponent
     {
         void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
         {

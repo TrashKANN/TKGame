@@ -261,7 +261,6 @@ namespace TKGame
                 LevelEditor.DrawGridLines(spriteBatch, screenWidth, screenHeight, Color.Black);
             }
 
-            Entity.DrawCollisionIntersections(spriteBatch, EntityManager.GetEntities()[0].collisions);
 
             spriteBatch.End();
 

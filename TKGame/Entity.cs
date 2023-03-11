@@ -13,13 +13,13 @@ namespace TKGame
         // Move to a Transform class later instead of having it only in the Entity class
         public Vector2 Position, Velocity;
         public Rectangle hitBox;
-        public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }
         public SpriteEffects Orientation; // Flip Horizontal/Vertical
         // used for Drawing Sprites
         public Color color = Color.White;
         public bool IsExpired;
         public string entityName; // to identify each entity by name
 
+        #region Properties
         public Vector2 Size
         {
             get 
@@ -27,33 +27,12 @@ namespace TKGame
                 return entityTexture == null ? Vector2.Zero : new Vector2(entityTexture.Width, entityTexture.Height);
             }
         }
-
+        public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }
         public float MOVEMENT_SPEED { get; internal set; }
+        #endregion Properties
+
 
         public abstract void Update(GameTime gameTime, SpriteBatch spriteBatch);
-
-        #region Intersection Hitboxes for Debugging
-        public class Intersection
-        {
-            public Rectangle hitbox;
-            public Color color;
-
-            public Intersection(Rectangle hitbox, Color color)
-            {
-                this.hitbox = hitbox;
-                this.color = color;
-            }
-        }
-
-        public List<Intersection> collisions = new List<Intersection>();
-        public static void DrawCollisionIntersections(SpriteBatch spriteBatch, List<Intersection> intersections)
-        {
-            foreach (Intersection inter in intersections)
-            {
-                GameDebug.DrawBoundingBox(spriteBatch, inter.hitbox, inter.color, 5);
-            }
-        }
-        #endregion Intersection Hitboxes
 
         /// <summary>
         /// Uses the Entity's hitbox and iterates through each hitbox passed to it and adjusts the Entity's position
@@ -73,10 +52,6 @@ namespace TKGame
                     // Calculate the depth of the intersection between Player and each Wall
                     Rectangle intersection = Rectangle.Intersect(HitBox, hitbox.HitBox);
                     Vector2 depth = new Vector2(intersection.Width, intersection.Height);
-
-                    //collisions.Add(new Intersection(intersection, Color.Red));
-                    //collisions.Add(new Intersection(HitBox, Color.Orange));
-                    //collisions.Add(new Intersection(wall.Rect, Color.Green));
 
                     // Determine the direction of intersection
                     if (depth.X < depth.Y)
