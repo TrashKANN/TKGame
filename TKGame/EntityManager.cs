@@ -63,7 +63,7 @@ namespace TKGame
             // Update each entity from previous frame
             foreach (var entity in entities)
             {
-                entity.Update(gameTime);
+                entity.Update(gameTime, spriteBatch);
                 entity.Collide(stage.walls);
             }
 
@@ -80,6 +80,8 @@ namespace TKGame
             // Will need to do this for all unique entity lists, i.e. enemies, projectiles, etc.
             entities = entities.Where(x => !x.IsExpired).ToList();
         }
+
+
 
         /// <summary>
         /// Calls the Draw() function on each entity.

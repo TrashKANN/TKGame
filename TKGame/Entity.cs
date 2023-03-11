@@ -8,7 +8,7 @@ namespace TKGame
 {
     public abstract class Entity : ICollidable
     {
-        protected Texture2D entityTexture;
+        internal Texture2D entityTexture;
 
         // Move to a Transform class later instead of having it only in the Entity class
         public Vector2 Position, Velocity;
@@ -28,8 +28,9 @@ namespace TKGame
             }
         }
 
+        public float MOVEMENT_SPEED { get; internal set; }
 
-        public abstract void Update(GameTime gameTime);
+        public abstract void Update(GameTime gameTime, SpriteBatch spriteBatch);
 
         #region Intersection Hitboxes for Debugging
         public class Intersection

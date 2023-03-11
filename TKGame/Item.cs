@@ -52,7 +52,7 @@ namespace TKGame
         /// Update method for Item
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
         {
             PickUpItem();
         }

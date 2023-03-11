@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using TKGame.Level_Editor_Content;
+using TKGame.Components.Concrete;
 
 namespace TKGame
 {
@@ -14,14 +15,18 @@ namespace TKGame
     {
         private static Player instance;
         private static object syncRoot = new object();
-        private static readonly float GRAVITY = 1.0f;
-        private static float MOVEMENT_SPEED = 500.0f;
+
+        #region Components
+        InputComponent input = new InputComponent();
+        PhysicsComponent physics = new PhysicsComponent();
+        GraphicsComponent graphics = new GraphicsComponent();
+        #endregion Components
         public static Player Instance
         {
             get
             {
                 // Creates the player if it doesn't already exist
-                // Uses thread locking to guarentee safety.
+                // Uses thread locking to guarantee safety.
                 if (instance == null)
                     lock (syncRoot)
                     {
@@ -39,6 +44,7 @@ namespace TKGame
         private Player()
         {
             entityTexture = Art.PlayerTexture;
+            MOVEMENT_SPEED = 500f;
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             Position = new Vector2(1600/2, 900 - 40);
@@ -50,15 +56,14 @@ namespace TKGame
         
 
         /// <summary>
-        /// Grabs the input data, uses that and the deltaTime to update the Player's velocity and orientation.
+        /// Updates each component the Player owns.
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            // Player Movement
-            Velocity = Input.GetMovementDirection();
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            UpdatePlayerPosition(deltaTime);
+            input.Update(this);
+            physics.Update(this, gameTime/*, world*/);
+            graphics.Update(this, spriteBatch);
         }
 
         /// <summary>
@@ -69,41 +74,5 @@ namespace TKGame
         {
             base.Draw(spriteBatch);
         }
-        
-
-        #region Update Helper Functions
-        /// <summary>
-        /// Updates the Player position based on the keyboard input and gravity.
-        /// </summary>
-        /// <param name="deltaTime"></param>
-        private void UpdatePlayerPosition(float deltaTime)
-        {
-
-            Vector2 endVelocity = Velocity;
-
-            endVelocity.X += MOVEMENT_SPEED * Velocity.X * deltaTime;
-            endVelocity.Y += MOVEMENT_SPEED * Velocity.Y * deltaTime;
-
-
-            if (Velocity.X > 0)
-            {
-                Orientation = SpriteEffects.None;
-            }
-            else if (Velocity.X < 0)
-            {
-                Orientation = SpriteEffects.FlipHorizontally;
-            }
-
-            endVelocity.Y += GRAVITY;
-
-            Position += endVelocity;
-
-            hitBox.X = (int)Position.X - (int)Size.X / 2;
-            hitBox.Y = (int)Position.Y - (int)Size.Y / 2;
-
-            Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
-        }
-
-        #endregion Update Helper Functions
     }
 }
