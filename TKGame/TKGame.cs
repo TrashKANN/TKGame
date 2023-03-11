@@ -40,7 +40,7 @@ namespace TKGame
         private Background BackgroundImage;
 
         //Declare Screen Animations
-        private ScreenAnimation screenAnimation;
+        private ScreenTransitions screenAnimation;
 
         // Declare Enemy Object
         Enemy enemy;
@@ -82,7 +82,7 @@ namespace TKGame
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
 
-            screenAnimation = new ScreenAnimation(graphics.GraphicsDevice);
+            screenAnimation = new ScreenTransitions(graphics.GraphicsDevice);
 
             // Create Triggers
             // TODO: Create Functionality for Procedural Generation with Level Designer
