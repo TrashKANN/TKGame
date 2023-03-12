@@ -20,7 +20,7 @@ namespace TKGame
         #region Member Variables
 
 
-        // Vertical stack panel that will hold all the UI elements for debug information
+        // Vertical stack panel that will hold all the UI elements for Weapon information
         public static VerticalStackPanel VSP { get; private set; }
 
         // FontSystems allow us to use fonts with Myra
@@ -34,6 +34,8 @@ namespace TKGame
         // Readonly is used since static variables can't be const
         private static readonly int WEAPON_FONT_SIZE = 48;
         private static readonly Color WEAPON_TEXT_COLOR = Color.Gainsboro;
+
+
         // Readonly weapon labels to remove hardcoded strings
         private static readonly string swordText = "Sword";
         private static readonly string spearText = "Spear";

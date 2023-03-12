@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -36,10 +37,6 @@ namespace TKGame
 
         //Declare Background Object
         private Background BackgroundImage;
-        
-
-        // Declare Enemy Object
-        Enemy enemy;
 
         //Declare Triggers
         List<Trigger> triggers;
@@ -48,8 +45,8 @@ namespace TKGame
         // TODO: Refactor out of the main TKGame class
         private static string currentStageName = "defaultStage" + ".json";
         Stage currentStage;
-        Stage leftStage;
-        Stage rightStage;
+        //Stage leftStage;
+        //Stage rightStage;
         int screenWidth, screenHeight;
         bool paused = false;
         #endregion
@@ -115,11 +112,12 @@ namespace TKGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Art.LoadContent(Content);
+            Music.LoadContent(Content, 0.15f);
 
-            // Manually adding entities at the moment...
+            // Manually adding entities at the moment
             EntityManager.Add(Player.Instance);
-            EntityManager.Add(Enemy.Instance);
-            EntityManager.Add(Item.Instance);
+            EntityManager.Add(Enemy.DoomguyEnemy.Instance);
+            EntityManager.Add(Item.DiamondSwordItem.Instance);
 
             //Loads Image into the Texture
 
@@ -130,11 +128,8 @@ namespace TKGame
            // BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"C:/Users/");
 
 
-            
             // Load debug content
             GameDebug.LoadContent(VSP);
-
-
 
             // Continue setting up Myra
             desktop = new Desktop();
