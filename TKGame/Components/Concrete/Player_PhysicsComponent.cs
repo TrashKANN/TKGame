@@ -11,7 +11,7 @@ namespace TKGame.Components.Concrete
     internal class Player_PhysicsComponent : PhysicsComponent
     {
         private static readonly float GRAVITY = 1.0f;
-        void PhysicsComponent.Update(ref Entity entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
+        void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 

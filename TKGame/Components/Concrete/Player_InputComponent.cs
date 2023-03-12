@@ -14,7 +14,7 @@ namespace TKGame.Components.Concrete
         private static readonly int WALK_ACCELERATION = 1;
         private static int framesSinceJump = 0;
 
-        void InputComponent.Update(ref Entity player)
+        void InputComponent.Update(Entity player)
         {
             if (Input.KeyboardState.IsKeyDown(Keys.A))
                 player.Velocity.X = -WALK_ACCELERATION;

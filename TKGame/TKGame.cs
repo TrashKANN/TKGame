@@ -14,6 +14,7 @@ using Myra;
 using Myra.Graphics2D.UI;
 using TKGame.BackEnd;
 using TKGame.Level_Editor_Content;
+using TKGame.Weapons;
 
 namespace TKGame
 {

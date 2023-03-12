@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TKGame.Components.Interface
 {
-    public interface ICollidable
+    public interface CollideComponent
     {
         Rectangle HitBox { get; set; }
     }
