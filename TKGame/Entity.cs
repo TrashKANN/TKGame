@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework;
 using TKGame.Level_Editor_Content;
 using System.Collections.Generic;
 using System.Collections;
+using TKGame.Components.Interface;
 
 namespace TKGame
 {
-    public abstract class Entity : ICollidable
+    public abstract class Entity : CollideComponent
     {
         internal Texture2D entityTexture;
 
@@ -39,7 +40,7 @@ namespace TKGame
         /// outside of the hitbox it collides with.
         /// </summary>
         /// <param name="stage"></param>
-        public void Collide<T>(List<T> collidables) where T : ICollidable
+        public void Collide<T>(List<T> collidables) where T : CollideComponent
         {
 
             //TODO: Collide with other entities.
@@ -90,7 +91,7 @@ namespace TKGame
         /// Collide with a single hitbox. Used for special triggers such as doors, items, etc.
         /// </summary>
         /// <param name="hitbox"></param>
-        public bool Collide<T>(T hitbox) where T : ICollidable
+        public bool Collide<T>(T hitbox) where T : CollideComponent
         {
             if (HitBox.Intersects(hitbox.HitBox))
             {

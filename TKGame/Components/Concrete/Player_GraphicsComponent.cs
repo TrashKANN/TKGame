@@ -10,7 +10,7 @@ namespace TKGame.Components.Concrete
 {
     internal class Player_GraphicsComponent : GraphicsComponent
     {
-        void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
+        void GraphicsComponent.Update(ref Entity entity, SpriteBatch spriteBatch)
         {
             if (entity.Velocity.X > 0)
             {

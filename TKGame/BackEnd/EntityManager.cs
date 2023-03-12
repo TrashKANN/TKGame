@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.Level_Editor_Content;
 
-namespace TKGame
+namespace TKGame.BackEnd
 {
     // Might change from static
     static class EntityManager
@@ -35,7 +35,7 @@ namespace TKGame
         {
             if (!IsUpdating)
                 AddEntity(entity);
-            else 
+            else
                 addedEntities.Add(entity);
         }
 
@@ -59,7 +59,7 @@ namespace TKGame
         {
             IsUpdating = true;
             // HandleCollision();
-            
+
             // Update each entity from previous frame
             foreach (var entity in entities)
             {
@@ -67,7 +67,7 @@ namespace TKGame
                 entity.Collide(stage.walls);
             }
 
-            IsUpdating= false;
+            IsUpdating = false;
 
             // Add all new entities to the new entity list
             foreach (var entity in addedEntities)

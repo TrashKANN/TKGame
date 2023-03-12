@@ -10,7 +10,7 @@ using Myra.Graphics2D.Brushes;
 using System.Diagnostics;
 using System.Linq;
 
-namespace TKGame
+namespace TKGame.BackEnd
 {
     public class GameDebug
     {
@@ -243,11 +243,11 @@ namespace TKGame
             {
                 Label keyLabel = keyLabelPair.Value;
 
-                keyLabel.TextColor = (keyboardState.IsKeyDown(keyLabelPair.Key))
+                keyLabel.TextColor = keyboardState.IsKeyDown(keyLabelPair.Key)
                     ? KEYBOARD_OVERLAY_ACTIVE_TEXT_COLOR
                     : KEYBOARD_OVERLAY_INACTIVE_TEXT_COLOR;
 
-                keyLabel.Background = (keyboardState.IsKeyDown(keyLabelPair.Key))
+                keyLabel.Background = keyboardState.IsKeyDown(keyLabelPair.Key)
                     ? ActiveBackgroundBrush
                     : InactiveBackgroundBrush;
             }

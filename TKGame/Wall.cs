@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.Components.Interface;
 
 namespace TKGame
 {
-    public class Wall : ICollidable
+    public class Wall : CollideComponent
     {
         public Rectangle hitBox;
         public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }
