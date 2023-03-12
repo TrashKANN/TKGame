@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 // JSON includes
 using System.IO;
 using System.Text.Json;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace TKGame.Level_Editor_Content
 {
@@ -28,6 +29,7 @@ namespace TKGame.Level_Editor_Content
         private static Vector2 startPosition;
         internal static bool EditMode = false;
         private static readonly int GRID_SIZE = 32;
+        private static bool confirmedDelete = false;
 
         /// <summary>
         /// Toggles the functionallity of the Level Editor
@@ -90,7 +92,7 @@ namespace TKGame.Level_Editor_Content
                                                         (int)size.Y), 
                                                         GRID_SIZE);
 
-                Wall newWall = new Wall(alignedRect, graphics);
+                Wall newWall = new Wall(alignedRect, Color.White, graphics);
 
 
                 stage.walls.Add(newWall);
@@ -99,13 +101,24 @@ namespace TKGame.Level_Editor_Content
             previousMouseState = currentMouseState;
         }
 
+        internal static void DeleteWall(List<Wall> walls)
+        {
+            foreach (var wall in walls)
+            {
+                if (wall.HitBox.Contains(Input.MouseState.Position) && Input.MouseState.LeftButton == ButtonState.Pressed)
+                {
+                    wall.Texture.SetData<Color>(new Color[] { Color.OrangeRed });
+                }
+            }
+        }
+
         /// <summary>
         /// Aligns any passed rectangles/hitboxes to the grid based on the passed size. GridSize is a constant.
         /// </summary>
         /// <param name="rect"></param>
         /// <param name="gridSize"></param>
         /// <returns></returns>
-        internal static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
+        private static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
         {
             // Calculate the position of the closest grid square
             int snappedX = (int)Math.Round((double)rect.X / gridSize) * gridSize;
@@ -223,7 +236,7 @@ namespace TKGame.Level_Editor_Content
 
             foreach (WallData wallData in jsonStageData)
             {
-                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, graphics);
+                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, Color.White, graphics);
                 newStage.walls.Add(newWall);
             }
 

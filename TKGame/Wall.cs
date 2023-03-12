@@ -23,18 +23,18 @@ namespace TKGame
         /// <param name="width">Wall width (x-axis)</param>
         /// <param name="height">Wall height (y-axis)</param>
         /// <param name="graphicsDevice">Graphics device used to create textures with</param>
-        public Wall(int x, int y, int width, int height, GraphicsDevice graphicsDevice)
+        public Wall(int x, int y, int width, int height, Color color, GraphicsDevice graphicsDevice)
         {
             HitBox = new Rectangle(x, y, width, height);
             Texture = new Texture2D(graphicsDevice, 1, 1);
-            Texture.SetData(new Color[] { Color.White });
+            Texture.SetData(new Color[] { color  });
         }
 
-        public Wall(Rectangle rect, GraphicsDevice graphicsDevice)
+        public Wall(Rectangle rect, Color color, GraphicsDevice graphicsDevice)
         {
             HitBox = rect;
             Texture = new Texture2D(graphicsDevice, 1, 1);
-            Texture.SetData(new Color[] { Color.White });
+            Texture.SetData(new Color[] { color });
         }
     }
 }

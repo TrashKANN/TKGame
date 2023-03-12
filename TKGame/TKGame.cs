@@ -257,7 +257,14 @@ namespace TKGame
             // Draw the New Wall last so that the outline appears above all other images
             if (LevelEditor.EditMode == true)
             {
-                LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
+                if(Input.KeyboardState.IsKeyDown(Keys.W))
+                {
+                    LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
+                }
+                else if(Input.KeyboardState.IsKeyDown(Keys.D))
+                {
+                    LevelEditor.DeleteWall(currentStage.walls);
+                }
                 LevelEditor.DrawGridLines(spriteBatch, screenWidth, screenHeight, Color.Black);
             }
 
