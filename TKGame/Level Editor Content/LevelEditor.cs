@@ -109,23 +109,35 @@ namespace TKGame.Level_Editor_Content
                 if (wall.HitBox.Contains(Input.MouseState.Position))
                 {
                     // If the Left mouse button was clicked, highlight it with a different color and add it to to be deleted walls
-                    if (Input.MouseState.LeftButton == ButtonState.Pressed)
+                    if (Input.MouseState.LeftButton == ButtonState.Pressed && !deletedWalls.Contains(wall))
                     {
                         wall.Texture.SetData<Color>(new Color[] { Color.OrangeRed });
                         deletedWalls.Add(wall);
                     }
                     // If Right clicked, return the color to White and remove it from to be deleted walls
-                    else if (Input.MouseState.RightButton == ButtonState.Pressed)
+                    else if (Input.MouseState.RightButton == ButtonState.Pressed && deletedWalls.Contains(wall))
                     {
                         wall.Texture.SetData<Color>(new Color[] { Color.White });
                         deletedWalls.Remove(wall);
                     }
                 }
             }
-            // Upon releasing D, remove all the highlighted walls.
-            if (Input.KeyboardState.IsKeyDown(Keys.Enter))
+            // Upon pressing Enter, remove all the highlighted walls. Save in deleted list for Undoing
+            if (Input.WasKeyPressed(Keys.Enter))
             {
                 walls.RemoveAll(x => deletedWalls.Contains(x));
+
+                // reset wall colors
+                deletedWalls.ForEach(x => x.Texture.SetData<Color>(new Color[] { Color.White }));
+            }
+        }
+
+        internal static void UndoDeletedWall(List<Wall> walls)
+        {
+            if (deletedWalls.Count > 0)
+            {
+                walls.Add(deletedWalls.LastOrDefault());
+                deletedWalls.Remove(deletedWalls.LastOrDefault());
             }
         }
 

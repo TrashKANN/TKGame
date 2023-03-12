@@ -257,13 +257,20 @@ namespace TKGame
             // Draw the New Wall last so that the outline appears above all other images
             if (LevelEditor.EditMode == true)
             {
+                // I really hate this, needs to be refactored. Asking Thomas might be easiest
                 if(Input.KeyboardState.IsKeyDown(Keys.W))
                 {
                     LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
                 }
+                // D (Hold) + LClick = Mark; + RClick = UnMark; + Enter = Delete Mar
                 else if(Input.KeyboardState.IsKeyDown(Keys.D))
                 {
                     LevelEditor.DeleteWall(currentStage.walls);
+                }
+                // Ctrl + Z = Undo last wall deleted
+                else if(Input.KeyboardState.IsKeyDown(Keys.LeftControl) && Input.WasKeyPressed(Keys.Z))
+                {
+                    LevelEditor.UndoDeletedWall(currentStage.walls);
                 }
                 LevelEditor.DrawGridLines(spriteBatch, screenWidth, screenHeight, Color.Black);
             }
