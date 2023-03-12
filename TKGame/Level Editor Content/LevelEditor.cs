@@ -29,7 +29,7 @@ namespace TKGame.Level_Editor_Content
         private static Vector2 startPosition;
         internal static bool EditMode = false;
         private static readonly int GRID_SIZE = 32;
-        private static bool confirmedDelete = false;
+        private static List<Wall> deletedWalls= new List<Wall>();
 
         /// <summary>
         /// Toggles the functionallity of the Level Editor
@@ -108,19 +108,24 @@ namespace TKGame.Level_Editor_Content
                 // Check each wall to see if the mouse is over it
                 if (wall.HitBox.Contains(Input.MouseState.Position))
                 {
-                    // If the Left mouse button was clicked, highlight it with a different color
+                    // If the Left mouse button was clicked, highlight it with a different color and add it to to be deleted walls
                     if (Input.MouseState.LeftButton == ButtonState.Pressed)
                     {
                         wall.Texture.SetData<Color>(new Color[] { Color.OrangeRed });
+                        deletedWalls.Add(wall);
                     }
-                    // If Right clicked, return the color to White
+                    // If Right clicked, return the color to White and remove it from to be deleted walls
                     else if (Input.MouseState.RightButton == ButtonState.Pressed)
                     {
                         wall.Texture.SetData<Color>(new Color[] { Color.White });
+                        deletedWalls.Remove(wall);
                     }
                 }
-
-
+            }
+            // Upon releasing D, remove all the highlighted walls.
+            if (Input.KeyboardState.IsKeyDown(Keys.Enter))
+            {
+                walls.RemoveAll(x => deletedWalls.Contains(x));
             }
         }
 
