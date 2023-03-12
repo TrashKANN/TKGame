@@ -272,6 +272,11 @@ namespace TKGame
                 {
                     LevelEditor.UndoDeletedWall(currentStage.walls);
                 }
+                // Ctrl + Y = Redo last wall deleted
+                else if (Input.KeyboardState.IsKeyDown(Keys.LeftControl) && Input.WasKeyPressed(Keys.Y))
+                {
+                    LevelEditor.RedoDeletedWall(currentStage.walls);
+                }
                 LevelEditor.DrawGridLines(spriteBatch, screenWidth, screenHeight, Color.Black);
             }
 

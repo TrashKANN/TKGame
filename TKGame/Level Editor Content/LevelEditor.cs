@@ -29,6 +29,7 @@ namespace TKGame.Level_Editor_Content
         private static Vector2 startPosition;
         internal static bool EditMode = false;
         private static readonly int GRID_SIZE = 32;
+        private static int Actions = 0;
         private static List<Wall> deletedWalls= new List<Wall>();
 
         /// <summary>
@@ -96,6 +97,7 @@ namespace TKGame.Level_Editor_Content
 
 
                 stage.walls.Add(newWall);
+                Actions++;
             }
 
             previousMouseState = currentMouseState;
@@ -127,8 +129,12 @@ namespace TKGame.Level_Editor_Content
             {
                 walls.RemoveAll(x => deletedWalls.Contains(x));
 
-                // reset wall colors
-                deletedWalls.ForEach(x => x.Texture.SetData<Color>(new Color[] { Color.White }));
+                // reset wall colors for new walls and increase action count
+                foreach (var wall in deletedWalls.Where(x => !walls.Contains(x)))
+                {
+                    wall.Texture.SetData<Color>(new Color[] { Color.White });
+                    Actions++;
+                }
             }
         }
 
@@ -138,6 +144,17 @@ namespace TKGame.Level_Editor_Content
             {
                 walls.Add(deletedWalls.LastOrDefault());
                 deletedWalls.Remove(deletedWalls.LastOrDefault());
+                Actions++;
+            }
+        }
+
+        internal static void RedoDeletedWall(List<Wall> walls)
+        {
+            if (Actions >= 0)
+            {
+                deletedWalls.Add(walls.LastOrDefault());
+                walls.Remove(deletedWalls.LastOrDefault());
+                Actions--;
             }
         }
 
