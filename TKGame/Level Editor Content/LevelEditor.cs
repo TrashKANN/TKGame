@@ -117,7 +117,7 @@ namespace TKGame.Level_Editor_Content
                     // If the Left mouse button was clicked, highlight it with a different color and add it to to be deleted walls
                     if (Input.MouseState.LeftButton == ButtonState.Pressed && !deletedWalls.Contains(wall))
                     {
-                        wall.Texture.SetData<Color>(new Color[] { Color.OrangeRed });
+                        wall.Texture.SetData<Color>(new Color[] { Color.Red });
                         deletedWalls.Add(wall);
                     }
                     // If Right clicked, return the color to White and remove it from to be deleted walls
