@@ -29,7 +29,6 @@ namespace TKGame.Level_Editor_Content
         private static Vector2 startPosition;
         internal static bool EditMode = false;
         private static readonly int GRID_SIZE = 32;
-        private static int Actions = 0;
         private static List<Wall> deletedWalls= new List<Wall>();
 
         /// <summary>
@@ -97,12 +96,17 @@ namespace TKGame.Level_Editor_Content
 
 
                 stage.walls.Add(newWall);
-                Actions++;
             }
 
             previousMouseState = currentMouseState;
         }
 
+        /// <summary>
+        /// Whilst holding "D", Left click walls to mark them. Right click marked walls to unmark.
+        /// Any walls marked when "D" is held down and "Enter" is pressed will be deleted from the stage
+        /// and added to the deletedWalls list for the purposes of Undo/Redo
+        /// </summary>
+        /// <param name="walls"></param>
         internal static void DeleteWall(List<Wall> walls)
         {
             foreach (var wall in walls)
@@ -129,32 +133,41 @@ namespace TKGame.Level_Editor_Content
             {
                 walls.RemoveAll(x => deletedWalls.Contains(x));
 
-                // reset wall colors for new walls and increase action count
+                // reset wall colors for newly deleted walls
                 foreach (var wall in deletedWalls.Where(x => !walls.Contains(x)))
                 {
                     wall.Texture.SetData<Color>(new Color[] { Color.White });
-                    Actions++;
                 }
             }
         }
 
+        /// <summary>
+        /// If there have been walls added to the deletedWalls list, Add the last wall in deletedWalls
+        /// to the stage walls.
+        /// Remove the last wall from the deleteWalls list.
+        /// </summary>
+        /// <param name="walls"></param>
         internal static void UndoDeletedWall(List<Wall> walls)
         {
             if (deletedWalls.Count > 0)
             {
                 walls.Add(deletedWalls.LastOrDefault());
                 deletedWalls.Remove(deletedWalls.LastOrDefault());
-                Actions++;
             }
         }
 
+        /// <summary>
+        /// Adds the last wall in stage walls to the deletedWalls list. Can be performed without previously deleting
+        /// walls. Use carefully.
+        /// Walls are additionally removed from the stage walls.
+        /// </summary>
+        /// <param name="walls"></param>
         internal static void RedoDeletedWall(List<Wall> walls)
         {
-            if (Actions >= 0)
+            if (walls.Count > 0)
             {
                 deletedWalls.Add(walls.LastOrDefault());
                 walls.Remove(deletedWalls.LastOrDefault());
-                Actions--;
             }
         }
 
