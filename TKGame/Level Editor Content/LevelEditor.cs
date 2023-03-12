@@ -105,10 +105,22 @@ namespace TKGame.Level_Editor_Content
         {
             foreach (var wall in walls)
             {
-                if (wall.HitBox.Contains(Input.MouseState.Position) && Input.MouseState.LeftButton == ButtonState.Pressed)
+                // Check each wall to see if the mouse is over it
+                if (wall.HitBox.Contains(Input.MouseState.Position))
                 {
-                    wall.Texture.SetData<Color>(new Color[] { Color.OrangeRed });
+                    // If the Left mouse button was clicked, highlight it with a different color
+                    if (Input.MouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        wall.Texture.SetData<Color>(new Color[] { Color.OrangeRed });
+                    }
+                    // If Right clicked, return the color to White
+                    else if (Input.MouseState.RightButton == ButtonState.Pressed)
+                    {
+                        wall.Texture.SetData<Color>(new Color[] { Color.White });
+                    }
                 }
+
+
             }
         }
 
