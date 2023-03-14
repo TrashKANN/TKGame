@@ -353,3 +353,4 @@ MigrationBackup/
 *.bat
 *.zip
 .claudiaideconfig
+*.exe
