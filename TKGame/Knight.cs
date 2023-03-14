@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TKGame
+namespace TKGame.Enemy
 {
+    // concrete enemy type Knight
     public class Knight : IEnemies
     {
-        public string GetEnemyType()
+        // IEnemies method
+        public void GetEnemy()
         {
-            return "Knight";
+            // create and return new Knight enemy
         }
     }
 }

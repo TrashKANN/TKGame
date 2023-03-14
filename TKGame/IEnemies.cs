@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TKGame
+namespace TKGame.Enemy
 {
+    // interface for all enemy types
     public interface IEnemies
     {
-        string GetEnemyType();
+        void GetEnemy();
     }
 }

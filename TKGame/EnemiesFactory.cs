@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.Enemy;
 
 namespace TKGame
 {
     public class EnemiesFactory
     {
-        public static IEnemies GetEnemy(string enemyType)
+        public IEnemies CreateEnemy(string enemyType)
         {
-            IEnemies enemyDetails = null;
-
-            if (enemyType == "Goblin")
+            switch (enemyType)
             {
-                enemyDetails = new Goblin();
+                case "Goblin":
+                    return new Goblin();
+                case "Knight":
+                    return new Goblin();
+                default: 
+                    return new Goblin();
             }
-            else if (enemyType == "Knight")
-            {
-                enemyDetails = new Knight();
-            }
-
-            return enemyDetails;
         }
     }
 }

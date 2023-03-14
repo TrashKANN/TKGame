@@ -116,6 +116,9 @@ namespace TKGame
 
             // Manually adding entities at the moment...
             EntityManager.Add(Player.Instance);
+            /*EnemiesFactory enemiesFactory = new EnemiesFactory();
+            IEnemies goblin = enemiesFactory.CreateEnemy("Goblin");
+            IEnemies knight = enemiesFactory.CreateEnemy("Knight");*/
             EntityManager.Add(Enemy.DoomguyEnemy.Instance);
             EntityManager.Add(Item.DiamondSwordItem.Instance);
 
