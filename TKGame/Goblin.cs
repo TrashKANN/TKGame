@@ -1,18 +1,26 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TKGame.Enemy
+namespace TKGame
 {
     // concrete enemy type Goblin
     public class Goblin : IEnemies
     {
-        // IEnemies method
+        // IEnemies method to get this enemy type
         public void GetEnemy()
         {
-            // create and return new Goblin enemy
+            
         }
+
+        private Goblin() { }
+
+        public void Update(GameTime gameTime) { }
+
+        public void Draw(SpriteBatch spriteBatch) { }
     }
 }
