@@ -34,7 +34,7 @@ namespace TKGame
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Desktop desktop;
+        public Desktop desktop;
         private KeyboardState previousState, currentState;
 
         //Declare Background Object
@@ -46,11 +46,11 @@ namespace TKGame
         
         // TODO: Refactor out of the main TKGame class
         private static string currentStageName = "defaultStage" + ".json";
-        Stage currentStage;
+        internal Stage currentStage;
         //Stage leftStage;
         //Stage rightStage;
         int screenWidth, screenHeight;
-        bool paused = false;
+        public static bool paused = true;
         #endregion
         public TKGame()
         {
@@ -73,6 +73,7 @@ namespace TKGame
 
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
+            desktop = new Desktop();
 
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
@@ -104,6 +105,9 @@ namespace TKGame
             // For now, just enable DebugMode when building a Debug version
             GameDebug.DebugMode = true;
 #endif
+            // Initialize main menu
+            MainMenu.Initialize(desktop, this);
+
             //Initializing WeaponSystem
             WeaponSystem.Initialize();
 
@@ -133,12 +137,15 @@ namespace TKGame
             // Load debug content
             GameDebug.LoadContent(VSP);
 
+            // Load main menu
+            MainMenu.LoadContent();
+
             // Continue setting up Myra
-            desktop = new Desktop();
-            desktop.Root = VSP;
+            //desktop.Root = VSP;
         }
         protected override void Update(GameTime gameTime)
         {
+
             // Get the current keyboard state
             currentState = Keyboard.GetState();
             GameTime = gameTime;
@@ -166,8 +173,7 @@ namespace TKGame
             // Exit the game if Escape is pressed
             if (Input.WasKeyPressed(Keys.Escape))
             {
-                LevelEditor.SaveStageDataToJSON(currentStage, "auto_saved_stage_data");
-                Exit();
+                ExitGame();
             }
 
 #if DEBUG
@@ -287,6 +293,17 @@ namespace TKGame
 
             // Once everything has finished drawing, figure out the framerate
             GameDebug.UpdateFPS(gameTime);
+        }
+
+        public void ExitGame()
+        {
+            LevelEditor.SaveStageDataToJSON(currentStage, "auto_saved_stage_data");
+            Exit();
+        }
+
+        public static void SwitchToGameplayMenu() 
+        {
+            Instance.desktop.Root = Instance.VSP;
         }
     }
 }
