@@ -20,7 +20,6 @@ namespace TKGame
         private static TextButton exitButton;
         private static Desktop desktop;
         private static Grid mainMenuGrid;
-        private static Label background;
         private static FontSystem mainMenuFontSystem;
 
         private static readonly Color MAIN_MENU_TEXT_COLOR = Color.Gold;
@@ -45,7 +44,6 @@ namespace TKGame
 
             IsEnabled = true;
             mainMenuGrid = new Grid();
-            background= new Label();
 
             MainMenu.desktop = desktop;
 
@@ -130,13 +128,22 @@ namespace TKGame
             ((TextButton) obj).TextColor = MAIN_MENU_TEXT_COLOR;
         }
 
+        /// <summary>
+        /// Changes button text color when mouse hovers over button. Color is determined from
+        /// textColorDict.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
         private static void OnMouseEnterButton(object obj, EventArgs e) 
         {
             if (obj is not TextButton) throw new Exception("obj is not of type TextButton");
+            
             TextButton b = (TextButton)obj;
             Color c;
-            textColorDict.TryGetValue(b.Id, out c);
-            b.TextColor = c;
+
+            if(textColorDict.TryGetValue(b.Id, out c))
+                b.TextColor = c;
         }
     }
 }
