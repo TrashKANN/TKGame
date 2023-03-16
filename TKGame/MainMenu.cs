@@ -22,6 +22,9 @@ namespace TKGame
         private static Grid mainMenuGrid;
         private static FontSystem mainMenuFontSystem;
 
+        private static readonly int NUM_GRID_ROWS = 2;
+        private static readonly int MAIN_MENU_FONT_SIZE = 72;
+
         private static readonly Color MAIN_MENU_TEXT_COLOR = Color.Gold;
         private static readonly Color MAIN_MENU_BACKGROUND_COLOR = Color.DimGray;
         private static readonly Color MAIN_MENU_PLAY_HOVER_TEXT_COLOR = Color.Lime;
@@ -75,7 +78,7 @@ namespace TKGame
         {
             mainMenuGrid.ColumnsProportions.Add(new Proportion() { Type = ProportionType.Part });
             
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < NUM_GRID_ROWS; i++)
             {
                 mainMenuGrid.RowsProportions.Add(new Proportion() { Type = ProportionType.Part });
             }
@@ -111,7 +114,7 @@ namespace TKGame
             newButton.Height = 100;
             newButton.HorizontalAlignment = HorizontalAlignment.Center;
             newButton.VerticalAlignment = VerticalAlignment.Center;
-            newButton.Font = mainMenuFontSystem.GetFont(72);
+            newButton.Font = mainMenuFontSystem.GetFont(MAIN_MENU_FONT_SIZE);
             newButton.Background = new SolidBrush(MAIN_MENU_BACKGROUND_COLOR);
             newButton.TextColor = MAIN_MENU_TEXT_COLOR;
             return newButton;
@@ -140,11 +143,11 @@ namespace TKGame
         {
             if (obj is not TextButton) throw new Exception("obj is not of type TextButton");
             
-            TextButton b = (TextButton)obj;
-            Color c;
+            TextButton button = (TextButton)obj;
+            Color color;
 
-            if(textColorDict.TryGetValue(b.Id, out c))
-                b.TextColor = c;
+            if(textColorDict.TryGetValue(button.Id, out color))
+                button.TextColor = color;
         }
     }
 }
