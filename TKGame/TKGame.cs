@@ -34,7 +34,7 @@ namespace TKGame
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Desktop desktop;
+        public Desktop desktop;
         private KeyboardState previousState, currentState;
 
         //Declare Background Object
@@ -299,6 +299,11 @@ namespace TKGame
         {
             LevelEditor.SaveStageDataToJSON(currentStage, "auto_saved_stage_data");
             Exit();
+        }
+
+        public static void SwitchToGameplayMenu() 
+        {
+            Instance.desktop.Root = Instance.VSP;
         }
     }
 }

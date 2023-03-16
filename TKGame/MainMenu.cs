@@ -61,6 +61,7 @@ namespace TKGame
             {
                 TKGame.paused = false;
                 DisableMainMenu();
+                TKGame.SwitchToGameplayMenu();
             };
 
             exitButton.TouchDown += (sender, eventArgs) => 
