@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
+using Myra.Graphics2D.UI.Styles;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,8 +21,21 @@ namespace TKGame
         private static Desktop desktop;
         private static Grid mainMenuGrid;
         private static Label background;
-        private static SolidBrush red;
         private static FontSystem mainMenuFontSystem;
+
+        private static readonly Color MAIN_MENU_TEXT_COLOR = Color.Gold;
+        private static readonly Color MAIN_MENU_BACKGROUND_COLOR = Color.DimGray;
+        private static readonly Color MAIN_MENU_PLAY_HOVER_TEXT_COLOR = Color.Lime;
+        private static readonly Color MAIN_MENU_EXIT_HOVER_TEXT_COLOR = Color.Red;
+
+        private static readonly string playButtonStyleName = "play";
+        private static readonly string exitButtonStyleName = "exit";
+
+        private static readonly Dictionary<string, Color> textColorDict = new Dictionary<string, Color>
+        {
+            { playButtonStyleName, MAIN_MENU_PLAY_HOVER_TEXT_COLOR },
+            { exitButtonStyleName, MAIN_MENU_EXIT_HOVER_TEXT_COLOR }
+        };
 
         public static void Initialize(Desktop desktop, TKGame game)
         {
@@ -30,14 +44,21 @@ namespace TKGame
             mainMenuFontSystem.AddFont(ttfData);
 
             IsEnabled = true;
-            red = new SolidBrush(Color.Red);
-            mainMenuGrid = new Grid() { ShowGridLines= true };
+            mainMenuGrid = new Grid();
             background= new Label();
 
             MainMenu.desktop = desktop;
 
-            playButton = ConstructMenuButton("Play", 0, 0, 400);
-            exitButton = ConstructMenuButton("Exit", 1, 0, 400);
+            playButton = ConstructMenuButton("Play", playButtonStyleName, 0, 0, 400);
+            playButton.MouseEntered += OnMouseEnterButton;
+            playButton.MouseLeft += OnMouseLeaveButton;
+
+
+            exitButton = ConstructMenuButton("Exit", exitButtonStyleName, 1, 0, 400);
+            exitButton.MouseEntered += OnMouseEnterButton;
+            exitButton.MouseLeft += OnMouseLeaveButton;
+
+
             playButton.TouchDown += (sender, eventArgs) =>
             {
                 TKGame.paused = false;
@@ -48,9 +69,7 @@ namespace TKGame
             {
                 LevelEditor.SaveStageDataToJSON(game.currentStage, "auto_saved_stage_data");
                 game.Exit();
-            }; 
-
-            
+            };             
         }
 
         public static void LoadContent()
@@ -82,19 +101,42 @@ namespace TKGame
             }
         }
 
-        private static TextButton ConstructMenuButton(string text, int gridRow, int gridCol, int width)
+        private static TextButton ConstructMenuButton(string text, string styleName, int gridRow, int gridCol, int width)
         {
             TextButton newButton = new TextButton();
+            newButton.Id = styleName;
             newButton.Text = text;
             newButton.GridColumn = gridCol;
             newButton.GridRow = gridRow;
             newButton.Width = width;
             newButton.Height = 100;
-            newButton.Background = red;
             newButton.HorizontalAlignment = HorizontalAlignment.Center;
             newButton.VerticalAlignment = VerticalAlignment.Center;
             newButton.Font = mainMenuFontSystem.GetFont(72);
+            newButton.Background = new SolidBrush(MAIN_MENU_BACKGROUND_COLOR);
+            newButton.TextColor = MAIN_MENU_TEXT_COLOR;
             return newButton;
+        }
+
+        /// <summary>
+        /// Changes button text color to the original color when the mouse exits the button's area.
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
+        private static void OnMouseLeaveButton(object obj, EventArgs e)
+        {
+            if (obj is not TextButton) throw new Exception("obj is not of type TextButton");
+
+            ((TextButton) obj).TextColor = MAIN_MENU_TEXT_COLOR;
+        }
+
+        private static void OnMouseEnterButton(object obj, EventArgs e) 
+        {
+            if (obj is not TextButton) throw new Exception("obj is not of type TextButton");
+            TextButton b = (TextButton)obj;
+            Color c;
+            textColorDict.TryGetValue(b.Id, out c);
+            b.TextColor = c;
         }
     }
 }
