@@ -97,10 +97,7 @@ namespace TKGame.Animations
                     timer = 0; // reset timer
                 }
                 else
-                    timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; //increases timer
-
-
-                
+                    timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; //increases timer  
         }
 
 
