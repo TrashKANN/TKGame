@@ -79,7 +79,7 @@ namespace TKGame.Animations
             if (timer > threshold + 500) //waits for about half a second and then resets the loop 
                 loop = true;
 
-                if (!loop)
+                if (!loop) //activates when the spritesheet has incremented all the way through
                 {
                     timer += (float) gameTime.ElapsedGameTime.TotalMilliseconds; //just increments timer and leaves
                     return;
