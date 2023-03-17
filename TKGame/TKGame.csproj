@@ -30,6 +30,7 @@
     <PackageReference Include="Myra" Version="1.4.5" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Art\Screens\" />
     <Folder Include="Content\Art\Weapons\" />
     <Folder Include="Content\bin\DesktopGL\Art\" />
     <Folder Include="Core\" />

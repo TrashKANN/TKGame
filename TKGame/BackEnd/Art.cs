@@ -13,6 +13,9 @@ namespace TKGame.BackEnd
 
         // "Enemy" will be the name of one such as "Goblin" since it has its own art
         public static Texture2D EnemyTexture { get; private set; }
+        public static Texture2D ItemTexture {  get; private set; }
+        public static Texture2D LoadTexture { get; private set; }
+        public static Texture2D ItemTexture { get; private set; }
         public static Texture2D ItemTexture { get; private set; }
 
         /// <summary>
@@ -26,6 +29,7 @@ namespace TKGame.BackEnd
             BackgroundTexture = content.Load<Texture2D>(@"Art/Cobble"); //Background image
             EnemyTexture = content.Load<Texture2D>(@"Art/DoomguyRightFacing"); // enemy as doomguy
             ItemTexture = content.Load<Texture2D>(@"Art/DiamondSwordLeftTilt"); // item as diamond sword 
+            LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet"); // Transistion Screen Image
         }
     }
 }
