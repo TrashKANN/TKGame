@@ -14,7 +14,6 @@ using Myra;
 using Myra.Graphics2D.UI;
 using TKGame.Animations;
 using TKGame.BackEnd;
-using TKGame.BackEnd;
 using TKGame.Level_Editor_Content;
 using TKGame.Weapons;
 
@@ -46,7 +45,7 @@ namespace TKGame
         private ScreenTransition transition;
 
         // Declare Enemy Object
-        Enemy enemy;
+        //Enemy enemy;
 
         //Declare Triggers
         List<Trigger> triggers;

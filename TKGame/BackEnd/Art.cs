@@ -15,8 +15,6 @@ namespace TKGame.BackEnd
         public static Texture2D EnemyTexture { get; private set; }
         public static Texture2D ItemTexture {  get; private set; }
         public static Texture2D LoadTexture { get; private set; }
-        public static Texture2D ItemTexture { get; private set; }
-        public static Texture2D ItemTexture { get; private set; }
 
         /// <summary>
         /// Loads the Player Texture from Art/Player on the Player's texture.
