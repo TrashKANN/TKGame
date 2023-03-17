@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,8 +39,8 @@ namespace TKGame
         //Declare Background Object
         private Background BackgroundImage;
 
-        //Declare Screen Animations
-        private ScreenTransitions screenAnimation;
+        //Declare ScreenTransition Object
+        private ScreenTransition transition;
 
         // Declare Enemy Object
         Enemy enemy;
@@ -82,7 +82,8 @@ namespace TKGame
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
 
-            screenAnimation = new ScreenTransitions(graphics.GraphicsDevice);
+            //Create New ScreenTransition Object
+            transition = new ScreenTransition(graphics.GraphicsDevice);
 
             // Create Triggers
             // TODO: Create Functionality for Procedural Generation with Level Designer
@@ -130,11 +131,10 @@ namespace TKGame
 
             //Loads Image into the Texture
 
-            //BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"Art/Cobble");
 
             // Load Weapon System Content
             WeaponSystem.LoadContent(VSP);
-           // BackgroundImage.BackgroundTexture = Content.Load<Texture2D>(@"C:/Users/");
+
 
 
             
@@ -147,14 +147,15 @@ namespace TKGame
             desktop = new Desktop();
             desktop.Root = VSP;
         }
-        protected override void Update(GameTime gameTime)
+        protected override async void Update(GameTime gameTime)
         {
+
             // Get the current keyboard state
             currentState = Keyboard.GetState();
             GameTime = gameTime;
             Input.Update();
 
-            screenAnimation.Update(gameTime);
+
 
             // Add pause stuff here
             //Do if not paused
@@ -165,16 +166,21 @@ namespace TKGame
 
             if (triggers[0].checkLeftTrigger(Player.Instance))
             {
+                paused = true;
+                transition.Update(gameTime);
                 List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[0].leftStage, GraphicsDevice)).walls;
                 currentStage = new Stage(stageWalls, graphics.GraphicsDevice);
+                paused = false;
             }
 
             if (triggers[1].checkRightTrigger(Player.Instance))
             {
+                paused = true;
+                transition.Update(gameTime);
                 List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[1].rightStage, GraphicsDevice)).walls;
                 currentStage = new Stage(stageWalls, graphics.GraphicsDevice);
+                paused = false;
             }
-
             // Exit the game if Escape is pressed
             if (Input.WasKeyPressed(Keys.Escape))
             {
@@ -233,8 +239,6 @@ namespace TKGame
             //Draws the image into the Background
             spriteBatch.Draw(Art.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
 
-            screenAnimation.Draw(spriteBatch);
-
 
             // Draw each wall to the screen
             // Update level editor
@@ -275,10 +279,15 @@ namespace TKGame
 
             Entity.DrawCollisionIntersections(spriteBatch, EntityManager.GetEntities()[0].collisions);
 
+            //Draws Loading Screen Offscreen until needed
+            //spriteBatch.Draw(Art.LoadTexture, transition.rect, Color.White);
+            transition.Draw(spriteBatch);
+
             spriteBatch.End();
 
             // Render UI elements from Myra
             desktop.Render();
+
 
             base.Draw(gameTime);
 
