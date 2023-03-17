@@ -12,8 +12,13 @@ using Microsoft.Xna.Framework.Media;
 // https://github.com/rds1983/Myra
 using Myra;
 using Myra.Graphics2D.UI;
+<<<<<<< HEAD
 using TKGame.Animations;
+=======
+using TKGame.BackEnd;
+>>>>>>> 43c56f1c8d543a2768136f90780b497056fed75a
 using TKGame.Level_Editor_Content;
+using TKGame.Weapons;
 
 namespace TKGame
 {
@@ -33,17 +38,20 @@ namespace TKGame
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Desktop desktop;
+        public Desktop desktop;
         private KeyboardState previousState, currentState;
 
         //Declare Background Object
         private Background BackgroundImage;
+<<<<<<< HEAD
 
         //Declare ScreenTransition Object
         private ScreenTransition transition;
 
         // Declare Enemy Object
         Enemy enemy;
+=======
+>>>>>>> 43c56f1c8d543a2768136f90780b497056fed75a
 
         //Declare Triggers
         List<Trigger> triggers;
@@ -51,11 +59,11 @@ namespace TKGame
         
         // TODO: Refactor out of the main TKGame class
         private static string currentStageName = "defaultStage" + ".json";
-        Stage currentStage;
+        internal Stage currentStage;
         //Stage leftStage;
         //Stage rightStage;
         int screenWidth, screenHeight;
-        bool paused = false;
+        public static bool paused = true;
         #endregion
         public TKGame()
         {
@@ -78,6 +86,7 @@ namespace TKGame
 
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
+            desktop = new Desktop();
 
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
@@ -112,6 +121,9 @@ namespace TKGame
             // For now, just enable DebugMode when building a Debug version
             GameDebug.DebugMode = true;
 #endif
+            // Initialize main menu
+            MainMenu.Initialize(desktop, this);
+
             //Initializing WeaponSystem
             WeaponSystem.Initialize();
 
@@ -124,10 +136,10 @@ namespace TKGame
             Art.LoadContent(Content);
             Music.LoadContent(Content, 0.15f);
 
-            // Manually adding entities at the moment...
+            // Manually adding entities at the moment
             EntityManager.Add(Player.Instance);
-            EntityManager.Add(Enemy.Instance);
-            EntityManager.Add(Item.Instance);
+            EntityManager.Add(Enemy.DoomguyEnemy.Instance);
+            EntityManager.Add(Item.DiamondSwordItem.Instance);
 
             //Loads Image into the Texture
 
@@ -137,15 +149,14 @@ namespace TKGame
 
 
 
-            
             // Load debug content
             GameDebug.LoadContent(VSP);
 
-
+            // Load main menu
+            MainMenu.LoadContent();
 
             // Continue setting up Myra
-            desktop = new Desktop();
-            desktop.Root = VSP;
+            //desktop.Root = VSP;
         }
         protected override async void Update(GameTime gameTime)
         {
@@ -184,8 +195,7 @@ namespace TKGame
             // Exit the game if Escape is pressed
             if (Input.WasKeyPressed(Keys.Escape))
             {
-                LevelEditor.SaveStageDataToJSON(currentStage, "auto_saved_stage_data");
-                Exit();
+                ExitGame();
             }
 
 #if DEBUG
@@ -273,11 +283,29 @@ namespace TKGame
             // Draw the New Wall last so that the outline appears above all other images
             if (LevelEditor.EditMode == true)
             {
-                LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
+                // I really hate this, needs to be refactored. Asking Thomas might be easiest
+                if(Input.KeyboardState.IsKeyDown(Keys.W))
+                {
+                    LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
+                }
+                // D (Hold) + LClick = Mark; + RClick = UnMark; + Enter = Delete Mar
+                else if(Input.KeyboardState.IsKeyDown(Keys.D))
+                {
+                    LevelEditor.DeleteWall(currentStage.walls);
+                }
+                // Ctrl + Z = Undo last wall deleted
+                else if(Input.KeyboardState.IsKeyDown(Keys.LeftControl) && Input.WasKeyPressed(Keys.Z))
+                {
+                    LevelEditor.UndoDeletedWall(currentStage.walls);
+                }
+                // Ctrl + Y = Redo last wall deleted
+                else if (Input.KeyboardState.IsKeyDown(Keys.LeftControl) && Input.WasKeyPressed(Keys.Y))
+                {
+                    LevelEditor.RedoDeletedWall(currentStage.walls);
+                }
                 LevelEditor.DrawGridLines(spriteBatch, screenWidth, screenHeight, Color.Black);
             }
 
-            Entity.DrawCollisionIntersections(spriteBatch, EntityManager.GetEntities()[0].collisions);
 
             //Draws Loading Screen Offscreen until needed
             //spriteBatch.Draw(Art.LoadTexture, transition.rect, Color.White);
@@ -293,6 +321,17 @@ namespace TKGame
 
             // Once everything has finished drawing, figure out the framerate
             GameDebug.UpdateFPS(gameTime);
+        }
+
+        public void ExitGame()
+        {
+            LevelEditor.SaveStageDataToJSON(currentStage, "auto_saved_stage_data");
+            Exit();
+        }
+
+        public static void SwitchToGameplayMenu() 
+        {
+            Instance.desktop.Root = Instance.VSP;
         }
     }
 }

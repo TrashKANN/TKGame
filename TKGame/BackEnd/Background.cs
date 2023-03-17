@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TKGame
+namespace TKGame.BackEnd
 {
     internal class Background
     {
@@ -16,7 +16,7 @@ namespace TKGame
         /// <summary>
         /// Rectangle to hold the Background Texture
         /// </summary>
-        public Rectangle BackgroundRect { get; set;}
+        public Rectangle BackgroundRect { get; set; }
 
         /// <summary>
         /// Texture to hold the Background Image
@@ -33,6 +33,6 @@ namespace TKGame
         {
             BackgroundRect = new Rectangle(0, 0, width, height);
         }
-       
+
     }
 }

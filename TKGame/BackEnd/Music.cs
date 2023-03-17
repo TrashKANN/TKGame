@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;//Allows the use of MediaPlayer
 
 
-namespace TKGame
+namespace TKGame.BackEnd
 {
     public class Music
     {

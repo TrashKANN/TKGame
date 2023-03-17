@@ -13,7 +13,7 @@ using Myra.Graphics2D.Brushes;
 using System.ComponentModel;
 
 
-namespace TKGame
+namespace TKGame.Weapons
 {
     public class WeaponSystem
     {
@@ -58,7 +58,7 @@ namespace TKGame
             swordLabel = new Label();
             spearLabel = new Label();
             axeLabel = new Label();
-            
+
             // Create a VerticalStackPanel to put all the debug elements in so they look nice
             // without needing to manually position every element
             VSP = new VerticalStackPanel();
@@ -83,22 +83,22 @@ namespace TKGame
             //VSP.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
 
             // Configure labels
-                // Sword Label
+            // Sword Label
             swordLabel.Text = swordText;
             swordLabel.TextColor = WEAPON_TEXT_COLOR;
             swordLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
             swordLabel.Visible = true;
             VSP.Widgets.Add(swordLabel);
-            
 
-               // Spear Label
+
+            // Spear Label
             spearLabel.Text = spearText;
-            spearLabel.TextColor = WEAPON_TEXT_COLOR;  
+            spearLabel.TextColor = WEAPON_TEXT_COLOR;
             spearLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
             spearLabel.Visible = true;
             VSP.Widgets.Add(spearLabel);
 
-              // Axe Label
+            // Axe Label
             axeLabel.Text = axeText;
             axeLabel.TextColor = WEAPON_TEXT_COLOR;
             axeLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);

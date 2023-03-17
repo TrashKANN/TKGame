@@ -11,6 +11,39 @@ namespace TKGame
         private static MouseState mouseState, lastMouseState;
         private static GamePadState gamepadState, lastGamepadState;
 
+        #region Properties
+        public static KeyboardState KeyboardState
+        {
+            get { return keyboardState; }
+            private set { keyboardState = value; }
+        }
+        public static KeyboardState LastKeyboardState
+        {
+            get { return lastKeyboardState; }
+            private set { lastKeyboardState = value; }
+        }
+        public static MouseState MouseState
+        {
+            get { return mouseState; }
+            private set { mouseState = value; }
+        }
+        public static MouseState LastMouseState
+        {
+            get { return lastMouseState; }
+            private set { lastMouseState = value; }
+        }
+        public static GamePadState GamePadState
+        {
+            get { return gamepadState; }
+            private set { gamepadState = value; }
+        }
+        public static GamePadState LastGamePadState
+        {
+            get { return lastGamepadState; }
+            private set { lastGamepadState = value; }
+        }
+        #endregion Properties
+
         //No mouse input has been added, this is just for reference later on
         private static bool isAimingWithMouse = false;
         private static readonly float JUMP_HEIGHT = -25.0f;

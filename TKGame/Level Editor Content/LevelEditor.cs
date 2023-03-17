@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Graphics;
 // JSON includes
 using System.IO;
 using System.Text.Json;
+using Color = Microsoft.Xna.Framework.Color;
+using TKGame.BackEnd;
 
 namespace TKGame.Level_Editor_Content
 {
@@ -28,6 +30,7 @@ namespace TKGame.Level_Editor_Content
         private static Vector2 startPosition;
         internal static bool EditMode = false;
         private static readonly int GRID_SIZE = 32;
+        private static List<Wall> deletedWalls= new List<Wall>();
 
         /// <summary>
         /// Toggles the functionallity of the Level Editor
@@ -90,7 +93,7 @@ namespace TKGame.Level_Editor_Content
                                                         (int)size.Y), 
                                                         GRID_SIZE);
 
-                Wall newWall = new Wall(alignedRect, graphics);
+                Wall newWall = new Wall(alignedRect, Color.White, graphics);
 
 
                 stage.walls.Add(newWall);
@@ -100,12 +103,82 @@ namespace TKGame.Level_Editor_Content
         }
 
         /// <summary>
+        /// Whilst holding "D", Left click walls to mark them. Right click marked walls to unmark.
+        /// Any walls marked when "D" is held down and "Enter" is pressed will be deleted from the stage
+        /// and added to the deletedWalls list for the purposes of Undo/Redo
+        /// </summary>
+        /// <param name="walls"></param>
+        internal static void DeleteWall(List<Wall> walls)
+        {
+            foreach (var wall in walls)
+            {
+                // Check each wall to see if the mouse is over it
+                if (wall.HitBox.Contains(Input.MouseState.Position))
+                {
+                    // If the Left mouse button was clicked, highlight it with a different color and add it to to be deleted walls
+                    if (Input.MouseState.LeftButton == ButtonState.Pressed && !deletedWalls.Contains(wall))
+                    {
+                        wall.Texture.SetData<Color>(new Color[] { Color.Red });
+                        deletedWalls.Add(wall);
+                    }
+                    // If Right clicked, return the color to White and remove it from to be deleted walls
+                    else if (Input.MouseState.RightButton == ButtonState.Pressed && deletedWalls.Contains(wall))
+                    {
+                        wall.Texture.SetData<Color>(new Color[] { Color.White });
+                        deletedWalls.Remove(wall);
+                    }
+                }
+            }
+            // Upon pressing Enter, remove all the highlighted walls. Save in deleted list for Undoing
+            if (Input.WasKeyPressed(Keys.Enter))
+            {
+                walls.RemoveAll(x => deletedWalls.Contains(x));
+
+                // reset wall colors for newly deleted walls
+                foreach (var wall in deletedWalls.Where(x => !walls.Contains(x)))
+                {
+                    wall.Texture.SetData<Color>(new Color[] { Color.White });
+                }
+            }
+        }
+
+        /// <summary>
+        /// If there have been walls added to the deletedWalls list, Add the last wall in deletedWalls
+        /// to the stage walls.
+        /// Remove the last wall from the deleteWalls list.
+        /// </summary>
+        /// <param name="walls"></param>
+        internal static void UndoDeletedWall(List<Wall> walls)
+        {
+            if (deletedWalls.Count > 0)
+            {
+                walls.Add(deletedWalls.LastOrDefault());
+                deletedWalls.Remove(deletedWalls.LastOrDefault());
+            }
+        }
+
+        /// <summary>
+        /// Adds the last wall in stage walls to the deletedWalls list. Can be performed without previously deleting
+        /// walls. Use carefully.
+        /// Walls are additionally removed from the stage walls.
+        /// </summary>
+        /// <param name="walls"></param>
+        internal static void RedoDeletedWall(List<Wall> walls)
+        {
+            if (walls.Count > 0)
+            {
+                deletedWalls.Add(walls.LastOrDefault());
+                walls.Remove(deletedWalls.LastOrDefault());
+            }
+        }
+
+        /// <summary>
         /// Aligns any passed rectangles/hitboxes to the grid based on the passed size. GridSize is a constant.
         /// </summary>
         /// <param name="rect"></param>
         /// <param name="gridSize"></param>
         /// <returns></returns>
-        internal static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
+        private static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
         {
             // Calculate the position of the closest grid square
             int snappedX = (int)Math.Round((double)rect.X / gridSize) * gridSize;
@@ -223,7 +296,7 @@ namespace TKGame.Level_Editor_Content
 
             foreach (WallData wallData in jsonStageData)
             {
-                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, graphics);
+                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, Color.White, graphics);
                 newStage.walls.Add(newWall);
             }
 
