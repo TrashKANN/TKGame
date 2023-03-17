@@ -12,11 +12,9 @@ using Microsoft.Xna.Framework.Media;
 // https://github.com/rds1983/Myra
 using Myra;
 using Myra.Graphics2D.UI;
-<<<<<<< HEAD
 using TKGame.Animations;
-=======
 using TKGame.BackEnd;
->>>>>>> 43c56f1c8d543a2768136f90780b497056fed75a
+using TKGame.BackEnd;
 using TKGame.Level_Editor_Content;
 using TKGame.Weapons;
 
@@ -43,15 +41,12 @@ namespace TKGame
 
         //Declare Background Object
         private Background BackgroundImage;
-<<<<<<< HEAD
 
         //Declare ScreenTransition Object
         private ScreenTransition transition;
 
         // Declare Enemy Object
         Enemy enemy;
-=======
->>>>>>> 43c56f1c8d543a2768136f90780b497056fed75a
 
         //Declare Triggers
         List<Trigger> triggers;
@@ -146,7 +141,6 @@ namespace TKGame
 
             // Load Weapon System Content
             WeaponSystem.LoadContent(VSP);
-
 
 
             // Load debug content
@@ -305,7 +299,6 @@ namespace TKGame
                 }
                 LevelEditor.DrawGridLines(spriteBatch, screenWidth, screenHeight, Color.Black);
             }
-
 
             //Draws Loading Screen Offscreen until needed
             //spriteBatch.Draw(Art.LoadTexture, transition.rect, Color.White);

@@ -1,7 +1,6 @@
 [
   {
     "X": 0,
-<<<<<<< HEAD
     "Y": 0,
     "dataWidth": 32,
     "dataHeight": 640
@@ -35,7 +34,6 @@
     "Y": 864,
     "dataWidth": 1600,
     "dataHeight": 32
-=======
     "Y": 860,
     "width": 1600,
     "height": 50
@@ -63,6 +61,5 @@
     "Y": 450,
     "width": 250,
     "height": 250
->>>>>>> 43c56f1c8d543a2768136f90780b497056fed75a
   }
 ]
