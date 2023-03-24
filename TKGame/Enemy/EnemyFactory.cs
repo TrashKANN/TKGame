@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TKGame
+namespace TKGame.Enemy
 {
-    // interface for all enemy types
-    public interface IEnemies
+    public abstract class EnemyFactory
     {
-        void GetEnemy();
+        public abstract Enemy CreateEnemy();
     }
 }
