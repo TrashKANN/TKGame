@@ -170,8 +170,9 @@ namespace TKGame
 
             if (triggers[0].checkLeftTrigger(Player.Instance))
             {
-                paused = true;
                 transition.Update(gameTime);
+                paused = true;
+
                 List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[0].leftStage, GraphicsDevice)).walls;
                 currentStage = new Stage(stageWalls, graphics.GraphicsDevice);
                 paused = false;

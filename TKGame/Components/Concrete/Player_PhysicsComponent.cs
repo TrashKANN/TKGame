@@ -18,7 +18,8 @@ namespace TKGame.Components.Concrete
             Vector2 endVel = entity.Velocity;
             endVel += entity.MOVEMENT_SPEED * entity.Velocity * deltaTime;
 
-            endVel.Y = GRAVITY;
+            endVel.Y += GRAVITY;
+
             entity.Position += endVel;
 
             entity.HitBox = new Rectangle(((int)entity.Position.X - ((int)entity.Size.X / 2)),

@@ -29,7 +29,7 @@ namespace TKGame.Animations
         private int buffer = 5;
         byte currentIndex = 0;
         private float timer = 0;
-        private int threshold = 50;
+        private int threshold = 10;
         private bool loop = true;
 
 
@@ -58,7 +58,7 @@ namespace TKGame.Animations
             sourceRectangles[13] = new Rectangle((spriteX + buffer) + 2, (spriteY + buffer) * 4, spriteX, spriteY);
             sourceRectangles[14] = new Rectangle((spriteX * 2) + (buffer * 2), (spriteY + buffer) * 4, spriteX, spriteY);
             sourceRectangles[15] = new Rectangle(buffer, (spriteY + buffer) * 5, spriteX, spriteY);
-            sourceRectangles[0] = new Rectangle((spriteX + buffer) + 2, (spriteY +buffer) * 5 + 16, spriteX, spriteY);
+            sourceRectangles[0] = new Rectangle((spriteX + buffer) + 2, (spriteY +buffer) * 5 + 16, spriteX, spriteY -15);
 
         }
         /// <summary>
@@ -77,7 +77,7 @@ namespace TKGame.Animations
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-            if (timer > threshold + 500) //waits for about half a second and then resets the loop 
+            if (timer > threshold + 800) //waits for about half a second and then resets the loop 
                 loop = true;
 
                 if (!loop) //activates when the spritesheet has incremented all the way through

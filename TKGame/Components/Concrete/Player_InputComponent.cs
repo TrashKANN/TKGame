@@ -12,6 +12,7 @@ namespace TKGame.Components.Concrete
     public class Player_InputComponent : InputComponent
     {
         private static readonly int WALK_ACCELERATION = 1;
+        private static readonly int JUMP_HEIGHT = -1;
         private static int framesSinceJump = 0;
 
         void InputComponent.Update(Entity player)
@@ -33,6 +34,7 @@ namespace TKGame.Components.Concrete
             if (Input.WasKeyPressed(Keys.Space))
             {
                 ToggleJumping((Player)player);
+                //player.Velocity.Y = JUMP_HEIGHT;
             }
         }
 
