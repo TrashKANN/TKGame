@@ -117,10 +117,12 @@ namespace TKGame
 
             // Manually add player instance
             EntityManager.Add(Player.Instance);
-            // Manually create a knight enemy
+
+            // Spawn a knight enemy
             EnemyFactory knightFactory = new KnightEnemyFactory();
             Enemy knight = knightFactory.CreateEnemy();
-            // Manually create a potion item
+
+            // Spawn a potion item
             ItemFactory potionFactory = new PotionItemFactory();
             Item potion = potionFactory.CreateItem();
 
