@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TKGame.Enemy
+namespace TKGame
 {
     public class KnightEnemyFactory : EnemyFactory
     {
@@ -13,12 +13,4 @@ namespace TKGame.Enemy
             return new KnightEnemy();
         }
     }
-
-    //public class DoomguyEnemy : EnemyFactory
-    //{
-    //    public override Enemy CreateEnemy()
-    //    {
-    //        return new DoomguyEnemy();
-    //    }
-    //}
 }

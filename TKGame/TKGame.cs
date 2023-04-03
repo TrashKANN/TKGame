@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 // https://github.com/rds1983/Myra
 using Myra;
 using Myra.Graphics2D.UI;
+//using TKGame.Enemy;
 using TKGame.Level_Editor_Content;
 
 namespace TKGame
@@ -114,13 +115,14 @@ namespace TKGame
             Art.LoadContent(Content);
             Music.LoadContent(Content, 0.15f);
 
-            // Manually adding entities at the moment...
+            // Manually add player instance
             EntityManager.Add(Player.Instance);
-            /*EnemiesFactory enemiesFactory = new EnemiesFactory();
-            IEnemies goblin = enemiesFactory.CreateEnemy("Goblin");
-            IEnemies knight = enemiesFactory.CreateEnemy("Knight");*/
-            EntityManager.Add(Enemy.DoomguyEnemy.Instance);
-            EntityManager.Add(Item.DiamondSwordItem.Instance);
+            // Manually create a knight enemy
+            EnemyFactory knightFactory = new KnightEnemyFactory();
+            Enemy knight = knightFactory.CreateEnemy();
+            // Manually create a potion item
+            ItemFactory potionFactory = new PotionItemFactory();
+            Item potion = potionFactory.CreateItem();
 
             //Loads Image into the Texture
 

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TKGame
 {
-    public abstract class EnemyFactory
+    public abstract class ItemFactory
     {
-        public abstract Enemy CreateEnemy();
+        public abstract Item CreateItem();
     }
 }

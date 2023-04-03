@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace TKGame
 {
-    public abstract class EnemyFactory
+    public class PotionItemFactory : ItemFactory
     {
-        public abstract Enemy CreateEnemy();
+        public override Item CreateItem()
+        {
+            return new PotionItem();
+        }
     }
 }

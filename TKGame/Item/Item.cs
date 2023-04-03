@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TKGame.Item
+namespace TKGame
 {
     public abstract class Item : Entity
     {
