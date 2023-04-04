@@ -30,12 +30,12 @@ namespace TKGame
                 if (Position.X > playerPosition.X)
                 {
                     Position.X -= velocity.X;
-                    Orientation = SpriteEffects.FlipHorizontally;
+                    Orientation = SpriteEffects.None;
                 }
                 if (Position.X < playerPosition.X)
                 {
                     Position.X += velocity.X;
-                    Orientation = SpriteEffects.None;
+                    Orientation = SpriteEffects.FlipHorizontally;
                 }
                 if (Position.Y > playerPosition.Y)
                 {
