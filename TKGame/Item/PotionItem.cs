@@ -19,18 +19,18 @@ namespace TKGame
 
         public override void Update(GameTime gameTime)
         {
-            //Player player = Player.Instance;
+            Player player = Player.Instance;
 
-            //if (player != null)
-            //{
-            //    if (player.Position.X >= Position.X - 20 &&
-            //        player.Position.X <= Position.X + 20 &&
-            //        player.Position.Y >= Position.Y - 80 &&
-            //        player.Position.Y <= Position.Y + 80)
-            //    {
-            //        Position = new Vector2(1500, 100);
-            //    }
-            //}
+            if (player != null)
+            {
+                if (player.Position.X >= Position.X - 20 &&
+                    player.Position.X <= Position.X + 20 &&
+                    player.Position.Y >= Position.Y - 80 &&
+                    player.Position.Y <= Position.Y + 80)
+                {
+                    Position = new Vector2(1500, 100);
+                }
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)

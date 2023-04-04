@@ -121,10 +121,12 @@ namespace TKGame
             // Spawn a knight enemy
             EnemyFactory knightFactory = new KnightEnemyFactory();
             Enemy knight = knightFactory.CreateEnemy();
+            EntityManager.Add(knight);
 
             // Spawn a potion item
             ItemFactory potionFactory = new PotionItemFactory();
             Item potion = potionFactory.CreateItem();
+            EntityManager.Add(potion);
 
             //Loads Image into the Texture
 
