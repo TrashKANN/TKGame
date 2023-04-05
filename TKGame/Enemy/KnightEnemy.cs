@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.Components.Concrete;
+using TKGame.Components.Interface;
 using TKGame.BackEnd;
 
 namespace TKGame
@@ -21,6 +23,7 @@ namespace TKGame
 
         public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            //////////////////////// PUT THIS IN Enemy_PhysicsComponent Update() /////////////////////////////////
             Player player = Player.Instance;
 
             // check if player is null
