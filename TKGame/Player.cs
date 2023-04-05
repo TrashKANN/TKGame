@@ -51,7 +51,6 @@ namespace TKGame
             MOVEMENT_SPEED = 500f;
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
-            Position = new Vector2(1600/2, 900 - 40);
             entityName = "player"; // name for player class
             Position = new Vector2(1600/2, 900 - 70);
             HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
