@@ -45,9 +45,6 @@ namespace TKGame
         //Declare ScreenTransition Object
         private ScreenTransition transition;
 
-        // Declare Enemy Object
-        Enemy.Enemy enemy;
-
         //Declare Triggers
         List<Trigger> triggers;
 
