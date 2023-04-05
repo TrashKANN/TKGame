@@ -25,7 +25,7 @@
 /processorParam:TextureFormat=Color
 /build:Art/Cobble.jpg
 
-#begin Art/DiamondSwordLeftTilt.png
+#begin Art/KnightLeftFacing.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,19 +35,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Art/DiamondSwordLeftTilt.png
-
-#begin Art/DoomguyRightFacing.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Art/DoomguyRightFacing.png
+/build:Art/KnightLeftFacing.png
 
 #begin Art/Player.png
 /importer:TextureImporter
@@ -60,6 +48,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Art/Player.png
+
+#begin Art/Potion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Art/Potion.png
 
 #begin Art/Screens/LoadingScreen.png
 /importer:TextureImporter

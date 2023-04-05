@@ -131,10 +131,18 @@ namespace TKGame
             Art.LoadContent(Content);
             Music.LoadContent(Content, 0.15f);
 
-            // Manually adding entities at the moment
+            // Manually add player instance
             EntityManager.Add(Player.Instance);
-            EntityManager.Add(Enemy.DoomguyEnemy.Instance);
-            EntityManager.Add(Item.DiamondSwordItem.Instance);
+
+            // Spawn a knight enemy
+            EnemyFactory knightFactory = new KnightEnemyFactory();
+            Enemy knight = knightFactory.CreateEnemy();
+            EntityManager.Add(knight);
+
+            // Spawn a potion item
+            ItemFactory potionFactory = new PotionItemFactory();
+            Item potion = potionFactory.CreateItem();
+            EntityManager.Add(potion);
 
             //Loads Image into the Texture
 

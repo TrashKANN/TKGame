@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using TKGame.Level_Editor_Content;
 
-namespace TKGame.Enemy
+namespace TKGame
 {
     public abstract class Enemy : Entity
     {

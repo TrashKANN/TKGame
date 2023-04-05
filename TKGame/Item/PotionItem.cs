@@ -8,36 +8,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TKGame.BackEnd;
 
-namespace TKGame.Item
+namespace TKGame
 {
-    class DiamondSwordItem : Item
+    class PotionItem : Item
     {
-        static DiamondSwordItem instance;
-        private static object syncRoot = new object();
-
-        public static DiamondSwordItem Instance
+        public PotionItem()
         {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                        {
-                            instance = new DiamondSwordItem();
-                        }
-                    }
-                }
-                return instance;
-            }
-        }
-
-        private DiamondSwordItem()
-        {
-            entityTexture = Art.ItemTexture;
-            Position = new Vector2(1200, 840);
-            entityName = "DiamondSwordItem";
+            entityTexture = Art.PotionItemTexture;
+            Position = new Vector2(1200, 840); // hard coded spawn position at the moment
         }
 
         public override void Update(GameTime gameTime, SpriteBatch spriteBatch)

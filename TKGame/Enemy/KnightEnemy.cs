@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,37 +9,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TKGame.BackEnd;
 
-namespace TKGame.Enemy
+namespace TKGame
 {
-    class DoomguyEnemy : Enemy
+    public class KnightEnemy : Enemy
     {
-        static DoomguyEnemy instance;
-        private static object syncRoot = new object();
-
-        public static DoomguyEnemy Instance
+        public KnightEnemy() 
         {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                        {
-                            instance = new DoomguyEnemy();
-                        }
-                    }
-                }
-                return instance;
-            }
-        }
-
-        private DoomguyEnemy()
-        {
-            entityTexture = Art.EnemyTexture;
-            Position = new Vector2(150, 700);
+            entityTexture = Art.KnightEnemyTexture; 
+            Position = new Vector2(300, 800); // hard coded spawn position at the moment
             velocity = new Vector2((float)1.5, 1);
-            entityName = "DoomguyEnemy";
             HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
@@ -54,12 +33,12 @@ namespace TKGame.Enemy
                 if (Position.X > playerPosition.X)
                 {
                     Position.X -= velocity.X;
-                    Orientation = SpriteEffects.FlipHorizontally;
+                    Orientation = SpriteEffects.None;
                 }
                 if (Position.X < playerPosition.X)
                 {
                     Position.X += velocity.X;
-                    Orientation = SpriteEffects.None;
+                    Orientation = SpriteEffects.FlipHorizontally;
                 }
                 if (Position.Y > playerPosition.Y)
                 {
