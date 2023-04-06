@@ -35,7 +35,7 @@ namespace TKGame
         /// <param name="spriteBatch"></param>
         public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            knightEnemyPhysics.Update(, gameTime/*, world*/);
+            knightEnemyPhysics.Update(this, gameTime/*, world*/);
             //Player player = Player.Instance;
 
             //if (player != null)
