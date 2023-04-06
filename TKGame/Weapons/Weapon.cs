@@ -12,6 +12,7 @@ namespace TKGame.Content.Weapons
     {
         protected Texture2D weaponTexture;
         public Vector2 position, velocity;
+        public Rectangle weaponRect;
         public SpriteEffects orientation;
 
         public Color color = Color.White;
@@ -24,9 +25,6 @@ namespace TKGame.Content.Weapons
         /// <param name="weapon"></param>
         /// <returns></returns>
         public abstract int DamageEnemy(Weapon weapon);
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(weaponTexture, position, null, color, 0, size / 2f, 1f, orientation, 0);
-        }
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }

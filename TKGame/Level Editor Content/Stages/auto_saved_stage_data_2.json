@@ -1,0 +1,38 @@
+[
+  {
+    "X": 0,
+    "Y": 0,
+    "dataWidth": 32,
+    "dataHeight": 640
+  },
+  {
+    "X": 32,
+    "Y": 0,
+    "dataWidth": 1536,
+    "dataHeight": 32
+  },
+  {
+    "X": 1568,
+    "Y": 0,
+    "dataWidth": 32,
+    "dataHeight": 640
+  },
+  {
+    "X": 800,
+    "Y": 448,
+    "dataWidth": 256,
+    "dataHeight": 256
+  },
+  {
+    "X": 640,
+    "Y": 576,
+    "dataWidth": 128,
+    "dataHeight": 64
+  },
+  {
+    "X": 0,
+    "Y": 864,
+    "dataWidth": 1600,
+    "dataHeight": 32
+  }
+]

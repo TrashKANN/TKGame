@@ -37,11 +37,13 @@ namespace TKGame.Content.Weapons
         /// <summary>
         /// Private Constructor for Sword
         /// </summary>
-        private Sword()
+        public Sword()
         {
+    
             weaponTexture = Art.WeaponTexture;
-            position = new Vector2(0, 0);
-            
+            position = new Vector2(815, 730);
+            weaponRect = new Rectangle(815, 730, 85, 85);
+            damageStat = 1;
         }
 
         public void Update(GameTime gameTime, Vector2 position, Vector2 velocity)
@@ -49,9 +51,11 @@ namespace TKGame.Content.Weapons
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(weaponTexture, position, null, color, 0, size / 4f, 1f, orientation, 0);
+            weaponTexture = Art.WeaponTexture;
+            //spriteBatch.Draw(weaponTexture, position, weaponRect, color, 0, position, 0.2f, orientation, 0);
+            spriteBatch.Draw(weaponTexture, weaponRect, color);
         }
 
 
