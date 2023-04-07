@@ -28,12 +28,10 @@ namespace TKGame.Components.Concrete
                 if (entity.Position.X > playerPosition.X)
                 {
                     entity.Position.X -= entity.Velocity.X;
-                    entity.Orientation = SpriteEffects.None;
                 }
                 if (entity.Position.X < playerPosition.X)
                 {
                     entity.Position.X += entity.Velocity.X;
-                    entity.Orientation = SpriteEffects.FlipHorizontally;
                 }
                 if (entity.Position.Y > playerPosition.Y)
                 {

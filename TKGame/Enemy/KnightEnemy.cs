@@ -14,6 +14,7 @@ namespace TKGame
     public class KnightEnemy : Enemy
     {
         private PhysicsComponent knightEnemyPhysics = new Enemy_PhysicsComponent();
+        private GraphicsComponent knightEnemyGraphics = new Enemy_GraphicsComponent();
 
         /// <summary>
         /// knight enemy components
@@ -40,7 +41,8 @@ namespace TKGame
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            knightEnemyGraphics.Update(this, spriteBatch);
+            //base.Draw(spriteBatch);
         }
     }
 }
