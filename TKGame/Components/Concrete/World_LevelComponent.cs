@@ -29,6 +29,8 @@ namespace TKGame.Components.Concrete
         public void AddLevel(Level newLevel)
         {
             levels.Add(newLevel);
+            if (currentLevel == null)
+                currentLevel = newLevel;
         }
 
         void LevelComponent.Update()

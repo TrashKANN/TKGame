@@ -78,7 +78,7 @@ namespace TKGame
             graphics.PreferredBackBufferHeight = 900;
             IsMouseVisible = true;
             levelEditorComponent = new World_LevelEditorComponent();
-            levelComponent = new World_LevelComponent(new List<Level>() { new Level(new List<Stage>(new Stage("defaultStage"))) });
+            levelComponent = new World_LevelComponent(new List<Level>());
         }
         protected override void Initialize()
         {
@@ -122,8 +122,7 @@ namespace TKGame
             Art.LoadContent(Content);
             Music.LoadContent(Content, 0.15f);
 
-            // Manually add player instance
-            EntityManager.Add(Player.Instance);
+            levelComponent.AddLevel(new Level(new List<Stage>(new Stage("defaultStage"))));
 
             // Spawn a knight enemy
             EnemyFactory knightFactory = new KnightEnemyFactory();
