@@ -18,6 +18,8 @@ namespace TKGame.Components.Concrete
         void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)
         {
             Player player = Player.Instance;
+            entity.Velocity.X = 1;
+            entity.Velocity.Y = 1;
 
             if (player != null)
             {
