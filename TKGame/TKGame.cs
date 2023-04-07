@@ -181,10 +181,7 @@ namespace TKGame
                 LevelEditor.ToggleEditor();
                 paused = !paused;
             }
-            if (LevelEditor.EditMode)
-            {
-                levelEditorComponent.Update();
-            }
+
 #endif
             // Updates Weapon System
             WeaponSystem.Update();
@@ -244,7 +241,7 @@ namespace TKGame
             // Draw the New Wall last so that the outline appears above all other images
             if (LevelEditor.EditMode)
             {
-                
+                levelEditorComponent.Update();
             }
 
             //Draws Loading Screen Offscreen until needed
