@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TKGame.Level_Editor_Content
 {
-    internal class Trigger
+    public class Trigger
     {
         #region Member Variables
         private static readonly int screenWidth = 1600;

@@ -19,7 +19,7 @@ namespace TKGame
             HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
-        public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Update(GameTime gameTime)
         {
             Player player = Player.Instance;
 

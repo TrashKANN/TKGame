@@ -6,7 +6,7 @@ using TKGame.Components.Interface;
 
 namespace TKGame
 {
-    class Player : Entity
+    public class Player : Entity
     {
         private static Player instance;
         private static object syncRoot = new object();
@@ -62,11 +62,11 @@ namespace TKGame
         /// Updates each component the Player owns.
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Update(GameTime gameTime)
         {
             input.Update(this);
             physics.Update(this, gameTime/*, world*/);
-            graphics.Update(this, spriteBatch);
+            graphics.Update(this);
         }
 
         /// <summary>

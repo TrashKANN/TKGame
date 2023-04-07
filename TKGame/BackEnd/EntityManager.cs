@@ -55,16 +55,18 @@ namespace TKGame.BackEnd
         /// Updates each entity in the World entity list. Then adds all new entities to the World list, then clears the new entity list as well as the Expired entities in the World.
         /// </summary>
         /// <param name="gameTime"></param>
-        public static void Update(GameTime gameTime, SpriteBatch spriteBatch, Stage stage)
+        public static void Update(GameTime gameTime)
         {
+            Stage currentStage = TKGame.levelComponent.GetCurrentStage();
+
             IsUpdating = true;
             // HandleCollision();
 
             // Update each entity from previous frame
             foreach (var entity in entities)
             {
-                entity.Update(gameTime, spriteBatch);
-                entity.Collide(stage.StageWalls);
+                entity.Update(gameTime);
+                entity.Collide(currentStage.StageWalls);
             }
 
             IsUpdating = false;

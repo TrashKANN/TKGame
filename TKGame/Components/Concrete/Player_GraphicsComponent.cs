@@ -10,8 +10,10 @@ namespace TKGame.Components.Concrete
 {
     internal class Player_GraphicsComponent : GraphicsComponent
     {
-        void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
+        void GraphicsComponent.Update(Entity entity)
         {
+            SpriteBatch spriteBatch = TKGame.SpriteBatch;
+
             if (entity.Velocity.X > 0)
             {
                 entity.Orientation = SpriteEffects.None;

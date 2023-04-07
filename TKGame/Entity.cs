@@ -33,7 +33,7 @@ namespace TKGame
         #endregion Properties
 
 
-        public abstract void Update(GameTime gameTime, SpriteBatch spriteBatch);
+        public abstract void Update(GameTime gameTime);
 
         /// <summary>
         /// Uses the Entity's hitbox and iterates through each hitbox passed to it and adjusts the Entity's position

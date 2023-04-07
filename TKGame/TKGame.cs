@@ -151,13 +151,31 @@ namespace TKGame
             GameTime = gameTime;
             Input.Update();
 
+            // NEEDS TO BE MOVED INTO LEVEL.CS
+            //if (triggers[0].checkLeftTrigger(Player.Instance))
+            //{
+            //    transition.Update(gameTime);
+            //    paused = true;
 
+            //    List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[0].leftStage, GraphicsDevice)).StageWalls;
+            //    currentStage = new Stage(stageWalls);
+            //    paused = false;
+            //}
+
+            //if (triggers[1].checkRightTrigger(Player.Instance))
+            //{
+            //    paused = true;
+            //    transition.Update(gameTime);
+            //    List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[1].rightStage, GraphicsDevice)).StageWalls;
+            //    currentStage = new Stage(stageWalls);
+            //    paused = false;
+            //}
 
             // Add pause stuff here
             //Do if not paused
             if (!paused)
             {
-                EntityManager.Update(gameTime, spriteBatch, levelComponent.GetCurrentStage());
+                EntityManager.Update(gameTime);
             }
 
 
@@ -216,7 +234,7 @@ namespace TKGame
                 spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
                 if (GameDebug.DebugMode) 
                 { 
-                    GameDebug.DrawBoundingBox(spriteBatch, wall.HitBox, Color.Lime, 5); 
+                    GameDebug.DrawBoundingBox(wall.HitBox, Color.Lime, 5); 
                 }
             }
 
@@ -234,7 +252,7 @@ namespace TKGame
             {
                 foreach (Entity entity in EntityManager.GetEntities())
                 {
-                    GameDebug.DrawBoundingBox(spriteBatch, entity, Color.Blue, 5);
+                    GameDebug.DrawBoundingBox(entity, Color.Blue, 5);
                 }
             }
 

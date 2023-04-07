@@ -74,7 +74,7 @@ namespace TKGame.Level_Editor_Content
                 // Used for drawing the outline of the to be created wall
                 Rectangle tempRect = new Rectangle((int)topLeftPosition.X, (int)topLeftPosition.Y, (int)size.X, (int)size.Y);
 
-                GameDebug.DrawBoundingBox(spriteBatch, tempRect, Color.DeepPink, 5);
+                GameDebug.DrawBoundingBox(tempRect, Color.DeepPink, 5);
             }
             // If the left mouse button IS ALREADY pressed and WAS RELEASED this update, store coordinates for end position
             else if (previousMouseState.LeftButton == ButtonState.Pressed &&
@@ -197,7 +197,7 @@ namespace TKGame.Level_Editor_Content
             return rect;
         }
 
-        internal static void DrawGridLines(SpriteBatch spriteBatch, int screenWidth, int screenHeight, Color color)
+        internal static void DrawGridLines(int screenWidth, int screenHeight, Color color)
         {
             // Calculate the number of grid squares in each direction
             int numHorizontalGridSquares = screenWidth / GRID_SIZE;
@@ -207,14 +207,14 @@ namespace TKGame.Level_Editor_Content
             for (int i = 0; i < numVerticalGridSquares; i++)
             {
                 int y = i * GRID_SIZE;
-                GameDebug.DrawBoundingBox(spriteBatch, new Rectangle(0, y, screenWidth, 1), color, 1);
+                GameDebug.DrawBoundingBox(new Rectangle(0, y, screenWidth, 1), color, 1);
             }
 
             // Draw the vertical grid lines
             for (int i = 0; i < numHorizontalGridSquares; i++)
             {
                 int x = i * GRID_SIZE;
-                GameDebug.DrawBoundingBox(spriteBatch, new Rectangle(x, 0, 1, screenHeight), color, 1);
+                GameDebug.DrawBoundingBox(new Rectangle(x, 0, 1, screenHeight), color, 1);
             }
         }
 

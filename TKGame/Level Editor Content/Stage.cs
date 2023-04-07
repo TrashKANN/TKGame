@@ -15,16 +15,19 @@ namespace TKGame.Level_Editor_Content
     {
         private List<Entity> stageEntities;
         private List<Wall> stageWalls;
+        private List<Trigger> stageTriggers;
         private string stageName;
 
         public List<Entity> StageEntities { get { return stageEntities; } }
         public List<Wall> StageWalls { get { return stageWalls; } }
+        public List<Trigger> StageTriggers { get { return stageTriggers; } }
 
         public Stage()
         {
             stageName = "defaultStage.json";
             this.stageWalls = new List<Wall>() { };
             this.stageEntities = new List<Entity>() { };
+            this.stageTriggers = new List<Trigger>() { };
             this.stageEntities.Add(Player.Instance);
         }
         public Stage(string name) 
@@ -32,6 +35,7 @@ namespace TKGame.Level_Editor_Content
             stageName = name;
             this.stageWalls = new List<Wall>() { };
             this.stageEntities = new List<Entity>() { };
+            this.stageTriggers = new List<Trigger>() { };
             this.stageEntities.Add(Player.Instance);
             this.Initialize();
         }
@@ -59,11 +63,12 @@ namespace TKGame.Level_Editor_Content
 
         public void Update()
         {
-            EntityManager.Update(TKGame.GameTime, TKGame.SpriteBatch, this);
+            EntityManager.Update(TKGame.GameTime);
         }
 
         public IEnumerator<Stage> GetEnumerator()
         {
+            // This is what google said to do
             yield return this;
         }
 
