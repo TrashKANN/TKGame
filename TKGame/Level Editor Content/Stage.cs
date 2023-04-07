@@ -6,33 +6,70 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections;
+using TKGame.BackEnd;
+using System.IO;
 
 namespace TKGame.Level_Editor_Content
 {
     public class Stage : IEnumerable<Stage>
     {
-        // Mainly just used for the default dev stage
-        private static readonly int screenWidth = 1600;
-        private static readonly int screenHeight = 900;
-        public List<Wall> walls { get; set; }
-        public Stage(GraphicsDevice graphics) 
+        private List<Entity> stageEntities;
+        private List<Wall> stageWalls;
+        private string stageName;
+
+        public List<Entity> StageEntities { get { return stageEntities; } }
+        public List<Wall> StageWalls { get { return stageWalls; } }
+
+        public Stage()
         {
-            this.walls = new List<Wall>() { };
+            stageName = "defaultStage.json";
+            this.stageWalls = new List<Wall>() { };
+            this.stageEntities = new List<Entity>() { };
+            this.stageEntities.Add(Player.Instance);
+        }
+        public Stage(string name) 
+        {
+            stageName = name;
+            this.stageWalls = new List<Wall>() { };
+            this.stageEntities = new List<Entity>() { };
+            this.stageEntities.Add(Player.Instance);
+            this.Initialize();
         }
 
-        public Stage(List<Wall> walls, GraphicsDevice graphics) 
+        /// <summary>
+        /// When moving stages (aka loading a new stage), clear the entities in the EntityManager and add all
+        /// Entities owned by the new Stage.
+        /// </summary>
+        private void Initialize()
         {
-            this.walls = walls;
+            stageName = File.Exists(stageName)
+                ? stageName
+                : "defaultStage";
+            stageWalls = LevelEditor.LoadStageDataFromJSON(stageName, TKGame.Graphics.GraphicsDevice).StageWalls;
+            
+            // Will need to put entities in the stage data and do something similar to ^
+            //stageEntities = new List<Entity>((IEnumerable<Entity>)Player.Instance);
+
+            EntityManager.GetEntities().Clear();
+            foreach (Entity entity in stageEntities)
+            {
+                EntityManager.Add(entity);
+            }
+        }
+
+        public void Update()
+        {
+            EntityManager.Update(TKGame.GameTime, TKGame.SpriteBatch, this);
         }
 
         public IEnumerator<Stage> GetEnumerator()
         {
-            throw new NotImplementedException();
+            yield return this;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            yield return this;
         }
     }
 }

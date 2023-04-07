@@ -14,6 +14,8 @@ using Myra;
 using Myra.Graphics2D.UI;
 using TKGame.Animations;
 using TKGame.BackEnd;
+using TKGame.Components.Concrete;
+using TKGame.Components.Interface;
 using TKGame.Level_Editor_Content;
 using TKGame.Weapons;
 
@@ -25,6 +27,9 @@ namespace TKGame
         public static TKGame Instance { get; private set; }
         public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
+        public static int ScreenWidth { get { return (int)ScreenSize.X; } }
+        public static int ScreenHeight { get { return (int)ScreenSize.Y; } }
+
         public static GameTime GameTime { get; private set; }
 
         //Declares public Vertical Stack Panel
@@ -33,10 +38,13 @@ namespace TKGame
         // TODO: Move this to another class eventually
         private static readonly Color WALL_COLOR = new Color(0x9a, 0x9b, 0x9c, 0xFF);
 
-        private GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
+        private static GraphicsDeviceManager graphics;
+        private static SpriteBatch spriteBatch;
+
+        public static GraphicsDeviceManager Graphics { get { return graphics; } private set { graphics = value; } }
+        public static SpriteBatch SpriteBatch { get { return spriteBatch; } private set { spriteBatch = value; } }
+
         public Desktop desktop;
-        private KeyboardState previousState, currentState;
 
         //Declare Background Object
         private Background BackgroundImage;
@@ -49,13 +57,14 @@ namespace TKGame
 
         
         // TODO: Refactor out of the main TKGame class
-        private static string currentStageName = "defaultStage" + ".json";
-        internal Stage currentStage;
-        //Stage leftStage;
-        //Stage rightStage;
-        int screenWidth, screenHeight;
         public static bool paused = true;
         #endregion
+
+        #region Components
+        private LevelEditorComponent levelEditorComponent;
+        public static LevelComponent levelComponent;
+        #endregion Components
+
         public TKGame()
         {
             Instance = this;
@@ -68,43 +77,29 @@ namespace TKGame
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
             IsMouseVisible = true;
+            levelEditorComponent = new World_LevelEditorComponent();
+            levelComponent = new World_LevelComponent(new List<Level>() { new Level(new List<Stage>(new Stage("defaultStage"))) });
         }
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            screenWidth = graphics.PreferredBackBufferWidth;
-            screenHeight = graphics.PreferredBackBufferHeight;
-
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
             desktop = new Desktop();
 
             //Create New Background Object w/variables for setting Rectangle and Texture
-            BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
+            BackgroundImage = new Background(ScreenWidth, ScreenHeight, graphics.GraphicsDevice);
 
             //Create New ScreenTransition Object
             transition = new ScreenTransition(graphics.GraphicsDevice);
+
 
             // Create Triggers
             // TODO: Create Functionality for Procedural Generation with Level Designer
             triggers = new List<Trigger>()
             {
-                new Trigger(0,screenHeight - 240, 55, 195, GraphicsDevice),
-                new Trigger(screenWidth - 50, screenHeight - 240, 50, 195, GraphicsDevice),
+                new Trigger(0,ScreenHeight - 240, 55, 195, GraphicsDevice),
+                new Trigger(ScreenWidth - 50, ScreenHeight - 240, 50, 195, GraphicsDevice),
             };
-
-            // TODO: Remove magic numbers
-            // Initialize a default stage.
-            currentStageName = File.Exists(currentStageName) 
-                ? currentStageName 
-                : "defaultStage.json";
-            List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(currentStageName, graphics.GraphicsDevice)).walls;
-            currentStage = new Stage(stageWalls ,graphics.GraphicsDevice);
-
-
-            // Initialize keyboard states (used for one-shot keyboard inputs)
-            previousState = currentState = new KeyboardState();
-
 
             // Initialize debug information
             GameDebug.Initialize();
@@ -158,9 +153,6 @@ namespace TKGame
         }
         protected override async void Update(GameTime gameTime)
         {
-
-            // Get the current keyboard state
-            currentState = Keyboard.GetState();
             GameTime = gameTime;
             Input.Update();
 
@@ -170,27 +162,10 @@ namespace TKGame
             //Do if not paused
             if (!paused)
             {
-                EntityManager.Update(gameTime, spriteBatch, currentStage);
+                EntityManager.Update(gameTime, spriteBatch, levelComponent.GetCurrentStage());
             }
 
-            if (triggers[0].checkLeftTrigger(Player.Instance))
-            {
-                transition.Update(gameTime);
-                paused = true;
 
-                List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[0].leftStage, GraphicsDevice)).walls;
-                currentStage = new Stage(stageWalls, graphics.GraphicsDevice);
-                paused = false;
-            }
-
-            if (triggers[1].checkRightTrigger(Player.Instance))
-            {
-                paused = true;
-                transition.Update(gameTime);
-                List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[1].rightStage, GraphicsDevice)).walls;
-                currentStage = new Stage(stageWalls, graphics.GraphicsDevice);
-                paused = false;
-            }
             // Exit the game if Escape is pressed
             if (Input.WasKeyPressed(Keys.Escape))
             {
@@ -211,24 +186,18 @@ namespace TKGame
                 LevelEditor.ToggleEditor();
                 paused = !paused;
             }
+            if (LevelEditor.EditMode)
+            {
+                levelEditorComponent.Update();
+            }
 #endif
-            // Will Prompt the User for a string that it will use to save the stage
-            //if (Input.WasKeyPressed(Keys.U))
-            //{
-            //    Console.WriteLine("Enter in the name you'd like to save the stage under:");
-            //    string newStageName = Console.ReadLine();
-            //    Console.WriteLine("You Entere: " + newStageName);
-            //    LevelEditor.SaveStageDataToJSON(currentStage, newStageName);
-            //}
-
-            // Set the previous state now that we've checked for our desired inputs
-            previousState = currentState;
 
             // Updates Weapon System
             WeaponSystem.Update();
 
             // Update debug information
             GameDebug.Update();
+
 
             base.Update(gameTime);
         }
@@ -252,7 +221,7 @@ namespace TKGame
             // Draw each wall to the screen
             // Update level editor
 
-            foreach (Wall wall in currentStage.walls)
+            foreach (Wall wall in levelComponent.GetCurrentStage().StageWalls)
             {
                 spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
                 if (GameDebug.DebugMode) 
@@ -271,38 +240,18 @@ namespace TKGame
 
             EntityManager.Draw(spriteBatch);
 
-            foreach (Entity entity in EntityManager.GetEntities())
+            if (GameDebug.DebugMode)
             {
-                if (GameDebug.DebugMode)
+                foreach (Entity entity in EntityManager.GetEntities())
                 {
                     GameDebug.DrawBoundingBox(spriteBatch, entity, Color.Blue, 5);
                 }
             }
 
             // Draw the New Wall last so that the outline appears above all other images
-            if (LevelEditor.EditMode == true)
+            if (LevelEditor.EditMode)
             {
-                // I really hate this, needs to be refactored. Asking Thomas might be easiest
-                if(Input.KeyboardState.IsKeyDown(Keys.W))
-                {
-                    LevelEditor.BuildWall(currentStage, graphics.GraphicsDevice, spriteBatch);
-                }
-                // D (Hold) + LClick = Mark; + RClick = UnMark; + Enter = Delete Mar
-                else if(Input.KeyboardState.IsKeyDown(Keys.D))
-                {
-                    LevelEditor.DeleteWall(currentStage.walls);
-                }
-                // Ctrl + Z = Undo last wall deleted
-                else if(Input.KeyboardState.IsKeyDown(Keys.LeftControl) && Input.WasKeyPressed(Keys.Z))
-                {
-                    LevelEditor.UndoDeletedWall(currentStage.walls);
-                }
-                // Ctrl + Y = Redo last wall deleted
-                else if (Input.KeyboardState.IsKeyDown(Keys.LeftControl) && Input.WasKeyPressed(Keys.Y))
-                {
-                    LevelEditor.RedoDeletedWall(currentStage.walls);
-                }
-                LevelEditor.DrawGridLines(spriteBatch, screenWidth, screenHeight, Color.Black);
+                
             }
 
             //Draws Loading Screen Offscreen until needed
@@ -323,7 +272,7 @@ namespace TKGame
 
         public void ExitGame()
         {
-            LevelEditor.SaveStageDataToJSON(currentStage, "auto_saved_stage_data");
+            LevelEditor.SaveStageDataToJSON(levelComponent.GetCurrentStage(), "auto_saved_stage_data");
             Exit();
         }
 

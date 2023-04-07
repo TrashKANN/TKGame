@@ -27,7 +27,7 @@ namespace TKGame
         public Wall(int x, int y, int width, int height, Color color, GraphicsDevice graphicsDevice)
         {
             HitBox = new Rectangle(x, y, width, height);
-            Texture = new Texture2D(graphicsDevice, 1, 1);
+            Texture = new Texture2D(TKGame.Graphics.GraphicsDevice, 1, 1);
             Texture.SetData(new Color[] { color  });
         }
 

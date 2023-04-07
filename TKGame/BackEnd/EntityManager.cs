@@ -64,7 +64,7 @@ namespace TKGame.BackEnd
             foreach (var entity in entities)
             {
                 entity.Update(gameTime, spriteBatch);
-                entity.Collide(stage.walls);
+                entity.Collide(stage.StageWalls);
             }
 
             IsUpdating = false;

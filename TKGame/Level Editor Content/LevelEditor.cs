@@ -96,7 +96,7 @@ namespace TKGame.Level_Editor_Content
                 Wall newWall = new Wall(alignedRect, Color.White, graphics);
 
 
-                stage.walls.Add(newWall);
+                stage.StageWalls.Add(newWall);
             }
 
             previousMouseState = currentMouseState;
@@ -232,7 +232,7 @@ namespace TKGame.Level_Editor_Content
             List<WallData> wallDataList = new List<WallData>();
 
             // For each wall, Add the data to the WallData list
-            foreach (Wall wall in stage.walls)
+            foreach (Wall wall in stage.StageWalls)
             {
                 if (wall.HitBox.Width != 0 && wall.HitBox.Height != 0)
                 {
@@ -286,9 +286,9 @@ namespace TKGame.Level_Editor_Content
         /// <returns></returns>
         public static Stage LoadStageDataFromJSON(string stageName, GraphicsDevice graphics)
         {
-            Stage newStage = new Stage(graphics);
+            Stage newStage = new Stage();
 
-            string stagePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/Stages/" + stageName));
+            string stagePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/Stages/" + stageName + ".json"));
 
             string json = System.IO.File.ReadAllText(stagePath);
 
@@ -297,7 +297,7 @@ namespace TKGame.Level_Editor_Content
             foreach (WallData wallData in jsonStageData)
             {
                 Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, Color.White, graphics);
-                newStage.walls.Add(newWall);
+                newStage.StageWalls.Add(newWall);
             }
 
             return newStage;
