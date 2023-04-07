@@ -122,20 +122,6 @@ namespace TKGame
             Art.LoadContent(Content);
             Music.LoadContent(Content, 0.15f);
 
-            levelComponent.AddLevel(new Level(new List<Stage>(new Stage("defaultStage"))));
-
-            // Spawn a knight enemy
-            EnemyFactory knightFactory = new KnightEnemyFactory();
-            Enemy knight = knightFactory.CreateEnemy();
-            EntityManager.Add(knight);
-
-            // Spawn a potion item
-            ItemFactory potionFactory = new PotionItemFactory();
-            Item potion = potionFactory.CreateItem();
-            EntityManager.Add(potion);
-
-            //Loads Image into the Texture
-
 
             // Load Weapon System Content
             WeaponSystem.LoadContent(VSP);
@@ -147,8 +133,18 @@ namespace TKGame
             // Load main menu
             MainMenu.LoadContent();
 
-            // Continue setting up Myra
-            //desktop.Root = VSP;
+            // Add and Load Default Stage
+            levelComponent.AddLevel(new Level(new List<Stage>(new Stage("defaultStage"))));
+
+            // Spawn a knight enemy
+            EnemyFactory knightFactory = new KnightEnemyFactory();
+            Enemy knight = knightFactory.CreateEnemy();
+            EntityManager.Add(knight);
+
+            // Spawn a potion item
+            ItemFactory potionFactory = new PotionItemFactory();
+            Item potion = potionFactory.CreateItem();
+            EntityManager.Add(potion);
         }
         protected override async void Update(GameTime gameTime)
         {
@@ -190,13 +186,11 @@ namespace TKGame
                 levelEditorComponent.Update();
             }
 #endif
-
             // Updates Weapon System
             WeaponSystem.Update();
 
             // Update debug information
             GameDebug.Update();
-
 
             base.Update(gameTime);
         }
