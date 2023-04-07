@@ -11,10 +11,10 @@ namespace TKGame
 {
     public class KnightEnemyFactory : EnemyFactory
     {
-        PhysicsComponent physics;
+        //PhysicsComponent physics;
         public override Enemy CreateEnemy()
         {
-            return new KnightEnemy(physics);
+            return new KnightEnemy(/*physics*/);
         }
     }
 }

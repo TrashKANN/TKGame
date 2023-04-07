@@ -13,19 +13,19 @@ namespace TKGame
 {
     public class KnightEnemy : Enemy
     {
-        private PhysicsComponent knightEnemyPhysics;
+        private PhysicsComponent knightEnemyPhysics = new Enemy_PhysicsComponent();
 
         /// <summary>
         /// knight enemy components
         /// </summary>
-        public KnightEnemy(PhysicsComponent physics_) 
+        public KnightEnemy(/*PhysicsComponent physics_*/) 
         {
             entityTexture = Art.KnightEnemyTexture; 
             Position = new Vector2(300, 800); // hard coded spawn position at the moment
             velocity = new Vector2((float)1.5, 1);
             HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
 
-            knightEnemyPhysics = physics_;
+            //knightEnemyPhysics = physics_;
         }
 
         /// <summary>
@@ -36,35 +36,6 @@ namespace TKGame
         public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
         {
             knightEnemyPhysics.Update(this, gameTime/*, world*/);
-            //Player player = Player.Instance;
-
-            //if (player != null)
-            //{
-            //    Vector2 playerPosition = player.Position;
-
-            //    if (Position.X > playerPosition.X)
-            //    {
-            //        Position.X -= velocity.X;
-            //        Orientation = SpriteEffects.None;
-            //    }
-            //    if (Position.X < playerPosition.X)
-            //    {
-            //        Position.X += velocity.X;
-            //        Orientation = SpriteEffects.FlipHorizontally;
-            //    }
-            //    if (Position.Y > playerPosition.Y)
-            //    {
-            //        Position.Y -= velocity.Y;
-            //    }
-            //    if (Position.Y < playerPosition.Y)
-            //    {
-            //        Position.Y += velocity.Y;
-            //    }
-
-            //    hitBox.X = (int)Position.X - (int)Size.X / 2;
-            //    hitBox.Y = (int)Position.Y - (int)Size.Y / 2;
-            //    Position = Vector2.Clamp(Position, Size / 2, TKGame.ScreenSize - Size / 2);
-            //}
         }
 
         public override void Draw(SpriteBatch spriteBatch)
