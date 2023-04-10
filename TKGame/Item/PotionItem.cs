@@ -16,6 +16,7 @@ namespace TKGame
     class PotionItem : Item
     {
         private PhysicsComponent potionItemPhysics = new Item_PhysicsComponent();
+        private GraphicsComponent potionItemGraphics = new Item_GraphicsComponent();
         public PotionItem()
         {
             entityTexture = Art.PotionItemTexture;
@@ -29,7 +30,7 @@ namespace TKGame
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            potionItemGraphics.Update(this, spriteBatch);
         }
     }
 }
