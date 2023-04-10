@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TKGame.BackEnd;
+using TKGame.Components.Concrete;
+using TKGame.Components.Interface;
 
 namespace TKGame
 {
     class PotionItem : Item
     {
+        private PhysicsComponent potionItemPhysics = new Item_PhysicsComponent();
         public PotionItem()
         {
             entityTexture = Art.PotionItemTexture;
@@ -20,18 +24,7 @@ namespace TKGame
 
         public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //Player player = Player.Instance;
-
-            //if (player != null)
-            //{
-            //    if (player.Position.X >= Position.X - 20 &&
-            //        player.Position.X <= Position.X + 20 &&
-            //        player.Position.Y >= Position.Y - 80 &&
-            //        player.Position.Y <= Position.Y + 80)
-            //    {
-            //        Position = new Vector2(1500, 100);
-            //    }
-            //}
+            potionItemPhysics.Update(this, gameTime/*, world*/);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
