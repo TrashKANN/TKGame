@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace TKGame.Content.Weapons
 {
     class Sword : Weapon
     {
+
         static Sword instance;
         private static object syncRoot = new object();
         /// <summary>
@@ -44,11 +46,6 @@ namespace TKGame.Content.Weapons
             position = new Vector2(815, 730);
             weaponRect = new Rectangle(815, 730, 85, 85);
             damageStat = 1;
-        }
-
-        public void Update(GameTime gameTime, Vector2 position, Vector2 velocity)
-        {
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)

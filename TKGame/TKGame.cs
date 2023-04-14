@@ -178,7 +178,9 @@ namespace TKGame
             if (!paused)
             {
                 EntityManager.Update(gameTime, spriteBatch, currentStage);
+                currentWeapon.Update(gameTime);
             }
+            
 
             if (triggers[0].checkLeftTrigger(Player.Instance))
             {
