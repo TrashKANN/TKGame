@@ -14,6 +14,10 @@ using System.IO;
 using System.Text.Json;
 using Color = Microsoft.Xna.Framework.Color;
 using TKGame.BackEnd;
+using System.Diagnostics;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
+
 
 namespace TKGame.Level_Editor_Content
 {
@@ -21,9 +25,32 @@ namespace TKGame.Level_Editor_Content
     {
         public int X { get; set;}
         public int Y { get; set;}
-        public int dataWidth { get; set;}
-        public int dataHeight { get; set;}
+        public int width { get; set;}
+        public int height { get; set;}
     }
+    public class EntityData
+    {
+        public string type { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
+
+    public class TriggerData
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int width { get; set; }
+        public int height { get; set; }
+        public string action { get; set; }
+    }
+
+    public class LevelData
+    {
+        public List<WallData> walls { get; set; }
+        public List<EntityData> entities { get; set; }
+        public List<TriggerData> triggers { get; set; }
+    }
+
     static class LevelEditor
     {
         private static MouseState previousMouseState;
@@ -240,11 +267,47 @@ namespace TKGame.Level_Editor_Content
                     {
                         X = wall.HitBox.X,
                         Y = wall.HitBox.Y,
-                        dataWidth = wall.HitBox.Width,
-                        dataHeight = wall.HitBox.Height,
+                        width = wall.HitBox.Width,
+                        height = wall.HitBox.Height,
                     };
 
                     wallDataList.Add(walldata);
+                }
+            }
+
+            List<EntityData> entityDataList = new List<EntityData>();
+
+            // For each entity, Add the data to the EntityData list
+            foreach (Entity entity in stage.StageEntities)
+            {
+                if (entity.HitBox.Width != 0 && entity.HitBox.Height != 0 && entity != Player.Instance)
+                {
+                    EntityData entitydata = new EntityData()
+                    {
+                        X = entity.HitBox.X,
+                        Y = entity.HitBox.Y,
+                        type = entity.entityName,
+                    };
+                    entityDataList.Add(entitydata);
+                }
+            }
+
+            List<TriggerData> triggerDataList = new List<TriggerData>();
+
+            // For each trigger, Add the data to the TriggerData list
+            foreach (Trigger trigger in stage.StageTriggers)
+            {
+                if (trigger.HitBox.Width != 0 && trigger.HitBox.Height != 0)
+                {
+                    TriggerData triggerdata = new TriggerData()
+                    {
+                        X = trigger.HitBox.X,
+                        Y = trigger.HitBox.Y,
+                        width = trigger.HitBox.Width,
+                        height = trigger.HitBox.Height,
+                        action = trigger.Action,
+                    };
+                    triggerDataList.Add(triggerdata);
                 }
             }
 
@@ -290,15 +353,32 @@ namespace TKGame.Level_Editor_Content
 
             string stagePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/Stages/" + stageName + ".json"));
 
-            string json = System.IO.File.ReadAllText(stagePath);
+            string jsonString = System.IO.File.ReadAllText(stagePath);
 
-            List<WallData> jsonStageData = JsonSerializer.Deserialize<WallData[]>(json).ToList();
+            LevelData levelData = JsonSerializer.Deserialize<LevelData>(jsonString);
 
-            foreach (WallData wallData in jsonStageData)
+            foreach (WallData wallData in levelData.walls)
             {
-                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, Color.White, graphics);
+                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.width, wallData.height, Color.White);
                 newStage.StageWalls.Add(newWall);
             }
+
+            foreach (EntityData entityData in levelData.entities)
+            {
+                //TODO: Refactor for factories
+                newStage.StageEntities.Add(new KnightEnemy());
+            }
+
+            foreach (TriggerData triggerData in levelData.triggers)
+            {
+                newStage.StageTriggers.Add(new Trigger(triggerData.X, triggerData.Y, triggerData.width, triggerData.height, triggerData.action));
+            }
+
+            //foreach (WallData wallData in jsonStageData)
+            //{
+            //    Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, Color.White, graphics);
+            //    newStage.StageWalls.Add(newWall);
+            //}
 
             return newStage;
         }

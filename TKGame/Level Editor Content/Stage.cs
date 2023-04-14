@@ -13,13 +13,14 @@ namespace TKGame.Level_Editor_Content
 {
     public class Stage : IEnumerable<Stage>
     {
-        private List<Entity> stageEntities;
         private List<Wall> stageWalls;
+        private List<Entity> stageEntities;
         private List<Trigger> stageTriggers;
         private string stageName;
 
-        public List<Entity> StageEntities { get { return stageEntities; } }
+
         public List<Wall> StageWalls { get { return stageWalls; } }
+        public List<Entity> StageEntities { get { return stageEntities; } }
         public List<Trigger> StageTriggers { get { return stageTriggers; } }
 
         public Stage()

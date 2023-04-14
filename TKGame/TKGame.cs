@@ -97,8 +97,8 @@ namespace TKGame
             // TODO: Create Functionality for Procedural Generation with Level Designer
             triggers = new List<Trigger>()
             {
-                new Trigger(0,ScreenHeight - 240, 55, 195, GraphicsDevice),
-                new Trigger(ScreenWidth - 50, ScreenHeight - 240, 50, 195, GraphicsDevice),
+                new Trigger(0,ScreenHeight - 240, 55, 195, "goPrevious"),
+                new Trigger(ScreenWidth - 50, ScreenHeight - 240, 50, 195, "goNext"),
             };
 
             // Initialize debug information
@@ -134,7 +134,13 @@ namespace TKGame
             MainMenu.LoadContent();
 
             // Add and Load Default Stage
-            levelComponent.AddLevel(new Level(new List<Stage>(new Stage("defaultStage"))));
+            levelComponent.AddLevel(new Level(new List<Stage>
+            {   
+                new Stage("defaultStage"), 
+                new Stage("leftStage"), 
+                new Stage("rightStage")
+            }
+            ));
 
             // Spawn a knight enemy
             EnemyFactory knightFactory = new KnightEnemyFactory();
@@ -243,7 +249,7 @@ namespace TKGame
             //TODO: Add Functionality for Level Designer
             foreach (Trigger trigger in triggers)
             {
-                spriteBatch.Draw(trigger.texture, trigger.rectangle, Color.White);
+                spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);
             }
 
             EntityManager.Draw(spriteBatch);
