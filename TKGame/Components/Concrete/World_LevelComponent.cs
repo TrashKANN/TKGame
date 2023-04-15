@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,5 +41,59 @@ namespace TKGame.Components.Concrete
 
         public Level GetCurrentLevel() { return currentLevel; }
         public Stage GetCurrentStage() { return currentLevel.GetCurrentStage();}
+        Stage LevelComponent.GetPreviousStage() { return currentLevel.GetPreviousStage(); }
+        Stage LevelComponent.GetNextStage() { return currentLevel.GetNextStage(); }
+        bool LevelComponent.IsCurrentStageFirst() { return currentLevel.isCurrentStageFirst; }
+        bool LevelComponent.IsCurrentStageFinal() { return currentLevel.isCurrentStageFinal; }
+        void LevelComponent.SetCurrentStage(Stage stage) { currentLevel.SetCurrentStage(stage); }
+        void LevelComponent.GoToNextStage()
+        {
+            var levelStages = currentLevel.GetStages();
+            
+            if (!currentLevel.isCurrentStageFinal)
+            {
+                currentLevel.prevStage = currentLevel.currentStage;
+                currentLevel.SetCurrentStage(currentLevel.nextStage);
+
+                currentLevel.currentStage.Initialize();
+
+                if (levelStages.IndexOf(currentLevel.currentStage) == levelStages.Count - 1)
+                {
+                    currentLevel.isCurrentStageFinal = true;
+                    currentLevel.nextStage = null;
+                }
+                else
+                {
+                    currentLevel.isCurrentStageFinal = false;
+                    currentLevel.nextStage = levelStages.ElementAt(levelStages.IndexOf(currentLevel.currentStage) + 1);
+                }
+            }
+        }
+        void LevelComponent.GoToPreviousStage()
+        {
+            Stage prevStage = currentLevel.GetPreviousStage();
+            Stage currentStage = currentLevel.GetCurrentStage();
+            Stage nextStage = currentLevel.GetNextStage();
+            var levelStages = currentLevel.GetStages();
+
+            if (!currentLevel.isCurrentStageFirst)
+            {
+                nextStage = currentStage;
+                currentLevel.SetCurrentStage(prevStage);
+
+                currentStage.Initialize();
+
+                if (levelStages.IndexOf(currentStage) > 0)
+                {
+                    currentLevel.isCurrentStageFirst = false;
+                    prevStage = levelStages.ElementAt(levelStages.IndexOf(currentStage) - 1);
+                }
+                else
+                {
+                    currentLevel.isCurrentStageFirst = true;
+                    prevStage = null;
+                }
+            }
+        }
     }
 }

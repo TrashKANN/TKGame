@@ -1,18 +1,5 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StbImageSharp;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using TKGame.BackEnd;
 
 namespace TKGame.Animations
@@ -22,8 +9,6 @@ namespace TKGame.Animations
         #region Member Data
         private Rectangle[] sourceRectangles;
 
-        private static readonly int screenWidth = 1600;
-        private static readonly int screenHeight = 900;
         private int spriteX = 509;
         private int spriteY = 285;
         private int buffer = 5;
@@ -38,8 +23,7 @@ namespace TKGame.Animations
         /// <summary>
         /// creates ScreenTransition Object
         /// </summary>
-        /// <param name="graphicsDevice"></param>
-        public ScreenTransition (GraphicsDevice graphicsDevice)
+        public ScreenTransition ()
         {
             //individual sprite images
             sourceRectangles = new Rectangle[16];
@@ -68,7 +52,7 @@ namespace TKGame.Animations
         public void Draw(SpriteBatch spriteBatch)
         {
             //Draw a rectangle the size of background
-            spriteBatch.Draw(Art.LoadTexture, new Rectangle(0, 0, screenWidth, screenHeight), sourceRectangles[currentIndex], Color.White);
+            spriteBatch.Draw(Art.LoadTexture, new Rectangle(0, 0, TKGame.ScreenWidth, TKGame.ScreenHeight), sourceRectangles[currentIndex], Color.White);
         }
 
         /// <summary>

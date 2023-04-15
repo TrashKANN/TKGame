@@ -10,13 +10,13 @@ namespace TKGame.Level_Editor_Content
 {
     internal class Level
     {
-        private static List<Stage> levelStages { get; set; }
-        private Stage currentStage;
-        private Stage prevStage;
-        private Stage nextStage;
+        internal static List<Stage> levelStages { get; set; }
+        internal Stage currentStage;
+        internal Stage prevStage;
+        internal Stage nextStage;
 
-        private bool isCurrentStageFirst;
-        private bool isCurrentStageFinal;
+        internal bool isCurrentStageFirst { get; set; }
+        internal bool isCurrentStageFinal;
 
         public Level(List<Stage> stages)
         {
@@ -37,7 +37,7 @@ namespace TKGame.Level_Editor_Content
         internal Stage GetCurrentStage() { return currentStage; }
         internal Stage GetPreviousStage() { return prevStage; }
         internal Stage GetNextStage() { return nextStage; }
-
-
+        internal List<Stage> GetStages() { return levelStages; }
+        internal void SetCurrentStage(Stage stage) { currentStage = stage; }
     }
 }

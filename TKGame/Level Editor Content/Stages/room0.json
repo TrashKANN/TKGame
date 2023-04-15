@@ -1,0 +1,56 @@
+{
+  "walls": [
+    {
+      "X": 0,
+      "Y": 0,
+      "width": 32,
+      "height": 640
+    },
+    {
+      "X": 32,
+      "Y": 0,
+      "width": 1536,
+      "height": 32
+    },
+    {
+      "X": 1568,
+      "Y": 0,
+      "width": 32,
+      "height": 640
+    },
+    {
+      "X": 800,
+      "Y": 448,
+      "width": 256,
+      "height": 256
+    },
+    {
+      "X": 640,
+      "Y": 576,
+      "width": 128,
+      "height": 64
+    },
+    {
+      "X": 0,
+      "Y": 864,
+      "width": 1600,
+      "height": 32
+    }
+  ],
+  "entities": [
+    {
+      "type": "knightEnemy",
+      "X": 300,
+      "Y": 800
+    }
+  ],
+  "triggers": [
+    {
+      "X": 1590,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goNext"
+    }
+  ]
+}

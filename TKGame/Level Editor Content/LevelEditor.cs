@@ -351,7 +351,7 @@ namespace TKGame.Level_Editor_Content
         {
             Stage newStage = new Stage();
 
-            string stagePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/Stages/" + stageName + ".json"));
+            string stagePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/Stages/" + stageName));
 
             string jsonString = System.IO.File.ReadAllText(stagePath);
 
@@ -373,12 +373,6 @@ namespace TKGame.Level_Editor_Content
             {
                 newStage.StageTriggers.Add(new Trigger(triggerData.X, triggerData.Y, triggerData.width, triggerData.height, triggerData.action));
             }
-
-            //foreach (WallData wallData in jsonStageData)
-            //{
-            //    Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, Color.White, graphics);
-            //    newStage.StageWalls.Add(newWall);
-            //}
 
             return newStage;
         }

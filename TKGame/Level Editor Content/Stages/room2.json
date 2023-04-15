@@ -1,0 +1,58 @@
+{
+  "walls": [
+    {
+      "X": 0,
+      "Y": 860,
+      "width": 1600,
+      "height": 50
+    },
+    {
+      "X": 0,
+      "Y": 0,
+      "width": 50,
+      "height": 650
+    },
+    {
+      "X": 1550,
+      "Y": 0,
+      "width": 50,
+      "height": 650
+    },
+    {
+      "X": 800,
+      "Y": 450,
+      "width": 250,
+      "height": 250
+    },
+    {
+      "X": 1024,
+      "Y": 416,
+      "width": 352,
+      "height": 32
+    },
+    {
+      "X": 1344,
+      "Y": 192,
+      "width": 32,
+      "height": 224
+    },
+    {
+      "X": 800,
+      "Y": 192,
+      "width": 544,
+      "height": 32
+    }
+  ],
+  "entities": [
+
+  ],
+  "triggers": [
+    {
+      "X": 0,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goPrevious"
+    }
+  ]
+}

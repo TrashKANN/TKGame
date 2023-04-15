@@ -87,19 +87,10 @@ namespace TKGame
             desktop = new Desktop();
 
             //Create New Background Object w/variables for setting Rectangle and Texture
-            BackgroundImage = new Background(ScreenWidth, ScreenHeight, graphics.GraphicsDevice);
+            BackgroundImage = new Background(ScreenWidth, ScreenHeight);
 
             //Create New ScreenTransition Object
-            transition = new ScreenTransition(graphics.GraphicsDevice);
-
-
-            // Create Triggers
-            // TODO: Create Functionality for Procedural Generation with Level Designer
-            triggers = new List<Trigger>()
-            {
-                new Trigger(0,ScreenHeight - 240, 55, 195, "goPrevious"),
-                new Trigger(ScreenWidth - 50, ScreenHeight - 240, 50, 195, "goNext"),
-            };
+            transition = new ScreenTransition();
 
             // Initialize debug information
             GameDebug.Initialize();
@@ -136,9 +127,9 @@ namespace TKGame
             // Add and Load Default Stage
             levelComponent.AddLevel(new Level(new List<Stage>
             {   
-                new Stage("defaultStage"), 
-                new Stage("leftStage"), 
-                new Stage("rightStage")
+                new Stage("room0"), 
+                new Stage("room1"), 
+                new Stage("room2")
             }
             ));
 
@@ -156,6 +147,7 @@ namespace TKGame
         {
             GameTime = gameTime;
             Input.Update();
+
 
             // NEEDS TO BE MOVED INTO LEVEL.CS
             //if (triggers[0].checkLeftTrigger(Player.Instance))
@@ -181,7 +173,8 @@ namespace TKGame
             //Do if not paused
             if (!paused)
             {
-                EntityManager.Update(gameTime);
+                //EntityManager.Update(gameTime);
+                TKGame.levelComponent.Update();
             }
 
 
@@ -215,6 +208,7 @@ namespace TKGame
 
             base.Update(gameTime);
         }
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.SlateGray);
@@ -244,13 +238,18 @@ namespace TKGame
                 }
             }
 
-
-            //Draw Triggers in gaps in the walls
-            //TODO: Add Functionality for Level Designer
-            foreach (Trigger trigger in triggers)
+            foreach (Trigger trigger in levelComponent.GetCurrentStage().StageTriggers)
             {
                 spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);
             }
+
+
+            ////Draw Triggers in gaps in the walls
+            ////TODO: Add Functionality for Level Designer
+            //foreach (Trigger trigger in triggers)
+            //{
+            //    spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);
+            //}
 
             EntityManager.Draw(spriteBatch);
 

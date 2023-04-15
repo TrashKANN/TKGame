@@ -28,8 +28,7 @@ namespace TKGame.BackEnd
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="graphicsDevice"></param>
-        public Background(int width, int height, GraphicsDevice graphicsDevice)
+        public Background(int width, int height)
         {
             BackgroundRect = new Rectangle(0, 0, width, height);
         }
