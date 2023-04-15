@@ -11,11 +11,13 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.Level_Editor_Content;
 
-namespace TKGame
+namespace TKGame.UI
 {
-    public class MainMenu
+    public class MainMenu : IMenu
     {
         public static bool IsEnabled { get; private set; }
+        IMultipleItemsContainer IMenu.Container { get { return mainMenuGrid; } }
+
         private static TextButton playButton;
         private static TextButton exitButton;
         private static Desktop desktop;
@@ -39,7 +41,13 @@ namespace TKGame
             { exitButtonStyleName, MAIN_MENU_EXIT_HOVER_TEXT_COLOR }
         };
 
-        public static void Initialize(Desktop desktop, TKGame game)
+        public MainMenu()
+        {
+            Initialize();
+            LoadContent();
+        }
+
+        public static void Initialize()
         {
             byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
             mainMenuFontSystem = new FontSystem();
@@ -47,8 +55,6 @@ namespace TKGame
 
             IsEnabled = true;
             mainMenuGrid = new Grid();
-
-            MainMenu.desktop = desktop;
 
             playButton = ConstructMenuButton("Play", playButtonStyleName, 0, 0, 400);
             playButton.MouseEntered += OnMouseEnterButton;
@@ -64,20 +70,21 @@ namespace TKGame
             {
                 TKGame.paused = false;
                 DisableMainMenu();
-                TKGame.SwitchToGameplayMenu();
+                MenuHandler.SwitchToMenu(MenuHandler.MenuState.GAME_MENU);
             };
 
-            exitButton.TouchDown += (sender, eventArgs) => 
+            exitButton.TouchDown += (sender, eventArgs) =>
             {
-                LevelEditor.SaveStageDataToJSON(game.currentStage, "auto_saved_stage_data");
-                game.Exit();
-            };             
+                // TODO: Redo how to exit a game from the menu
+                //LevelEditor.SaveStageDataToJSON(game.currentStage, "auto_saved_stage_data");
+                //game.Exit();
+            };
         }
 
         public static void LoadContent()
         {
             mainMenuGrid.ColumnsProportions.Add(new Proportion() { Type = ProportionType.Part });
-            
+
             for (int i = 0; i < NUM_GRID_ROWS; i++)
             {
                 mainMenuGrid.RowsProportions.Add(new Proportion() { Type = ProportionType.Part });
@@ -85,13 +92,6 @@ namespace TKGame
 
             mainMenuGrid.Widgets.Add(playButton);
             mainMenuGrid.Widgets.Add(exitButton);
-
-            desktop.Root = mainMenuGrid;
-        }
-
-        public static void Update()
-        {
-
         }
 
         public static void DisableMainMenu()
@@ -129,7 +129,7 @@ namespace TKGame
         {
             if (obj is not TextButton) throw new Exception("obj is not of type TextButton");
 
-            ((TextButton) obj).TextColor = MAIN_MENU_TEXT_COLOR;
+            ((TextButton)obj).TextColor = MAIN_MENU_TEXT_COLOR;
         }
 
         /// <summary>
@@ -139,14 +139,14 @@ namespace TKGame
         /// <param name="obj"></param>
         /// <param name="e"></param>
         /// <exception cref="Exception"></exception>
-        private static void OnMouseEnterButton(object obj, EventArgs e) 
+        private static void OnMouseEnterButton(object obj, EventArgs e)
         {
             if (obj is not TextButton) throw new Exception("obj is not of type TextButton");
-            
+
             TextButton button = (TextButton)obj;
             Color color;
 
-            if(textColorDict.TryGetValue(button.Id, out color))
+            if (textColorDict.TryGetValue(button.Id, out color))
                 button.TextColor = color;
         }
     }

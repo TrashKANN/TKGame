@@ -9,12 +9,17 @@ using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D.Brushes;
 using System.Diagnostics;
 using System.Linq;
+using TKGame.UI;
+using IMenu = TKGame.UI.IMenu;
+using System.Reflection.Metadata.Ecma335;
 
 namespace TKGame.BackEnd
 {
-    public class GameDebug
+    public class GameDebug : IMenu
     {
         #region Member Variables
+
+        private static VerticalStackPanel VSP { get; set; }
 
         // Boolean to describe whether debug mode is on or off
         public static bool DebugMode { get; set; }
@@ -50,6 +55,8 @@ namespace TKGame.BackEnd
         private static SolidBrush InactiveBackgroundBrush { get; set; }
         private static List<Widget> UIWidgets { get; set; }
 
+        public IMultipleItemsContainer Container { get { return VSP; } }
+
         // Readonly is used since static variables can't be const
         private static readonly int DEBUG_FONT_SIZE = 48;
         private static readonly Color DEBUG_TEXT_COLOR = Color.Gainsboro;
@@ -61,11 +68,18 @@ namespace TKGame.BackEnd
 
         #endregion
 
+        public GameDebug()
+        {
+            Initialize();
+            LoadContent();
+        }
+
         /// <summary>
         /// Initialize debug elements (labels, fonts, etc.)
         /// </summary>
         public static void Initialize()
         {
+            VSP = new VerticalStackPanel();
             DebugMode = false;
             KeyboardGrid = new Grid();
             spacer1 = new Label();
@@ -91,7 +105,7 @@ namespace TKGame.BackEnd
         /// <summary>
         /// Load/Stylize all debug UI elements
         /// </summary>
-        public static void LoadContent(VerticalStackPanel VSP)
+        public static void LoadContent()
         {
             VSP.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
 

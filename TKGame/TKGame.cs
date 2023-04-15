@@ -15,6 +15,7 @@ using Myra.Graphics2D.UI;
 using TKGame.Animations;
 using TKGame.BackEnd;
 using TKGame.Level_Editor_Content;
+using TKGame.UI;
 using TKGame.Weapons;
 
 namespace TKGame
@@ -27,15 +28,11 @@ namespace TKGame
         public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
         public static GameTime GameTime { get; private set; }
 
-        //Declares public Vertical Stack Panel
-        public VerticalStackPanel VSP { get; protected set; }
-
         // TODO: Move this to another class eventually
         private static readonly Color WALL_COLOR = new Color(0x9a, 0x9b, 0x9c, 0xFF);
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        public Desktop desktop;
         private KeyboardState previousState, currentState;
 
         //Declare Background Object
@@ -63,7 +60,6 @@ namespace TKGame
             IsFixedTimeStep = true; // Time between frames is constant
             TargetElapsedTime = TimeSpan.FromSeconds(1d / 240d); // Set target fps (240 for now)
             graphics = new GraphicsDeviceManager(this);
-            VSP = new VerticalStackPanel();
             graphics.SynchronizeWithVerticalRetrace = false; // Disable v-sync
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
@@ -77,7 +73,6 @@ namespace TKGame
 
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
-            desktop = new Desktop();
 
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(screenWidth, screenHeight, graphics.GraphicsDevice);
@@ -106,14 +101,11 @@ namespace TKGame
             previousState = currentState = new KeyboardState();
 
 
-            // Initialize debug information
-            GameDebug.Initialize();
+            
 #if DEBUG
             // For now, just enable DebugMode when building a Debug version
             GameDebug.DebugMode = true;
 #endif
-            // Initialize main menu
-            MainMenu.Initialize(desktop, this);
 
             //Initializing WeaponSystem
             WeaponSystem.Initialize();
@@ -144,17 +136,13 @@ namespace TKGame
 
 
             // Load Weapon System Content
-            WeaponSystem.LoadContent(VSP);
+            // TODO: Put VSP in WeaponSystem
+            //WeaponSystem.LoadContent(VSP);
 
 
             // Load debug content
-            GameDebug.LoadContent(VSP);
-
-            // Load main menu
-            MainMenu.LoadContent();
-
-            // Continue setting up Myra
-            //desktop.Root = VSP;
+            // TODO: Put VSP in GameDebug
+            //GameDebug.LoadContent(VSP);
         }
         protected override async void Update(GameTime gameTime)
         {
@@ -227,8 +215,8 @@ namespace TKGame
             // Updates Weapon System
             WeaponSystem.Update();
 
-            // Update debug information
-            GameDebug.Update();
+            // Update all menus
+            MenuHandler.UpdateMenus();
 
             base.Update(gameTime);
         }
@@ -312,7 +300,7 @@ namespace TKGame
             spriteBatch.End();
 
             // Render UI elements from Myra
-            desktop.Render();
+            MenuHandler.Desktop.Render();
 
 
             base.Draw(gameTime);
@@ -325,11 +313,6 @@ namespace TKGame
         {
             LevelEditor.SaveStageDataToJSON(currentStage, "auto_saved_stage_data");
             Exit();
-        }
-
-        public static void SwitchToGameplayMenu() 
-        {
-            Instance.desktop.Root = Instance.VSP;
         }
     }
 }
