@@ -52,7 +52,7 @@ namespace TKGame
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             entityName = "player"; // name for player class
-            Position = new Vector2(1600/2, 900 - 70);
+            Position = new Vector2(TKGame.ScreenWidth/2, TKGame.ScreenHeight - 111);
             HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
