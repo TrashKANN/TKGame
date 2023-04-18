@@ -46,13 +46,6 @@
   ],
   "triggers": [
     {
-      "X": 0,
-      "Y": 660,
-      "width": 10,
-      "height": 195,
-      "action": "goPrevious"
-    },
-    {
       "X": 1590,
       "Y": 660,
       "width": 10,

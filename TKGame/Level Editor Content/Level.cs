@@ -5,28 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using TKGame.Animations;
 
 namespace TKGame.Level_Editor_Content
 {
     internal class Level
     {
-        internal static List<Stage> levelStages { get; set; }
+        internal static Dictionary<string, Stage> levelStages { get; set; }
         internal Stage currentStage;
         internal Stage prevStage;
         internal Stage nextStage;
 
+        internal ScreenTransition transition;
+        public bool isTransitioning { get; set; }
+
+
         internal bool isCurrentStageFirst { get; set; }
-        internal bool isCurrentStageFinal;
+        internal bool isCurrentStageFinal { get; set; }
 
-        public Level(List<Stage> stages)
+        public Level(Dictionary<string, Stage> stages)
         {
-            levelStages = new List<Stage>(stages) { };
+            levelStages = new Dictionary<string, Stage>(stages) { };
 
-            currentStage = levelStages.FirstOrDefault();
+            transition = new ScreenTransition();
+            isTransitioning = false;
+
+            currentStage = levelStages.FirstOrDefault().Value;
 
             prevStage = null;
 
-            nextStage = levelStages.ElementAt(1);
+            nextStage = levelStages.ElementAt(1).Value;
+
+            isCurrentStageFirst = true;
+            isCurrentStageFinal = false;
         }
 
         public void Update()
@@ -37,7 +48,7 @@ namespace TKGame.Level_Editor_Content
         internal Stage GetCurrentStage() { return currentStage; }
         internal Stage GetPreviousStage() { return prevStage; }
         internal Stage GetNextStage() { return nextStage; }
-        internal List<Stage> GetStages() { return levelStages; }
+        internal Dictionary<string, Stage> GetStages() { return levelStages; }
         internal void SetCurrentStage(Stage stage) { currentStage = stage; }
     }
 }

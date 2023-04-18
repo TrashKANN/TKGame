@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.Components.Interface;
 using TKGame.Level_Editor_Content;
+using System.Text.RegularExpressions;
 
 namespace TKGame.Components.Concrete
 {
@@ -48,16 +49,19 @@ namespace TKGame.Components.Concrete
         void LevelComponent.SetCurrentStage(Stage stage) { currentLevel.SetCurrentStage(stage); }
         void LevelComponent.GoToNextStage()
         {
-            var levelStages = currentLevel.GetStages();
+            Dictionary<string, Stage> levelStages = currentLevel.GetStages();
             
             if (!currentLevel.isCurrentStageFinal)
             {
+                currentLevel.isCurrentStageFirst = false;
                 currentLevel.prevStage = currentLevel.currentStage;
                 currentLevel.SetCurrentStage(currentLevel.nextStage);
 
+                Player.Instance.Position.X = 100;
+
                 currentLevel.currentStage.Initialize();
 
-                if (levelStages.IndexOf(currentLevel.currentStage) == levelStages.Count - 1)
+                if (levelStages.Last().Value == currentLevel.currentStage)
                 {
                     currentLevel.isCurrentStageFinal = true;
                     currentLevel.nextStage = null;
@@ -65,34 +69,48 @@ namespace TKGame.Components.Concrete
                 else
                 {
                     currentLevel.isCurrentStageFinal = false;
-                    currentLevel.nextStage = levelStages.ElementAt(levelStages.IndexOf(currentLevel.currentStage) + 1);
+
+                    int currentRoomNum = int.Parse(Regex.Match(currentLevel.currentStage.stageName, @"\d+").Value);
+                    string nextStageName = "room" + (currentRoomNum + 1).ToString();
+
+                    currentLevel.nextStage = levelStages[nextStageName];
                 }
+
+                // Play transision
             }
         }
         void LevelComponent.GoToPreviousStage()
         {
-            Stage prevStage = currentLevel.GetPreviousStage();
-            Stage currentStage = currentLevel.GetCurrentStage();
-            Stage nextStage = currentLevel.GetNextStage();
-            var levelStages = currentLevel.GetStages();
+            Dictionary<string, Stage> levelStages = currentLevel.GetStages();
 
             if (!currentLevel.isCurrentStageFirst)
             {
-                nextStage = currentStage;
-                currentLevel.SetCurrentStage(prevStage);
+                currentLevel.isCurrentStageFinal = false;
 
-                currentStage.Initialize();
+                currentLevel.nextStage = currentLevel.currentStage;
+                currentLevel.SetCurrentStage(currentLevel.prevStage);
 
-                if (levelStages.IndexOf(currentStage) > 0)
+                Player.Instance.Position.X = TKGame.ScreenWidth - 100;
+
+                currentLevel.currentStage.Initialize();
+
+                if (levelStages.First().Value == currentLevel.currentStage)
                 {
-                    currentLevel.isCurrentStageFirst = false;
-                    prevStage = levelStages.ElementAt(levelStages.IndexOf(currentStage) - 1);
+                    currentLevel.isCurrentStageFirst = true;
+                    currentLevel.prevStage = null;
                 }
                 else
                 {
-                    currentLevel.isCurrentStageFirst = true;
-                    prevStage = null;
+                    currentLevel.isCurrentStageFirst = false;
+
+                    int currentRoomNum = int.Parse(Regex.Match(currentLevel.currentStage.stageName, @"\d+").Value);
+                    string prevStageName = "room" + (currentRoomNum - 1).ToString();
+
+                    currentLevel.prevStage = levelStages[prevStageName];
                 }
+
+                // Play transision
+
             }
         }
     }

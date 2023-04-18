@@ -44,7 +44,7 @@ namespace TKGame.Level_Editor_Content
         public string action { get; set; }
     }
 
-    public class LevelData
+    public class StageData
     {
         public List<WallData> walls { get; set; }
         public List<EntityData> entities { get; set; }
@@ -224,24 +224,24 @@ namespace TKGame.Level_Editor_Content
             return rect;
         }
 
-        internal static void DrawGridLines(int screenWidth, int screenHeight, Color color)
+        internal static void DrawGridLines(Color color)
         {
             // Calculate the number of grid squares in each direction
-            int numHorizontalGridSquares = screenWidth / GRID_SIZE;
-            int numVerticalGridSquares = screenHeight / GRID_SIZE;
+            int numHorizontalGridSquares = TKGame.ScreenWidth / GRID_SIZE;
+            int numVerticalGridSquares = TKGame.ScreenHeight / GRID_SIZE;
 
             // Draw the horizontal grid lines
             for (int i = 0; i < numVerticalGridSquares; i++)
             {
                 int y = i * GRID_SIZE;
-                GameDebug.DrawBoundingBox(new Rectangle(0, y, screenWidth, 1), color, 1);
+                GameDebug.DrawBoundingBox(new Rectangle(0, y, TKGame.ScreenWidth, 1), color, 1);
             }
 
             // Draw the vertical grid lines
             for (int i = 0; i < numHorizontalGridSquares; i++)
             {
                 int x = i * GRID_SIZE;
-                GameDebug.DrawBoundingBox(new Rectangle(x, 0, 1, screenHeight), color, 1);
+                GameDebug.DrawBoundingBox(new Rectangle(x, 0, 1, TKGame.ScreenHeight), color, 1);
             }
         }
 
@@ -255,8 +255,14 @@ namespace TKGame.Level_Editor_Content
         /// <param name="newStageName"></param>
         public static void SaveStageDataToJSON(Stage stage, string newStageName)
         {
-            // TO DO: Add a Stage name input, Probably take user input to determine the name it is saved as.
-            List<WallData> wallDataList = new List<WallData>();
+            TKGame.paused = true;
+
+            var stageData = new StageData();
+
+            // Initialize the lists of each type of data
+            stageData.walls = new List<WallData>();
+            stageData.entities = new List<EntityData>();
+            stageData.triggers = new List<TriggerData>();
 
             // For each wall, Add the data to the WallData list
             foreach (Wall wall in stage.StageWalls)
@@ -271,11 +277,9 @@ namespace TKGame.Level_Editor_Content
                         height = wall.HitBox.Height,
                     };
 
-                    wallDataList.Add(walldata);
+                    stageData.walls.Add(walldata);
                 }
             }
-
-            List<EntityData> entityDataList = new List<EntityData>();
 
             // For each entity, Add the data to the EntityData list
             foreach (Entity entity in stage.StageEntities)
@@ -288,11 +292,9 @@ namespace TKGame.Level_Editor_Content
                         Y = entity.HitBox.Y,
                         type = entity.entityName,
                     };
-                    entityDataList.Add(entitydata);
+                    stageData.entities.Add(entitydata);
                 }
             }
-
-            List<TriggerData> triggerDataList = new List<TriggerData>();
 
             // For each trigger, Add the data to the TriggerData list
             foreach (Trigger trigger in stage.StageTriggers)
@@ -307,12 +309,12 @@ namespace TKGame.Level_Editor_Content
                         height = trigger.HitBox.Height,
                         action = trigger.Action,
                     };
-                    triggerDataList.Add(triggerdata);
+                    stageData.triggers.Add(triggerdata);
                 }
             }
-
+  
             // Serializes the data set. The Options make the output human-readable.
-            string json = JsonSerializer.Serialize(wallDataList, new JsonSerializerOptions
+            string json = JsonSerializer.Serialize(stageData, new JsonSerializerOptions
             {
                 WriteIndented= true,
             });
@@ -347,15 +349,17 @@ namespace TKGame.Level_Editor_Content
         /// <param name="stageName"></param>
         /// <param name="graphics"></param>
         /// <returns></returns>
-        public static Stage LoadStageDataFromJSON(string stageName, GraphicsDevice graphics)
+        public static Stage LoadStageDataFromJSON(string stageName)
         {
+            TKGame.paused = true;
+
             Stage newStage = new Stage();
 
             string stagePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/Stages/" + stageName));
 
             string jsonString = System.IO.File.ReadAllText(stagePath);
 
-            LevelData levelData = JsonSerializer.Deserialize<LevelData>(jsonString);
+            StageData levelData = JsonSerializer.Deserialize<StageData>(jsonString);
 
             foreach (WallData wallData in levelData.walls)
             {

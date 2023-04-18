@@ -37,7 +37,7 @@ namespace TKGame.Components.Concrete
             {
                 LevelEditor.RedoDeletedWall(currentStage.StageWalls);
             }
-            LevelEditor.DrawGridLines((int)TKGame.ScreenSize.X, (int)TKGame.ScreenSize.Y, Color.Black);
+            LevelEditor.DrawGridLines(Color.Black);
         }
     }
 }

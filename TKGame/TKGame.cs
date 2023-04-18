@@ -49,15 +49,8 @@ namespace TKGame
         //Declare Background Object
         private Background BackgroundImage;
 
-        //Declare ScreenTransition Object
-        private ScreenTransition transition;
-
-        //Declare Triggers
-        List<Trigger> triggers;
-
-        
         // TODO: Refactor out of the main TKGame class
-        public static bool paused = true;
+        public static bool paused;
         #endregion
 
         #region Components
@@ -79,6 +72,7 @@ namespace TKGame
             IsMouseVisible = true;
             levelEditorComponent = new World_LevelEditorComponent();
             levelComponent = new World_LevelComponent(new List<Level>());
+            paused = true;
         }
         protected override void Initialize()
         {
@@ -88,9 +82,6 @@ namespace TKGame
 
             //Create New Background Object w/variables for setting Rectangle and Texture
             BackgroundImage = new Background(ScreenWidth, ScreenHeight);
-
-            //Create New ScreenTransition Object
-            transition = new ScreenTransition();
 
             // Initialize debug information
             GameDebug.Initialize();
@@ -111,7 +102,7 @@ namespace TKGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Art.LoadContent(Content);
-            Music.LoadContent(Content, 0.15f);
+            Music.LoadContent(Content, 0.069f);
 
 
             // Load Weapon System Content
@@ -125,11 +116,11 @@ namespace TKGame
             MainMenu.LoadContent();
 
             // Add and Load Default Stage
-            levelComponent.AddLevel(new Level(new List<Stage>
-            {   
-                new Stage("room0"), 
-                new Stage("room1"), 
-                new Stage("room2")
+            levelComponent.AddLevel(new Level(new Dictionary<string, Stage>
+            {
+                { "room0", new Stage("room0") }, 
+                { "room1", new Stage("room1") }, 
+                { "room2", new Stage("room2") }
             }
             ));
 
@@ -148,42 +139,18 @@ namespace TKGame
             GameTime = gameTime;
             Input.Update();
 
-
-            // NEEDS TO BE MOVED INTO LEVEL.CS
-            //if (triggers[0].checkLeftTrigger(Player.Instance))
-            //{
-            //    transition.Update(gameTime);
-            //    paused = true;
-
-            //    List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[0].leftStage, GraphicsDevice)).StageWalls;
-            //    currentStage = new Stage(stageWalls);
-            //    paused = false;
-            //}
-
-            //if (triggers[1].checkRightTrigger(Player.Instance))
-            //{
-            //    paused = true;
-            //    transition.Update(gameTime);
-            //    List<Wall> stageWalls = (LevelEditor.LoadStageDataFromJSON(triggers[1].rightStage, GraphicsDevice)).StageWalls;
-            //    currentStage = new Stage(stageWalls);
-            //    paused = false;
-            //}
-
             // Add pause stuff here
             //Do if not paused
             if (!paused)
             {
-                //EntityManager.Update(gameTime);
                 TKGame.levelComponent.Update();
             }
-
 
             // Exit the game if Escape is pressed
             if (Input.WasKeyPressed(Keys.Escape))
             {
                 ExitGame();
             }
-
 #if DEBUG
             // Toggle the debug UI's visibility once per key press
             // TODO: Probably move this somewhere else
@@ -196,10 +163,17 @@ namespace TKGame
             if (Input.WasKeyPressed(Keys.L))
             {
                 LevelEditor.ToggleEditor();
-                paused = !paused;
+                paused = true;
+            }
+#endif
+
+            // Update Transition Screen
+            if (levelComponent.GetCurrentLevel().isTransitioning)
+            {
+                paused = true;
+                levelComponent.GetCurrentLevel().transition.Update(GameTime);
             }
 
-#endif
             // Updates Weapon System
             WeaponSystem.Update();
 
@@ -243,14 +217,6 @@ namespace TKGame
                 spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);
             }
 
-
-            ////Draw Triggers in gaps in the walls
-            ////TODO: Add Functionality for Level Designer
-            //foreach (Trigger trigger in triggers)
-            //{
-            //    spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);
-            //}
-
             EntityManager.Draw(spriteBatch);
 
             if (GameDebug.DebugMode)
@@ -267,15 +233,16 @@ namespace TKGame
                 levelEditorComponent.Update();
             }
 
-            //Draws Loading Screen Offscreen until needed
-            //spriteBatch.Draw(Art.LoadTexture, transition.rect, Color.White);
-            transition.Draw(spriteBatch);
+            // Draw the transition screen if we're transitioning
+            if (levelComponent.GetCurrentLevel().isTransitioning)
+            {
+                levelComponent.GetCurrentLevel().transition.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
 
             // Render UI elements from Myra
             desktop.Render();
-
 
             base.Draw(gameTime);
 

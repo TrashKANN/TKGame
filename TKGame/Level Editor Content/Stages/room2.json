@@ -41,11 +41,39 @@
       "Y": 192,
       "width": 544,
       "height": 32
+    },
+    {
+      "X": 448,
+      "Y": 256,
+      "width": 96,
+      "height": 32
+    },
+    {
+      "X": 512,
+      "Y": 288,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "X": 480,
+      "Y": 320,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "X": 448,
+      "Y": 352,
+      "width": 32,
+      "height": 64
+    },
+    {
+      "X": 480,
+      "Y": 384,
+      "width": 64,
+      "height": 32
     }
   ],
-  "entities": [
-
-  ],
+  "entities": [],
   "triggers": [
     {
       "X": 0,

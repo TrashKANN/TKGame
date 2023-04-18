@@ -54,7 +54,7 @@ namespace TKGame.Level_Editor_Content
             stageName = File.Exists(stagePath)
                 ? stageName
                 : "defaultStage.json";
-            Stage loaded = LevelEditor.LoadStageDataFromJSON(stageName, TKGame.Graphics.GraphicsDevice);
+            Stage loaded = LevelEditor.LoadStageDataFromJSON(stageName);
 
             stageEntities = loaded.stageEntities;
             stageWalls = loaded.stageWalls;
@@ -74,6 +74,7 @@ namespace TKGame.Level_Editor_Content
             {
                 if (trigger.checkTrigger())
                 {
+                    TKGame.levelComponent.GetCurrentLevel().isTransitioning = true;
                     changeStage(trigger);
                 }
             }   
