@@ -37,13 +37,14 @@ namespace TKGame.Components.Concrete
             {
                 Vector2 playerPosition = player.Position;
 
+                // logic assumes enemy starts by facing left
                 if (entity.Position.X > playerPosition.X)
                 {
-                    entity.Orientation = SpriteEffects.None; 
+                    entity.Orientation = SpriteEffects.None;
                 }
                 if (entity.Position.X < playerPosition.X)
                 {
-                    entity.Orientation = SpriteEffects.FlipHorizontally; 
+                    entity.Orientation = SpriteEffects.FlipHorizontally;
                 }
             }
         }

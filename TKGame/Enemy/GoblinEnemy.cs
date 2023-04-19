@@ -21,7 +21,7 @@ namespace TKGame
         /// </summary>
         public GoblinEnemy()
         {
-            entityTexture = Art.KnightEnemyTexture; // temporary until goblin png is added
+            entityTexture = Art.GoblinEnemyTexture; 
             Position = new Vector2(200, 800); // hard coded spawn position at the moment
             velocity = new Vector2((float)1.5, 1);
             HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);

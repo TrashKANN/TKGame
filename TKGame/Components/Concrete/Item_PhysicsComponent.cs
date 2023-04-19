@@ -19,8 +19,17 @@ namespace TKGame.Components.Concrete
         {
             Player player = Player.Instance;
 
-            // if player is within pickup range of item
-            // remove item from map and add item to player's inventory
+            if (player != null)
+            {
+                Vector2 playerPosition = player.Position;
+                // if player is within pickup range
+                if (playerPosition.X == entity.Position.X &&
+                    playerPosition.Y >= entity.Position.Y - 12 &&
+                    playerPosition.Y <= entity.Position.Y + 12)
+                {
+                    // pickup item
+                }
+            }
         }
     }
 }
