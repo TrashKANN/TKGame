@@ -13,13 +13,11 @@ using System.Drawing;
 
 namespace TKGame.Components.Concrete
 {
-    internal class Enemy_GraphicsComponent : GraphicsComponent
+    class Enemy_GraphicsComponent : GraphicsComponent
     {
         void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
         {
             Player player = Player.Instance;
-            entity.Velocity.X = 1;
-            entity.Velocity.Y = 1;
 
             //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             spriteBatch.Draw(entity.entityTexture,

@@ -13,13 +13,13 @@ using System.Drawing;
 
 namespace TKGame.Components.Concrete
 {
-    internal class Enemy_PhysicsComponent : PhysicsComponent
+    class GoblinEnemy_PhysicsComponent : PhysicsComponent
     {
         void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)
         {
             Player player = Player.Instance;
-            entity.Velocity.X = 1;
-            entity.Velocity.Y = 1;
+            entity.Velocity.X = 2;
+            entity.Velocity.Y = 2;
 
             if (player != null)
             {
