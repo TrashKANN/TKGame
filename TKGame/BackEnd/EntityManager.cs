@@ -15,9 +15,6 @@ namespace TKGame.BackEnd
     {
         static List<Entity> entities = new List<Entity>();
 
-        // Will be used later
-        //static List<Enemy> enemies = new List<Enemy>();
-
         static bool IsUpdating;
 
         // This will be all the entities that are added this frame
@@ -55,16 +52,18 @@ namespace TKGame.BackEnd
         /// Updates each entity in the World entity list. Then adds all new entities to the World list, then clears the new entity list as well as the Expired entities in the World.
         /// </summary>
         /// <param name="gameTime"></param>
-        public static void Update(GameTime gameTime, SpriteBatch spriteBatch, Stage stage)
+        public static void Update(GameTime gameTime)
         {
+            Stage currentStage = TKGame.levelComponent.GetCurrentStage();
+
             IsUpdating = true;
             // HandleCollision();
 
             // Update each entity from previous frame
             foreach (var entity in entities)
             {
-                entity.Update(gameTime, spriteBatch);
-                entity.Collide(stage.walls);
+                entity.Update(gameTime);
+                entity.Collide(currentStage.StageWalls);
             }
 
             IsUpdating = false;

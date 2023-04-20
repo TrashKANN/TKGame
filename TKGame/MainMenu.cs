@@ -69,7 +69,7 @@ namespace TKGame
 
             exitButton.TouchDown += (sender, eventArgs) => 
             {
-                LevelEditor.SaveStageDataToJSON(game.currentStage, "auto_saved_stage_data");
+                LevelEditor.SaveStageDataToJSON(TKGame.levelComponent.GetCurrentStage(), "auto_saved_stage_data");
                 game.Exit();
             };             
         }

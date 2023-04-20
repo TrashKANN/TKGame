@@ -22,9 +22,9 @@ namespace TKGame
         public KnightEnemy() 
         {
             entityTexture = Art.KnightEnemyTexture; 
-            Position = new Vector2(300, 800); // hard coded spawn position at the moment
+            Position = new Vector2(300, TKGame.ScreenHeight - 111); // hard coded spawn position at the moment
             velocity = new Vector2((float)1.5, 1);
-            HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
+            HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
         /// <summary>

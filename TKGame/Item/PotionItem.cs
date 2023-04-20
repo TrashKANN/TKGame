@@ -23,7 +23,7 @@ namespace TKGame
             Position = new Vector2(1200, 840); // hard coded spawn position at the moment
         }
 
-        public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Update(GameTime gameTime)
         {
             potionItemPhysics.Update(this, gameTime/*, world*/);
         }

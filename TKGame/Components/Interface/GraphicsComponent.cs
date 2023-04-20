@@ -11,7 +11,7 @@ namespace TKGame.Components.Interface
 {
     public interface GraphicsComponent
     {
-        virtual public void GraphicsComponent() { }
-        abstract internal void Update(Entity entity, SpriteBatch spriteBatch);
+        public void GraphicsComponent() { }
+        public void Update(Entity entity);
     }
 }
