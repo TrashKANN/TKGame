@@ -120,6 +120,10 @@ namespace TKGame
             EnemyFactory knightFactory = new KnightEnemyFactory();
             Enemy knight = knightFactory.CreateEnemy();
             EntityManager.Add(knight);
+            // Spawn a goblin enemy
+            EnemyFactory goblinFactory = new GoblinEnemyFactory();
+            Enemy goblin = goblinFactory.CreateEnemy();
+            EntityManager.Add(goblin);
 
             // Spawn a potion item
             ItemFactory potionFactory = new PotionItemFactory();

@@ -13,7 +13,7 @@ using System.Drawing;
 
 namespace TKGame.Components.Concrete
 {
-    internal class Item_GraphicsComponent : GraphicsComponent
+    class Item_GraphicsComponent : GraphicsComponent
     {
         void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
         {

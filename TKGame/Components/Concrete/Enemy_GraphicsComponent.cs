@@ -13,13 +13,11 @@ using System.Drawing;
 
 namespace TKGame.Components.Concrete
 {
-    internal class Enemy_GraphicsComponent : GraphicsComponent
+    class Enemy_GraphicsComponent : GraphicsComponent
     {
         void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
         {
             Player player = Player.Instance;
-            entity.Velocity.X = 1;
-            entity.Velocity.Y = 1;
 
             //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             spriteBatch.Draw(entity.entityTexture,
@@ -37,13 +35,14 @@ namespace TKGame.Components.Concrete
             {
                 Vector2 playerPosition = player.Position;
 
+                // logic assumes enemy starts by facing left
                 if (entity.Position.X > playerPosition.X)
                 {
-                    entity.Orientation = SpriteEffects.None; 
+                    entity.Orientation = SpriteEffects.None;
                 }
                 if (entity.Position.X < playerPosition.X)
                 {
-                    entity.Orientation = SpriteEffects.FlipHorizontally; 
+                    entity.Orientation = SpriteEffects.FlipHorizontally;
                 }
             }
         }

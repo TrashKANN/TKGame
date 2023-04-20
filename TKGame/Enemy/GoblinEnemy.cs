@@ -11,35 +11,35 @@ using TKGame.BackEnd;
 
 namespace TKGame
 {
-    public class KnightEnemy : Enemy
+    public class GoblinEnemy : Enemy
     {
-        private PhysicsComponent knightEnemyPhysics = new KinghtEnemy_PhysicsComponent();
-        private GraphicsComponent knightEnemyGraphics = new Enemy_GraphicsComponent();
+        private PhysicsComponent goblinEnemyPhysics = new GoblinEnemy_PhysicsComponent();
+        private GraphicsComponent goblinEnemyGraphics = new Enemy_GraphicsComponent();
 
         /// <summary>
-        /// knight enemy components
+        /// goblin enemy components
         /// </summary>
-        public KnightEnemy() 
+        public GoblinEnemy()
         {
-            entityTexture = Art.KnightEnemyTexture; 
-            Position = new Vector2(300, TKGame.ScreenHeight - 111); // hard coded spawn position at the moment
+            entityTexture = Art.GoblinEnemyTexture; 
+            Position = new Vector2(200, 800); // hard coded spawn position at the moment
             velocity = new Vector2((float)1.5, 1);
-            HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
+            HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
         /// <summary>
-        /// Update knight enemy components
+        /// Update goblin enemy components
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="spriteBatch"></param>
         public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            knightEnemyPhysics.Update(this, gameTime/*, world*/);
+            goblinEnemyPhysics.Update(this, gameTime/*, world*/);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            knightEnemyGraphics.Update(this, spriteBatch);
+            goblinEnemyGraphics.Update(this, spriteBatch);
         }
     }
 }
