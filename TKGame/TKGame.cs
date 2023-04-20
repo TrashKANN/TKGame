@@ -46,9 +46,6 @@ namespace TKGame
 
         public Desktop desktop;
 
-        //Declare Background Object
-        private Background BackgroundImage;
-
         // TODO: Refactor out of the main TKGame class
         public static bool paused;
         #endregion
