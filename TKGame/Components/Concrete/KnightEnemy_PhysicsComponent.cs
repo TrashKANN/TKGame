@@ -13,7 +13,7 @@ using System.Drawing;
 
 namespace TKGame.Components.Concrete
 {
-    class KinghtEnemy_PhysicsComponent : PhysicsComponent
+    class KnightEnemy_PhysicsComponent : PhysicsComponent
     {
         void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)
         {

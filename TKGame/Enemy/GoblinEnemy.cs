@@ -39,7 +39,7 @@ namespace TKGame
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            goblinEnemyGraphics.Update(this, spriteBatch);
+            goblinEnemyGraphics.Update(this/*, spriteBatch*/);
         }
     }
 }

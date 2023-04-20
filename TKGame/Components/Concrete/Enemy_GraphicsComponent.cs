@@ -15,7 +15,7 @@ namespace TKGame.Components.Concrete
 {
     class Enemy_GraphicsComponent : GraphicsComponent
     {
-        void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
+        void GraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)
         {
             Player player = Player.Instance;
 

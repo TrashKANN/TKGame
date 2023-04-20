@@ -15,7 +15,7 @@ namespace TKGame.Components.Concrete
 {
     class Item_GraphicsComponent : GraphicsComponent
     {
-        void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
+        void GraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)
         {
             //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             spriteBatch.Draw(entity.entityTexture,
