@@ -22,12 +22,20 @@ namespace TKGame.Components.Concrete
         public Level CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
         #endregion Properties
 
+        /// <summary>
+        /// Initializes the World_LevelComponent with a list of levels and sets the current level to the first level in the list.
+        /// </summary>
+        /// <param name="levels"></param>
         public World_LevelComponent(List<Level> levels)
         {
             this.levels = levels;
             currentLevel = levels.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Takes a level and adds it to the list of levels.
+        /// </summary>
+        /// <param name="newLevel"></param>
         public void AddLevel(Level newLevel)
         {
             levels.Add(newLevel);
@@ -47,12 +55,19 @@ namespace TKGame.Components.Concrete
         bool LevelComponent.IsCurrentStageFirst() { return currentLevel.isCurrentStageFirst; }
         bool LevelComponent.IsCurrentStageFinal() { return currentLevel.isCurrentStageFinal; }
         void LevelComponent.SetCurrentStage(Stage stage) { currentLevel.SetCurrentStage(stage); }
+
+        /// <summary>
+        /// Sets the current stage to the next stage in the level. If the current stage is the final stage, the current stage is set to the first stage.
+        /// 
+        /// </summary>
         void LevelComponent.GoToNextStage()
         {
             Dictionary<string, Stage> levelStages = currentLevel.GetStages();
             
+            // If the current stage is not the final stage, set the current stage to the next stage.
             if (!currentLevel.isCurrentStageFinal)
             {
+                // *Linked list flash backs*
                 currentLevel.isCurrentStageFirst = false;
                 currentLevel.prevStage = currentLevel.currentStage;
                 currentLevel.SetCurrentStage(currentLevel.nextStage);
@@ -61,6 +76,8 @@ namespace TKGame.Components.Concrete
 
                 currentLevel.currentStage.Initialize();
 
+                // If the last stage in the stage list is the current stage, set the isCurrnetStageFinal to true and set the next stage to null.
+                // Else, set the isCurrentStageFinal to false and set the next stage to the next stage in the level.
                 if (levelStages.Last().Value == currentLevel.currentStage)
                 {
                     currentLevel.isCurrentStageFinal = true;
@@ -79,10 +96,15 @@ namespace TKGame.Components.Concrete
                 // Play transision
             }
         }
+
+        /// <summary>
+        /// Sets the current stage to the previous stage in the level.
+        /// </summary>
         void LevelComponent.GoToPreviousStage()
         {
             Dictionary<string, Stage> levelStages = currentLevel.GetStages();
 
+            // If the current stage is not the first stage, set the current stage to the previous stage.
             if (!currentLevel.isCurrentStageFirst)
             {
                 currentLevel.isCurrentStageFinal = false;
@@ -94,6 +116,8 @@ namespace TKGame.Components.Concrete
 
                 currentLevel.currentStage.Initialize();
 
+                // If the first stage in the stage list is the current stage, set the isCurrnetStageFirst to true and set the previous stage to null.
+                // Else, set the isCurrentStageFirst to false and set the previous stage to the previous stage in the level.
                 if (levelStages.First().Value == currentLevel.currentStage)
                 {
                     currentLevel.isCurrentStageFirst = true;

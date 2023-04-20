@@ -93,14 +93,7 @@ namespace TKGame
         /// <param name="hitbox"></param>
         public bool Collide<T>(T hitbox) where T : CollideComponent
         {
-            if (HitBox.Intersects(hitbox.HitBox))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return HitBox.Intersects(hitbox.HitBox) ? true : false;
         }
 
         /// <summary>

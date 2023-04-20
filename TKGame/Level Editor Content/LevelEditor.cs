@@ -53,9 +53,9 @@ namespace TKGame.Level_Editor_Content
 
     static class LevelEditor
     {
+        public static bool EditMode = false;
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
-        internal static bool EditMode = false;
         private static readonly int GRID_SIZE = 32;
         private static List<Wall> deletedWalls= new List<Wall>();
 
@@ -75,7 +75,7 @@ namespace TKGame.Level_Editor_Content
         /// <param name="stage"></param>
         /// <param name="graphics"></param>
         /// <param name="spriteBatch"></param>
-        public static void BuildWall(Stage stage, GraphicsDevice graphics, SpriteBatch spriteBatch)
+        public static void BuildWall(Stage stage)
         {
             MouseState currentMouseState = Mouse.GetState();
             
@@ -120,12 +120,10 @@ namespace TKGame.Level_Editor_Content
                                                         (int)size.Y), 
                                                         GRID_SIZE);
 
-                Wall newWall = new Wall(alignedRect, Color.White, graphics);
-
+                Wall newWall = new Wall(alignedRect, Color.White, TKGame.Graphics.GraphicsDevice);
 
                 stage.StageWalls.Add(newWall);
             }
-
             previousMouseState = currentMouseState;
         }
 
@@ -135,7 +133,7 @@ namespace TKGame.Level_Editor_Content
         /// and added to the deletedWalls list for the purposes of Undo/Redo
         /// </summary>
         /// <param name="walls"></param>
-        internal static void DeleteWall(List<Wall> walls)
+        public static void DeleteWall(List<Wall> walls)
         {
             foreach (var wall in walls)
             {
@@ -175,7 +173,7 @@ namespace TKGame.Level_Editor_Content
         /// Remove the last wall from the deleteWalls list.
         /// </summary>
         /// <param name="walls"></param>
-        internal static void UndoDeletedWall(List<Wall> walls)
+        public static void UndoDeletedWall(List<Wall> walls)
         {
             if (deletedWalls.Count > 0)
             {
@@ -190,7 +188,7 @@ namespace TKGame.Level_Editor_Content
         /// Walls are additionally removed from the stage walls.
         /// </summary>
         /// <param name="walls"></param>
-        internal static void RedoDeletedWall(List<Wall> walls)
+        public static void RedoDeletedWall(List<Wall> walls)
         {
             if (walls.Count > 0)
             {
@@ -224,7 +222,7 @@ namespace TKGame.Level_Editor_Content
             return rect;
         }
 
-        internal static void DrawGridLines(Color color)
+        public static void DrawGridLines(Color color)
         {
             // Calculate the number of grid squares in each direction
             int numHorizontalGridSquares = TKGame.ScreenWidth / GRID_SIZE;

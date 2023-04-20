@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Diagnostics;
 using TKGame.BackEnd;
 
 namespace TKGame.Animations
@@ -35,29 +37,30 @@ namespace TKGame.Animations
                             spriteX * 2 + buffer * 5 };
 
             //individual sprite images
-            sourceRectangles     = new Rectangle[16];
+            sourceRectangles = new Rectangle[16]
+            {
+                new Rectangle(col[0], row[0], spriteX, spriteY),
+                new Rectangle(col[1], row[0], spriteX, spriteY),
+                new Rectangle(col[2], row[0], spriteX, spriteY),
 
-            sourceRectangles[0]  = new Rectangle(col[0], row[0], spriteX, spriteY);
-            sourceRectangles[1]  = new Rectangle(col[1], row[0], spriteX, spriteY);
-            sourceRectangles[2]  = new Rectangle(col[2], row[0], spriteX, spriteY);
+                new Rectangle(col[0], row[1], spriteX, spriteY),
+                new Rectangle(col[1], row[1], spriteX, spriteY),
+                new Rectangle(col[2], row[1], spriteX, spriteY),
 
-            sourceRectangles[3]  = new Rectangle(col[0], row[1], spriteX, spriteY);
-            sourceRectangles[4]  = new Rectangle(col[1], row[1], spriteX, spriteY);
-            sourceRectangles[5]  = new Rectangle(col[2], row[1], spriteX, spriteY);
-            
-            sourceRectangles[6]  = new Rectangle(col[0], row[2], spriteX, spriteY);
-            sourceRectangles[7]  = new Rectangle(col[1], row[2], spriteX, spriteY);
-            sourceRectangles[8]  = new Rectangle(col[2], row[2], spriteX, spriteY);
-            
-            sourceRectangles[9]  = new Rectangle(col[0], row[3], spriteX, spriteY);
-            sourceRectangles[10] = new Rectangle(col[1], row[3], spriteX, spriteY);
-            sourceRectangles[11] = new Rectangle(col[2], row[3], spriteX, spriteY);
-          
-            sourceRectangles[12] = new Rectangle(col[0], row[4], spriteX, spriteY);
-            sourceRectangles[13] = new Rectangle(col[1], row[4], spriteX, spriteY);
-            sourceRectangles[14] = new Rectangle(col[2], row[4], spriteX, spriteY);
+                new Rectangle(col[0], row[2], spriteX, spriteY),
+                new Rectangle(col[1], row[2], spriteX, spriteY),
+                new Rectangle(col[2], row[2], spriteX, spriteY),
 
-            sourceRectangles[15] = new Rectangle(buffer, row[5], spriteX, spriteY);
+                new Rectangle(col[0], row[3], spriteX, spriteY),
+                new Rectangle(col[1], row[3], spriteX, spriteY),
+                new Rectangle(col[2], row[3], spriteX, spriteY),
+
+                new Rectangle(col[0], row[4], spriteX, spriteY),
+                new Rectangle(col[1], row[4], spriteX, spriteY),
+                new Rectangle(col[2], row[4], spriteX, spriteY),
+
+                new Rectangle(buffer, row[5], spriteX, spriteY)
+            };
         }
 
         /// <summary>
@@ -108,32 +111,6 @@ namespace TKGame.Animations
             {
                 timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; //just increments timer and leaves
             }
-
-
-
-            //if (timer > threshold + 800) //waits for about half a second and then resets the loop 
-            //    loop = true;
-
-            //if (!loop) //activates when the spritesheet has incremented all the way through
-            //{
-            //    timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; //just increments timer and leaves
-            //    return;
-            //}
-            ////logic to loop through images
-            //if (timer > threshold) //checks if enough time has passed
-            //{
-            //    if (currentIndex < 15)
-            //        currentIndex++; //increments through sprite sheet
-            //    else
-            //    {
-            //        currentIndex = 0; // sets image back to full transparent window
-            //        loop = false; //stops incrementing at end of sprite sheet
-            //    }
-            //    timer = 0; // reset timer
-            //    TKGame.levelComponent.GetCurrentLevel().isTransitioning = false; //stops transition
-            //}
-            //else
-            //    timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; //increases timer
         }
     }
 }

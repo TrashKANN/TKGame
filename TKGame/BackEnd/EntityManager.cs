@@ -15,9 +15,6 @@ namespace TKGame.BackEnd
     {
         static List<Entity> entities = new List<Entity>();
 
-        // Will be used later
-        //static List<Enemy> enemies = new List<Enemy>();
-
         static bool IsUpdating;
 
         // This will be all the entities that are added this frame

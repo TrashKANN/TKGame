@@ -80,9 +80,6 @@ namespace TKGame
             MyraEnvironment.Game = this;
             desktop = new Desktop();
 
-            //Create New Background Object w/variables for setting Rectangle and Texture
-            BackgroundImage = new Background(ScreenWidth, ScreenHeight);
-
             // Initialize debug information
             GameDebug.Initialize();
 #if DEBUG
@@ -104,10 +101,8 @@ namespace TKGame
             Art.LoadContent(Content);
             Music.LoadContent(Content, 0.069f);
 
-
             // Load Weapon System Content
             WeaponSystem.LoadContent(VSP);
-
 
             // Load debug content
             GameDebug.LoadContent(VSP);
@@ -115,7 +110,7 @@ namespace TKGame
             // Load main menu
             MainMenu.LoadContent();
 
-            // Add and Load Default Stage
+            // Add and Load Default Level
             levelComponent.AddLevel(new Level(new Dictionary<string, Stage>
             {
                 { "room0", new Stage("room0") }, 
@@ -197,7 +192,7 @@ namespace TKGame
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
             //Draws the image into the Background
-            spriteBatch.Draw(Art.BackgroundTexture, BackgroundImage.BackgroundRect, Color.White);
+            spriteBatch.Draw(Art.BackgroundTexture, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
 
 
             // Draw each wall to the screen

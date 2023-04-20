@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace TKGame.BackEnd
 {
-    internal class Background
+    public class Background
     {
         // Variables to hold Background Image
         /// <summary>

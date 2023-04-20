@@ -8,7 +8,7 @@ namespace TKGame.Components.Interface
 {
     public interface LevelEditorComponent
     {
-        virtual public void LevelEditorComponent() { }
-        abstract internal void Update();
+        public void LevelEditorComponent() { }
+        public void Update();
     }
 }

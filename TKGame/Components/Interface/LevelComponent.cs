@@ -9,17 +9,17 @@ namespace TKGame.Components.Interface
 {
     public interface LevelComponent
     {
-        virtual public void LevelComponent() { }
-        abstract internal void Update();
-        abstract internal void AddLevel(Level newLevel);
-        abstract internal Level GetCurrentLevel();
-        abstract internal Stage GetCurrentStage();
-        abstract internal Stage GetPreviousStage();
-        abstract internal Stage GetNextStage();
-        abstract internal bool IsCurrentStageFirst();
-        abstract internal bool IsCurrentStageFinal();
-        abstract internal void SetCurrentStage(Stage stage);
-        abstract internal void GoToNextStage();
-        abstract internal void GoToPreviousStage();
+        public void LevelComponent() { }
+        public void Update();
+        public void AddLevel(Level newLevel);
+        public Level GetCurrentLevel();
+        public Stage GetCurrentStage();
+        public Stage GetPreviousStage();
+        public Stage GetNextStage();
+        public bool IsCurrentStageFirst();
+        public bool IsCurrentStageFinal();
+        public void SetCurrentStage(Stage stage);
+        public void GoToNextStage();
+        public void GoToPreviousStage();
     }
 }

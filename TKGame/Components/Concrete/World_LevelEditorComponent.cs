@@ -20,7 +20,7 @@ namespace TKGame.Components.Concrete
             // I really hate this, needs to be refactored. Asking Thomas might be easiest
             if (Input.KeyboardState.IsKeyDown(Keys.W))
             {
-                LevelEditor.BuildWall(currentStage, TKGame.Graphics.GraphicsDevice, TKGame.SpriteBatch);
+                LevelEditor.BuildWall(currentStage);
             }
             // D (Hold) + LClick = Mark; + RClick = UnMark; + Enter = Delete Mar
             else if (Input.KeyboardState.IsKeyDown(Keys.D))

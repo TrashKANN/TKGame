@@ -16,6 +16,7 @@ namespace TKGame.Level_Editor_Content
         private List<Wall> stageWalls;
         private List<Entity> stageEntities;
         private List<Trigger> stageTriggers;
+        private Background background;
         public string stageName;
 
         public string prevStageName { get; set; }
@@ -25,6 +26,7 @@ namespace TKGame.Level_Editor_Content
         public List<Wall> StageWalls { get { return stageWalls; } }
         public List<Entity> StageEntities { get { return stageEntities; } }
         public List<Trigger> StageTriggers { get { return stageTriggers; } }
+        public Background Background { get { return background; } }
 
         public Stage()
         {
@@ -32,6 +34,7 @@ namespace TKGame.Level_Editor_Content
             this.stageWalls = new List<Wall>() { };
             this.stageEntities = new List<Entity>() { };
             this.stageTriggers = new List<Trigger>() { };
+            this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
             this.stageEntities.Add(Player.Instance);
         }
         public Stage(string name) 
@@ -40,6 +43,7 @@ namespace TKGame.Level_Editor_Content
             this.stageWalls = new List<Wall>() { };
             this.stageEntities = new List<Entity>() { };
             this.stageTriggers = new List<Trigger>() { };
+            this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
             this.stageEntities.Add(Player.Instance);
             this.Initialize();
         }

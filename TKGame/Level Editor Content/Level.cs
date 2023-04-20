@@ -9,20 +9,24 @@ using TKGame.Animations;
 
 namespace TKGame.Level_Editor_Content
 {
-    internal class Level
+    public class Level
     {
-        internal static Dictionary<string, Stage> levelStages { get; set; }
-        internal Stage currentStage;
-        internal Stage prevStage;
-        internal Stage nextStage;
+        public static Dictionary<string, Stage> levelStages { get; set; }
+        public Stage currentStage;
+        public Stage prevStage;
+        public Stage nextStage;
 
-        internal ScreenTransition transition;
+        public ScreenTransition transition;
         public bool isTransitioning { get; set; }
 
 
-        internal bool isCurrentStageFirst { get; set; }
-        internal bool isCurrentStageFinal { get; set; }
+        public bool isCurrentStageFirst { get; set; }
+        public bool isCurrentStageFinal { get; set; }
 
+        /// <summary>
+        /// Initializes the level with a dictionary of stages. Assumes that the first stage in the dictionary is the first stage in the level.
+        /// </summary>
+        /// <param name="stages"></param>
         public Level(Dictionary<string, Stage> stages)
         {
             levelStages = new Dictionary<string, Stage>(stages) { };
@@ -45,10 +49,10 @@ namespace TKGame.Level_Editor_Content
             currentStage.Update();
         }
 
-        internal Stage GetCurrentStage() { return currentStage; }
-        internal Stage GetPreviousStage() { return prevStage; }
-        internal Stage GetNextStage() { return nextStage; }
-        internal Dictionary<string, Stage> GetStages() { return levelStages; }
-        internal void SetCurrentStage(Stage stage) { currentStage = stage; }
+        public Stage GetCurrentStage() { return currentStage; }
+        public Stage GetPreviousStage() { return prevStage; }
+        public Stage GetNextStage() { return nextStage; }
+        public Dictionary<string, Stage> GetStages() { return levelStages; }
+        public void SetCurrentStage(Stage stage) { currentStage = stage; }
     }
 }
