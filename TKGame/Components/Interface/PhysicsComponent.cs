@@ -11,7 +11,7 @@ namespace TKGame.Components.Interface
 {
     public interface PhysicsComponent
     {
-        virtual public void PhysicsComponent() { }
-        abstract internal void Update(Entity entity, GameTime gameTime);
+        public void PhysicsComponent() { }
+        public void Update(Entity entity, GameTime gameTime);
     }
 }

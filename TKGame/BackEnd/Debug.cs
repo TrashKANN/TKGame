@@ -270,8 +270,10 @@ namespace TKGame.BackEnd
         /// <summary>
         /// Draw bounding rectangle around a given rectangle.
         /// </summary>
-        public static void DrawBoundingBox(SpriteBatch spriteBatch, Rectangle rectangle, Color color, int lineWidth)
+        public static void DrawBoundingBox(Rectangle rectangle, Color color, int lineWidth)
         {
+            SpriteBatch spriteBatch = TKGame.SpriteBatch;
+
             if (HitboxTexture is null)
             {
                 HitboxTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
@@ -288,7 +290,7 @@ namespace TKGame.BackEnd
         /// <summary>
         /// Draw a bounding rectangle around a given entity.
         /// </summary>
-        public static void DrawBoundingBox(SpriteBatch spriteBatch, Entity entity, Color color, int lineWidth)
+        public static void DrawBoundingBox(Entity entity, Color color, int lineWidth)
         {
             // Construct a Rectangle out of the entity's position and size so we can
             // just use the other DrawBoundingRectangle() function to actually draw
@@ -299,7 +301,7 @@ namespace TKGame.BackEnd
                 Width = (int)entity.Size.X,
                 Height = (int)entity.Size.Y
             };
-            DrawBoundingBox(spriteBatch, entityRect, color, lineWidth);
+            DrawBoundingBox(entityRect, color, lineWidth);
         }
     }
 }

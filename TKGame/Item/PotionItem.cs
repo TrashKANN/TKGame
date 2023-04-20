@@ -17,13 +17,15 @@ namespace TKGame
     {
         private PhysicsComponent potionItemPhysics = new Item_PhysicsComponent();
         private GraphicsComponent potionItemGraphics = new Item_GraphicsComponent();
+        static Random rand = new Random();
+        int x = rand.Next(600, 1200);
         public PotionItem()
         {
             entityTexture = Art.PotionItemTexture;
-            Position = new Vector2(1200, 840); // hard coded spawn position at the moment
+            Position = new Vector2(x, 840); // random x-coor spawn
         }
 
-        public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Update(GameTime gameTime)
         {
             potionItemPhysics.Update(this, gameTime/*, world*/);
         }

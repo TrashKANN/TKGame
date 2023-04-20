@@ -14,6 +14,10 @@ using System.IO;
 using System.Text.Json;
 using Color = Microsoft.Xna.Framework.Color;
 using TKGame.BackEnd;
+using System.Diagnostics;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
+
 
 namespace TKGame.Level_Editor_Content
 {
@@ -21,14 +25,37 @@ namespace TKGame.Level_Editor_Content
     {
         public int X { get; set;}
         public int Y { get; set;}
-        public int dataWidth { get; set;}
-        public int dataHeight { get; set;}
+        public int width { get; set;}
+        public int height { get; set;}
     }
+    public class EntityData
+    {
+        public string type { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
+
+    public class TriggerData
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int width { get; set; }
+        public int height { get; set; }
+        public string action { get; set; }
+    }
+
+    public class StageData
+    {
+        public List<WallData> walls { get; set; }
+        public List<EntityData> entities { get; set; }
+        public List<TriggerData> triggers { get; set; }
+    }
+
     static class LevelEditor
     {
+        public static bool EditMode = false;
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
-        internal static bool EditMode = false;
         private static readonly int GRID_SIZE = 32;
         private static List<Wall> deletedWalls= new List<Wall>();
 
@@ -48,7 +75,7 @@ namespace TKGame.Level_Editor_Content
         /// <param name="stage"></param>
         /// <param name="graphics"></param>
         /// <param name="spriteBatch"></param>
-        public static void BuildWall(Stage stage, GraphicsDevice graphics, SpriteBatch spriteBatch)
+        public static void BuildWall(Stage stage)
         {
             MouseState currentMouseState = Mouse.GetState();
             
@@ -74,7 +101,7 @@ namespace TKGame.Level_Editor_Content
                 // Used for drawing the outline of the to be created wall
                 Rectangle tempRect = new Rectangle((int)topLeftPosition.X, (int)topLeftPosition.Y, (int)size.X, (int)size.Y);
 
-                GameDebug.DrawBoundingBox(spriteBatch, tempRect, Color.DeepPink, 5);
+                GameDebug.DrawBoundingBox(tempRect, Color.DeepPink, 5);
             }
             // If the left mouse button IS ALREADY pressed and WAS RELEASED this update, store coordinates for end position
             else if (previousMouseState.LeftButton == ButtonState.Pressed &&
@@ -93,12 +120,10 @@ namespace TKGame.Level_Editor_Content
                                                         (int)size.Y), 
                                                         GRID_SIZE);
 
-                Wall newWall = new Wall(alignedRect, Color.White, graphics);
+                Wall newWall = new Wall(alignedRect, Color.White, TKGame.Graphics.GraphicsDevice);
 
-
-                stage.walls.Add(newWall);
+                stage.StageWalls.Add(newWall);
             }
-
             previousMouseState = currentMouseState;
         }
 
@@ -108,7 +133,7 @@ namespace TKGame.Level_Editor_Content
         /// and added to the deletedWalls list for the purposes of Undo/Redo
         /// </summary>
         /// <param name="walls"></param>
-        internal static void DeleteWall(List<Wall> walls)
+        public static void DeleteWall(List<Wall> walls)
         {
             foreach (var wall in walls)
             {
@@ -148,7 +173,7 @@ namespace TKGame.Level_Editor_Content
         /// Remove the last wall from the deleteWalls list.
         /// </summary>
         /// <param name="walls"></param>
-        internal static void UndoDeletedWall(List<Wall> walls)
+        public static void UndoDeletedWall(List<Wall> walls)
         {
             if (deletedWalls.Count > 0)
             {
@@ -163,7 +188,7 @@ namespace TKGame.Level_Editor_Content
         /// Walls are additionally removed from the stage walls.
         /// </summary>
         /// <param name="walls"></param>
-        internal static void RedoDeletedWall(List<Wall> walls)
+        public static void RedoDeletedWall(List<Wall> walls)
         {
             if (walls.Count > 0)
             {
@@ -197,24 +222,24 @@ namespace TKGame.Level_Editor_Content
             return rect;
         }
 
-        internal static void DrawGridLines(SpriteBatch spriteBatch, int screenWidth, int screenHeight, Color color)
+        public static void DrawGridLines(Color color)
         {
             // Calculate the number of grid squares in each direction
-            int numHorizontalGridSquares = screenWidth / GRID_SIZE;
-            int numVerticalGridSquares = screenHeight / GRID_SIZE;
+            int numHorizontalGridSquares = TKGame.ScreenWidth / GRID_SIZE;
+            int numVerticalGridSquares = TKGame.ScreenHeight / GRID_SIZE;
 
             // Draw the horizontal grid lines
             for (int i = 0; i < numVerticalGridSquares; i++)
             {
                 int y = i * GRID_SIZE;
-                GameDebug.DrawBoundingBox(spriteBatch, new Rectangle(0, y, screenWidth, 1), color, 1);
+                GameDebug.DrawBoundingBox(new Rectangle(0, y, TKGame.ScreenWidth, 1), color, 1);
             }
 
             // Draw the vertical grid lines
             for (int i = 0; i < numHorizontalGridSquares; i++)
             {
                 int x = i * GRID_SIZE;
-                GameDebug.DrawBoundingBox(spriteBatch, new Rectangle(x, 0, 1, screenHeight), color, 1);
+                GameDebug.DrawBoundingBox(new Rectangle(x, 0, 1, TKGame.ScreenHeight), color, 1);
             }
         }
 
@@ -228,11 +253,17 @@ namespace TKGame.Level_Editor_Content
         /// <param name="newStageName"></param>
         public static void SaveStageDataToJSON(Stage stage, string newStageName)
         {
-            // TO DO: Add a Stage name input, Probably take user input to determine the name it is saved as.
-            List<WallData> wallDataList = new List<WallData>();
+            TKGame.paused = true;
+
+            var stageData = new StageData();
+
+            // Initialize the lists of each type of data
+            stageData.walls = new List<WallData>();
+            stageData.entities = new List<EntityData>();
+            stageData.triggers = new List<TriggerData>();
 
             // For each wall, Add the data to the WallData list
-            foreach (Wall wall in stage.walls)
+            foreach (Wall wall in stage.StageWalls)
             {
                 if (wall.HitBox.Width != 0 && wall.HitBox.Height != 0)
                 {
@@ -240,16 +271,48 @@ namespace TKGame.Level_Editor_Content
                     {
                         X = wall.HitBox.X,
                         Y = wall.HitBox.Y,
-                        dataWidth = wall.HitBox.Width,
-                        dataHeight = wall.HitBox.Height,
+                        width = wall.HitBox.Width,
+                        height = wall.HitBox.Height,
                     };
 
-                    wallDataList.Add(walldata);
+                    stageData.walls.Add(walldata);
                 }
             }
 
+            // For each entity, Add the data to the EntityData list
+            foreach (Entity entity in stage.StageEntities)
+            {
+                if (entity.HitBox.Width != 0 && entity.HitBox.Height != 0 && entity != Player.Instance)
+                {
+                    EntityData entitydata = new EntityData()
+                    {
+                        X = entity.HitBox.X,
+                        Y = entity.HitBox.Y,
+                        type = entity.entityName,
+                    };
+                    stageData.entities.Add(entitydata);
+                }
+            }
+
+            // For each trigger, Add the data to the TriggerData list
+            foreach (Trigger trigger in stage.StageTriggers)
+            {
+                if (trigger.HitBox.Width != 0 && trigger.HitBox.Height != 0)
+                {
+                    TriggerData triggerdata = new TriggerData()
+                    {
+                        X = trigger.HitBox.X,
+                        Y = trigger.HitBox.Y,
+                        width = trigger.HitBox.Width,
+                        height = trigger.HitBox.Height,
+                        action = trigger.Action,
+                    };
+                    stageData.triggers.Add(triggerdata);
+                }
+            }
+  
             // Serializes the data set. The Options make the output human-readable.
-            string json = JsonSerializer.Serialize(wallDataList, new JsonSerializerOptions
+            string json = JsonSerializer.Serialize(stageData, new JsonSerializerOptions
             {
                 WriteIndented= true,
             });
@@ -284,20 +347,33 @@ namespace TKGame.Level_Editor_Content
         /// <param name="stageName"></param>
         /// <param name="graphics"></param>
         /// <returns></returns>
-        public static Stage LoadStageDataFromJSON(string stageName, GraphicsDevice graphics)
+        public static Stage LoadStageDataFromJSON(string stageName)
         {
-            Stage newStage = new Stage(graphics);
+            TKGame.paused = true;
+
+            Stage newStage = new Stage();
 
             string stagePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/Stages/" + stageName));
 
-            string json = System.IO.File.ReadAllText(stagePath);
+            string jsonString = System.IO.File.ReadAllText(stagePath);
 
-            List<WallData> jsonStageData = JsonSerializer.Deserialize<WallData[]>(json).ToList();
+            StageData levelData = JsonSerializer.Deserialize<StageData>(jsonString);
 
-            foreach (WallData wallData in jsonStageData)
+            foreach (WallData wallData in levelData.walls)
             {
-                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.dataWidth, wallData.dataHeight, Color.White, graphics);
-                newStage.walls.Add(newWall);
+                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.width, wallData.height, Color.White);
+                newStage.StageWalls.Add(newWall);
+            }
+
+            foreach (EntityData entityData in levelData.entities)
+            {
+                //TODO: Refactor for factories
+                newStage.StageEntities.Add(new KnightEnemy());
+            }
+
+            foreach (TriggerData triggerData in levelData.triggers)
+            {
+                newStage.StageTriggers.Add(new Trigger(triggerData.X, triggerData.Y, triggerData.width, triggerData.height, triggerData.action));
             }
 
             return newStage;

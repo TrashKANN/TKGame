@@ -16,4 +16,11 @@ namespace TKGame
             return new KnightEnemy();
         }
     }
+    public class GoblinEnemyFactory : EnemyFactory
+    {
+        public override Enemy CreateEnemy()
+        {
+            return new GoblinEnemy();
+        }
+    }
 }

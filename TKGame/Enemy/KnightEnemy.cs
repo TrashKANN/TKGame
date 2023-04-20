@@ -13,7 +13,7 @@ namespace TKGame
 {
     public class KnightEnemy : Enemy
     {
-        private PhysicsComponent knightEnemyPhysics = new Enemy_PhysicsComponent();
+        private PhysicsComponent knightEnemyPhysics = new KnightEnemy_PhysicsComponent();
         private GraphicsComponent knightEnemyGraphics = new Enemy_GraphicsComponent();
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace TKGame
             entityTexture = Art.KnightEnemyTexture; 
             Position = new Vector2(300, 800); // hard coded spawn position at the moment
             velocity = new Vector2((float)1.5, 1);
-            HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
+            HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace TKGame
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            knightEnemyGraphics.Update(this, spriteBatch);
+            knightEnemyGraphics.Update(this/*, spriteBatch*/);
         }
     }
 }

@@ -1,18 +1,7 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StbImageSharp;
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using TKGame.BackEnd;
 
 namespace TKGame.Animations
@@ -22,45 +11,58 @@ namespace TKGame.Animations
         #region Member Data
         private Rectangle[] sourceRectangles;
 
-        private static readonly int screenWidth = 1600;
-        private static readonly int screenHeight = 900;
-        private int spriteX = 509;
-        private int spriteY = 285;
-        private int buffer = 5;
+        private int spriteX = 512;
+        private int spriteY = 288;
+        private int buffer = 1;
         byte currentIndex = 0;
         private float timer = 0;
-        private int threshold = 10;
+        private int threshold = 16; // ~1/60th of a second = frame rate
         private bool loop = true;
-
-
-
         #endregion
+
         /// <summary>
         /// creates ScreenTransition Object
         /// </summary>
-        /// <param name="graphicsDevice"></param>
-        public ScreenTransition (GraphicsDevice graphicsDevice)
+        public ScreenTransition () // TODO: Move this transition to it's own child class of ScreenTransition
         {
-            //individual sprite images
-            sourceRectangles = new Rectangle[16];
-            sourceRectangles[1] = new Rectangle(buffer, buffer, spriteX, spriteY);
-            sourceRectangles[2] = new Rectangle(spriteX +(buffer*2), buffer, spriteX, spriteY);
-            sourceRectangles[3] = new Rectangle(buffer, spriteY + (buffer * 2), spriteX, spriteY);
-            sourceRectangles[4] = new Rectangle(spriteX + (buffer*2), spriteY + (buffer * 2), spriteX, spriteY);
-            sourceRectangles[5] = new Rectangle((spriteX  * 2) + (buffer * 2), spriteY + (buffer * 2), spriteX, spriteY);
-            sourceRectangles[6] = new Rectangle(buffer, (spriteY *2) + (buffer), spriteX, spriteY);
-            sourceRectangles[7] = new Rectangle((spriteX + buffer) + 2, (spriteY + (buffer * 2)) * 2, spriteX, spriteY);
-            sourceRectangles[8] = new Rectangle((spriteX * 2) + (buffer * 2), (spriteY + (buffer * 2)) * 2, spriteX, spriteY);
-            sourceRectangles[9] = new Rectangle(buffer, (spriteY * 3) + (2 * buffer) , spriteX, spriteY);
-            sourceRectangles[10] = new Rectangle((spriteX + buffer) + 2, (spriteY * 3) + (2 * buffer), spriteX, spriteY);
-            sourceRectangles[11] = new Rectangle((spriteX * 2) + (buffer * 2), (spriteY * 3) + (6 * buffer), spriteX, spriteY);
-            sourceRectangles[12] = new Rectangle(buffer, (spriteY + buffer) * 4, spriteX, spriteY);
-            sourceRectangles[13] = new Rectangle((spriteX + buffer) + 2, (spriteY + buffer) * 4, spriteX, spriteY);
-            sourceRectangles[14] = new Rectangle((spriteX * 2) + (buffer * 2), (spriteY + buffer) * 4, spriteX, spriteY);
-            sourceRectangles[15] = new Rectangle(buffer, (spriteY + buffer) * 5, spriteX, spriteY);
-            sourceRectangles[0] = new Rectangle((spriteX + buffer) + 2, (spriteY +buffer) * 5 + 16, spriteX, spriteY -15);
+            int[] row = {   buffer, 
+                            spriteY * 1 + buffer * 3, 
+                            spriteY * 2 + buffer * 5,
+                            spriteY * 3 + buffer * 7,
+                            spriteY * 4 + buffer * 9,
+                            spriteY * 5 + buffer * 11 };
 
+            int[] col = {   buffer,
+                            spriteX * 1 + buffer * 3,
+                            spriteX * 2 + buffer * 5 };
+
+            //individual sprite images
+            sourceRectangles = new Rectangle[16]
+            {
+                new Rectangle(col[0], row[0], spriteX, spriteY),
+                new Rectangle(col[1], row[0], spriteX, spriteY),
+                new Rectangle(col[2], row[0], spriteX, spriteY),
+
+                new Rectangle(col[0], row[1], spriteX, spriteY),
+                new Rectangle(col[1], row[1], spriteX, spriteY),
+                new Rectangle(col[2], row[1], spriteX, spriteY),
+
+                new Rectangle(col[0], row[2], spriteX, spriteY),
+                new Rectangle(col[1], row[2], spriteX, spriteY),
+                new Rectangle(col[2], row[2], spriteX, spriteY),
+
+                new Rectangle(col[0], row[3], spriteX, spriteY),
+                new Rectangle(col[1], row[3], spriteX, spriteY),
+                new Rectangle(col[2], row[3], spriteX, spriteY),
+
+                new Rectangle(col[0], row[4], spriteX, spriteY),
+                new Rectangle(col[1], row[4], spriteX, spriteY),
+                new Rectangle(col[2], row[4], spriteX, spriteY),
+
+                new Rectangle(buffer, row[5], spriteX, spriteY)
+            };
         }
+
         /// <summary>
         /// Draws Screen Transition Rectangle the size of game window
         /// </summary>
@@ -68,7 +70,7 @@ namespace TKGame.Animations
         public void Draw(SpriteBatch spriteBatch)
         {
             //Draw a rectangle the size of background
-            spriteBatch.Draw(Art.LoadTexture, new Rectangle(0, 0, screenWidth, screenHeight), sourceRectangles[currentIndex], Color.White);
+            spriteBatch.Draw(Art.TransitionTexture, new Rectangle(0, 0, TKGame.ScreenWidth, TKGame.ScreenHeight), sourceRectangles[currentIndex], Color.White);
         }
 
         /// <summary>
@@ -77,30 +79,38 @@ namespace TKGame.Animations
         /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
-            if (timer > threshold + 800) //waits for about half a second and then resets the loop 
+            if (timer > threshold) //waits for about half a second and then resets the loop 
+            {
                 loop = true;
+            }
 
-                if (!loop) //activates when the spritesheet has incremented all the way through
-                {
-                    timer += (float) gameTime.ElapsedGameTime.TotalMilliseconds; //just increments timer and leaves
-                    return;
-                }
+            if (loop) //activates when the spritesheet has incremented all the way through
+            {
                 //logic to loop through images
                 if (timer > threshold) //checks if enough time has passed
                 {
                     if (currentIndex < 15)
+                    {
                         currentIndex++; //increments through sprite sheet
+                    }
                     else
                     {
                         currentIndex = 0; // sets image back to full transparent window
                         loop = false; //stops incrementing at end of sprite sheet
+                        TKGame.levelComponent.GetCurrentLevel().isTransitioning = false; //stops transition
+                        TKGame.paused = false;
                     }
                     timer = 0; // reset timer
                 }
                 else
+                {
                     timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; //increases timer  
+                }
+            }
+            else
+            {
+                timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds; //just increments timer and leaves
+            }
         }
-
-
     }
 }

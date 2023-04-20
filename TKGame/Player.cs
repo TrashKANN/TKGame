@@ -6,7 +6,7 @@ using TKGame.Components.Interface;
 
 namespace TKGame
 {
-    class Player : Entity
+    public class Player : Entity
     {
         private static Player instance;
         private static object syncRoot = new object();
@@ -52,7 +52,7 @@ namespace TKGame
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             entityName = "player"; // name for player class
-            Position = new Vector2(1600/2, 900 - 70);
+            Position = new Vector2(TKGame.ScreenWidth/2, TKGame.ScreenHeight - 111);
             HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
@@ -62,11 +62,11 @@ namespace TKGame
         /// Updates each component the Player owns.
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Update(GameTime gameTime)
         {
             input.Update(this);
             physics.Update(this, gameTime/*, world*/);
-            graphics.Update(this, spriteBatch);
+            graphics.Update(this);
         }
 
         /// <summary>

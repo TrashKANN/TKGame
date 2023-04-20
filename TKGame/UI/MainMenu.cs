@@ -75,10 +75,9 @@ namespace TKGame.UI
 
             exitButton.TouchDown += (sender, eventArgs) =>
             {
-                // TODO: Redo how to exit a game from the menu
-                //LevelEditor.SaveStageDataToJSON(game.currentStage, "auto_saved_stage_data");
-                //game.Exit();
-            };
+                LevelEditor.SaveStageDataToJSON(TKGame.levelComponent.GetCurrentStage(), "auto_saved_stage_data");
+                game.Exit();
+            };             
         }
 
         public static void LoadContent()
