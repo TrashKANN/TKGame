@@ -84,27 +84,49 @@ namespace TKGame.Weapons
 
             // Configure labels
             // Sword Label
+            swordConfig(VSP, true);
+
+            // Spear Label
+            spearConfig(VSP, false);
+
+            // Axe Label
+            axeConfig(VSP, false);
+
+        }
+
+        private static void swordConfig(VerticalStackPanel VSP, bool isActive)
+        {
             swordLabel.Text = swordText;
-            swordLabel.TextColor = WEAPON_TEXT_COLOR;
+            if (isActive)
+                swordLabel.TextColor = Color.Red;
+            else
+                swordLabel.TextColor = WEAPON_TEXT_COLOR;
             swordLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
             swordLabel.Visible = true;
             VSP.Widgets.Add(swordLabel);
-
-
-            // Spear Label
+        }
+        private static void spearConfig(VerticalStackPanel VSP, bool isActive)
+        {
             spearLabel.Text = spearText;
-            spearLabel.TextColor = WEAPON_TEXT_COLOR;
+            if (isActive)
+                spearLabel.TextColor = Color.Red;
+            else
+                spearLabel.TextColor = WEAPON_TEXT_COLOR;
             spearLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
             spearLabel.Visible = true;
             VSP.Widgets.Add(spearLabel);
+        }
 
-            // Axe Label
+        private static void axeConfig(VerticalStackPanel VSP, bool isActive)
+        {
             axeLabel.Text = axeText;
-            axeLabel.TextColor = WEAPON_TEXT_COLOR;
+            if (isActive)
+                axeLabel.TextColor = Color.Red;
+            else
+                axeLabel.TextColor = WEAPON_TEXT_COLOR;
             axeLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
             axeLabel.Visible = true;
             VSP.Widgets.Add(axeLabel);
-
         }
 
         /// <summary>

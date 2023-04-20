@@ -49,7 +49,7 @@ namespace TKGame
         List<Trigger> triggers;
 
         //Declaring Weapon 
-        public static Weapon currentWeapon { get; private set; }
+        public Weapon sword;
 
 
         
@@ -123,7 +123,7 @@ namespace TKGame
             //Initializing WeaponSystem
             WeaponSystem.Initialize();
             //Initializing Weapons
-            currentWeapon = new Sword();
+            sword = new Sword();
 
             base.Initialize();
         }
@@ -178,7 +178,7 @@ namespace TKGame
             if (!paused)
             {
                 EntityManager.Update(gameTime, spriteBatch, currentStage);
-                currentWeapon.Update(gameTime);
+                sword.Update(sword);
             }
             
 
@@ -280,7 +280,7 @@ namespace TKGame
 
             EntityManager.Draw(spriteBatch);
             //Draws currentWeapon
-            currentWeapon.Draw(spriteBatch);
+            sword.Draw(spriteBatch);
 
             foreach (Entity entity in EntityManager.GetEntities())
             {
