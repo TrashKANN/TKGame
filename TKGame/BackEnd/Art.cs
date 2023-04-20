@@ -13,8 +13,9 @@ namespace TKGame.BackEnd
 
         // "Enemy" will be the name of one such as "Goblin" since it has its own art
         public static Texture2D KnightEnemyTexture { get; private set; }
+        public static Texture2D GoblinEnemyTexture { get; private set; }
         public static Texture2D PotionItemTexture {  get; private set; }
-        public static Texture2D LoadTexture { get; private set; }
+        public static Texture2D TransitionTexture { get; private set; }
 
         /// <summary>
         /// Loads the Player Texture from Art/Player on the Player's texture.
@@ -29,6 +30,9 @@ namespace TKGame.BackEnd
             KnightEnemyTexture = content.Load<Texture2D>(@"C:/Users/Greywater/Documents/Git/TKGame/TKGame/Content/bin/DesktopGL/Art/KnightLeftFacing"); // knight enemy
             PotionItemTexture = content.Load<Texture2D>(@"C:/Users/Greywater/Documents/Git/TKGame/TKGame/Content/bin/DesktopGL/Art/Potion"); // potion
             LoadTexture = content.Load<Texture2D>(@"C:/Users/Greywater/Documents/Git/TKGame/TKGame/Content/bin/DesktopGL/Art/Screens/LoadSpriteSheet");
+            GoblinEnemyTexture = content.Load<Texture2D>(@"Art/GoblinLeftFacing"); // goblin enemy
+            TransitionTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
+
         }
     }
 }

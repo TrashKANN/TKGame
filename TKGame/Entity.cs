@@ -33,7 +33,7 @@ namespace TKGame
         #endregion Properties
 
 
-        public abstract void Update(GameTime gameTime, SpriteBatch spriteBatch);
+        public abstract void Update(GameTime gameTime);
 
         /// <summary>
         /// Uses the Entity's hitbox and iterates through each hitbox passed to it and adjusts the Entity's position
@@ -93,14 +93,7 @@ namespace TKGame
         /// <param name="hitbox"></param>
         public bool Collide<T>(T hitbox) where T : CollideComponent
         {
-            if (HitBox.Intersects(hitbox.HitBox))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return HitBox.Intersects(hitbox.HitBox) ? true : false;
         }
 
         /// <summary>

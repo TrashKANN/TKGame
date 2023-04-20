@@ -11,7 +11,7 @@ namespace TKGame.Components.Concrete
 {
     internal class Player_GraphicsComponent : GraphicsComponent
     {
-        void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
+        void GraphicsComponent.Update(Entity entity)
         {
             //Adds Weapon To Player SpriteDD
             if(Input.KeyboardState.CapsLock)
@@ -33,9 +33,9 @@ namespace TKGame.Components.Concrete
             }
 
             // Moved this entirely out of Entity and into this component.
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+            TKGame.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
-            spriteBatch.Draw(entity.entityTexture,
+            TKGame.SpriteBatch.Draw(entity.entityTexture,
                                 entity.Position,
                                 null,
                                 entity.color,
@@ -44,7 +44,7 @@ namespace TKGame.Components.Concrete
                                 1f,
                                 entity.Orientation,
                                 0);
-            spriteBatch.End();
+            TKGame.SpriteBatch.End();
         }
     }
 }
