@@ -73,8 +73,6 @@ namespace TKGame
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
 
-            // Initialize debug information
-            GameDebug.Initialize();
 #if DEBUG
             // For now, just enable DebugMode when building a Debug version
             GameDebug.DebugMode = true;
@@ -95,12 +93,6 @@ namespace TKGame
             // Load Weapon System Content
             // TODO: Put VSP in WeaponSystem
             //WeaponSystem.LoadContent(VSP);
-
-            // Load debug content
-            GameDebug.LoadContent(VSP);
-
-            // Load main menu
-            MainMenu.LoadContent();
 
             // Add and Load Default Level
             levelComponent.AddLevel(new Level(new Dictionary<string, Stage>

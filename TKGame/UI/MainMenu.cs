@@ -75,8 +75,7 @@ namespace TKGame.UI
 
             exitButton.TouchDown += (sender, eventArgs) =>
             {
-                LevelEditor.SaveStageDataToJSON(TKGame.levelComponent.GetCurrentStage(), "auto_saved_stage_data");
-                game.Exit();
+                TKGame.Instance.ExitGame();
             };             
         }
 

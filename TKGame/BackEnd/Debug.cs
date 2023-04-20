@@ -7,11 +7,7 @@ using Myra.Graphics2D.UI;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Myra.Graphics2D.Brushes;
-using System.Diagnostics;
-using System.Linq;
-using TKGame.UI;
 using IMenu = TKGame.UI.IMenu;
-using System.Reflection.Metadata.Ecma335;
 
 namespace TKGame.BackEnd
 {
