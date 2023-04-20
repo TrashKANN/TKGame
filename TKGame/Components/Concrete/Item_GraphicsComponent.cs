@@ -18,7 +18,7 @@ namespace TKGame.Components.Concrete
         void GraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)
         {
             //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-            spriteBatch.Draw(entity.entityTexture,
+            TKGame.SpriteBatch.Draw(entity.entityTexture,
                                 entity.Position,
                                 null,
                                 entity.color,

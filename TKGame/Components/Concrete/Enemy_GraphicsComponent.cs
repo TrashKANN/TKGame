@@ -20,7 +20,7 @@ namespace TKGame.Components.Concrete
             Player player = Player.Instance;
 
             //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-            spriteBatch.Draw(entity.entityTexture,
+            TKGame.SpriteBatch.Draw(entity.entityTexture,
                                 entity.Position,
                                 null,
                                 entity.color,
