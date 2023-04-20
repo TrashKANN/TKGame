@@ -30,8 +30,8 @@ namespace TKGame.UI
             menus = new Dictionary<MenuState, IMenu>()
             {
                 { MenuState.MAIN_MENU, new MainMenu() },
-                { MenuState.GAME_MENU, new GameDebug() },
-                //{ MenuState.SETTINGS_MENU, new SettingsMenu() }
+                { MenuState.GAME_MENU, new DebugMenu() },
+                //{ MenuState.SETTINGS_MENU, new SettingsMenu() } // TODO: Add a settings menu
             };
             SwitchToMenu(MenuState.MAIN_MENU);
         }
@@ -49,7 +49,7 @@ namespace TKGame.UI
 
         public static void UpdateMenus()
         {
-            GameDebug.Update();
+            DebugMenu.Update();
         }
     }
 }

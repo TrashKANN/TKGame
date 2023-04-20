@@ -73,11 +73,6 @@ namespace TKGame
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
 
-#if DEBUG
-            // For now, just enable DebugMode when building a Debug version
-            GameDebug.DebugMode = true;
-#endif
-
             //Initializing WeaponSystem
             WeaponSystem.Initialize();
 
@@ -139,7 +134,7 @@ namespace TKGame
             // TODO: Probably move this somewhere else
             if (Input.WasKeyPressed(Keys.G))
             {
-                GameDebug.ToggleVisibility();
+                DebugMenu.ToggleVisibility();
             }
 
             // Toggle Editing mode for levels, pauses the game to hault entity movement.
