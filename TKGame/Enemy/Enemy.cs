@@ -10,6 +10,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using TKGame.Level_Editor_Content;
+using TKGame.BackEnd;
+using TKGame.Components.Concrete;
+using TKGame.Components.Interface;
 
 namespace TKGame
 {

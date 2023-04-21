@@ -10,7 +10,7 @@ namespace TKGame.Components.Interface
 {
     public interface InputComponent
     {
-        virtual public void InputComponent() { }
-        abstract internal void Update(Entity entity);
+        public void InputComponent() { }
+        public void Update(Entity entity);
     }
 }
