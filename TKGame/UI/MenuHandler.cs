@@ -17,7 +17,8 @@ namespace TKGame.UI
         {
             MAIN_MENU,
             GAME_MENU,
-            SETTINGS_MENU
+            SETTINGS_MENU,
+            PAUSE_MENU
         }
 
         public static Desktop Desktop { get; private set; } = new Desktop();
@@ -29,9 +30,10 @@ namespace TKGame.UI
             //CurrentMenu = menus[MenuState.MAIN_MENU];
             menus = new Dictionary<MenuState, IMenu>()
             {
-                { MenuState.MAIN_MENU, new MainMenu() },
-                { MenuState.GAME_MENU, new DebugMenu() },
-                //{ MenuState.SETTINGS_MENU, new SettingsMenu() } // TODO: Add a settings menu
+                { MenuState.MAIN_MENU,      new MainMenu()     },
+                { MenuState.GAME_MENU,      new DebugMenu()    },
+                { MenuState.SETTINGS_MENU,  new SettingsMenu() },
+                { MenuState.PAUSE_MENU,     new PauseMenu()    },
             };
             SwitchToMenu(MenuState.MAIN_MENU);
         }

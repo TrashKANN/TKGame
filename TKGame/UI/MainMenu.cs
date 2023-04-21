@@ -15,7 +15,6 @@ namespace TKGame.UI
 {
     public class MainMenu : IMenu
     {
-        public static bool IsEnabled { get; private set; }
         IMultipleItemsContainer IMenu.Container { get { return mainMenuGrid; } }
 
         private static TextButton playButton;
@@ -47,13 +46,12 @@ namespace TKGame.UI
             LoadContent();
         }
 
-        public static void Initialize()
+        private static void Initialize()
         {
             byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
             mainMenuFontSystem = new FontSystem();
             mainMenuFontSystem.AddFont(ttfData);
 
-            IsEnabled = true;
             mainMenuGrid = new Grid();
 
             playButton = ConstructMenuButton("Play", playButtonStyleName, 0, 0, 400);
@@ -69,7 +67,6 @@ namespace TKGame.UI
             playButton.TouchDown += (sender, eventArgs) =>
             {
                 TKGame.paused = false;
-                DisableMainMenu();
                 MenuHandler.SwitchToMenu(MenuHandler.MenuState.GAME_MENU);
             };
 
@@ -79,7 +76,7 @@ namespace TKGame.UI
             };             
         }
 
-        public static void LoadContent()
+        private static void LoadContent()
         {
             mainMenuGrid.ColumnsProportions.Add(new Proportion() { Type = ProportionType.Part });
 
@@ -90,15 +87,6 @@ namespace TKGame.UI
 
             mainMenuGrid.Widgets.Add(playButton);
             mainMenuGrid.Widgets.Add(exitButton);
-        }
-
-        public static void DisableMainMenu()
-        {
-            foreach (var widget in mainMenuGrid.Widgets)
-            {
-                widget.Enabled = false;
-                widget.Visible = false;
-            }
         }
 
         private static TextButton ConstructMenuButton(string text, string styleName, int gridRow, int gridCol, int width)

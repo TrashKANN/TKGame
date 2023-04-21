@@ -7,9 +7,9 @@ using Myra.Graphics2D.UI;
 
 namespace TKGame.UI
 {
-    public class GameMenu : IMenu
+    public class PauseMenu : IMenu
     {
-        // TODO: Implement gameplay menu
-        public IMultipleItemsContainer Container => throw new NotImplementedException();
+        public IMultipleItemsContainer Container { get { return Grid; } }
+        private static Grid Grid { get; set; }
     }
 }

@@ -63,7 +63,7 @@ namespace TKGame.UI
         /// <summary>
         /// Initialize debug elements (labels, fonts, etc.)
         /// </summary>
-        public static void Initialize()
+        private static void Initialize()
         {
             VSP = new VerticalStackPanel();
             KeyboardGrid = new Grid();
@@ -90,7 +90,7 @@ namespace TKGame.UI
         /// <summary>
         /// Load/Stylize all debug UI elements
         /// </summary>
-        public static void LoadContent()
+        private static void LoadContent()
         {
             VSP.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
 
