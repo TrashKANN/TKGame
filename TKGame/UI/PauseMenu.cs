@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
@@ -13,13 +14,15 @@ namespace TKGame.UI
         private static TextButton mainMenuButton;
         private static TextButton exitButton;
         private static FontSystem pauseMenuFontSystem;
+        private static Label pauseLabel;
 
         private static readonly int PAUSE_MENU_FONT_SIZE = 72;
 
         private static readonly Color PAUSE_MENU_BACKGROUND_COLOR = new Color(0x29, 0x29, 0x29, 0xC0); // Dark gray with alpha of 0xC0
+        private static readonly Vector4 PAUSE_LABEL_TEXT_COLOR_VECTOR = new Vector4(140f / 255, 20f / 255, 20f / 255, 1f);
         private static readonly Color PAUSE_MENU_TEXT_COLOR = Color.Gold;
         private static readonly Color PAUSE_MENU_BUTTON_BACKGROUND_COLOR = Color.DimGray;
-        private static readonly Color PAUSE_MENU_MAIN_MENU_HOVER_TEXT_COLOR = Color.Aqua;
+        private static readonly Color PAUSE_MENU_MAIN_MENU_HOVER_TEXT_COLOR = Color.Gold;
         private static readonly Color PAUSE_MENU_EXIT_HOVER_TEXT_COLOR = Color.Red;
 
         private static readonly string MAIN_MENU_BUTTON_STYLE_NAME = "mainmenu";
@@ -32,6 +35,7 @@ namespace TKGame.UI
         };
 
         private static HorizontalStackPanel hsp;
+        private static VerticalStackPanel vsp;
         private static Grid pauseMenuGrid { get; set; }
         public IMultipleItemsContainer Container { get { return pauseMenuGrid; } }
 
@@ -53,7 +57,7 @@ namespace TKGame.UI
                 Background = new SolidBrush(PAUSE_MENU_BACKGROUND_COLOR)
             };
 
-            hsp = new HorizontalStackPanel()
+            vsp = new VerticalStackPanel()
             {
                 GridRow = 0,
                 GridColumn = 0,
@@ -61,9 +65,20 @@ namespace TKGame.UI
                 HorizontalAlignment = HorizontalAlignment.Center,
             };
 
+            hsp = new HorizontalStackPanel();
+
             mainMenuButton = ConstructMenuButton("Main Menu", MAIN_MENU_BUTTON_STYLE_NAME, 1, 1, 400);
             exitButton = ConstructMenuButton("Exit", EXIT_BUTTON_STYLE_NAME, 1, 1, 400);
 
+            pauseLabel = new Label()
+            {
+                Text = "PAUSED",
+                TextColor = new Color(PAUSE_LABEL_TEXT_COLOR_VECTOR),
+                TextAlign = FontStashSharp.RichText.TextHorizontalAlignment.Center,
+                Font = pauseMenuFontSystem.GetFont(PAUSE_MENU_FONT_SIZE),
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment= HorizontalAlignment.Center
+            };
         }
 
         private static void LoadContent()
@@ -89,7 +104,20 @@ namespace TKGame.UI
 
             hsp.Widgets.Add(mainMenuButton);
             hsp.Widgets.Add(exitButton);
-            pauseMenuGrid.Widgets.Add(hsp);
+            vsp.Widgets.Add(pauseLabel);
+            vsp.Widgets.Add(hsp);
+            pauseMenuGrid.Widgets.Add(vsp);
+        }
+
+        public static void Update()
+        {
+            pauseLabel.TextColor = new Color(
+                PAUSE_LABEL_TEXT_COLOR_VECTOR.X,
+                PAUSE_LABEL_TEXT_COLOR_VECTOR.Y,
+                PAUSE_LABEL_TEXT_COLOR_VECTOR.Z,
+                (float)Math.Abs(Math.Sin(TKGame.GameTime.TotalGameTime.TotalSeconds))
+            );
+            Debug.WriteLine($"{pauseLabel.TextColor.R} {pauseLabel.TextColor.G} {pauseLabel.TextColor.B} {pauseLabel.TextColor.A}");
         }
 
         private static TextButton ConstructMenuButton(string text, string styleName, int gridRow, int gridCol, int width)

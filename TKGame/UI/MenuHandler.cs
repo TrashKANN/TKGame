@@ -53,6 +53,7 @@ namespace TKGame.UI
         public static void UpdateMenus()
         {
             DebugMenu.Update();
+            PauseMenu.Update();
         }
     }
 }
