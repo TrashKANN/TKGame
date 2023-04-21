@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -124,10 +125,25 @@ namespace TKGame
                 TKGame.levelComponent.Update();
             }
 
-            // Exit the game if Escape is pressed
+            // Switch menus or exit game depending on current menu when Escape is pressed
             if (Input.WasKeyPressed(Keys.Escape))
             {
-                ExitGame();
+                switch (MenuHandler.CurrentMenuState)
+                {
+                    case MenuHandler.MenuState.GAME_MENU:
+                        MenuHandler.SwitchToMenu(MenuHandler.MenuState.PAUSE_MENU);
+                        paused = true;
+                        break;
+                    case MenuHandler.MenuState.PAUSE_MENU:
+                        MenuHandler.SwitchToMenu(MenuHandler.MenuState.GAME_MENU);
+                        paused = false;
+                        break;
+                    case MenuHandler.MenuState.MAIN_MENU:
+                        ExitGame();
+                        break;
+                    default:
+                        break;
+                }
             }
 #if DEBUG
             // Toggle the debug UI's visibility once per key press

@@ -22,12 +22,11 @@ namespace TKGame.UI
         }
 
         public static Desktop Desktop { get; private set; } = new Desktop();
-        private static IMenu CurrentMenu { get; set; }
+        public static MenuState CurrentMenuState { get; private set; }
         private static Dictionary<MenuState, IMenu> menus;
 
         static MenuHandler()
         {
-            //CurrentMenu = menus[MenuState.MAIN_MENU];
             menus = new Dictionary<MenuState, IMenu>()
             {
                 { MenuState.MAIN_MENU,      new MainMenu()     },
@@ -36,6 +35,7 @@ namespace TKGame.UI
                 { MenuState.PAUSE_MENU,     new PauseMenu()    },
             };
             SwitchToMenu(MenuState.MAIN_MENU);
+            CurrentMenuState = MenuState.MAIN_MENU;
         }
 
         public static void SwitchToMenu(MenuState state)
@@ -43,6 +43,7 @@ namespace TKGame.UI
             try
             {
                 Desktop.Root = (Widget)menus[state].Container;
+                CurrentMenuState = state;
             } catch (Exception ex)
             {
                 Debug.WriteLine(ex);

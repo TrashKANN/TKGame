@@ -19,7 +19,6 @@ namespace TKGame.UI
 
         private static TextButton playButton;
         private static TextButton exitButton;
-        private static Desktop desktop;
         private static Grid mainMenuGrid;
         private static FontSystem mainMenuFontSystem;
 
@@ -27,17 +26,17 @@ namespace TKGame.UI
         private static readonly int MAIN_MENU_FONT_SIZE = 72;
 
         private static readonly Color MAIN_MENU_TEXT_COLOR = Color.Gold;
-        private static readonly Color MAIN_MENU_BACKGROUND_COLOR = Color.DimGray;
+        private static readonly Color MAIN_MENU_BUTTON_BACKGROUND_COLOR = Color.DimGray;
         private static readonly Color MAIN_MENU_PLAY_HOVER_TEXT_COLOR = Color.Lime;
         private static readonly Color MAIN_MENU_EXIT_HOVER_TEXT_COLOR = Color.Red;
 
-        private static readonly string playButtonStyleName = "play";
-        private static readonly string exitButtonStyleName = "exit";
+        private static readonly string PLAY_BUTTON_STYLE_NAME = "play";
+        private static readonly string EXIT_BUTTON_STYLE_NAME = "exit";
 
         private static readonly Dictionary<string, Color> textColorDict = new Dictionary<string, Color>
         {
-            { playButtonStyleName, MAIN_MENU_PLAY_HOVER_TEXT_COLOR },
-            { exitButtonStyleName, MAIN_MENU_EXIT_HOVER_TEXT_COLOR }
+            { PLAY_BUTTON_STYLE_NAME, MAIN_MENU_PLAY_HOVER_TEXT_COLOR },
+            { EXIT_BUTTON_STYLE_NAME, MAIN_MENU_EXIT_HOVER_TEXT_COLOR }
         };
 
         public MainMenu()
@@ -54,26 +53,8 @@ namespace TKGame.UI
 
             mainMenuGrid = new Grid();
 
-            playButton = ConstructMenuButton("Play", playButtonStyleName, 0, 0, 400);
-            playButton.MouseEntered += OnMouseEnterButton;
-            playButton.MouseLeft += OnMouseLeaveButton;
-
-
-            exitButton = ConstructMenuButton("Exit", exitButtonStyleName, 1, 0, 400);
-            exitButton.MouseEntered += OnMouseEnterButton;
-            exitButton.MouseLeft += OnMouseLeaveButton;
-
-
-            playButton.TouchDown += (sender, eventArgs) =>
-            {
-                TKGame.paused = false;
-                MenuHandler.SwitchToMenu(MenuHandler.MenuState.GAME_MENU);
-            };
-
-            exitButton.TouchDown += (sender, eventArgs) =>
-            {
-                TKGame.Instance.ExitGame();
-            };             
+            playButton = ConstructMenuButton("Play", PLAY_BUTTON_STYLE_NAME, 0, 0, 400);
+            exitButton = ConstructMenuButton("Exit", EXIT_BUTTON_STYLE_NAME, 1, 0, 400);           
         }
 
         private static void LoadContent()
@@ -84,6 +65,23 @@ namespace TKGame.UI
             {
                 mainMenuGrid.RowsProportions.Add(new Proportion() { Type = ProportionType.Part });
             }
+
+            playButton.MouseEntered += OnMouseEnterButton;
+            playButton.MouseLeft += OnMouseLeaveButton;
+
+            exitButton.MouseEntered += OnMouseEnterButton;
+            exitButton.MouseLeft += OnMouseLeaveButton;
+
+            playButton.TouchDown += (sender, eventArgs) =>
+            {
+                TKGame.paused = false;
+                MenuHandler.SwitchToMenu(MenuHandler.MenuState.GAME_MENU);
+            };
+
+            exitButton.TouchDown += (sender, eventArgs) =>
+            {
+                TKGame.Instance.ExitGame();
+            };
 
             mainMenuGrid.Widgets.Add(playButton);
             mainMenuGrid.Widgets.Add(exitButton);
@@ -101,7 +99,7 @@ namespace TKGame.UI
             newButton.HorizontalAlignment = HorizontalAlignment.Center;
             newButton.VerticalAlignment = VerticalAlignment.Center;
             newButton.Font = mainMenuFontSystem.GetFont(MAIN_MENU_FONT_SIZE);
-            newButton.Background = new SolidBrush(MAIN_MENU_BACKGROUND_COLOR);
+            newButton.Background = new SolidBrush(MAIN_MENU_BUTTON_BACKGROUND_COLOR);
             newButton.TextColor = MAIN_MENU_TEXT_COLOR;
             return newButton;
         }
