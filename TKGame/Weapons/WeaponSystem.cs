@@ -84,51 +84,28 @@ namespace TKGame.Weapons
 
             // Configure labels
             // Sword Label
-            swordConfig(VSP, true);
+            config(VSP, true, swordLabel, swordText);
 
             // Spear Label
-            spearConfig(VSP, false);
+            config(VSP, true, spearLabel, spearText);
 
             // Axe Label
-            axeConfig(VSP, false);
+            config(VSP, true, axeLabel, axeText);
 
         }
+       
 
-        private static void swordConfig(VerticalStackPanel VSP, bool isActive)
+        private static void config(VerticalStackPanel VSP, bool isActive, Label label, string text)
         {
-            swordLabel.Text = swordText;
-            if (isActive)
-                swordLabel.TextColor = Color.Red;
+            label.Text = text;
+            if(isActive)
+                label.TextColor = Color.Red;
             else
-                swordLabel.TextColor = WEAPON_TEXT_COLOR;
-            swordLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
-            swordLabel.Visible = true;
-            VSP.Widgets.Add(swordLabel);
+                label.TextColor= WEAPON_TEXT_COLOR;
+            label.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
+            label.Visible = true;
+            VSP.Widgets.Add(label);
         }
-        private static void spearConfig(VerticalStackPanel VSP, bool isActive)
-        {
-            spearLabel.Text = spearText;
-            if (isActive)
-                spearLabel.TextColor = Color.Red;
-            else
-                spearLabel.TextColor = WEAPON_TEXT_COLOR;
-            spearLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
-            spearLabel.Visible = true;
-            VSP.Widgets.Add(spearLabel);
-        }
-
-        private static void axeConfig(VerticalStackPanel VSP, bool isActive)
-        {
-            axeLabel.Text = axeText;
-            if (isActive)
-                axeLabel.TextColor = Color.Red;
-            else
-                axeLabel.TextColor = WEAPON_TEXT_COLOR;
-            axeLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
-            axeLabel.Visible = true;
-            VSP.Widgets.Add(axeLabel);
-        }
-
         /// <summary>
         /// Update debug UI elements
         /// </summary>

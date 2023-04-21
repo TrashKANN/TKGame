@@ -16,7 +16,9 @@ namespace TKGame.Content.Weapons
         public Vector2 position, velocity;
         public Rectangle weaponRect;
         public SpriteEffects orientation;
-
+        public bool isActiveSword = true;
+        public bool isActiveSpear = false;
+        public bool isActiveAxe = false;
         public Color color = Color.White;
         public int damageStat;
 
@@ -34,9 +36,14 @@ namespace TKGame.Content.Weapons
         public abstract void Draw(SpriteBatch spriteBatch);
 
         /// <summary>
+        /// Activates Weapon
+        /// </summary>
+        public abstract void Activate();
+        public abstract void Deactivate();
+        /// <summary>
         /// Function to Update Weapon Position
         /// </summary>
         /// <param name="w"></param>
-        public abstract void Update(Weapon w);
+        public abstract void Update(Entity E, SpriteBatch spriteBatch);
     }
 }

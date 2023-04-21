@@ -13,16 +13,6 @@ namespace TKGame.Components.Concrete
     {
         void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
         {
-            //Adds Weapon To Player SpriteDD
-            if(Input.KeyboardState.CapsLock)
-            {
-                entity.entityTexture = Art.PlayerSwordTexture;
-            }
-            else
-            {
-                entity.entityTexture = Art.PlayerTexture;
-            }
-
             if (entity.Velocity.X > 0)
             {
                 entity.Orientation = SpriteEffects.None;

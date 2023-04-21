@@ -7,30 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TKGame.BackEnd;
-using TKGame.Components.Concrete;
-using TKGame.Components.Interface;
+using TKGame.Content.Weapons;
 
-namespace TKGame.Content.Weapons
+namespace TKGame.Weapons
 {
-    class Sword : Weapon
+    class Axe : Weapon
     {
         private static readonly int WALK_ACCELERATION = 1;
         private static readonly int JUMP_HEIGHT = -1;
         private float MOVEMENT_SPEED = 500f;
 
-        //Components
-        GraphicsComponent weaponGraphics;
-
+        ////Components
+        //InputComponent input;
+        //PhysicsComponent physics;
+        //GraphicsComponent graphics;
 
 
         /// <summary>
         /// Private Constructor for Sword
         /// </summary>
-        public Sword()
+        public Axe()
         {
-
-            weaponGraphics = new Weapon_GraphicsComponent();
-            weaponTexture = Art.SwordTexture;
+            //input = input_;
+            //physics = physics_;
+            //graphics = graphics_;
+            weaponTexture = Art.AxeTexture;
             position = new Vector2(815, 730);
             weaponRect = new Rectangle(815, 730, 85, 85);
             damageStat = 1;
@@ -39,17 +40,20 @@ namespace TKGame.Content.Weapons
         /// <summary>
         /// Activates weapon
         /// </summary>
-        public override void Activate() { isActiveSword = true; }
+        public override void Activate() { isActiveAxe = true; }
         /// <summary>
         /// Deactivates Weapon
         /// </summary>
-        public override void Deactivate() { isActiveSword = false; }
+        public override void Deactivate() { isActiveAxe = false; }
         /// <summary>
         /// Draws item on screen for pickup
         /// </summary>
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
+
+            //spriteBatch.Draw(weaponTexture, position, weaponRect, color, 0, position, 0.2f, orientation, 0);
+            //spriteBatch.Draw(weaponTexture, weaponRect, color);
         }
 
         /// <summary>
@@ -68,7 +72,6 @@ namespace TKGame.Content.Weapons
         /// <param name="w"></param>
         public override void Update(Entity E, SpriteBatch spriteBatch)
         {
-            weaponGraphics.Update(E, spriteBatch);
         }
     }
 }

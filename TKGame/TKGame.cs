@@ -14,7 +14,6 @@ using Myra;
 using Myra.Graphics2D.UI;
 using TKGame.Animations;
 using TKGame.BackEnd;
-using TKGame.Content.Weapons;
 using TKGame.Level_Editor_Content;
 using TKGame.Weapons;
 
@@ -47,9 +46,6 @@ namespace TKGame
 
         //Declare Triggers
         List<Trigger> triggers;
-
-        //Declaring Weapon 
-        public Weapon sword;
 
 
         
@@ -122,8 +118,6 @@ namespace TKGame
 
             //Initializing WeaponSystem
             WeaponSystem.Initialize();
-            //Initializing Weapons
-            sword = new Sword();
 
             base.Initialize();
         }
@@ -177,8 +171,7 @@ namespace TKGame
             //Do if not paused
             if (!paused)
             {
-                EntityManager.Update(gameTime, spriteBatch, currentStage);
-                sword.Update(sword);
+                EntityManager.Update(gameTime, spriteBatch, currentStage);  
             }
             
 
@@ -235,6 +228,7 @@ namespace TKGame
 
             // Updates Weapon System
             WeaponSystem.Update();
+            
 
             // Update debug information
             GameDebug.Update();
@@ -279,8 +273,6 @@ namespace TKGame
             }
 
             EntityManager.Draw(spriteBatch);
-            //Draws currentWeapon
-            sword.Draw(spriteBatch);
 
             foreach (Entity entity in EntityManager.GetEntities())
             {
