@@ -28,6 +28,9 @@ namespace TKGame.BackEnd
         public static void LoadContent(ContentManager content)
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4306399 (Added New Weapons, removed code weapons from TKGame and moved them to player, fixed addresses)
             PlayerTexture = content.Load<Texture2D>(@"Art/Player"); // Will need to be modified when we create a better structure for our files.
             PlayerSwordTexture = content.Load<Texture2D>(@"Art/Player_Sword");
             PlayerSpearTexture = content.Load<Texture2D>(@"Art/Player_Spear");
@@ -39,6 +42,7 @@ namespace TKGame.BackEnd
             KnightEnemyTexture = content.Load<Texture2D>(@"Art/KnightLeftFacing"); // knight enemy
             PotionItemTexture = content.Load<Texture2D>(@"Art/Potion"); // potion
             LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
+<<<<<<< HEAD
 =======
             PlayerTexture = content.Load<Texture2D>(@"C:/Users/Greywater/Documents/Git/TKGame/TKGame/Content/bin/DesktopGL/Art/Player"); // Will need to be modified when we create a better structure for our files.
             PlayerSwordTexture = content.Load<Texture2D>(@"C:/Users/Greywater/Documents/Git/TKGame/TKGame/Content/bin/DesktopGL/Art/Player_Sword");
@@ -51,6 +55,8 @@ namespace TKGame.BackEnd
             TransitionTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
 
 >>>>>>> 95acb0dfc3575b29374f3fbff7e8f8493a6446c9
+=======
+>>>>>>> 4306399 (Added New Weapons, removed code weapons from TKGame and moved them to player, fixed addresses)
         }
     }
 }

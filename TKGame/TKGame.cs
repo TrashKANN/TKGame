@@ -15,11 +15,14 @@ using Myra.Graphics2D.UI;
 using TKGame.Animations;
 using TKGame.BackEnd;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 using TKGame.Content.Weapons;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
 >>>>>>> 95acb0dfc3575b29374f3fbff7e8f8493a6446c9
+=======
+>>>>>>> 4306399 (Added New Weapons, removed code weapons from TKGame and moved them to player, fixed addresses)
 using TKGame.Level_Editor_Content;
 using TKGame.Weapons;
 
@@ -52,12 +55,17 @@ namespace TKGame
 
 <<<<<<< HEAD
 
+<<<<<<< HEAD
         
 =======
         //Declaring Weapon 
         public Weapon sword;
 
 >>>>>>> 95acb0dfc3575b29374f3fbff7e8f8493a6446c9
+=======
+
+        
+>>>>>>> 4306399 (Added New Weapons, removed code weapons from TKGame and moved them to player, fixed addresses)
         // TODO: Refactor out of the main TKGame class
         public static bool paused;
         #endregion
@@ -152,12 +160,16 @@ namespace TKGame
             if (!paused)
             {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 EntityManager.Update(gameTime, spriteBatch, currentStage);  
 =======
                 EntityManager.Update(gameTime, spriteBatch, currentStage);
                 sword.Update(sword);
                 TKGame.levelComponent.Update();
 >>>>>>> 95acb0dfc3575b29374f3fbff7e8f8493a6446c9
+=======
+                EntityManager.Update(gameTime, spriteBatch, currentStage);  
+>>>>>>> 4306399 (Added New Weapons, removed code weapons from TKGame and moved them to player, fixed addresses)
             }
             
 
