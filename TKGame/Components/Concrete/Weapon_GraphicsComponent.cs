@@ -27,18 +27,18 @@ namespace TKGame.Components.Concrete
                 entity.weapon.isActiveSpear = false;
                 entity.weapon.isActiveAxe = false;
             }
-            else if (Input.KeyboardState.IsKeyDown(Keys.D2))
-            {
-                entity.weapon.isActiveSword = false;
-                entity.weapon.isActiveSpear = true;
-                entity.weapon.isActiveAxe = false;
-            }
-            else if (Input.KeyboardState.IsKeyDown(Keys.D3))
-            {
-                entity.weapon.isActiveSword = false;
-                entity.weapon.isActiveSpear = false;
-                entity.weapon.isActiveAxe = true;
-            }
+            //else if (Input.KeyboardState.IsKeyDown(Keys.D2))      // Will Crash if you use the number keys, some problem with moving spritebatch draw into player graphics component;
+            //{
+            //    entity.weapon.isActiveSword = false;
+            //    entity.weapon.isActiveSpear = true;
+            //    entity.weapon.isActiveAxe = false;
+            //}
+            //else if (Input.KeyboardState.IsKeyDown(Keys.D3))
+            //{
+            //    entity.weapon.isActiveSword = false;
+            //    entity.weapon.isActiveSpear = false;
+            //    entity.weapon.isActiveAxe = true;
+            //}
 
             if (Input.KeyboardState.CapsLock)
             {
