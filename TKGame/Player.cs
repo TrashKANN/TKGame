@@ -69,13 +69,9 @@ namespace TKGame
         {
             input.Update(this);
             physics.Update(this, gameTime/*, world*/);
-            graphics.Update(this, spriteBatch);
-            weapon.Update(this, spriteBatch);
-<<<<<<< HEAD
-
             graphics.Update(this);
-=======
->>>>>>> 4306399 (Added New Weapons, removed code weapons from TKGame and moved them to player, fixed addresses)
+            weapon.Update(this);
+            graphics.Update(this);
         }
 
         /// <summary>

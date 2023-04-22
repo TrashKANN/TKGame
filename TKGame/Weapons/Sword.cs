@@ -30,7 +30,7 @@ namespace TKGame.Content.Weapons
         {
 
             weaponGraphics = new Weapon_GraphicsComponent();
-            weaponTexture = Art.SwordTexture;
+            weaponTexture = Art.PlayerSwordTexture;
             position = new Vector2(815, 730);
             weaponRect = new Rectangle(815, 730, 85, 85);
             damageStat = 1;
@@ -66,9 +66,9 @@ namespace TKGame.Content.Weapons
         /// Updates Sword, will need to be changed
         /// </summary>
         /// <param name="w"></param>
-        public override void Update(Entity E, SpriteBatch spriteBatch)
+        public override void Update(Entity E)
         {
-            weaponGraphics.Update(E, spriteBatch);
+            weaponGraphics.Update(E);
         }
     }
 }

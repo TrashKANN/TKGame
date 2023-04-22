@@ -10,13 +10,14 @@ using TKGame.BackEnd;
 using TKGame.Components.Interface;
 using TKGame.Content.Weapons;
 
+
 namespace TKGame.Components.Concrete
 {
     internal class Weapon_GraphicsComponent : GraphicsComponent
     {
-
+        public Texture2D weaponTexture = Art.PlayerTexture;
         private VerticalSplitPane VSP { get; set; }
-        void GraphicsComponent.Update(Entity entity, SpriteBatch spriteBatch)
+        void GraphicsComponent.Update(Entity entity)
         {
 
             //Adds Weapon To Player Sprite
@@ -47,6 +48,8 @@ namespace TKGame.Components.Concrete
                     entity.entityTexture = Art.PlayerSpearTexture;
                 else if (entity.weapon.isActiveAxe)
                     entity.entityTexture = Art.PlayerAxeTexture;
+                else
+                    entity.entityTexture = Art.PlayerTexture;
             }
             else
             {
@@ -61,6 +64,7 @@ namespace TKGame.Components.Concrete
             {
                 entity.Orientation = SpriteEffects.FlipHorizontally;
             }
+
         }
     }
 }

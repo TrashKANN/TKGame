@@ -32,7 +32,7 @@ namespace TKGame
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            potionItemGraphics.Update(this, spriteBatch);
+            potionItemGraphics.Update(this);
         }
     }
 }

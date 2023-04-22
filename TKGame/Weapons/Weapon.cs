@@ -44,6 +44,6 @@ namespace TKGame.Content.Weapons
         /// Function to Update Weapon Position
         /// </summary>
         /// <param name="w"></param>
-        public abstract void Update(Entity E, SpriteBatch spriteBatch);
+        public abstract void Update(Entity E);
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TKGame.BackEnd;
+using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
 using TKGame.Content.Weapons;
 
@@ -14,9 +15,7 @@ namespace TKGame.Weapons
 {
     class Spear : Weapon
     {
-        private static readonly int WALK_ACCELERATION = 1;
-        private static readonly int JUMP_HEIGHT = -1;
-        private float MOVEMENT_SPEED = 500f;
+
 
         //Components
         GraphicsComponent weaponGraphics;
@@ -27,10 +26,8 @@ namespace TKGame.Weapons
         /// </summary>
         public Spear()
         {
-            //input = input_;
-            //physics = physics_;
-            //graphics = graphics_;
-            weaponTexture = Art.SpearTexture;
+            weaponGraphics = new Weapon_GraphicsComponent();
+            weaponTexture = Art.PlayerSpearTexture;
             position = new Vector2(815, 730);
             weaponRect = new Rectangle(815, 730, 85, 85);
             damageStat = 1;
@@ -67,9 +64,9 @@ namespace TKGame.Weapons
         /// Updates Sword, will need to be changed
         /// </summary>
         /// <param name="w"></param>
-        public override void Update(Entity E, SpriteBatch spriteBatch)
+        public override void Update(Entity E)
         {
-            weaponGraphics.Update(E, spriteBatch);
+            weaponGraphics.Update(E);
         }
     }
 }
