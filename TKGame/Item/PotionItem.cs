@@ -30,9 +30,9 @@ namespace TKGame
             potionItemPhysics.Update(this, gameTime/*, world*/);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
-            potionItemGraphics.Update(this, spriteBatch);
+            potionItemGraphics.Update(this);
         }
     }
 }

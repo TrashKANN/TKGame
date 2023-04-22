@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,6 +18,7 @@ using TKGame.BackEnd;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
 using TKGame.Level_Editor_Content;
+using TKGame.UI;
 using TKGame.Weapons;
 
 namespace TKGame
@@ -31,9 +33,6 @@ namespace TKGame
         public static int ScreenHeight { get { return (int)ScreenSize.Y; } }
 
         public static GameTime GameTime { get; private set; }
-
-        //Declares public Vertical Stack Panel
-        public VerticalStackPanel VSP { get; protected set; }
 
         // TODO: Move this to another class eventually
         private static readonly Color WALL_COLOR = new Color(0x9a, 0x9b, 0x9c, 0xFF);
@@ -62,7 +61,6 @@ namespace TKGame
             IsFixedTimeStep = true; // Time between frames is constant
             TargetElapsedTime = TimeSpan.FromSeconds(1d / 240d); // Set target fps (240 for now)
             graphics = new GraphicsDeviceManager(this);
-            VSP = new VerticalStackPanel();
             graphics.SynchronizeWithVerticalRetrace = false; // Disable v-sync
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
@@ -75,16 +73,6 @@ namespace TKGame
         {
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
-            desktop = new Desktop();
-
-            // Initialize debug information
-            GameDebug.Initialize();
-#if DEBUG
-            // For now, just enable DebugMode when building a Debug version
-            GameDebug.DebugMode = true;
-#endif
-            // Initialize main menu
-            MainMenu.Initialize(desktop, this);
 
             //Initializing WeaponSystem
             WeaponSystem.Initialize();
@@ -99,13 +87,8 @@ namespace TKGame
             Music.LoadContent(Content, 0.069f);
 
             // Load Weapon System Content
-            WeaponSystem.LoadContent(VSP);
-
-            // Load debug content
-            GameDebug.LoadContent(VSP);
-
-            // Load main menu
-            MainMenu.LoadContent();
+            // TODO: Put VSP in WeaponSystem
+            //WeaponSystem.LoadContent(VSP);
 
             // Add and Load Default Level
             levelComponent.AddLevel(new Level(new Dictionary<string, Stage>
@@ -142,17 +125,32 @@ namespace TKGame
                 TKGame.levelComponent.Update();
             }
 
-            // Exit the game if Escape is pressed
+            // Switch menus or exit game depending on current menu when Escape is pressed
             if (Input.WasKeyPressed(Keys.Escape))
             {
-                ExitGame();
+                switch (MenuHandler.CurrentMenuState)
+                {
+                    case MenuHandler.MenuState.GAME_MENU:
+                        MenuHandler.SwitchToMenu(MenuHandler.MenuState.PAUSE_MENU);
+                        paused = true;
+                        break;
+                    case MenuHandler.MenuState.PAUSE_MENU:
+                        MenuHandler.SwitchToMenu(MenuHandler.MenuState.GAME_MENU);
+                        paused = false;
+                        break;
+                    case MenuHandler.MenuState.MAIN_MENU:
+                        ExitGame();
+                        break;
+                    default:
+                        break;
+                }
             }
 #if DEBUG
             // Toggle the debug UI's visibility once per key press
             // TODO: Probably move this somewhere else
             if (Input.WasKeyPressed(Keys.G))
             {
-                GameDebug.ToggleVisibility();
+                DebugMenu.ToggleVisibility();
             }
 
             // Toggle Editing mode for levels, pauses the game to hault entity movement.
@@ -173,8 +171,8 @@ namespace TKGame
             // Updates Weapon System
             WeaponSystem.Update();
 
-            // Update debug information
-            GameDebug.Update();
+            // Update all menus
+            MenuHandler.UpdateMenus();
 
             base.Update(gameTime);
         }
@@ -238,7 +236,7 @@ namespace TKGame
             spriteBatch.End();
 
             // Render UI elements from Myra
-            desktop.Render();
+            MenuHandler.Desktop.Render();
 
             base.Draw(gameTime);
 
@@ -250,11 +248,6 @@ namespace TKGame
         {
             LevelEditor.SaveStageDataToJSON(levelComponent.GetCurrentStage(), "auto_saved_stage_data");
             Exit();
-        }
-
-        public static void SwitchToGameplayMenu() 
-        {
-            Instance.desktop.Root = Instance.VSP;
         }
     }
 }

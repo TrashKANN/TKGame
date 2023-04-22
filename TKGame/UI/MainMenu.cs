@@ -11,14 +11,14 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.Level_Editor_Content;
 
-namespace TKGame
+namespace TKGame.UI
 {
-    public class MainMenu
+    public class MainMenu : IMenu
     {
-        public static bool IsEnabled { get; private set; }
+        IMultipleItemsContainer IMenu.Container { get { return mainMenuGrid; } }
+
         private static TextButton playButton;
         private static TextButton exitButton;
-        private static Desktop desktop;
         private static Grid mainMenuGrid;
         private static FontSystem mainMenuFontSystem;
 
@@ -26,81 +26,65 @@ namespace TKGame
         private static readonly int MAIN_MENU_FONT_SIZE = 72;
 
         private static readonly Color MAIN_MENU_TEXT_COLOR = Color.Gold;
-        private static readonly Color MAIN_MENU_BACKGROUND_COLOR = Color.DimGray;
+        private static readonly Color MAIN_MENU_BUTTON_BACKGROUND_COLOR = Color.DimGray;
         private static readonly Color MAIN_MENU_PLAY_HOVER_TEXT_COLOR = Color.Lime;
         private static readonly Color MAIN_MENU_EXIT_HOVER_TEXT_COLOR = Color.Red;
 
-        private static readonly string playButtonStyleName = "play";
-        private static readonly string exitButtonStyleName = "exit";
+        private static readonly string PLAY_BUTTON_STYLE_NAME = "play";
+        private static readonly string EXIT_BUTTON_STYLE_NAME = "exit";
 
         private static readonly Dictionary<string, Color> textColorDict = new Dictionary<string, Color>
         {
-            { playButtonStyleName, MAIN_MENU_PLAY_HOVER_TEXT_COLOR },
-            { exitButtonStyleName, MAIN_MENU_EXIT_HOVER_TEXT_COLOR }
+            { PLAY_BUTTON_STYLE_NAME, MAIN_MENU_PLAY_HOVER_TEXT_COLOR },
+            { EXIT_BUTTON_STYLE_NAME, MAIN_MENU_EXIT_HOVER_TEXT_COLOR }
         };
 
-        public static void Initialize(Desktop desktop, TKGame game)
+        public MainMenu()
+        {
+            Initialize();
+            LoadContent();
+        }
+
+        private static void Initialize()
         {
             byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
             mainMenuFontSystem = new FontSystem();
             mainMenuFontSystem.AddFont(ttfData);
 
-            IsEnabled = true;
             mainMenuGrid = new Grid();
 
-            MainMenu.desktop = desktop;
-
-            playButton = ConstructMenuButton("Play", playButtonStyleName, 0, 0, 400);
-            playButton.MouseEntered += OnMouseEnterButton;
-            playButton.MouseLeft += OnMouseLeaveButton;
-
-
-            exitButton = ConstructMenuButton("Exit", exitButtonStyleName, 1, 0, 400);
-            exitButton.MouseEntered += OnMouseEnterButton;
-            exitButton.MouseLeft += OnMouseLeaveButton;
-
-
-            playButton.TouchDown += (sender, eventArgs) =>
-            {
-                TKGame.paused = false;
-                DisableMainMenu();
-                TKGame.SwitchToGameplayMenu();
-            };
-
-            exitButton.TouchDown += (sender, eventArgs) => 
-            {
-                LevelEditor.SaveStageDataToJSON(TKGame.levelComponent.GetCurrentStage(), "auto_saved_stage_data");
-                game.Exit();
-            };             
+            playButton = ConstructMenuButton("Play", PLAY_BUTTON_STYLE_NAME, 0, 0, 400);
+            exitButton = ConstructMenuButton("Exit", EXIT_BUTTON_STYLE_NAME, 1, 0, 400);           
         }
 
-        public static void LoadContent()
+        private static void LoadContent()
         {
             mainMenuGrid.ColumnsProportions.Add(new Proportion() { Type = ProportionType.Part });
-            
+
             for (int i = 0; i < NUM_GRID_ROWS; i++)
             {
                 mainMenuGrid.RowsProportions.Add(new Proportion() { Type = ProportionType.Part });
             }
 
+            playButton.MouseEntered += OnMouseEnterButton;
+            playButton.MouseLeft += OnMouseLeaveButton;
+
+            exitButton.MouseEntered += OnMouseEnterButton;
+            exitButton.MouseLeft += OnMouseLeaveButton;
+
+            playButton.TouchDown += (sender, eventArgs) =>
+            {
+                TKGame.paused = false;
+                MenuHandler.SwitchToMenu(MenuHandler.MenuState.GAME_MENU);
+            };
+
+            exitButton.TouchDown += (sender, eventArgs) =>
+            {
+                TKGame.Instance.ExitGame();
+            };
+
             mainMenuGrid.Widgets.Add(playButton);
             mainMenuGrid.Widgets.Add(exitButton);
-
-            desktop.Root = mainMenuGrid;
-        }
-
-        public static void Update()
-        {
-
-        }
-
-        public static void DisableMainMenu()
-        {
-            foreach (var widget in mainMenuGrid.Widgets)
-            {
-                widget.Enabled = false;
-                widget.Visible = false;
-            }
         }
 
         private static TextButton ConstructMenuButton(string text, string styleName, int gridRow, int gridCol, int width)
@@ -115,7 +99,7 @@ namespace TKGame
             newButton.HorizontalAlignment = HorizontalAlignment.Center;
             newButton.VerticalAlignment = VerticalAlignment.Center;
             newButton.Font = mainMenuFontSystem.GetFont(MAIN_MENU_FONT_SIZE);
-            newButton.Background = new SolidBrush(MAIN_MENU_BACKGROUND_COLOR);
+            newButton.Background = new SolidBrush(MAIN_MENU_BUTTON_BACKGROUND_COLOR);
             newButton.TextColor = MAIN_MENU_TEXT_COLOR;
             return newButton;
         }
@@ -129,7 +113,7 @@ namespace TKGame
         {
             if (obj is not TextButton) throw new Exception("obj is not of type TextButton");
 
-            ((TextButton) obj).TextColor = MAIN_MENU_TEXT_COLOR;
+            ((TextButton)obj).TextColor = MAIN_MENU_TEXT_COLOR;
         }
 
         /// <summary>
@@ -139,14 +123,14 @@ namespace TKGame
         /// <param name="obj"></param>
         /// <param name="e"></param>
         /// <exception cref="Exception"></exception>
-        private static void OnMouseEnterButton(object obj, EventArgs e) 
+        private static void OnMouseEnterButton(object obj, EventArgs e)
         {
             if (obj is not TextButton) throw new Exception("obj is not of type TextButton");
-            
+
             TextButton button = (TextButton)obj;
             Color color;
 
-            if(textColorDict.TryGetValue(button.Id, out color))
+            if (textColorDict.TryGetValue(button.Id, out color))
                 button.TextColor = color;
         }
     }

@@ -32,7 +32,7 @@ namespace TKGame
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="spriteBatch"></param>
-        public override void Update(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Update(GameTime gameTime)
         {
             knightEnemyPhysics.Update(this, gameTime/*, world*/);
         }
