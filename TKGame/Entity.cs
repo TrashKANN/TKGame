@@ -4,6 +4,7 @@ using TKGame.Level_Editor_Content;
 using System.Collections.Generic;
 using System.Collections;
 using TKGame.Components.Interface;
+using TKGame.Content.Weapons;
 
 namespace TKGame
 {
@@ -19,6 +20,8 @@ namespace TKGame
         public Color color = Color.White;
         public bool IsExpired;
         public string entityName; // to identify each entity by name
+
+        public Weapon weapon;
 
         #region Properties
         public Vector2 Size

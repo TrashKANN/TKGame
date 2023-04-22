@@ -9,28 +9,25 @@ using System.Threading.Tasks;
 using TKGame.BackEnd;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
+using TKGame.Content.Weapons;
 
-namespace TKGame.Content.Weapons
+namespace TKGame.Weapons
 {
-    class Sword : Weapon
+    class Spear : Weapon
     {
-        private static readonly int WALK_ACCELERATION = 1;
-        private static readonly int JUMP_HEIGHT = -1;
-        private float MOVEMENT_SPEED = 500f;
+
 
         //Components
         GraphicsComponent weaponGraphics;
 
 
-
         /// <summary>
         /// Private Constructor for Sword
         /// </summary>
-        public Sword()
+        public Spear()
         {
-
             weaponGraphics = new Weapon_GraphicsComponent();
-            weaponTexture = Art.PlayerSwordTexture;
+            weaponTexture = Art.PlayerSpearTexture;
             position = new Vector2(815, 730);
             weaponRect = new Rectangle(815, 730, 85, 85);
             damageStat = 1;
@@ -39,17 +36,18 @@ namespace TKGame.Content.Weapons
         /// <summary>
         /// Activates weapon
         /// </summary>
-        public override void Activate() { isActiveSword = true; }
+        public override void Activate() { isActiveSpear = true; }
         /// <summary>
         /// Deactivates Weapon
         /// </summary>
-        public override void Deactivate() { isActiveSword = false; }
+        public override void Deactivate() { isActiveSpear = false; }
         /// <summary>
         /// Draws item on screen for pickup
         /// </summary>
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
+
         }
 
         /// <summary>

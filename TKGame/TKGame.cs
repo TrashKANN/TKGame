@@ -13,7 +13,6 @@ using Microsoft.Xna.Framework.Media;
 // https://github.com/rds1983/Myra
 using Myra;
 using Myra.Graphics2D.UI;
-using TKGame.Animations;
 using TKGame.BackEnd;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
@@ -44,6 +43,7 @@ namespace TKGame
         public static SpriteBatch SpriteBatch { get { return spriteBatch; } private set { spriteBatch = value; } }
 
         public Desktop desktop;
+        
 
         // TODO: Refactor out of the main TKGame class
         public static bool paused;
@@ -122,8 +122,11 @@ namespace TKGame
             //Do if not paused
             if (!paused)
             {
+                EntityManager.Update(gameTime);  
                 TKGame.levelComponent.Update();
+
             }
+            
 
             // Switch menus or exit game depending on current menu when Escape is pressed
             if (Input.WasKeyPressed(Keys.Escape))
@@ -170,6 +173,7 @@ namespace TKGame
 
             // Updates Weapon System
             WeaponSystem.Update();
+            
 
             // Update all menus
             MenuHandler.UpdateMenus();

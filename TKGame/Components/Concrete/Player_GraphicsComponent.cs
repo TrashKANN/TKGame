@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.BackEnd;
 using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
     internal class Player_GraphicsComponent : GraphicsComponent
     {
+        GraphicsComponent weaponGraphics = new Weapon_GraphicsComponent();
         void GraphicsComponent.Update(Entity entity)
         {
+            weaponGraphics.Update(entity);
             if (entity.Velocity.X > 0)
             {
                 entity.Orientation = SpriteEffects.None;
@@ -20,10 +23,8 @@ namespace TKGame.Components.Concrete
             {
                 entity.Orientation = SpriteEffects.FlipHorizontally;
             }
-
             // Moved this entirely out of Entity and into this component.
             TKGame.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-
             TKGame.SpriteBatch.Draw(entity.entityTexture,
                                 entity.Position,
                                 null,

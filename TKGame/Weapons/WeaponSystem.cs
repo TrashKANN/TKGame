@@ -84,29 +84,28 @@ namespace TKGame.Weapons
 
             // Configure labels
             // Sword Label
-            swordLabel.Text = swordText;
-            swordLabel.TextColor = WEAPON_TEXT_COLOR;
-            swordLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
-            swordLabel.Visible = true;
-            VSP.Widgets.Add(swordLabel);
-
+            config(VSP, true, swordLabel, swordText);
 
             // Spear Label
-            spearLabel.Text = spearText;
-            spearLabel.TextColor = WEAPON_TEXT_COLOR;
-            spearLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
-            spearLabel.Visible = true;
-            VSP.Widgets.Add(spearLabel);
+            config(VSP, true, spearLabel, spearText);
 
             // Axe Label
-            axeLabel.Text = axeText;
-            axeLabel.TextColor = WEAPON_TEXT_COLOR;
-            axeLabel.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
-            axeLabel.Visible = true;
-            VSP.Widgets.Add(axeLabel);
+            config(VSP, true, axeLabel, axeText);
 
         }
+       
 
+        private static void config(VerticalStackPanel VSP, bool isActive, Label label, string text)
+        {
+            label.Text = text;
+            if(isActive)
+                label.TextColor = Color.Red;
+            else
+                label.TextColor= WEAPON_TEXT_COLOR;
+            label.Font = weaponFontSystem.GetFont(WEAPON_FONT_SIZE);
+            label.Visible = true;
+            VSP.Widgets.Add(label);
+        }
         /// <summary>
         /// Update debug UI elements
         /// </summary>

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using TKGame.BackEnd;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
+using TKGame.Content.Weapons;
 
 namespace TKGame
 {
@@ -10,7 +11,6 @@ namespace TKGame
     {
         private static Player instance;
         private static object syncRoot = new object();
-
         #region Components
         InputComponent input;
         PhysicsComponent physics;
@@ -47,6 +47,9 @@ namespace TKGame
             physics = physics_;
             graphics = graphics_;
 
+            weapon = new Sword();
+            weapon.Activate();
+
             entityTexture = Art.PlayerTexture;
             MOVEMENT_SPEED = 500f;
             // Figure out how to not hard code for now
@@ -66,6 +69,8 @@ namespace TKGame
         {
             input.Update(this);
             physics.Update(this, gameTime/*, world*/);
+            graphics.Update(this);
+            weapon.Update(this);
             graphics.Update(this);
         }
 
