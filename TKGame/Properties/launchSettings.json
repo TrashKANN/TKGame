@@ -2,7 +2,6 @@
   "profiles": {
     "TKGame": {
       "commandName": "Project",
-      "workingDirectory": "C:\\Users\\Greywater\\Documents\\Git\\TKGame\\TKGame"
     }
   }
 }

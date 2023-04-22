@@ -122,9 +122,7 @@ namespace TKGame
             //Do if not paused
             if (!paused)
             {
-                EntityManager.Update(gameTime);  
                 TKGame.levelComponent.Update();
-
             }
             
 
