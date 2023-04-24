@@ -37,6 +37,11 @@ namespace TKGame.Components.Concrete
             {
                 LevelEditor.RedoDeletedWall(currentStage.StageWalls);
             }
+            else if (Input.KeyboardState.IsKeyDown(Keys.LeftControl) && Input.WasKeyPressed(Keys.S))
+            {
+                string saveName = "auto_save_" + TKGame.levelComponent.GetCurrentStage().stageName.Replace(".json", ""); // room0.json -> room0
+                LevelEditor.SaveStageDataToJSON(TKGame.levelComponent.GetCurrentStage(), saveName);
+            }
             LevelEditor.DrawGridLines(Color.Black);
         }
     }

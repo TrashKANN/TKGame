@@ -158,7 +158,7 @@ namespace TKGame
             if (Input.WasKeyPressed(Keys.L))
             {
                 LevelEditor.ToggleEditor();
-                paused = true;
+                paused = !paused;
             }
 #endif
 
@@ -248,7 +248,6 @@ namespace TKGame
 
         public void ExitGame()
         {
-            LevelEditor.SaveStageDataToJSON(levelComponent.GetCurrentStage(), "auto_saved_stage_data");
             Exit();
         }
     }
