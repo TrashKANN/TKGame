@@ -51,7 +51,7 @@ namespace TKGame
             weapon.Activate();
 
             entityTexture = Art.PlayerTexture;
-            MOVEMENT_SPEED = 500f;
+            MOVEMENT_SPEED = 1f;
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             entityName = "player"; // name for player class

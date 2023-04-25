@@ -11,29 +11,31 @@ namespace TKGame.Components.Concrete
 {
     public class Player_InputComponent : InputComponent
     {
-        private static readonly int WALK_ACCELERATION = 1;
-        private static readonly int JUMP_HEIGHT = -1;
-        private static int framesSinceJump = 0;
+        private const int framesSinceJump = 0;
+        private const int JUMP_FORCE = 10;
+
 
         void InputComponent.Update(Entity player)
         {
             if (Input.KeyboardState.IsKeyDown(Keys.A))
-                player.Velocity.X = -WALK_ACCELERATION;
+                player.Velocity.X = -player.MOVEMENT_SPEED;
 
             else if (Input.KeyboardState.IsKeyDown(Keys.D))
-                player.Velocity.X = WALK_ACCELERATION;
+                player.Velocity.X = player.MOVEMENT_SPEED;
 
-            else if (Input.KeyboardState.IsKeyDown(Keys.W))
-                player.Velocity.Y = -WALK_ACCELERATION;
+            //else if (Input.KeyboardState.IsKeyDown(Keys.W))
+            //player.Velocity.Y = -WALK_ACCELERATION;
 
-            else if (Input.KeyboardState.IsKeyDown(Keys.S))
-                player.Velocity.Y = WALK_ACCELERATION;
+
+            //else if (Input.KeyboardState.IsKeyDown(Keys.S))
+            //player.Velocity.Y = WALK_ACCELERATION;
             else
-                player.Velocity = Vector2.Zero;
+                player.Velocity.X = 0;
 
             if (Input.WasKeyPressed(Keys.Space))
             {
                 ToggleJumping((Player)player);
+                player.Velocity.Y = JUMP_FORCE;
                 //player.Velocity.Y = JUMP_HEIGHT;
             }
         }

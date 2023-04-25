@@ -10,17 +10,31 @@ namespace TKGame.Components.Concrete
 {
     internal class Player_PhysicsComponent : PhysicsComponent
     {
-        private static readonly float GRAVITY = 1.0f;
+        private const int GRAVITY = 10;
+        private float jumpTimer = 0;
+        private float jumpDuration = 2;
         void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
         {
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            Vector2 endVel = entity.Velocity;
-            endVel += entity.MOVEMENT_SPEED * entity.Velocity * deltaTime;
+            entity.Velocity.X += entity.MOVEMENT_SPEED * entity.Velocity.X * deltaTime;
+            entity.Position.X += entity.Velocity.X * deltaTime;
+            entity.Position.Y += entity.Velocity.Y * deltaTime;
+            entity.Velocity.Y += GRAVITY * deltaTime;
 
-            endVel.Y += GRAVITY;
+            jumpTimer += deltaTime;
+            if(jumpTimer >= jumpDuration) 
+            { 
+                entity.Velocity.Y = 0; 
+                jumpTimer = 0;
+            }
 
-            entity.Position += endVel;
+            //Vector2 endVel = entity.Velocity;
+            //endVel += entity.MOVEMENT_SPEED * entity.Velocity * deltaTime;
+
+            //endVel.Y += GRAVITY;
+
+            //entity.Position += endVel;
 
             entity.HitBox = new Rectangle(((int)entity.Position.X - ((int)entity.Size.X / 2)),
                                             ((int)entity.Position.Y - (int)entity.Size.Y / 2),
@@ -35,6 +49,22 @@ namespace TKGame.Components.Concrete
             // in the EntitiyManager.
 
             // GameTime should be owned by World as well.
+        }
+
+        private void CheckVerticalWallDistances()
+        {
+            float playerYPos = Player.Instance.Position.Y;
+            Wall closestWall = null;
+
+            foreach(Wall wall in TKGame.levelComponent.GetCurrentStage().StageWalls)
+            {
+                if(closestWall is null) closestWall = wall;
+
+                if(playerYPos - wall.HitBox.Y < playerYPos - closestWall.HitBox.Y)
+                {
+                    closestWall = wall;
+                }
+            }
         }
     }
 }
