@@ -18,6 +18,8 @@ namespace TKGame
         #endregion Components
 
         internal bool isJumping = false;
+        public bool IsOnGround { get; set; }
+        public int FramesSinceJump { get; set; }
 
         public static Player Instance
         {
@@ -51,7 +53,9 @@ namespace TKGame
             weapon.Activate();
 
             entityTexture = Art.PlayerTexture;
-            MOVEMENT_SPEED = 1f;
+            MOVEMENT_SPEED = 500f;
+            IsOnGround = false;
+            FramesSinceJump = 0;
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             entityName = "player"; // name for player class

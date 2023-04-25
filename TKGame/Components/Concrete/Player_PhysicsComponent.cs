@@ -10,23 +10,24 @@ namespace TKGame.Components.Concrete
 {
     internal class Player_PhysicsComponent : PhysicsComponent
     {
-        private const int GRAVITY = 10;
-        private float jumpTimer = 0;
-        private float jumpDuration = 2;
+        private const int GRAVITY = 500;
         void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
         {
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Player player = (Player)entity;
 
-            entity.Velocity.X += entity.MOVEMENT_SPEED * entity.Velocity.X * deltaTime;
-            entity.Position.X += entity.Velocity.X * deltaTime;
-            entity.Position.Y += entity.Velocity.Y * deltaTime;
-            entity.Velocity.Y += GRAVITY * deltaTime;
+            player.Velocity.X += player.MOVEMENT_SPEED * player.Velocity.X * deltaTime;
+            player.Position.X += player.Velocity.X * deltaTime;
+            player.Position.Y += player.Velocity.Y * deltaTime;
 
-            jumpTimer += deltaTime;
-            if(jumpTimer >= jumpDuration) 
-            { 
-                entity.Velocity.Y = 0; 
-                jumpTimer = 0;
+            if(player.IsOnGround && player.FramesSinceJump > 30)
+            {
+                player.Velocity.Y = 0;
+                player.FramesSinceJump = 0;
+            } 
+            else
+            {
+                player.Velocity.Y += GRAVITY * deltaTime;
             }
 
             //Vector2 endVel = entity.Velocity;
@@ -37,14 +38,14 @@ namespace TKGame.Components.Concrete
             //entity.Position += endVel;
 
             // update hitbox
-            entity.HitBox = new Rectangle(((int)entity.Position.X - ((int)entity.Size.X / 2)),
-                                            ((int)entity.Position.Y - (int)entity.Size.Y / 2),
-                                            (int)entity.Size.X,
-                                            (int)entity.Size.Y);
+            entity.HitBox = new Rectangle(((int)player.Position.X - ((int)player.Size.X / 2)),
+                                            ((int)player.Position.Y - (int)player.Size.Y / 2),
+                                            (int)player.Size.X,
+                                            (int)player.Size.Y);
 
             // clamp position to screen bounds
             //world.resolveCollisions(entity.Position, entity.HitBox);
-            entity.Position = Vector2.Clamp(entity.Position, entity.Size / 2, TKGame.ScreenSize - entity.Size / 2);
+            player.Position = Vector2.Clamp(player.Position, player.Size / 2, TKGame.ScreenSize - entity.Size / 2);
 
             // The world should own all of the Stage stuff & entities
             // so we would call it here within the PhysicsComponent instead of
