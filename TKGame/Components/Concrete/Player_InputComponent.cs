@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -11,7 +12,7 @@ namespace TKGame.Components.Concrete
 {
     public class Player_InputComponent : InputComponent
     {
-        private const int JUMP_FORCE = -600;
+        private const int JUMP_FORCE = -1100;
 
         void InputComponent.Update(Entity entity)
         {
@@ -39,6 +40,7 @@ namespace TKGame.Components.Concrete
             }
 
             player.FramesSinceJump = player.IsOnGround ? 0 : player.FramesSinceJump + 1;
+            Debug.WriteLine(player.FramesSinceJump);
         }
     }
 }

@@ -78,13 +78,17 @@ namespace TKGame
                         {
                             // Player is above the wall
                             Position.Y -= (int)depth.Y;
-                            if (this is Player) Player.Instance.IsOnGround = true;
+                            if(this is Player)
+                            {
+                                Player.Instance.CollidedVertically = true;
+                                Player.Instance.IsOnGround = true;
+                            }
                         }
                         else
                         {
                             // Player is below the wall
                             Position.Y += (int)depth.Y;
-                            if (this is Player) Player.Instance.IsOnGround = true;
+                            if (this is Player) Player.Instance.CollidedVertically = true;
                         }
                     }
                 }

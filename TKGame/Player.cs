@@ -19,6 +19,7 @@ namespace TKGame
 
         internal bool isJumping = false;
         public bool IsOnGround { get; set; }
+        public bool CollidedVertically { get; set; }
         public int FramesSinceJump { get; set; }
 
         public static Player Instance
@@ -55,6 +56,7 @@ namespace TKGame
             entityTexture = Art.PlayerTexture;
             MOVEMENT_SPEED = 500f;
             IsOnGround = false;
+            CollidedVertically = false;
             FramesSinceJump = 0;
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level

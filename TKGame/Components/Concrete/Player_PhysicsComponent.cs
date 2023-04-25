@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,32 +11,26 @@ namespace TKGame.Components.Concrete
 {
     internal class Player_PhysicsComponent : PhysicsComponent
     {
-        private const int GRAVITY = 500;
+        private const int GRAVITY = 1000;
+
         void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
         {
+            Player player = entity as Player;
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Player player = (Player)entity;
 
             player.Velocity.X += player.MOVEMENT_SPEED * player.Velocity.X * deltaTime;
             player.Position.X += player.Velocity.X * deltaTime;
             player.Position.Y += player.Velocity.Y * deltaTime;
 
-            if(player.IsOnGround && player.FramesSinceJump > 30)
+            if(player.CollidedVertically)
             {
                 player.Velocity.Y = 0;
-                player.FramesSinceJump = 0;
+                player.CollidedVertically = false;
             } 
             else
             {
                 player.Velocity.Y += GRAVITY * deltaTime;
             }
-
-            //Vector2 endVel = entity.Velocity;
-            //endVel += entity.MOVEMENT_SPEED * entity.Velocity * deltaTime;
-
-            //endVel.Y += GRAVITY;
-
-            //entity.Position += endVel;
 
             // update hitbox
             entity.HitBox = new Rectangle(((int)player.Position.X - ((int)player.Size.X / 2)),
@@ -52,22 +47,6 @@ namespace TKGame.Components.Concrete
             // in the EntitiyManager.
 
             // GameTime should be owned by World as well.
-        }
-
-        private void CheckVerticalWallDistances()
-        {
-            float playerYPos = Player.Instance.Position.Y;
-            Wall closestWall = null;
-
-            foreach(Wall wall in TKGame.levelComponent.GetCurrentStage().StageWalls)
-            {
-                if(closestWall is null) closestWall = wall;
-
-                if(playerYPos - wall.HitBox.Y < playerYPos - closestWall.HitBox.Y)
-                {
-                    closestWall = wall;
-                }
-            }
         }
     }
 }
