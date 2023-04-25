@@ -36,11 +36,13 @@ namespace TKGame.Components.Concrete
 
             //entity.Position += endVel;
 
+            // update hitbox
             entity.HitBox = new Rectangle(((int)entity.Position.X - ((int)entity.Size.X / 2)),
                                             ((int)entity.Position.Y - (int)entity.Size.Y / 2),
                                             (int)entity.Size.X,
                                             (int)entity.Size.Y);
 
+            // clamp position to screen bounds
             //world.resolveCollisions(entity.Position, entity.HitBox);
             entity.Position = Vector2.Clamp(entity.Position, entity.Size / 2, TKGame.ScreenSize - entity.Size / 2);
 
