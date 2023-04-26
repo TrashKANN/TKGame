@@ -18,9 +18,7 @@ namespace TKGame.Components.Concrete
             Player player = entity as Player;
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            player.Velocity.X += player.MOVEMENT_SPEED * player.Velocity.X * deltaTime;
-            player.Position.X += player.Velocity.X * deltaTime;
-            player.Position.Y += player.Velocity.Y * deltaTime;
+            player.Position += player.Velocity * deltaTime;
 
             if(player.CollidedVertically)
             {
