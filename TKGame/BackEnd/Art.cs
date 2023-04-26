@@ -7,6 +7,8 @@ namespace TKGame.BackEnd
     static class Art
     {
         public static Texture2D PlayerTexture { get; private set; }
+        public static Texture2D PlayerLeftCrouch { get ; private set; }
+        public static Texture2D PlayerRightCrouch { get; private set; }
         public static Texture2D PlayerSwordTexture { get; private set; }
         public static Texture2D PlayerSpearTexture { get; private set; }
         public static Texture2D PlayerAxeTexture { get; private set; }
@@ -30,14 +32,16 @@ namespace TKGame.BackEnd
         public static void LoadContent(ContentManager content)
         {
 
-            PlayerTexture = content.Load<Texture2D>(@"Art/Player"); // Will need to be modified when we create a better structure for our files.
-            PlayerSwordTexture = content.Load<Texture2D>(@"Art/Player_Sword");
-            WeaponTexture = content.Load<Texture2D>(@"Art/Weapons/IronSword"); //Sword Weapon Image    
-            BackgroundTexture = content.Load<Texture2D>(@"Art/Cobble"); //Background image
-            KnightEnemyTexture = content.Load<Texture2D>(@"Art/KnightLeftFacing"); // knight enemy
-            PotionItemTexture = content.Load<Texture2D>(@"Art/Potion"); // potion
-            LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
-            GoblinEnemyTexture = content.Load<Texture2D>(@"Art/GoblinLeftFacing"); // goblin enemy
+            PlayerTexture = content.Load<Texture2D>(@"Art/Player");                         // Will need to be modified when we create a better structure for our files.
+            PlayerLeftCrouch = content.Load<Texture2D>(@"Art/PlayerCrouchingLeftFacing");   // player crouching facing left
+            PlayerRightCrouch = content.Load<Texture2D>(@"Art/PlayerCrouchingRightFacing"); // player crouching facing right
+            PlayerSwordTexture = content.Load<Texture2D>(@"Art/Player_Sword");              // player holding sword
+            WeaponTexture = content.Load<Texture2D>(@"Art/Weapons/IronSword");              // Sword Weapon image    
+            BackgroundTexture = content.Load<Texture2D>(@"Art/Cobble");                     // Background image
+            KnightEnemyTexture = content.Load<Texture2D>(@"Art/KnightLeftFacing");          // knight enemy
+            PotionItemTexture = content.Load<Texture2D>(@"Art/Potion");                     // potion item
+            LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");          
+            GoblinEnemyTexture = content.Load<Texture2D>(@"Art/GoblinLeftFacing");          // goblin enemy
             TransitionTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
         }
     }
