@@ -39,17 +39,13 @@ namespace TKGame.Components.Concrete
                 // if not already crouching
                 if (player.isCrouched == false)
                 {
-                    // swap player png to crouching
-                    
-                    // set isCrouched to true
+                    // set Player variable isCrouched to true
                     player.isCrouched = true;
                 }
                 // otherwise if player is already crouched
                 else
                 {
-                    // swap player png to original
-
-                    // set isCoruched to false
+                    // set Player variable isCoruched to false
                     player.isCrouched = false;
                 }
             }

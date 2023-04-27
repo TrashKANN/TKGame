@@ -12,6 +12,7 @@ namespace TKGame.Components.Concrete
     internal class Player_GraphicsComponent : GraphicsComponent
     {
         GraphicsComponent weaponGraphics = new Weapon_GraphicsComponent();
+        Player player = Player.Instance; // instance of Player to access variables
         void GraphicsComponent.Update(Entity entity)
         {
             weaponGraphics.Update(entity);
@@ -25,6 +26,7 @@ namespace TKGame.Components.Concrete
             }
             // Moved this entirely out of Entity and into this component.
             TKGame.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+            
             TKGame.SpriteBatch.Draw(entity.entityTexture,
                                 entity.Position,
                                 null,
