@@ -9,7 +9,7 @@ using TKGame.Components.Interface;
 
 namespace TKGame
 {
-    public class Wall : CollideComponent
+    public class Wall : ICollideComponent
     {
         public Rectangle hitBox;
         public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }

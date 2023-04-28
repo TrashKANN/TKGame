@@ -18,7 +18,7 @@ namespace TKGame.Weapons
 
 
         //Components
-        GraphicsComponent weaponGraphics;
+        IGraphicsComponent weaponGraphics;
 
 
         /// <summary>

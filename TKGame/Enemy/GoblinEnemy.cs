@@ -13,8 +13,8 @@ namespace TKGame
 {
     public class GoblinEnemy : Enemy
     {
-        private PhysicsComponent goblinEnemyPhysics = new C_Goblin_Physics();
-        private GraphicsComponent goblinEnemyGraphics = new C_Enemy_Graphics();
+        private IPhysicsComponent goblinEnemyPhysics = new C_Goblin_Physics();
+        private IGraphicsComponent goblinEnemyGraphics = new C_Enemy_Graphics();
 
         /// <summary>
         /// goblin enemy components

@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace TKGame.Components.Concrete
 {
-    internal class C_World_Level : LevelComponent
+    internal class C_World_Level : ILevelComponent
     {
         #region Members
         private List<Level> levels;
@@ -43,24 +43,24 @@ namespace TKGame.Components.Concrete
                 currentLevel = newLevel;
         }
 
-        void LevelComponent.Update()
+        void ILevelComponent.Update()
         {
             currentLevel.Update();
         }
 
         public Level GetCurrentLevel() { return currentLevel; }
         public Stage GetCurrentStage() { return currentLevel.GetCurrentStage();}
-        Stage LevelComponent.GetPreviousStage() { return currentLevel.GetPreviousStage(); }
-        Stage LevelComponent.GetNextStage() { return currentLevel.GetNextStage(); }
-        bool LevelComponent.IsCurrentStageFirst() { return currentLevel.isCurrentStageFirst; }
-        bool LevelComponent.IsCurrentStageFinal() { return currentLevel.isCurrentStageFinal; }
-        void LevelComponent.SetCurrentStage(Stage stage) { currentLevel.SetCurrentStage(stage); }
+        Stage ILevelComponent.GetPreviousStage() { return currentLevel.GetPreviousStage(); }
+        Stage ILevelComponent.GetNextStage() { return currentLevel.GetNextStage(); }
+        bool ILevelComponent.IsCurrentStageFirst() { return currentLevel.isCurrentStageFirst; }
+        bool ILevelComponent.IsCurrentStageFinal() { return currentLevel.isCurrentStageFinal; }
+        void ILevelComponent.SetCurrentStage(Stage stage) { currentLevel.SetCurrentStage(stage); }
 
         /// <summary>
         /// Sets the current stage to the next stage in the level. If the current stage is the final stage, the current stage is set to the first stage.
         /// 
         /// </summary>
-        void LevelComponent.GoToNextStage()
+        void ILevelComponent.GoToNextStage()
         {
             Dictionary<string, Stage> levelStages = currentLevel.GetStages();
             
@@ -100,7 +100,7 @@ namespace TKGame.Components.Concrete
         /// <summary>
         /// Sets the current stage to the previous stage in the level.
         /// </summary>
-        void LevelComponent.GoToPreviousStage()
+        void ILevelComponent.GoToPreviousStage()
         {
             Dictionary<string, Stage> levelStages = currentLevel.GetStages();
 

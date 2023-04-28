@@ -10,19 +10,25 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
-    public class C_Player_Input : InputComponent
+    public class C_Player_Input : IInputComponent
     {
         private static readonly int WALK_ACCELERATION = 1;
         private static readonly int JUMP_HEIGHT = -1;
         private static int framesSinceJump = 0;
 
-        void InputComponent.Update(Entity player)
+        void IInputComponent.Update(Entity player)
         {
             if (Input.KeyboardState.IsKeyDown(Keys.A))
+            {
                 player.Velocity.X = -WALK_ACCELERATION;
+                Player.Instance.isLookingLeft = true;
+            }
 
             else if (Input.KeyboardState.IsKeyDown(Keys.D))
+            {
                 player.Velocity.X = WALK_ACCELERATION;
+                Player.Instance.isLookingLeft = false;
+            }
 
             else if (Input.KeyboardState.IsKeyDown(Keys.W))
                 player.Velocity.Y = -WALK_ACCELERATION;

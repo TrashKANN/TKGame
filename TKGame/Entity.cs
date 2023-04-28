@@ -8,7 +8,7 @@ using TKGame.Content.Weapons;
 
 namespace TKGame
 {
-    public abstract class Entity : CollideComponent
+    public abstract class Entity : ICollideComponent
     {
         internal Texture2D entityTexture;
 
@@ -43,7 +43,7 @@ namespace TKGame
         /// outside of the hitbox it collides with.
         /// </summary>
         /// <param name="stage"></param>
-        public void Collide<T>(List<T> collidables) where T : CollideComponent
+        public void Collide<T>(List<T> collidables) where T : ICollideComponent
         {
 
             //TODO: Collide with other entities.
@@ -94,7 +94,7 @@ namespace TKGame
         /// Collide with a single hitbox. Used for special triggers such as doors, items, etc.
         /// </summary>
         /// <param name="hitbox"></param>
-        public bool Collide<T>(T hitbox) where T : CollideComponent
+        public bool Collide<T>(T hitbox) where T : ICollideComponent
         {
             return HitBox.Intersects(hitbox.HitBox) ? true : false;
         }

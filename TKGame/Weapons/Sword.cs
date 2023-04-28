@@ -19,7 +19,7 @@ namespace TKGame.Content.Weapons
         private float MOVEMENT_SPEED = 500f;
 
         //Components
-        GraphicsComponent weaponGraphics;
+        IGraphicsComponent weaponGraphics;
 
 
 

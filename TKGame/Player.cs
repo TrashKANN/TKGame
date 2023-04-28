@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using TKGame.BackEnd;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
 using TKGame.Content.Weapons;
+using TKGame.PowerUps;
 
 namespace TKGame
 {
@@ -12,12 +14,18 @@ namespace TKGame
         private static Player instance;
         private static object syncRoot = new object();
         #region Components
-        InputComponent input;
-        PhysicsComponent physics;
-        GraphicsComponent graphics;
+        IInputComponent input;
+        IPhysicsComponent physics;
+        IGraphicsComponent graphics;
+
+        IPrimaryAttackComponent primaryATK;
+        ISpecialAttackComponent specialATK;
+        IUltimateAttackComponent ultimateATK;
+        IMovementAttackComponent movementATK;
         #endregion Components
 
-        internal bool isJumping = false;
+        public bool isJumping = false;
+        public bool isLookingLeft = false;
 
         public static Player Instance
         {
@@ -31,7 +39,8 @@ namespace TKGame
                         if (instance == null)
                             instance = new Player(new C_Player_Input(),
                                                   new C_Player_Physics(),
-                                                  new C_Player_Graphics());
+                                                  new C_Player_Graphics(),
+                                                  new List<IAttackComponent> { new C_Fire_SpecialAttack() });
                     }
 
                 return instance;
@@ -41,11 +50,28 @@ namespace TKGame
         /// <summary>
         /// Player components.
         /// </summary>
-        private Player(InputComponent input_, PhysicsComponent physics_, GraphicsComponent graphics_)
+        private Player(IInputComponent input_, IPhysicsComponent physics_, IGraphicsComponent graphics_,
+                       List<IAttackComponent> atks)
         {
             input = input_;
             physics = physics_;
             graphics = graphics_;
+
+            // using a loop for safety in case the order of the list changes
+            for (int i = 0; i < atks.Count; i++)
+            {
+                if (atks[i].AttackType == AttackType.Primary)
+                    primaryATK = (IPrimaryAttackComponent)atks[i];
+
+                else if (atks[i].AttackType == AttackType.Special)
+                    specialATK = (ISpecialAttackComponent)atks[i];
+
+                else if (atks[i].AttackType == AttackType.Ultimate)
+                    ultimateATK = (IUltimateAttackComponent)atks[i];
+
+                else if (atks[i].AttackType == AttackType.Movement)
+                    movementATK = (IMovementAttackComponent)atks[i];
+            }
 
             weapon = new Sword();
             weapon.Activate();
@@ -71,6 +97,9 @@ namespace TKGame
             physics.Update(this, gameTime/*, world*/);
             graphics.Update(this);
             weapon.Update(this);
+
+            specialATK.Update(this);
+
             graphics.Update(this);
         }
 
@@ -81,6 +110,11 @@ namespace TKGame
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+        }
+
+        public Rectangle GetHitBox()
+        {
+            return HitBox;
         }
     }
 }

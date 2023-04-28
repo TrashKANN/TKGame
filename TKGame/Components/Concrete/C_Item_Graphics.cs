@@ -13,9 +13,9 @@ using System.Drawing;
 
 namespace TKGame.Components.Concrete
 {
-    class C_Item_Graphics : GraphicsComponent
+    class C_Item_Graphics : IGraphicsComponent
     {
-        void GraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)
+        void IGraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)
         {
             //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             TKGame.SpriteBatch.Draw(entity.entityTexture,

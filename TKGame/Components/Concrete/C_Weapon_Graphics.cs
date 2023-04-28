@@ -13,11 +13,11 @@ using TKGame.Content.Weapons;
 
 namespace TKGame.Components.Concrete
 {
-    internal class C_Weapon_Graphics : GraphicsComponent
+    internal class C_Weapon_Graphics : IGraphicsComponent
     {
         public Texture2D weaponTexture = Art.PlayerTexture;
         private VerticalSplitPane VSP { get; set; }
-        void GraphicsComponent.Update(Entity entity)
+        void IGraphicsComponent.Update(Entity entity)
         {
 
             //Adds Weapon To Player Sprite

@@ -12,9 +12,9 @@ using TKGame.Level_Editor_Content;
 
 namespace TKGame.Components.Concrete
 {
-    internal class C_World_LevelEditor : LevelEditorComponent
+    internal class C_World_LevelEditor : ILevelEditorComponent
     {
-        void LevelEditorComponent.Update()
+        void ILevelEditorComponent.Update()
         {
             Stage currentStage = TKGame.levelComponent.GetCurrentStage();
 

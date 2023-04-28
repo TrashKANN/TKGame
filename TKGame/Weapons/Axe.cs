@@ -16,7 +16,7 @@ namespace TKGame.Weapons
     class Axe : Weapon
     {
         //Components
-        GraphicsComponent weaponsComponent;
+        IGraphicsComponent weaponsComponent;
 
 
         /// <summary>

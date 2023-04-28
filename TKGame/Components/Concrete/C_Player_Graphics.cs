@@ -9,10 +9,10 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
-    internal class C_Player_Graphics : GraphicsComponent
+    internal class C_Player_Graphics : IGraphicsComponent
     {
-        GraphicsComponent weaponGraphics = new C_Weapon_Graphics();
-        void GraphicsComponent.Update(Entity entity)
+        IGraphicsComponent weaponGraphics = new C_Weapon_Graphics();
+        void IGraphicsComponent.Update(Entity entity)
         {
             weaponGraphics.Update(entity);
             if (entity.Velocity.X > 0)

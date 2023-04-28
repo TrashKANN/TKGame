@@ -13,9 +13,9 @@ using System.Drawing;
 
 namespace TKGame.Components.Concrete
 {
-    class C_Enemy_Graphics : GraphicsComponent
+    class C_Enemy_Graphics : IGraphicsComponent
     {
-        void GraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)
+        void IGraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)
         {
             Player player = Player.Instance;
 

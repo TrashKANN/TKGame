@@ -13,9 +13,9 @@ using System.Drawing;
 
 namespace TKGame.Components.Concrete
 {
-    class C_Knight_Physics : PhysicsComponent
+    class C_Knight_Physics : IPhysicsComponent
     {
-        void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)
+        void IPhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)
         {
             Player player = Player.Instance;
             entity.Velocity.X = 1;

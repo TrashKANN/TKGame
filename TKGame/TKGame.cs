@@ -50,8 +50,8 @@ namespace TKGame
         #endregion
 
         #region Components
-        private LevelEditorComponent levelEditorComponent;
-        public static LevelComponent levelComponent;
+        private ILevelEditorComponent levelEditorComponent;
+        public static ILevelComponent levelComponent;
         #endregion Components
 
         public TKGame()

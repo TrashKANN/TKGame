@@ -8,10 +8,10 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
-    internal class C_Player_Physics : PhysicsComponent
+    internal class C_Player_Physics : IPhysicsComponent
     {
         private static readonly float GRAVITY = 1.0f;
-        void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
+        void IPhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
