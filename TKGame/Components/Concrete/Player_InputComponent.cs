@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.BackEnd;
 using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
@@ -32,22 +33,14 @@ namespace TKGame.Components.Concrete
             else
                 player.Velocity.X = 0;
 
-            // crouching
-            // check if C key was pressed to toggle crouch
-            if (Input.WasKeyPressed(Keys.C))
+            // update crouched bool based on key input
+            if (Input.KeyboardState.IsKeyDown(Keys.S))
             {
-                // if not already crouching
-                if (player.isCrouched == false)
-                {
-                    // set Player variable isCrouched to true
-                    player.isCrouched = true;
-                }
-                // otherwise if player is already crouched
-                else
-                {
-                    // set Player variable isCoruched to false
-                    player.isCrouched = false;
-                }
+                player.isCrouched = true;
+            }
+            else
+            {
+                player.isCrouched = false;
             }
 
             if (Input.WasKeyPressed(Keys.Space) && player.IsOnGround)

@@ -54,17 +54,11 @@ namespace TKGame
             weapon = new Sword();
             weapon.Activate();
 
-            // if crouching then set player sprite to crouching sprite
-            if (isCrouched == true)
-                entityTexture = Art.PlayerLeftCrouch;
-            // otherwise set player sprite to normal player sprite
-            else
-                entityTexture = Art.PlayerTexture;
-
             MOVEMENT_SPEED = 500f;
             IsOnGround = false;
             CollidedVertically = false;
             FramesSinceJump = 0;
+            entityTexture = Art.PlayerTexture;
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             entityName = "player"; // name for player class
