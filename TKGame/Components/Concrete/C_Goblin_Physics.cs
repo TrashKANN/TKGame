@@ -13,7 +13,7 @@ using System.Drawing;
 
 namespace TKGame.Components.Concrete
 {
-    class GoblinEnemy_PhysicsComponent : PhysicsComponent
+    class C_Goblin_Physics : PhysicsComponent
     {
         void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)
         {

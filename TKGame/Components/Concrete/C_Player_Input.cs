@@ -5,11 +5,12 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.BackEnd;
 using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
-    public class Player_InputComponent : InputComponent
+    public class C_Player_Input : InputComponent
     {
         private static readonly int WALK_ACCELERATION = 1;
         private static readonly int JUMP_HEIGHT = -1;

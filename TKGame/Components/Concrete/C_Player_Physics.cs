@@ -8,7 +8,7 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
-    internal class Player_PhysicsComponent : PhysicsComponent
+    internal class C_Player_Physics : PhysicsComponent
     {
         private static readonly float GRAVITY = 1.0f;
         void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.

@@ -13,7 +13,7 @@ using TKGame.Content.Weapons;
 
 namespace TKGame.Components.Concrete
 {
-    internal class Weapon_GraphicsComponent : GraphicsComponent
+    internal class C_Weapon_Graphics : GraphicsComponent
     {
         public Texture2D weaponTexture = Art.PlayerTexture;
         private VerticalSplitPane VSP { get; set; }

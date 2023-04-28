@@ -24,7 +24,7 @@ namespace TKGame.Weapons
         /// </summary>
         public Axe()
         {
-            weaponsComponent= new Weapon_GraphicsComponent();
+            weaponsComponent= new C_Weapon_Graphics();
             weaponTexture = Art.PlayerAxeTexture;
             position = new Vector2(815, 730);
             weaponRect = new Rectangle(815, 730, 85, 85);

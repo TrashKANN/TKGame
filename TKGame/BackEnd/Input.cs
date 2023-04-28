@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Linq;
 
 
-namespace TKGame
+namespace TKGame.BackEnd
 {
     static class Input
     {

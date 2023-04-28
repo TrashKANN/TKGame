@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.BackEnd;
 using TKGame.Components.Interface;
 using TKGame.Level_Editor_Content;
 
 namespace TKGame.Components.Concrete
 {
-    internal class World_LevelEditorComponent : LevelEditorComponent
+    internal class C_World_LevelEditor : LevelEditorComponent
     {
         void LevelEditorComponent.Update()
         {

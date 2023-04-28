@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace TKGame.Components.Concrete
 {
-    internal class World_LevelComponent : LevelComponent
+    internal class C_World_Level : LevelComponent
     {
         #region Members
         private List<Level> levels;
@@ -26,7 +26,7 @@ namespace TKGame.Components.Concrete
         /// Initializes the World_LevelComponent with a list of levels and sets the current level to the first level in the list.
         /// </summary>
         /// <param name="levels"></param>
-        public World_LevelComponent(List<Level> levels)
+        public C_World_Level(List<Level> levels)
         {
             this.levels = levels;
             currentLevel = levels.FirstOrDefault();

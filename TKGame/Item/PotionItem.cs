@@ -15,8 +15,8 @@ namespace TKGame
 {
     class PotionItem : Item
     {
-        private PhysicsComponent potionItemPhysics = new Item_PhysicsComponent();
-        private GraphicsComponent potionItemGraphics = new Item_GraphicsComponent();
+        private PhysicsComponent potionItemPhysics = new C_Item_Physics();
+        private GraphicsComponent potionItemGraphics = new C_Item_Graphics();
         static Random rand = new Random();
         int x = rand.Next(600, 1200);
         public PotionItem()

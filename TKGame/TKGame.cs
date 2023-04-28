@@ -65,8 +65,8 @@ namespace TKGame
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
             IsMouseVisible = true;
-            levelEditorComponent = new World_LevelEditorComponent();
-            levelComponent = new World_LevelComponent(new List<Level>());
+            levelEditorComponent = new C_World_LevelEditor();
+            levelComponent = new C_World_Level(new List<Level>());
             paused = true;
         }
         protected override void Initialize()

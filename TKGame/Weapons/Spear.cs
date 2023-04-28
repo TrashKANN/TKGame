@@ -26,7 +26,7 @@ namespace TKGame.Weapons
         /// </summary>
         public Spear()
         {
-            weaponGraphics = new Weapon_GraphicsComponent();
+            weaponGraphics = new C_Weapon_Graphics();
             weaponTexture = Art.PlayerSpearTexture;
             position = new Vector2(815, 730);
             weaponRect = new Rectangle(815, 730, 85, 85);

@@ -29,9 +29,9 @@ namespace TKGame
                     lock (syncRoot)
                     {
                         if (instance == null)
-                            instance = new Player(new Player_InputComponent(),
-                                                  new Player_PhysicsComponent(),
-                                                  new Player_GraphicsComponent());
+                            instance = new Player(new C_Player_Input(),
+                                                  new C_Player_Physics(),
+                                                  new C_Player_Graphics());
                     }
 
                 return instance;
