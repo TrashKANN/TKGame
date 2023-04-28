@@ -18,11 +18,12 @@ namespace TKGame
         private IPhysicsComponent potionItemPhysics = new C_Item_Physics();
         private IGraphicsComponent potionItemGraphics = new C_Item_Graphics();
         static Random rand = new Random();
-        int x = rand.Next(600, 1200);
+        int x = rand.Next(900, 1200);
         public PotionItem()
         {
             entityTexture = Art.PotionItemTexture;
-            Position = new Vector2(x, 840); // random x-coor spawn
+            Position = new Vector2(x, 839); // random x-coor spawn
+            HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
         public override void Update(GameTime gameTime)

@@ -17,21 +17,27 @@ namespace TKGame.PowerUps
         public string NameID { get; private set; }
         public Rectangle HitBox { get; set; }
         public AttackType AttackType { get; }
+        public bool isAttacking { get; private set; }
 
-        private Point leftHitBoxPoint = new Point(200, 200);
-        private Point rightHitBoxPoint = new Point(400, 400);
+        private SpriteBatch atkSpriteBatch;
 
         public C_Fire_SpecialAttack()
         {
             NameID = "FireSpecialAttack";
             AttackType = AttackType.Special;
-            HitBox = new Rectangle(leftHitBoxPoint, new Point(150, 150));
+            HitBox = new Rectangle(new Point(Player.Instance.HitBox.X - 150, Player.Instance.HitBox.Y), new Point(150, 150));
+            atkSpriteBatch = new SpriteBatch(TKGame.Graphics.GraphicsDevice);
         }
         public void Update(Entity entity)
         {
-            if (Input.KeyboardState.IsKeyDown(Keys.E))
+            if (Input.MouseState.RightButton == ButtonState.Pressed)
             {
-                DrawHitBox();
+                isAttacking = true;
+                ConfigureHitBox();
+            }
+            else
+            {
+                isAttacking = false;
             }
         }
         public void OnHit(Entity target)
@@ -39,22 +45,14 @@ namespace TKGame.PowerUps
             throw new NotImplementedException();
         }
 
-        private void DrawHitBox()
-        {
-            ConfigureHitBox();
-            GameDebug.DrawBoundingBox(HitBox, Color.Red, 3);
-        }
-
         private void ConfigureHitBox()
         {
+            int offset = (Player.Instance.HitBox.Center.X - Player.Instance.HitBox.X);
             if (Player.Instance.isLookingLeft)
             {
-                HitBox = new Rectangle(leftHitBoxPoint, HitBox.Size);
+                offset = offset * -1 - HitBox.Width;
             }
-            else
-            {
-                HitBox = new Rectangle(rightHitBoxPoint, HitBox.Size);
-            }
+            HitBox = new Rectangle(Player.Instance.HitBox.Center.X + offset, Player.Instance.HitBox.Y, HitBox.Size.X, HitBox.Size.Y);
         }
     }
 }

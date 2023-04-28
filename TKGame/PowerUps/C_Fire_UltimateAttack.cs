@@ -13,6 +13,8 @@ namespace TKGame.PowerUps
         public Rectangle HitBox { get; set; }
 
         public AttackType AttackType { get; }
+        public bool isAttacking { get; private set; }
+
 
         public void Attack()
         {

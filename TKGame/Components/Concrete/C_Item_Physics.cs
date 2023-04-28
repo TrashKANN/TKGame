@@ -1,15 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
 using TKGame.BackEnd;
-using Myra.Graphics2D.UI;
 using System.Drawing;
+using TKGame.PowerUps;
 
 namespace TKGame.Components.Concrete
 {
@@ -23,13 +16,15 @@ namespace TKGame.Components.Concrete
             {
                 Vector2 playerPosition = player.Position;
                 // if player is within pickup range
-                if (playerPosition.X == entity.Position.X &&
-                    playerPosition.Y >= entity.Position.Y - 12 &&
-                    playerPosition.Y <= entity.Position.Y + 12)
+                if (player.HitBox.Intersects(entity.HitBox))
                 {
-                    // pickup item
+                    Player.Instance.PickUpItem(new C_Fire_SpecialAttack());
                 }
             }
+            entity.HitBox = new Microsoft.Xna.Framework.Rectangle(((int)entity.Position.X - ((int)entity.Size.X / 2)),
+                                ((int)entity.Position.Y - (int)entity.Size.Y / 2),
+                                (int)entity.Size.X,
+                                (int)entity.Size.Y);
         }
     }
 }

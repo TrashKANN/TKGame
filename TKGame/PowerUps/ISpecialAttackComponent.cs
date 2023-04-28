@@ -7,7 +7,7 @@ using TKGame.Components.Interface;
 
 namespace TKGame.PowerUps
 {
-    interface ISpecialAttackComponent : IAttackComponent
+    public interface ISpecialAttackComponent : IAttackComponent
     {
     }
 }

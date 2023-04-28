@@ -14,9 +14,10 @@ namespace TKGame.PowerUps
         Ultimate,
         Movement,
     }
-    interface IAttackComponent : ICollideComponent
+    public interface IAttackComponent : ICollideComponent
     {
         AttackType AttackType { get; }
+        bool isAttacking { get; }
         void Update(Entity entity);
         void OnHit(Entity target);
     }

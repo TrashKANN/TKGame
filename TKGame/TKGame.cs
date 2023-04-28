@@ -17,6 +17,7 @@ using TKGame.BackEnd;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
 using TKGame.Level_Editor_Content;
+using TKGame.PowerUps;
 using TKGame.UI;
 using TKGame.Weapons;
 
@@ -204,7 +205,7 @@ namespace TKGame
                 spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
                 if (GameDebug.DebugMode) 
                 { 
-                    GameDebug.DrawBoundingBox(wall.HitBox, Color.Lime, 5); 
+                    GameDebug.DrawBoundingBox(wall.HitBox, Color.Lime, 5, TKGame.SpriteBatch); 
                 }
             }
 
@@ -213,7 +214,7 @@ namespace TKGame
                 spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);
             }
 
-            //EntityManager.Draw(spriteBatch);
+            EntityManager.Draw(spriteBatch);
 
             if (GameDebug.DebugMode)
             {
@@ -221,7 +222,16 @@ namespace TKGame
                 {
                     GameDebug.DrawBoundingBox(entity, Color.Blue, 5);
                 }
+
+                foreach (IAttackComponent atk in Player.Instance.attacks.Values)
+                {
+                    if (atk.isAttacking)
+                    {
+                        GameDebug.DrawBoundingBox(atk.HitBox, Color.Red, 3, SpriteBatch);
+                    }
+                }
             }
+
 
             // Draw the New Wall last so that the outline appears above all other images
             if (LevelEditor.EditMode)
