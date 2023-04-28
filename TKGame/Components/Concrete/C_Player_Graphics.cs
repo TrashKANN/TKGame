@@ -24,17 +24,17 @@ namespace TKGame.Components.Concrete
                 entity.Orientation = SpriteEffects.FlipHorizontally;
             }
             // Moved this entirely out of Entity and into this component.
-            TKGame.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-            TKGame.SpriteBatch.Draw(Art.KnightEnemyTexture,
-                                entity.Position,
-                                null,
-                                entity.color,
-                                0,
-                                entity.Size / 2f,
-                                1f,
-                                entity.Orientation,
-                                0);
-            TKGame.SpriteBatch.End();
+            //TKGame.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+            //TKGame.SpriteBatch.Draw(Art.KnightEnemyTexture,
+            //                    entity.Position,
+            //                    null,
+            //                    entity.color,
+            //                    0,
+            //                    entity.Size / 2f,
+            //                    1f,
+            //                    entity.Orientation,
+            //                    0);
+            //TKGame.SpriteBatch.End();
         }
     }
 }
