@@ -25,7 +25,7 @@ namespace TKGame.Components.Concrete
             }
             // Moved this entirely out of Entity and into this component.
             TKGame.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-            TKGame.SpriteBatch.Draw(entity.entityTexture,
+            TKGame.SpriteBatch.Draw(Art.KnightEnemyTexture,
                                 entity.Position,
                                 null,
                                 entity.color,

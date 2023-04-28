@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using TKGame.Components.Interface;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TKGame.PowerUps
 {
@@ -17,8 +18,8 @@ namespace TKGame.PowerUps
         public Rectangle HitBox { get; set; }
         public AttackType AttackType { get; }
 
-        private Point leftHitBoxPoint = new Point(Player.Instance.GetHitBox().X - 150, Player.Instance.GetHitBox().Y);
-        private Point rightHitBoxPoint = new Point(Player.Instance.GetHitBox().X + Player.Instance.GetHitBox().Width + 150, Player.Instance.GetHitBox().Y);
+        private Point leftHitBoxPoint = new Point(200, 200);
+        private Point rightHitBoxPoint = new Point(400, 400);
 
         public C_Fire_SpecialAttack()
         {
@@ -28,7 +29,7 @@ namespace TKGame.PowerUps
         }
         public void Update(Entity entity)
         {
-            if (Input.WasKeyPressed(Keys.E))
+            if (Input.KeyboardState.IsKeyDown(Keys.E))
             {
                 DrawHitBox();
             }
@@ -41,9 +42,7 @@ namespace TKGame.PowerUps
         private void DrawHitBox()
         {
             ConfigureHitBox();
-            TKGame.SpriteBatch.Begin();
             GameDebug.DrawBoundingBox(HitBox, Color.Red, 3);
-            TKGame.SpriteBatch.End();
         }
 
         private void ConfigureHitBox()

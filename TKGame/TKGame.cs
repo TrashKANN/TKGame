@@ -213,7 +213,7 @@ namespace TKGame
                 spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);
             }
 
-            EntityManager.Draw(spriteBatch);
+            //EntityManager.Draw(spriteBatch);
 
             if (GameDebug.DebugMode)
             {
