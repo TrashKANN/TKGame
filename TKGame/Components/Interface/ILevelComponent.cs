@@ -7,7 +7,7 @@ using TKGame.Level_Editor_Content;
 
 namespace TKGame.Components.Interface
 {
-    public interface ILevelComponent
+    public interface ILevelComponent : IComponent
     {
         public void LevelComponent() { }
         public void Update();

@@ -15,6 +15,8 @@ namespace TKGame
         public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }
         public Texture2D Texture { get; private set; }
 
+        public ComponentType Type => throw new NotImplementedException();
+
         /// <summary>
         /// Generates a (rectangular) wall that can be drawn to the screen. x/y represent position of
         /// top left corner.

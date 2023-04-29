@@ -16,6 +16,8 @@ namespace TKGame.Components.Concrete
         private static readonly int JUMP_HEIGHT = -1;
         private static int framesSinceJump = 0;
 
+        ComponentType IComponent.Type => ComponentType.Level;
+
         void IInputComponent.Update(Entity player)
         {
             if (Input.KeyboardState.IsKeyDown(Keys.A))

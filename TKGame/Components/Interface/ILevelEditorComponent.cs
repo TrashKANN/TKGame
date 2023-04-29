@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TKGame.Components.Interface
 {
-    public interface ILevelEditorComponent
+    public interface ILevelEditorComponent : IComponent
     {
         public void LevelEditorComponent() { }
         public void Update();

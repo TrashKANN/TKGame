@@ -18,6 +18,7 @@ namespace TKGame.Components.Concrete
         #endregion Members
 
         #region Properties
+        ComponentType IComponent.Type => ComponentType.Level;
         public List<Level> Levels { get { return levels; } }
         public Level CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
         #endregion Properties

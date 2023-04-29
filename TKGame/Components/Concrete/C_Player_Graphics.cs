@@ -11,6 +11,7 @@ namespace TKGame.Components.Concrete
 {
     internal class C_Player_Graphics : IGraphicsComponent
     {
+        ComponentType IComponent.Type => ComponentType.Graphics;
         IGraphicsComponent weaponGraphics = new C_Weapon_Graphics();
         void IGraphicsComponent.Update(Entity entity)
         {

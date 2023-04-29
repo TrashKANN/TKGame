@@ -15,6 +15,7 @@ namespace TKGame.Components.Concrete
 {
     class C_Enemy_Graphics : IGraphicsComponent
     {
+        ComponentType IComponent.Type => ComponentType.Graphics;
         void IGraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)
         {
             Player player = Player.Instance;

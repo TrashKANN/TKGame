@@ -9,11 +9,13 @@ using TKGame.Components.Interface;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
+using TKGame.Status_Effects;
 
 namespace TKGame.PowerUps
 {
     class C_Fire_SpecialAttack : ISpecialAttackComponent
     {
+        ComponentType IComponent.Type => ComponentType.AttackSpecial;
         public string NameID { get; private set; }
         public Rectangle HitBox { get; set; }
         public AttackType AttackType { get; }
@@ -30,29 +32,47 @@ namespace TKGame.PowerUps
         }
         public void Update(Entity entity)
         {
+            // if the player is attacking, the hitbox is updated to follow the player
+            // Move this into InputComponent
             if (Input.MouseState.RightButton == ButtonState.Pressed)
             {
                 isAttacking = true;
                 ConfigureHitBox();
+
+                //List<Entity> entities = EntityManager.GetEntities()
+                //    .Where(e => EntityManager.HasComponent<ICollideComponent>(e))
+                //    .ToList();
+
+                List<Entity> entities = EntityManager.GetEntities();
+
+                foreach (Entity e in entities)
+                {
+                    if (e != entity && HitBox.Intersects(e.HitBox) && !EntityManager.HasComponent<C_Burning_Status>(e))
+                    {
+                        OnHit(entity, e);
+                    }
+                }
             }
             else
             {
                 isAttacking = false;
             }
         }
-        public void OnHit(Entity target)
+        public void OnHit(Entity source, Entity target)
         {
-            throw new NotImplementedException();
+            target.AddComponent(new C_Burning_Status(8, 1f, 0.2f, Player.Instance));
         }
 
         private void ConfigureHitBox()
         {
+            // offsets the hitbox adjacent to the player's hitbox based on the direction the player is facing
             int offset = (Player.Instance.HitBox.Center.X - Player.Instance.HitBox.X);
+
             if (Player.Instance.isLookingLeft)
             {
                 offset = offset * -1 - HitBox.Width;
             }
-            HitBox = new Rectangle(Player.Instance.HitBox.Center.X + offset, Player.Instance.HitBox.Y, HitBox.Size.X, HitBox.Size.Y);
+            HitBox = new Rectangle(Player.Instance.HitBox.Center.X + offset, Player.Instance.HitBox.Y, HitBox.Width, HitBox.Height);
         }
     }
 }

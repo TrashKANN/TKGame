@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 using TKGame.BackEnd;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
+using TKGame.PowerUps;
+using TKGame.Status_Effects;
 
 namespace TKGame
 {
@@ -24,6 +26,10 @@ namespace TKGame
             entityTexture = Art.PotionItemTexture;
             Position = new Vector2(x, 839); // random x-coor spawn
             HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
+            components = new Dictionary<ComponentType, IComponent>
+            {
+
+            };
         }
 
         public override void Update(GameTime gameTime)

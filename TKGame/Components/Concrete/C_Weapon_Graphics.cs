@@ -15,6 +15,7 @@ namespace TKGame.Components.Concrete
 {
     internal class C_Weapon_Graphics : IGraphicsComponent
     {
+        public ComponentType Type { get; }
         public Texture2D weaponTexture = Art.PlayerTexture;
         private VerticalSplitPane VSP { get; set; }
         void IGraphicsComponent.Update(Entity entity)

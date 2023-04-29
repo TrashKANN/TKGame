@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TKGame.Components.Interface
 {
-    public interface IGraphicsComponent
+    public interface IGraphicsComponent : IComponent
     {
         public void GraphicsComponent() { }
         public void Update(Entity entity);

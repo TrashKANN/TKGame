@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TKGame.Components.Interface
 {
-    public interface IInputComponent
+    public interface IInputComponent : IComponent
     {
         public void InputComponent() { }
         public void Update(Entity entity);

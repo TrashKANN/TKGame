@@ -48,6 +48,8 @@ namespace TKGame
 
         // TODO: Refactor out of the main TKGame class
         public static bool paused;
+        private static bool hasLoaded = false;
+        private static bool hasInitialized = false;
         #endregion
 
         #region Components
@@ -79,6 +81,7 @@ namespace TKGame
             WeaponSystem.Initialize();
 
             base.Initialize();
+            hasInitialized = true;
         }
         protected override void LoadContent()
         {
@@ -113,6 +116,8 @@ namespace TKGame
             ItemFactory potionFactory = new PotionItemFactory();
             Item potion = potionFactory.CreateItem();
             EntityManager.Add(potion);
+
+            hasLoaded = true;
         }
         protected override async void Update(GameTime gameTime)
         {
@@ -200,49 +205,56 @@ namespace TKGame
             // Draw each wall to the screen
             // Update level editor
 
-            foreach (Wall wall in levelComponent.GetCurrentStage().StageWalls)
+            if (hasLoaded && hasInitialized)
             {
-                spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
-                if (GameDebug.DebugMode) 
-                { 
-                    GameDebug.DrawBoundingBox(wall.HitBox, Color.Lime, 5, TKGame.SpriteBatch); 
-                }
-            }
 
-            foreach (Trigger trigger in levelComponent.GetCurrentStage().StageTriggers)
-            {
-                spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);
-            }
-
-            EntityManager.Draw(spriteBatch);
-
-            if (GameDebug.DebugMode)
-            {
-                foreach (Entity entity in EntityManager.GetEntities())
+                foreach (Wall wall in levelComponent.GetCurrentStage().StageWalls)
                 {
-                    GameDebug.DrawBoundingBox(entity, Color.Blue, 5);
-                }
-
-                foreach (IAttackComponent atk in Player.Instance.attacks.Values)
-                {
-                    if (atk.isAttacking)
-                    {
-                        GameDebug.DrawBoundingBox(atk.HitBox, Color.Red, 3, SpriteBatch);
+                    spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
+                    if (GameDebug.DebugMode) 
+                    { 
+                        GameDebug.DrawBoundingBox(wall.HitBox, Color.Lime, 5, TKGame.SpriteBatch); 
                     }
                 }
-            }
+
+                foreach (Trigger trigger in levelComponent.GetCurrentStage().StageTriggers)
+                {
+                    spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);
+                }
+
+                EntityManager.Draw(spriteBatch);
+
+                if (GameDebug.DebugMode)
+                {
+                    foreach (Entity entity in EntityManager.GetEntities())
+                    {
+                        GameDebug.DrawBoundingBox(entity, Color.Blue, 5);
+                    }
+
+                    foreach (IAttackComponent atk in Player.Instance.GetAttackComponents())
+                    {
+                        if (atk != null)
+                        {
+                            if (atk.isAttacking)
+                            {
+                                GameDebug.DrawBoundingBox(atk.HitBox, Color.Red, 3, SpriteBatch);
+                            }
+                        }
+                    }
+                }
 
 
-            // Draw the New Wall last so that the outline appears above all other images
-            if (LevelEditor.EditMode)
-            {
-                levelEditorComponent.Update();
-            }
+                // Draw the New Wall last so that the outline appears above all other images
+                if (LevelEditor.EditMode)
+                {
+                    levelEditorComponent.Update();
+                }
 
-            // Draw the transition screen if we're transitioning
-            if (levelComponent.GetCurrentLevel().isTransitioning)
-            {
-                levelComponent.GetCurrentLevel().transition.Draw(spriteBatch);
+                // Draw the transition screen if we're transitioning
+                if (levelComponent.GetCurrentLevel().isTransitioning)
+                {
+                    levelComponent.GetCurrentLevel().transition.Draw(spriteBatch);
+                }
             }
 
             spriteBatch.End();

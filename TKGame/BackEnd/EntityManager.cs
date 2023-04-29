@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.Components.Interface;
 using TKGame.Level_Editor_Content;
 
 namespace TKGame.BackEnd
@@ -23,6 +24,26 @@ namespace TKGame.BackEnd
         public static int EntityCount { get { return entities.Count; } }
 
         public static List<Entity> GetEntities() { return entities; }
+
+        public static bool HasComponent<T>(Entity entity) where T : IComponent
+        {
+            foreach (IComponent component in entity.components.Values)
+            {
+                if (component != null)
+                {
+                    if (component.GetType() == typeof(T))
+                    {
+                        return true;
+                    }
+                }
+            }
+            if (entity.GetType() == typeof(T))
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Adds any entities to the current entity list if the entity count is currently being updated, otherwise add it to the being added lists.

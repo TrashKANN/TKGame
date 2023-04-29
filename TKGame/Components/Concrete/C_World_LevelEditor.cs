@@ -14,6 +14,8 @@ namespace TKGame.Components.Concrete
 {
     internal class C_World_LevelEditor : ILevelEditorComponent
     {
+        public ComponentType Type { get; }
+
         void ILevelEditorComponent.Update()
         {
             Stage currentStage = TKGame.levelComponent.GetCurrentStage();

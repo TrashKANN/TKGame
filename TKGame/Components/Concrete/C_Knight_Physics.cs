@@ -15,6 +15,7 @@ namespace TKGame.Components.Concrete
 {
     class C_Knight_Physics : IPhysicsComponent
     {
+        ComponentType IComponent.Type => ComponentType.Physics;
         void IPhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)
         {
             Player player = Player.Instance;

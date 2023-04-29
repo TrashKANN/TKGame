@@ -5,11 +5,16 @@ using System.Collections.Generic;
 using System.Collections;
 using TKGame.Components.Interface;
 using TKGame.Content.Weapons;
+using TKGame.PowerUps;
+using TKGame.Status_Effects;
+using TKGame.BackEnd;
 
 namespace TKGame
 {
     public abstract class Entity : ICollideComponent
     {
+        public Dictionary<ComponentType, IComponent> components;
+
         internal Texture2D entityTexture;
 
         // Move to a Transform class later instead of having it only in the Entity class
@@ -33,10 +38,21 @@ namespace TKGame
         }
         public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }
         public float MOVEMENT_SPEED { get; internal set; }
+
+        public ComponentType Type => throw new System.NotImplementedException();
         #endregion Properties
 
 
         public abstract void Update(GameTime gameTime);
+
+        public void AddComponent(IComponent component)
+        {
+            components.Add(component.Type, component);
+        }
+        public bool RemoveComponent(IComponent component)
+        {
+            return components.Remove(component.Type, out component);
+        }
 
         /// <summary>
         /// Uses the Entity's hitbox and iterates through each hitbox passed to it and adjusts the Entity's position
@@ -105,7 +121,16 @@ namespace TKGame
         /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(entityTexture, Position, null, color, 0, Size / 2f, 1f, Orientation, 0);
+            Texture2D finalTexture = entityTexture;
+            if (this.components.ContainsKey(ComponentType.StatusEffect))
+            {
+                var statusEffect = (C_Burning_Status)this.components[ComponentType.StatusEffect];
+                if (statusEffect != null)
+                {
+                    finalTexture = Art.CombineTextures(this.entityTexture, Art.BurningTexture);
+                }
+            }
+            spriteBatch.Draw(finalTexture, Position, null, color, 0, Size / 2f, 1f, Orientation, 0);
         }
     }
 }

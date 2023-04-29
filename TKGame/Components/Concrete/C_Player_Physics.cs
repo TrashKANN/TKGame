@@ -10,6 +10,7 @@ namespace TKGame.Components.Concrete
 {
     internal class C_Player_Physics : IPhysicsComponent
     {
+        ComponentType IComponent.Type => ComponentType.Physics;
         private static readonly float GRAVITY = 1.0f;
         void IPhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
         {

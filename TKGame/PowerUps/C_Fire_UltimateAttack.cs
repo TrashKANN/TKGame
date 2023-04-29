@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.Components.Interface;
 
 namespace TKGame.PowerUps
 {
     class C_Fire_UltimateAttack : IUltimateAttackComponent
     {
+        ComponentType IComponent.Type => ComponentType.AttackUltimate;
         public string NameID { get; private set; }
         public Rectangle HitBox { get; set; }
-
         public AttackType AttackType { get; }
         public bool isAttacking { get; private set; }
 
@@ -24,7 +25,8 @@ namespace TKGame.PowerUps
         {
             throw new NotImplementedException();
         }
-        public void OnHit(Entity target)
+
+        public void OnHit(Entity source, Entity target)
         {
             throw new NotImplementedException();
         }

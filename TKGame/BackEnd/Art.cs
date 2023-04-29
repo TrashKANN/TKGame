@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace TKGame.BackEnd
 {
@@ -22,6 +23,7 @@ namespace TKGame.BackEnd
         public static Texture2D TransitionTexture { get; private set; }
         public static Texture2D WeaponTexture { get; private set; }
         public static Texture2D LoadTexture { get; private set; }
+        public static Texture2D BurningTexture { get; private set; }
 
         /// <summary>
         /// Loads the Player Texture from Art/Player on the Player's texture.
@@ -39,6 +41,66 @@ namespace TKGame.BackEnd
             LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
             GoblinEnemyTexture = content.Load<Texture2D>(@"Art/GoblinLeftFacing"); // goblin enemy
             TransitionTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
+            BurningTexture = content.Load<Texture2D>(@"Art/BurningSprite");
         }
+
+        public static Texture2D CombineTextures(Texture2D texture1, Texture2D texture2)
+        {
+            int width = Math.Max(texture1.Width, texture2.Width);
+            int height = Math.Max(texture1.Height, texture2.Height);
+
+            float scaleX = (float)width / texture2.Width;
+            float scaleY = (float)height / texture2.Height;
+            float scale = Math.Min(scaleX, scaleY);
+
+            int scaledWidth = (int)(texture2.Width * scale);
+            int scaledHeight = (int)(texture2.Height * scale);
+
+            Color[] pixels1 = new Color[texture1.Width * texture1.Height];
+            texture1.GetData(pixels1);
+
+            Color[] pixels2 = new Color[texture2.Width * texture2.Height];
+            texture2.GetData(pixels2);
+
+            Texture2D scaledTexture2 = new Texture2D(texture2.GraphicsDevice, scaledWidth, scaledHeight);
+            Color[] scaledPixels2 = new Color[scaledWidth * scaledHeight];
+
+            for (int y = 0; y < scaledHeight; y++)
+            {
+                for (int x = 0; x < scaledWidth; x++)
+                {
+                    int index = y * scaledWidth + x;
+
+                    int originalX = (int)(x / scale);
+                    int originalY = (int)(y / scale);
+                    int originalIndex = originalY * texture2.Width + originalX;
+
+                    scaledPixels2[index] = (originalX < texture2.Width && originalY < texture2.Height) ? pixels2[originalIndex] : Color.Transparent;
+                }
+            }
+
+            scaledTexture2.SetData(scaledPixels2);
+
+            Color[] resultPixels = new Color[width * height];
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    int index = y * width + x;
+
+                    Color color1 = (x < texture1.Width && y < texture1.Height) ? pixels1[y * texture1.Width + x] : Color.Transparent;
+                    Color color2 = (x < scaledWidth && y < scaledHeight) ? scaledPixels2[y * scaledWidth + x] : Color.Transparent;
+
+                    resultPixels[index] = Color.Lerp(color1, color2, color2.A / 255f);
+                }
+            }
+
+            Texture2D resultTexture = new Texture2D(texture1.GraphicsDevice, width, height);
+            resultTexture.SetData(resultPixels);
+
+            return resultTexture;
+        }
+
     }
 }

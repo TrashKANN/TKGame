@@ -1,11 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 using TKGame.BackEnd;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
 using TKGame.Content.Weapons;
 using TKGame.PowerUps;
+using TKGame.Status_Effects;
 
 namespace TKGame
 {
@@ -38,7 +40,13 @@ namespace TKGame
                             instance = new Player(new C_Player_Input(),
                                                   new C_Player_Physics(),
                                                   new C_Player_Graphics(),
-                                                  new Dictionary<AttackType, IAttackComponent>());
+                                                  new Dictionary<AttackType, IAttackComponent>()
+                                                  {
+                                                      { AttackType.Primary, null },
+                                                      { AttackType.Special, null },
+                                                      { AttackType.Ultimate, null },
+                                                      { AttackType.Movement, null},
+                                                  });
                     }
 
                 return instance;
@@ -48,19 +56,26 @@ namespace TKGame
         /// <summary>
         /// Player components.
         /// </summary>
-        private Player(IInputComponent input_, IPhysicsComponent physics_, IGraphicsComponent graphics_,
-                       Dictionary<AttackType, IAttackComponent> atks)
+        private Player( IInputComponent input_, 
+                        IPhysicsComponent physics_, 
+                        IGraphicsComponent graphics_,
+                        Dictionary<AttackType, IAttackComponent> atks)
         {
+            components = new Dictionary<ComponentType, IComponent>
+            {
+                { ComponentType.Input, input_ },
+                { ComponentType.Physics, physics_ },
+                { ComponentType.Graphics, graphics_ },
+                { ComponentType.AttackPrimary, atks[AttackType.Primary] },
+                { ComponentType.AttackSpecial, atks[AttackType.Special] },
+                { ComponentType.AttackUltimate, atks[AttackType.Ultimate] },
+                { ComponentType.AttackMovement, atks[AttackType.Movement] },
+            };
+            
             input = input_;
             physics = physics_;
             graphics = graphics_;
-            attacks = new Dictionary<AttackType, IAttackComponent>();
-            // using a loop for safety in case the order of the list changes
-            for (int i = 0; i < atks.Count; i++)
-            {
-                attacks.Add(atks[(AttackType)i].AttackType, atks[(AttackType)i]);
-            }
-
+            attacks = atks;
             weapon = new Sword();
             weapon.Activate();
 
@@ -73,20 +88,37 @@ namespace TKGame
             HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
         }
 
+        public List<IAttackComponent> GetAttackComponents()
+        {
+            return new List<IAttackComponent>()
+            {
+                (IAttackComponent)components[ComponentType.AttackPrimary],
+                (IAttackComponent)components[ComponentType.AttackSpecial],
+                (IAttackComponent)components[ComponentType.AttackUltimate],
+                (IAttackComponent)components[ComponentType.AttackMovement]
+            };
+        }
 
         public void PickUpItem(IAttackComponent item)
         {
-            if (item.AttackType == AttackType.Primary)
+            switch (item.AttackType)
             {
-                attacks[AttackType.Primary] = (IPrimaryAttackComponent)item;
-            }
-            else if (item.AttackType == AttackType.Special)
-            {
-                attacks[AttackType.Special] = (ISpecialAttackComponent)item;
-            }
-            else if (item.AttackType == AttackType.Ultimate)
-            {
-                attacks[AttackType.Ultimate] = (IUltimateAttackComponent)item;
+                case AttackType.Primary:
+                    components[ComponentType.AttackPrimary] = item; //(IPrimaryAttackComponent)item;
+                    attacks[AttackType.Primary] = item;
+                    break;
+                case AttackType.Special:
+                    components[ComponentType.AttackSpecial] = item; //(ISpecialAttackComponent)item;
+                    attacks[AttackType.Special] = item;
+                    break;
+                case AttackType.Ultimate:
+                    components[ComponentType.AttackUltimate] = item; //(IUltimateAttackComponent)item;
+                    attacks[AttackType.Ultimate] = item;
+                    break;
+                case AttackType.Movement:
+                    components[ComponentType.AttackMovement] = item; //(IMovementAttackComponent)item;
+                    attacks[AttackType.Movement] = item;
+                    break;
             }
         }
         
@@ -99,13 +131,16 @@ namespace TKGame
         {
             input.Update(this);
             physics.Update(this, gameTime/*, world*/);
-            graphics.Update(this);
             weapon.Update(this);
 
             foreach (IAttackComponent atk in attacks.Values)
             {
-                atk.Update(this);
+                if (atk != null)
+                {
+                    atk.Update(this);
+                }
             }
+            //components[ComponentType.AttackSpecial]
 
             graphics.Update(this);
         }
@@ -117,11 +152,6 @@ namespace TKGame
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-        }
-
-        public Rectangle GetHitBox()
-        {
-            return HitBox;
         }
     }
 }

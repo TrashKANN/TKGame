@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TKGame.Components.Interface
 {
-    public interface IPhysicsComponent
+    public interface IPhysicsComponent : IComponent
     {
         public void PhysicsComponent() { }
         public void Update(Entity entity, GameTime gameTime);
