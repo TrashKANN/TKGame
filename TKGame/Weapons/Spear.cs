@@ -26,6 +26,7 @@ namespace TKGame.Weapons
         /// </summary>
         public Spear()
         {
+            damageStat = 5; //Same Damage Better Range
             weaponGraphics = new Weapon_GraphicsComponent();
             weaponTexture = Art.PlayerSpearTexture;
             position = new Vector2(815, 730);

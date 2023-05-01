@@ -24,6 +24,7 @@ namespace TKGame.Weapons
         /// </summary>
         public Axe()
         {
+            damageStat = 10; //Same Speed and Range Better Damage
             weaponsComponent= new Weapon_GraphicsComponent();
             weaponTexture = Art.PlayerAxeTexture;
             position = new Vector2(815, 730);
