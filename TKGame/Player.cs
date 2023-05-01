@@ -20,11 +20,9 @@ namespace TKGame
         internal bool isJumping = false;
         // crouching initially set to false
         public bool isCrouched = false; 
-        // player sprite spawns facing right
-        public bool faceRight;
-        public bool faceLeft;
         public bool IsOnGround { get; set; }
         public bool CollidedVertically { get; set; }
+        public bool CollidedHorizontally { get; set; }
         public int FramesSinceJump { get; set; }
 
         public static Player Instance
@@ -61,6 +59,7 @@ namespace TKGame
             MOVEMENT_SPEED = 500f;
             IsOnGround = false;
             CollidedVertically = false;
+            CollidedHorizontally = false;
             FramesSinceJump = 0;
             entityTexture = Art.PlayerTexture;
             // Figure out how to not hard code for now

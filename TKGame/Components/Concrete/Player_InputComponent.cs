@@ -13,7 +13,7 @@ namespace TKGame.Components.Concrete
 {
     public class Player_InputComponent : InputComponent
     {
-        private const int JUMP_FORCE = -1100;
+        private const int JUMP_FORCE = -800;
 
         void InputComponent.Update(Entity entity)
         {

@@ -25,6 +25,10 @@ namespace TKGame.Components.Concrete
                 player.Velocity.Y = 0;
                 player.CollidedVertically = false;
             } 
+            if(player.CollidedHorizontally)
+            {
+                // TODO
+            }
             else
             {
                 player.Velocity.Y += GRAVITY * deltaTime;
