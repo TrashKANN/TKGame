@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using TKGame.BackEnd;
+using TKGame.Players;
 
 namespace TKGame.UI
 {

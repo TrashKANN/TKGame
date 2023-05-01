@@ -9,9 +9,18 @@ using TKGame.PowerUps;
 using TKGame.Status_Effects;
 using TKGame.BackEnd;
 using System.Linq;
+using System;
 
 namespace TKGame
 {
+    public enum EntityType
+    { 
+        Player,
+        Enemy,
+        Projectile,
+        Item,
+        PowerUp,
+    }
     public abstract class Entity : ICollideComponent
     {
         public Dictionary<ComponentType, IComponent> components;
@@ -26,6 +35,7 @@ namespace TKGame
         public Color color = Color.White;
         public bool IsExpired;
         public string entityName; // to identify each entity by name
+        public EntityType entityType;
 
         public Weapon weapon;
 
@@ -40,7 +50,7 @@ namespace TKGame
         public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }
         public float MOVEMENT_SPEED { get; internal set; }
 
-        public ComponentType Type => throw new System.NotImplementedException();
+        public ComponentType Type => throw new NotImplementedException();
         #endregion Properties
 
 
@@ -132,6 +142,10 @@ namespace TKGame
         private Texture2D UpdateTexture()
         {
             Texture2D finalTexture = entityTexture;
+
+            // Just don't update the texture if it's an item, powerup, or projectile
+            if (this.entityType == EntityType.Item || this.entityType == EntityType.PowerUp || this.entityType == EntityType.Projectile)
+                return finalTexture;
 
             // Get the status effect components
             var statusEffectComponents = this.components.Values.OfType<IStatusComponent>();

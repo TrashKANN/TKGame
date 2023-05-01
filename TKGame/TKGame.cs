@@ -14,12 +14,14 @@ using Microsoft.Xna.Framework.Media;
 using Myra;
 using Myra.Graphics2D.UI;
 using TKGame.BackEnd;
-using TKGame.Components.Concrete;
+using TKGame.Players;
 using TKGame.Components.Interface;
 using TKGame.Level_Editor_Content;
-using TKGame.PowerUps;
 using TKGame.UI;
 using TKGame.Weapons;
+using TKGame.World.Components;
+using TKGame.Enemies;
+using TKGame.Items;
 
 namespace TKGame
 {
@@ -44,7 +46,7 @@ namespace TKGame
         public static SpriteBatch SpriteBatch { get { return spriteBatch; } private set { spriteBatch = value; } }
 
         public Desktop desktop;
-        
+
 
         // TODO: Refactor out of the main TKGame class
         public static bool paused;
@@ -97,8 +99,8 @@ namespace TKGame
             // Add and Load Default Level
             levelComponent.AddLevel(new Level(new Dictionary<string, Stage>
             {
-                { "room0", new Stage("room0") }, 
-                { "room1", new Stage("room1") }, 
+                { "room0", new Stage("room0") },
+                { "room1", new Stage("room1") },
                 { "room2", new Stage("room2") }
             }
             ));
@@ -128,9 +130,9 @@ namespace TKGame
             //Do if not paused
             if (!paused)
             {
-                TKGame.levelComponent.Update();
+                levelComponent.Update();
             }
-            
+
 
             // Switch menus or exit game depending on current menu when Escape is pressed
             if (Input.WasKeyPressed(Keys.Escape))
@@ -177,7 +179,7 @@ namespace TKGame
 
             // Updates Weapon System
             WeaponSystem.Update();
-            
+
 
             // Update all menus
             MenuHandler.UpdateMenus();
@@ -211,9 +213,9 @@ namespace TKGame
                 foreach (Wall wall in levelComponent.GetCurrentStage().StageWalls)
                 {
                     spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
-                    if (GameDebug.DebugMode) 
-                    { 
-                        GameDebug.DrawBoundingBox(wall.HitBox, Color.Lime, 5, TKGame.SpriteBatch); 
+                    if (GameDebug.DebugMode)
+                    {
+                        GameDebug.DrawBoundingBox(wall.HitBox, Color.Lime, 5, SpriteBatch);
                     }
                 }
 

@@ -19,6 +19,7 @@ namespace TKGame.Components.Interface
         StatusEffect,
         Editor,
         Level,
+        Item,
     }
     public interface IComponent
     {

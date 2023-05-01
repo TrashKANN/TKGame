@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TKGame.Level_Editor_Content;
+using TKGame.World;
 
 namespace TKGame.UI
 {
@@ -80,7 +81,7 @@ namespace TKGame.UI
 
             exitButton.TouchDown += (sender, eventArgs) =>
             {
-                TKGame.Instance.ExitGame();
+                TKGame.Instance.Exit();
             };
 
             mainMenuGrid.Widgets.Add(playButton);

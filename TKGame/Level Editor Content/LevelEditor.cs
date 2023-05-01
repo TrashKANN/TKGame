@@ -17,7 +17,8 @@ using TKGame.BackEnd;
 using System.Diagnostics;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-
+using TKGame.Players;
+using TKGame.Enemies;
 
 namespace TKGame.Level_Editor_Content
 {
