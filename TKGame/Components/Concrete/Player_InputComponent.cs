@@ -50,7 +50,6 @@ namespace TKGame.Components.Concrete
             }
 
             player.FramesSinceJump = player.IsOnGround ? 0 : player.FramesSinceJump + 1;
-            Debug.WriteLine(player.FramesSinceJump);
         }
     }
 }
