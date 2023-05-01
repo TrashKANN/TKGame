@@ -25,14 +25,14 @@ namespace TKGame.Components.Concrete
             {
                 Vector2 playerPosition = player.Position;
 
-                if (entity.Position.X > playerPosition.X)
-                {
-                    entity.Position.X -= entity.Velocity.X;
-                }
-                if (entity.Position.X < playerPosition.X)
-                {
-                    entity.Position.X += entity.Velocity.X;
-                }
+                //if (entity.Position.X > playerPosition.X)
+                //{
+                //    entity.Position.X -= entity.Velocity.X;
+                //}
+                //if (entity.Position.X < playerPosition.X)
+                //{
+                //    entity.Position.X += entity.Velocity.X;
+                //}
                 //if (entity.Position.Y > playerPosition.Y)
                 //{
                 //    entity.Position.Y -= entity.Velocity.Y;

@@ -25,14 +25,15 @@ namespace TKGame.Components.Concrete
             {
                 entity.Orientation = SpriteEffects.FlipHorizontally;
             }
+
             if (player.isCrouched)
             {
-                player.entityTexture = Art.PlayerLeftCrouch;
+                player.entityTexture = Art.PlayerRightCrouch;
+                player.Position.Y += 3;
             }
             else
-            {
                 player.entityTexture = Art.PlayerTexture;
-            }
+
             // Moved this entirely out of Entity and into this component.
             //TKGame.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             //TKGame.SpriteBatch.Draw(entity.entityTexture,

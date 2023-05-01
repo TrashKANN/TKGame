@@ -35,13 +35,9 @@ namespace TKGame.Components.Concrete
 
             // update crouched bool based on key input
             if (Input.KeyboardState.IsKeyDown(Keys.S))
-            {
                 player.isCrouched = true;
-            }
             else
-            {
                 player.isCrouched = false;
-            }
 
             if (Input.WasKeyPressed(Keys.Space) && player.IsOnGround)
             {

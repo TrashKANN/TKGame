@@ -18,7 +18,11 @@ namespace TKGame
         #endregion Components
 
         internal bool isJumping = false;
-        public bool isCrouched = false; // crouching initially set to false
+        // crouching initially set to false
+        public bool isCrouched = false; 
+        // player sprite spawns facing right
+        public bool faceRight;
+        public bool faceLeft;
         public bool IsOnGround { get; set; }
         public bool CollidedVertically { get; set; }
         public int FramesSinceJump { get; set; }
