@@ -17,7 +17,7 @@ using TKGame.Components.Interface;
 namespace TKGame
 {
     public abstract class Enemy : Entity
-    {
+    { 
         protected Texture2D enemyTexture;
         public Vector2 position, velocity;
         public SpriteEffects orientation;
