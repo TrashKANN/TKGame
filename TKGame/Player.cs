@@ -47,6 +47,7 @@ namespace TKGame
             physics = physics_;
             graphics = graphics_;
 
+            health = 100; //Sets player health
             weapon = new Sword();
             weapon.Activate();
 

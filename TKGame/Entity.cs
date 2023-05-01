@@ -22,6 +22,7 @@ namespace TKGame
         public string entityName; // to identify each entity by name
 
         public Weapon weapon;
+        public int health;
 
         #region Properties
         public Vector2 Size
