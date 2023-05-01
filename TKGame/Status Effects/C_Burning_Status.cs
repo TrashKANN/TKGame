@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +55,11 @@ namespace TKGame.Status_Effects
 
                 TimeSinceLastTick = 0f;
             }
+        }
+
+        public Texture2D GetEffectTexture()
+        {
+            return Art.BurningTexture;
         }
     }
 }

@@ -40,9 +40,12 @@ namespace TKGame
         public override void Update(GameTime gameTime)
         {
             goblinEnemyPhysics.Update(this, gameTime/*, world*/);
-            foreach (IComponent component in components.Values)
+
+            // Update status effects that can update
+            var statusEffects = this.components.Values.OfType<IStatusComponent>();
+            foreach (IStatusComponent statusEffect in statusEffects)
             {
-                ((C_Burning_Status)component).Update(gameTime, this);
+                statusEffect.Update(gameTime, this);
             }
         }
 

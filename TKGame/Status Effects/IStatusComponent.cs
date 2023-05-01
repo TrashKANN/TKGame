@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace TKGame.Status_Effects
         Frozen,
         Shocked,
     }
-    public interface IStatusComponent : IComponent
+    public interface IStatusComponent : IComponent, IUpdatableComponent
     {
         StatusType StatusType { get; }
         float Duration { get; }
@@ -24,6 +25,8 @@ namespace TKGame.Status_Effects
         Entity SourceEntity { get; }
         float ElapsedTime { get; set; }
         float TimeSinceLastTick { get; set; }
+
+        Texture2D GetEffectTexture();
         void Initialize(float duration, float tickInterval, float damagePerTick, Entity sourceEntity);
     }
 }

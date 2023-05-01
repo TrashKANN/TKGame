@@ -8,6 +8,7 @@ using TKGame.Content.Weapons;
 using TKGame.PowerUps;
 using TKGame.Status_Effects;
 using TKGame.BackEnd;
+using System.Linq;
 
 namespace TKGame
 {
@@ -121,16 +122,30 @@ namespace TKGame
         /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(UpdateTexture(), Position, null, color, 0, Size / 2f, 1f, Orientation, 0);
+        }
+
+        /// <summary>
+        /// Updates the entity's texture to include any status effects that are currently active.
+        /// </summary>
+        /// <returns></returns>
+        private Texture2D UpdateTexture()
+        {
             Texture2D finalTexture = entityTexture;
-            if (this.components.ContainsKey(ComponentType.StatusEffect))
+
+            // Get the status effect components
+            var statusEffectComponents = this.components.Values.OfType<IStatusComponent>();
+
+            foreach (var statusEffect in statusEffectComponents)
             {
-                var statusEffect = (C_Burning_Status)this.components[ComponentType.StatusEffect];
                 if (statusEffect != null)
                 {
-                    finalTexture = Art.CombineTextures(this.entityTexture, Art.BurningTexture);
+                    // Use a generic method to get the status effect texture
+                    finalTexture = Art.CombineTextures(finalTexture, statusEffect.GetEffectTexture());
                 }
             }
-            spriteBatch.Draw(finalTexture, Position, null, color, 0, Size / 2f, 1f, Orientation, 0);
+
+            return finalTexture;
         }
     }
 }
