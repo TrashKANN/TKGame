@@ -12,6 +12,7 @@ namespace TKGame.Status_Effects
     public enum StatusType
     {
         Burning,
+        Scorched,
         Chilled,
         Frozen,
         Shocked,
@@ -27,6 +28,6 @@ namespace TKGame.Status_Effects
         float TimeSinceLastTick { get; set; }
 
         Texture2D GetEffectTexture();
-        void Initialize(float duration, float tickInterval, float damagePerTick, Entity sourceEntity);
+        //void Initialize(float duration, float tickInterval, float damagePerTick, Entity sourceEntity);
     }
 }

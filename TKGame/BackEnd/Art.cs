@@ -23,8 +23,14 @@ namespace TKGame.BackEnd
         public static Texture2D TransitionTexture { get; private set; }
         public static Texture2D WeaponTexture { get; private set; }
         public static Texture2D LoadTexture { get; private set; }
-        public static Texture2D BurningTexture { get; private set; }
 
+        #region Status Effects
+        public static Texture2D BurningTexture { get; private set; }
+        public static Texture2D ScorchedTexture { get; private set; }
+        public static Texture2D ChilledTexture { get; private set; }
+        public static Texture2D FrozenTexture { get; private set; }
+        public static Texture2D ShockedTexture { get; private set; }
+        #endregion
         /// <summary>
         /// Loads the Player Texture from Art/Player on the Player's texture.
         /// </summary>
@@ -41,7 +47,12 @@ namespace TKGame.BackEnd
             LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
             GoblinEnemyTexture = content.Load<Texture2D>(@"Art/GoblinLeftFacing"); // goblin enemy
             TransitionTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
+
             BurningTexture = content.Load<Texture2D>(@"Art/BurningSprite");
+            ScorchedTexture = content.Load<Texture2D>(@"Art/ScorchedSprite");
+            //ChilledTexture = content.Load<Texture2D>(@"Art/ChilledSprite");
+            //FrozenTexture = content.Load<Texture2D>(@"Art/FrozenSprite");
+            //ShockedTexture = content.Load<Texture2D>(@"Art/ShockedSprite");
         }
 
         public static Texture2D CombineTextures(Texture2D texture1, Texture2D texture2)

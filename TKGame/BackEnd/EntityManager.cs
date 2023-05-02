@@ -27,16 +27,16 @@ namespace TKGame.BackEnd
 
         public static bool HasComponent<T>(Entity entity) where T : IComponent
         {
-            foreach (IComponent component in entity.components.Values)
+            // Flatten the collection of lists into a single collection of components
+            var allComponents = entity.components.Values.SelectMany(x => x);
+
+            // Check if any component is of the desired type
+            if (allComponents.Any(component => component.GetType() == typeof(T)))
             {
-                if (component != null)
-                {
-                    if (component.GetType() == typeof(T))
-                    {
-                        return true;
-                    }
-                }
+                return true;
             }
+
+            // Check if the entity itself is of the desired type
             if (entity.GetType() == typeof(T))
             {
                 return true;

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.Components.Interface;
 
-namespace TKGame.PowerUps.Components
+namespace TKGame.PowerUps.Components.FirePowerUps
 {
     class C_Fire_PrimaryAttack : IPrimaryAttackComponent
     {

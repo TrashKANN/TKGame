@@ -15,9 +15,6 @@ namespace TKGame.Enemies
 {
     public class GoblinEnemy : Enemy
     {
-        private IPhysicsComponent goblinEnemyPhysics = new C_Goblin_Physics();
-        private IGraphicsComponent goblinEnemyGraphics = new C_Enemy_Graphics();
-
         /// <summary>
         /// goblin enemy components
         /// </summary>
@@ -28,9 +25,10 @@ namespace TKGame.Enemies
             Position = new Vector2(200, 800); // hard coded spawn position at the moment
             velocity = new Vector2((float)1.5, 1);
             HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
-            components = new Dictionary<ComponentType, IComponent>
+            components = new Dictionary<ComponentType, List<IComponent>>
             {
-
+                { ComponentType.Physics, new List<IComponent> { new C_Goblin_Physics() } },
+                { ComponentType.Graphics, new List<IComponent> { new C_Enemy_Graphics() } }
             };
         }
 
@@ -41,16 +39,18 @@ namespace TKGame.Enemies
         /// <param name="spriteBatch"></param>
         public override void Update(GameTime gameTime)
         {
-            goblinEnemyPhysics.Update(this, gameTime);
+            //goblinEnemyPhysics.Update(this, gameTime);
+            components[ComponentType.Physics].OfType<IPhysicsComponent>().First().Update(this, gameTime);
+
 
             // Update status effects that can update
-            var statusEffects = this.components.Values.OfType<IStatusComponent>();
+            var statusEffects = this.GetStatusEffects();
             foreach (IStatusComponent statusEffect in statusEffects)
             {
                 statusEffect.Update(gameTime, this);
             }
 
-            goblinEnemyGraphics.Update(this);
+            components[ComponentType.Graphics].OfType<IGraphicsComponent>().First().Update(this);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

@@ -10,10 +10,11 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Status_Effects
 {
-    public class C_Burning_Status : IStatusComponent
+        // TODO: make this increase fire damage taken
+    public class C_Scorched_Status : IStatusComponent
     {
-        public ComponentType Type => ComponentType.Burning;
-        public StatusType StatusType => StatusType.Burning;
+        public ComponentType Type => ComponentType.Scorched;
+        public StatusType StatusType => StatusType.Scorched;
         public float Duration { get; set; }
         public float TickInterval { get; set; }
         public float DamagePerTick { get; set; }
@@ -22,7 +23,7 @@ namespace TKGame.Status_Effects
         public float TimeSinceLastTick { get; set; }
 
 
-        public C_Burning_Status(float duration, float tickInterval, float damagePerTick, Entity sourceEntity)
+        public C_Scorched_Status(float duration, float tickInterval, float damagePerTick, Entity sourceEntity)
         {
             Duration = duration;
             TickInterval = tickInterval;
@@ -55,7 +56,7 @@ namespace TKGame.Status_Effects
 
         public Texture2D GetEffectTexture()
         {
-            return Art.BurningTexture;
+            return Art.ScorchedTexture;
         }
     }
 }

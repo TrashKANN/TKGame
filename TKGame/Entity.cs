@@ -23,7 +23,8 @@ namespace TKGame
     }
     public abstract class Entity : ICollideComponent
     {
-        public Dictionary<ComponentType, IComponent> components;
+        // dict[ComponentType] = List<IComponent> for multiple components of the same type (Stacking Burning effects, etc.)
+        public Dictionary<ComponentType, List<IComponent>> components;
 
         internal Texture2D entityTexture;
 
@@ -56,13 +57,35 @@ namespace TKGame
 
         public abstract void Update(GameTime gameTime);
 
+        /// <summary>
+        /// Adds the component to the Entity's list of components. If there exists an instance of the added component's type,
+        /// then add it to the list of components of that type. Otherwise, create a new list of components of that type and add it.
+        /// </summary>
+        /// <param name="component"></param>
         public void AddComponent(IComponent component)
         {
-            components.Add(component.Type, component);
+            if (components.ContainsKey(component.Type))
+            {
+                components[component.Type].Add(component);
+            }
+            else
+            {
+                components.Add(component.Type, new List<IComponent> { component });
+            }
         }
+
         public bool RemoveComponent(IComponent component)
         {
-            return components.Remove(component.Type, out component);
+            if (components.ContainsKey(component.Type))
+            {
+                return components[component.Type].Remove(component);
+            }
+            return false;
+        }
+
+        public List<IStatusComponent> GetStatusEffects()
+        {
+            return components.Values.SelectMany(x => x).OfType<IStatusComponent>().ToList();
         }
 
         /// <summary>
@@ -135,28 +158,49 @@ namespace TKGame
             spriteBatch.Draw(UpdateTexture(), Position, null, color, 0, Size / 2f, 1f, Orientation, 0);
         }
 
+        // Texture Cache to store the final texture of the entity with all the status effects applied to it.
+        // Used to reduce the number of times the entity's texture is updated instead of exchanged.
+        private Dictionary<HashSet<Texture2D>, Texture2D> textureCache = new Dictionary<HashSet<Texture2D>, Texture2D>();
+
         /// <summary>
-        /// Updates the entity's texture to include any status effects that are currently active.
+        /// Updates the texture of the entity.
+        /// Stores unique textures in a HashSet and checks if the HashSet already exists in the textureCache.
+        /// If it does not, Combine the textures of the entity with each new unique status effect texture and store it in the textureCache.
         /// </summary>
         /// <returns></returns>
         private Texture2D UpdateTexture()
         {
             Texture2D finalTexture = entityTexture;
 
-            // Just don't update the texture if it's an item, powerup, or projectile
-            if (this.entityType == EntityType.Item || this.entityType == EntityType.PowerUp || this.entityType == EntityType.Projectile)
+            if (this.entityType == EntityType.Item ||
+                this.entityType == EntityType.PowerUp ||
+                this.entityType == EntityType.Projectile)
+            {
                 return finalTexture;
+            }
 
-            // Get the status effect components
-            var statusEffectComponents = this.components.Values.OfType<IStatusComponent>();
+            var statusEffectComponents = this.components.Values.SelectMany(x => x).OfType<IStatusComponent>();
+            HashSet<Texture2D> uniqueTextures = new HashSet<Texture2D>();
 
             foreach (var statusEffect in statusEffectComponents)
             {
                 if (statusEffect != null)
                 {
-                    // Use a generic method to get the status effect texture
-                    finalTexture = Art.CombineTextures(finalTexture, statusEffect.GetEffectTexture());
+                    uniqueTextures.Add(statusEffect.GetEffectTexture());
                 }
+            }
+
+            if (textureCache.ContainsKey(uniqueTextures))
+            {
+                finalTexture = textureCache[uniqueTextures];
+            }
+            else
+            {
+                foreach (var texture in uniqueTextures)
+                {
+                    finalTexture = Art.CombineTextures(finalTexture, texture);
+                }
+                textureCache[uniqueTextures] = finalTexture;
             }
 
             return finalTexture;

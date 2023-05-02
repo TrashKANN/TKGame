@@ -12,24 +12,26 @@ using Microsoft.Xna.Framework.Graphics;
 using TKGame.Status_Effects;
 using TKGame.Players;
 
-namespace TKGame.PowerUps.Components
+namespace TKGame.PowerUps.Components.FirePowerUps
 {
     class C_Fire_SpecialAttack : ISpecialAttackComponent
     {
+        #region Constants
+        private readonly float BURNING_DURATION = 8f;
+        private readonly float BURNING_TICK_INTERVAL = 0.5f;
+        private readonly float BURNING_DAMAGE_PER_TICK = 1.5f;
+        #endregion Constants
         ComponentType IComponent.Type => ComponentType.AttackSpecial;
         public string NameID { get; private set; }
         public Rectangle HitBox { get; set; }
         public AttackType AttackType { get; }
         public bool isAttacking { get; private set; }
 
-        private SpriteBatch atkSpriteBatch;
-
         public C_Fire_SpecialAttack()
         {
             NameID = "FireSpecialAttack";
             AttackType = AttackType.Special;
-            HitBox = new Rectangle(new Point(Players.Player.Instance.HitBox.X - 150, Players.Player.Instance.HitBox.Y), new Point(150, 150));
-            atkSpriteBatch = new SpriteBatch(TKGame.Graphics.GraphicsDevice);
+            HitBox = new Rectangle(new Point(Player.Instance.HitBox.X - 150, Player.Instance.HitBox.Y), new Point(150, 150));
         }
         public void Update(Entity entity)
         {
@@ -48,7 +50,7 @@ namespace TKGame.PowerUps.Components
 
                 foreach (Entity e in entities)
                 {
-                    if (e != entity && HitBox.Intersects(e.HitBox) && !EntityManager.HasComponent<C_Burning_Status>(e))
+                    if (e != entity && HitBox.Intersects(e.HitBox))
                     {
                         OnHit(entity, e);
                     }
@@ -61,19 +63,19 @@ namespace TKGame.PowerUps.Components
         }
         public void OnHit(Entity source, Entity target)
         {
-            target.AddComponent(new C_Burning_Status(8, 1f, 0.2f, Players.Player.Instance));
+            target.AddComponent(new C_Burning_Status(BURNING_DURATION, BURNING_TICK_INTERVAL, BURNING_DAMAGE_PER_TICK, source));
         }
 
         private void ConfigureHitBox()
         {
             // offsets the hitbox adjacent to the player's hitbox based on the direction the player is facing
-            int offset = Players.Player.Instance.HitBox.Center.X - Players.Player.Instance.HitBox.X;
+            int offset = Player.Instance.HitBox.Center.X - Player.Instance.HitBox.X;
 
-            if (Players.Player.Instance.isLookingLeft)
+            if (Player.Instance.isLookingLeft)
             {
                 offset = offset * -1 - HitBox.Width;
             }
-            HitBox = new Rectangle(Players.Player.Instance.HitBox.Center.X + offset, Players.Player.Instance.HitBox.Y, HitBox.Width, HitBox.Height);
+            HitBox = new Rectangle(Player.Instance.HitBox.Center.X + offset, Player.Instance.HitBox.Y, HitBox.Width, HitBox.Height);
         }
     }
 }

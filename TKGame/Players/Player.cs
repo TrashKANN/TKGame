@@ -16,11 +16,6 @@ namespace TKGame.Players
         private static Player instance;
         private static object syncRoot = new object();
         #region Components
-        IInputComponent input;
-        IPhysicsComponent physics;
-        IGraphicsComponent graphics;
-
-        public Dictionary<AttackType, IAttackComponent> attacks;
 
         #endregion Components
 
@@ -39,14 +34,7 @@ namespace TKGame.Players
                         if (instance == null)
                             instance = new Player(new C_Player_Input(),
                                                   new C_Player_Physics(),
-                                                  new C_Player_Graphics(),
-                                                  new Dictionary<AttackType, IAttackComponent>()
-                                                  {
-                                                      { AttackType.Primary, null },
-                                                      { AttackType.Special, null },
-                                                      { AttackType.Ultimate, null },
-                                                      { AttackType.Movement, null},
-                                                  });
+                                                  new C_Player_Graphics());
                     }
 
                 return instance;
@@ -58,24 +46,19 @@ namespace TKGame.Players
         /// </summary>
         private Player(IInputComponent input_,
                         IPhysicsComponent physics_,
-                        IGraphicsComponent graphics_,
-                        Dictionary<AttackType, IAttackComponent> atks)
+                        IGraphicsComponent graphics_)
         {
-            components = new Dictionary<ComponentType, IComponent>
+            components = new Dictionary<ComponentType, List<IComponent>>
             {
-                { ComponentType.Input, input_ },
-                { ComponentType.Physics, physics_ },
-                { ComponentType.Graphics, graphics_ },
-                { ComponentType.AttackPrimary, atks[AttackType.Primary] },
-                { ComponentType.AttackSpecial, atks[AttackType.Special] },
-                { ComponentType.AttackUltimate, atks[AttackType.Ultimate] },
-                { ComponentType.AttackMovement, atks[AttackType.Movement] },
+                { ComponentType.Input,          new List<IComponent> { input_ } },
+                { ComponentType.Physics,        new List<IComponent> { physics_ } },
+                { ComponentType.Graphics,       new List<IComponent> { graphics_ } },
+                { ComponentType.AttackPrimary,  new List<IComponent>() },
+                { ComponentType.AttackSpecial,  new List<IComponent>() },
+                { ComponentType.AttackUltimate, new List<IComponent>() },
+                { ComponentType.AttackMovement, new List<IComponent>() },
             };
 
-            input = input_;
-            physics = physics_;
-            graphics = graphics_;
-            attacks = atks;
             weapon = new Sword();
             weapon.Activate();
 
@@ -90,34 +73,27 @@ namespace TKGame.Players
 
         public List<IAttackComponent> GetAttackComponents()
         {
-            return new List<IAttackComponent>()
-            {
-                (IAttackComponent)components[ComponentType.AttackPrimary],
-                (IAttackComponent)components[ComponentType.AttackSpecial],
-                (IAttackComponent)components[ComponentType.AttackUltimate],
-                (IAttackComponent)components[ComponentType.AttackMovement]
-            };
+            return components.Values.SelectMany(x => x).OfType<IAttackComponent>().ToList();
         }
 
         public void PickUpPowerUp(IAttackComponent powerup)
         {
+            var temp = GetAttackComponents();
+            if (temp.Any(existingPowerup => existingPowerup.GetType() == powerup.GetType()))
+                return;
             switch (powerup.AttackType)
             {
                 case AttackType.Primary:
-                    components[ComponentType.AttackPrimary] = powerup;
-                    attacks[AttackType.Primary] = powerup;
+                    components[ComponentType.AttackPrimary].Add(powerup);
                     break;
                 case AttackType.Special:
-                    components[ComponentType.AttackSpecial] = powerup;
-                    attacks[AttackType.Special] = powerup;
+                    components[ComponentType.AttackSpecial].Add(powerup);
                     break;
                 case AttackType.Ultimate:
-                    components[ComponentType.AttackUltimate] = powerup;
-                    attacks[AttackType.Ultimate] = powerup;
+                    components[ComponentType.AttackUltimate].Add(powerup);
                     break;
                 case AttackType.Movement:
-                    components[ComponentType.AttackMovement] = powerup;
-                    attacks[AttackType.Movement] = powerup;
+                    components[ComponentType.AttackMovement].Add(powerup);
                     break;
             }
         }
@@ -129,20 +105,20 @@ namespace TKGame.Players
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            input.Update(this);
-            physics.Update(this, gameTime/*, world*/);
+            // This is a bit silly looking but it isn't completely unorthidox
+            // It assumes the type of IComponent which DOES NOT have an Update method, but the IInputComponent, etc... does.
+            components[ComponentType.Input].OfType<IInputComponent>().First().Update(this);
+            components[ComponentType.Physics].OfType<IPhysicsComponent>().First().Update(this, gameTime);
             weapon.Update(this);
 
-            foreach (IAttackComponent atk in attacks.Values)
+            var attacks = GetAttackComponents();
+            foreach (var attack in attacks)
             {
-                if (atk != null)
-                {
-                    atk.Update(this);
-                }
+                if (attack != null)
+                    attack.Update(this);
             }
-            //components[ComponentType.AttackSpecial]
 
-            graphics.Update(this);
+            components[ComponentType.Graphics].OfType<IGraphicsComponent>().First().Update(this);
         }
 
         /// <summary>

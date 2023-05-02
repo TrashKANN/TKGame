@@ -28,7 +28,7 @@ namespace TKGame.Items.Potion
             entityType = EntityType.Item;
             Position = new Vector2(x, 839); // random x-coor spawn
             HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
-            components = new Dictionary<ComponentType, IComponent>
+            components = new Dictionary<ComponentType, List<IComponent>>
             {
 
             };
