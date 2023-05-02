@@ -101,7 +101,7 @@ namespace TKGame
 
             foreach (var hitbox in collidables)
             {
-                if (HitBox.Intersects(hitbox.HitBox))
+                if (HitBox.Intersects(hitbox.HitBox) && this.entityType != EntityType.PowerUp)
                 {
                     // Calculate the depth of the intersection between Player and each Wall
                     Rectangle intersection = Rectangle.Intersect(HitBox, hitbox.HitBox);

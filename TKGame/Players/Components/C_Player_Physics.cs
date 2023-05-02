@@ -8,7 +8,7 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Players.Components
 {
-    internal class C_Player_Physics : IPhysicsComponent
+    internal class C_FireStep_Physics : IPhysicsComponent
     {
         ComponentType IComponent.Type => ComponentType.Physics;
         private static readonly float GRAVITY = 1.0f;

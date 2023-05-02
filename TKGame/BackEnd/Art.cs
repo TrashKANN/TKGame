@@ -27,6 +27,8 @@ namespace TKGame.BackEnd
         #region Status Effects
         public static Texture2D BurningTexture { get; private set; }
         public static Texture2D ScorchedTexture { get; private set; }
+        public static Texture2D SunBurstTexture { get; private set; }
+        public static Texture2D FireBallTexture { get; private set; }
         public static Texture2D ChilledTexture { get; private set; }
         public static Texture2D FrozenTexture { get; private set; }
         public static Texture2D ShockedTexture { get; private set; }
@@ -50,6 +52,8 @@ namespace TKGame.BackEnd
 
             BurningTexture = content.Load<Texture2D>(@"Art/BurningSprite");
             ScorchedTexture = content.Load<Texture2D>(@"Art/ScorchedSprite");
+            SunBurstTexture = content.Load<Texture2D>(@"Art/SunBurstSprite");
+            FireBallTexture = content.Load<Texture2D>(@"Art/FireBallSprite");
             //ChilledTexture = content.Load<Texture2D>(@"Art/ChilledSprite");
             //FrozenTexture = content.Load<Texture2D>(@"Art/FrozenSprite");
             //ShockedTexture = content.Load<Texture2D>(@"Art/ShockedSprite");

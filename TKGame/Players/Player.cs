@@ -33,7 +33,7 @@ namespace TKGame.Players
                     {
                         if (instance == null)
                             instance = new Player(new C_Player_Input(),
-                                                  new C_Player_Physics(),
+                                                  new C_FireStep_Physics(),
                                                   new C_Player_Graphics());
                     }
 

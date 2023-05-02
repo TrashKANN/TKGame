@@ -62,10 +62,10 @@ namespace TKGame.BackEnd
             // just use the other DrawBoundingRectangle() function to actually draw
             Rectangle entityRect = new Rectangle
             {
-                X = (int)(entity.Position.X - entity.Size.X / 2f),
-                Y = (int)(entity.Position.Y - entity.Size.Y / 2f),
-                Width = (int)entity.Size.X,
-                Height = (int)entity.Size.Y
+                X = entity.HitBox.X,
+                Y = entity.HitBox.Y,
+                Width = (int)entity.HitBox.Width,
+                Height = (int)entity.HitBox.Height
             };
             DrawBoundingBox(entityRect, color, lineWidth, TKGame.SpriteBatch);
         }

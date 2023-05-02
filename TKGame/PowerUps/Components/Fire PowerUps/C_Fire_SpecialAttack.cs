@@ -11,6 +11,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
 using TKGame.Status_Effects;
 using TKGame.Players;
+using TKGame.PowerUps.RelatedEntities;
 
 namespace TKGame.PowerUps.Components.FirePowerUps
 {
@@ -24,37 +25,25 @@ namespace TKGame.PowerUps.Components.FirePowerUps
         ComponentType IComponent.Type => ComponentType.AttackSpecial;
         public string NameID { get; private set; }
         public Rectangle HitBox { get; set; }
-        public AttackType AttackType { get; }
+        public AttackType AttackType { get; private set; }
         public bool isAttacking { get; private set; }
 
         public C_Fire_SpecialAttack()
         {
             NameID = "FireSpecialAttack";
             AttackType = AttackType.Special;
-            HitBox = new Rectangle(new Point(Player.Instance.HitBox.X - 150, Player.Instance.HitBox.Y), new Point(150, 150));
+            //HitBox = new Rectangle(new Point(Player.Instance.HitBox.X - 150, Player.Instance.HitBox.Y), new Point(150, 150));
         }
         public void Update(Entity entity)
         {
             // if the player is attacking, the hitbox is updated to follow the player
             // Move this into InputComponent
-            if (Input.MouseState.RightButton == ButtonState.Pressed)
+            if (Input.WasKeyPressed(Keys.E))
             {
                 isAttacking = true;
-                ConfigureHitBox();
 
-                //List<Entity> entities = EntityManager.GetEntities()
-                //    .Where(e => EntityManager.HasComponent<ICollideComponent>(e))
-                //    .ToList();
-
-                List<Entity> entities = EntityManager.GetEntities();
-
-                foreach (Entity e in entities)
-                {
-                    if (e != entity && HitBox.Intersects(e.HitBox))
-                    {
-                        OnHit(entity, e);
-                    }
-                }
+                Entity fireball = new Fireball(0.5f, BURNING_DURATION, BURNING_TICK_INTERVAL, BURNING_DAMAGE_PER_TICK, new C_FireBall_Physics(), new C_FireBall_Graphics()); // Replace with your fire entity instantiation logic
+                EntityManager.Add(fireball);
             }
             else
             {
@@ -64,18 +53,6 @@ namespace TKGame.PowerUps.Components.FirePowerUps
         public void OnHit(Entity source, Entity target)
         {
             target.AddComponent(new C_Burning_Status(BURNING_DURATION, BURNING_TICK_INTERVAL, BURNING_DAMAGE_PER_TICK, source));
-        }
-
-        private void ConfigureHitBox()
-        {
-            // offsets the hitbox adjacent to the player's hitbox based on the direction the player is facing
-            int offset = Player.Instance.HitBox.Center.X - Player.Instance.HitBox.X;
-
-            if (Player.Instance.isLookingLeft)
-            {
-                offset = offset * -1 - HitBox.Width;
-            }
-            HitBox = new Rectangle(Player.Instance.HitBox.Center.X + offset, Player.Instance.HitBox.Y, HitBox.Width, HitBox.Height);
         }
     }
 }

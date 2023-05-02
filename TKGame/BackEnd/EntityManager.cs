@@ -61,12 +61,9 @@ namespace TKGame.BackEnd
         /// Adds entity to the World entity list.
         /// </summary>
         /// <param name="entity"></param>
-        public static void AddEntity(Entity entity)
+        private static void AddEntity(Entity entity)
         {
             entities.Add(entity);
-            // Will be needed for different entity types
-            //if (entity is Enemy)
-            //    enemies.Add(entity as Enemy);
         }
 
         /// <summary>

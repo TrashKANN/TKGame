@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TKGame.BackEnd;
 using TKGame.Components.Interface;
 using TKGame.Players;
+using TKGame.PowerUps.RelatedEntities;
 using TKGame.Status_Effects;
 
 namespace TKGame.PowerUps.Components.FirePowerUps
@@ -28,11 +29,12 @@ namespace TKGame.PowerUps.Components.FirePowerUps
         public bool isAttacking { get; private set; }
 
 
+
         public C_Fire_UltimateAttack()
         {
             NameID = "FireUltimateAttack";
             AttackType = AttackType.Ultimate;
-            HitBox = new Rectangle(0, 0, TKGame.ScreenWidth, TKGame.ScreenHeight);
+            HitBox = new Rectangle(/*0, 0, TKGame.ScreenWidth, TKGame.ScreenHeight*/);
         }
         public void Update(Entity entity)
         {
@@ -42,15 +44,8 @@ namespace TKGame.PowerUps.Components.FirePowerUps
                 isAttacking = true;
                 //ConfigureHitBox();
 
-                List<Entity> entities = EntityManager.GetEntities();
-
-                foreach (Entity e in entities)
-                {
-                    if (e != entity && HitBox.Intersects(e.HitBox))
-                    {
-                        OnHit(entity, e);
-                    }
-                }
+                Entity skullemoji = new SunBurst(0.5f, SCORCHED_DURATION, SCORCHED_TICK_INTERVAL, SCORCHED_DAMAGE_PER_TICK, new C_SunBurst_Physics(), new C_SunBurst_Graphics()); // Replace with your fire entity instantiation logic
+                EntityManager.Add(skullemoji);
             }
             else
             {
