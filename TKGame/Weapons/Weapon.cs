@@ -28,7 +28,16 @@ namespace TKGame.Content.Weapons
         /// </summary>
         /// <param name="weapon"></param>
         /// <returns></returns>
-        public abstract int DamageEnemy(Weapon weapon);
+        public int DamageEnemy(List<Entity> entities)
+        {
+            foreach (Entity entity in entities)
+            {
+                if (entity.hitBox.Contains(currentEntity.hitBox))
+                {
+                    entity.health -= damageStat;
+                }
+            }
+        }
         /// <summary>
         /// Function to draw Weapon Sprite
         /// </summary>

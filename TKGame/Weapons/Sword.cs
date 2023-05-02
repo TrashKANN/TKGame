@@ -54,16 +54,6 @@ namespace TKGame.Content.Weapons
         }
 
         /// <summary>
-        /// Damage enemy function, will need to be implemented later
-        /// </summary>
-        /// <param name="weapon"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public override int DamageEnemy(Weapon weapon)
-        {
-            throw new NotImplementedException();
-        }
-        /// <summary>
         /// Updates Sword, will need to be changed
         /// </summary>
         /// <param name="w"></param>
