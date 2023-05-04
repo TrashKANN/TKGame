@@ -74,8 +74,6 @@ namespace TKGame
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
 
-            //Initializing WeaponSystem
-            WeaponSystem.Initialize();
 
             base.Initialize();
         }
@@ -169,8 +167,6 @@ namespace TKGame
                 levelComponent.GetCurrentLevel().transition.Update(GameTime);
             }
 
-            // Updates Weapon System
-            WeaponSystem.Update();
             
 
             // Update all menus
