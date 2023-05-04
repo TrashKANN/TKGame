@@ -43,8 +43,8 @@ namespace TKGame
         public static SpriteBatch SpriteBatch { get { return spriteBatch; } private set { spriteBatch = value; } }
 
         public Desktop desktop;
-        
 
+        public WeaponSystem weaponSystem;
         // TODO: Refactor out of the main TKGame class
         public static bool paused;
         #endregion
@@ -68,6 +68,7 @@ namespace TKGame
             levelEditorComponent = new World_LevelEditorComponent();
             levelComponent = new World_LevelComponent(new List<Level>());
             paused = true;
+            weaponSystem = new WeaponSystem();
         }
         protected override void Initialize()
         {
@@ -190,7 +191,7 @@ namespace TKGame
 
             //Draws the image into the Background
             spriteBatch.Draw(Art.BackgroundTexture, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
-
+            weaponSystem.Draw(spriteBatch);
 
             // Draw each wall to the screen
             // Update level editor
