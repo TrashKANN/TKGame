@@ -33,14 +33,14 @@ namespace TKGame.Components.Concrete
                 {
                     entity.Position.X += entity.Velocity.X;
                 }
-                if (entity.Position.Y > playerPosition.Y)
-                {
-                    entity.Position.Y -= entity.Velocity.Y;
-                }
-                if (entity.Position.Y < playerPosition.Y)
-                {
-                    entity.Position.Y += entity.Velocity.Y;
-                }
+                //if (entity.Position.Y > playerPosition.Y)
+                //{
+                //    entity.Position.Y -= entity.Velocity.Y;
+                //}
+                //if (entity.Position.Y < playerPosition.Y)
+                //{
+                //    entity.Position.Y += entity.Velocity.Y;
+                //}
 
                 entity.hitBox.X = (int)entity.Position.X - (int)entity.Size.X / 2;
                 entity.hitBox.Y = (int)entity.Position.Y - (int)entity.Size.Y / 2;

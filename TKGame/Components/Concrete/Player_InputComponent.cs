@@ -1,46 +1,51 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.BackEnd;
 using TKGame.Components.Interface;
 
 namespace TKGame.Components.Concrete
 {
     public class Player_InputComponent : InputComponent
     {
-        private static readonly int WALK_ACCELERATION = 1;
-        private static readonly int JUMP_HEIGHT = -1;
-        private static int framesSinceJump = 0;
+        private const int JUMP_FORCE = -800;
 
-        void InputComponent.Update(Entity player)
+        void InputComponent.Update(Entity entity)
         {
+            Player player = entity as Player;
+
             if (Input.KeyboardState.IsKeyDown(Keys.A))
-                player.Velocity.X = -WALK_ACCELERATION;
+                player.Velocity.X = -player.MOVEMENT_SPEED;
 
             else if (Input.KeyboardState.IsKeyDown(Keys.D))
-                player.Velocity.X = WALK_ACCELERATION;
+                player.Velocity.X = player.MOVEMENT_SPEED;
 
-            else if (Input.KeyboardState.IsKeyDown(Keys.W))
-                player.Velocity.Y = -WALK_ACCELERATION;
+            //else if (Input.KeyboardState.IsKeyDown(Keys.W))
+            //player.Velocity.Y = -WALK_ACCELERATION;
 
-            else if (Input.KeyboardState.IsKeyDown(Keys.S))
-                player.Velocity.Y = WALK_ACCELERATION;
+            //else if (Input.KeyboardState.IsKeyDown(Keys.S))
+            //player.Velocity.Y = WALK_ACCELERATION;
             else
-                player.Velocity = Vector2.Zero;
+                player.Velocity.X = 0;
 
-            if (Input.WasKeyPressed(Keys.Space))
+            // update crouched bool based on key input
+            if (Input.KeyboardState.IsKeyDown(Keys.S))
+                player.isCrouched = true;
+            else
+                player.isCrouched = false;
+
+            if (Input.WasKeyPressed(Keys.Space) && player.IsOnGround)
             {
-                ToggleJumping((Player)player);
-                //player.Velocity.Y = JUMP_HEIGHT;
+                player.Velocity.Y = JUMP_FORCE;
+                player.IsOnGround = false;
             }
-        }
 
-        void ToggleJumping(Player player)
-        {
-            player.isJumping= !player.isJumping;
+            player.FramesSinceJump = player.IsOnGround ? 0 : player.FramesSinceJump + 1;
         }
     }
 }

@@ -18,6 +18,12 @@ namespace TKGame
         #endregion Components
 
         internal bool isJumping = false;
+        // crouching initially set to false
+        public bool isCrouched = false; 
+        public bool IsOnGround { get; set; }
+        public bool CollidedVertically { get; set; }
+        public bool CollidedHorizontally { get; set; }
+        public int FramesSinceJump { get; set; }
 
         public static Player Instance
         {
@@ -50,8 +56,12 @@ namespace TKGame
             weapon = new Sword();
             weapon.Activate();
 
-            entityTexture = Art.PlayerTexture;
             MOVEMENT_SPEED = 500f;
+            IsOnGround = false;
+            CollidedVertically = false;
+            CollidedHorizontally = false;
+            FramesSinceJump = 0;
+            entityTexture = Art.PlayerTexture;
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             entityName = "player"; // name for player class

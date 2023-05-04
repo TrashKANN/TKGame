@@ -14,7 +14,7 @@ namespace TKGame
     public class GoblinEnemy : Enemy
     {
         private PhysicsComponent goblinEnemyPhysics = new GoblinEnemy_PhysicsComponent();
-        private GraphicsComponent goblinEnemyGraphics = new Enemy_GraphicsComponent();
+        private GraphicsComponent goblinEnemyGraphics = new GoblinEnemy_GraphicsComponent();
 
         /// <summary>
         /// goblin enemy components

@@ -48,7 +48,6 @@ namespace TKGame
 
             //TODO: Collide with other entities.
 
-
             foreach (var hitbox in collidables)
             {
                 if (HitBox.Intersects(hitbox.HitBox))
@@ -79,11 +78,17 @@ namespace TKGame
                         {
                             // Player is above the wall
                             Position.Y -= (int)depth.Y;
+                            if(this is Player)
+                            {
+                                Player.Instance.CollidedVertically = true;
+                                Player.Instance.IsOnGround = true;
+                            }
                         }
                         else
                         {
                             // Player is below the wall
                             Position.Y += (int)depth.Y;
+                            if (this is Player) Player.Instance.CollidedVertically = true;
                         }
                     }
                 }

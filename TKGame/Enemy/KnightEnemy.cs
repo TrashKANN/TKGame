@@ -14,7 +14,7 @@ namespace TKGame
     public class KnightEnemy : Enemy
     {
         private PhysicsComponent knightEnemyPhysics = new KnightEnemy_PhysicsComponent();
-        private GraphicsComponent knightEnemyGraphics = new Enemy_GraphicsComponent();
+        private GraphicsComponent knightEnemyGraphics = new KnightEnemy_GraphicsComponent();
 
         /// <summary>
         /// knight enemy components

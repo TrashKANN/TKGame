@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Myra.Graphics2D.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +11,38 @@ namespace TKGame.Components.Concrete
 {
     internal class Player_PhysicsComponent : PhysicsComponent
     {
-        private static readonly float GRAVITY = 1.0f;
+        private const int GRAVITY = 1000;
+
         void PhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/) // The &reference isn't working.
         {
+            Player player = entity as Player;
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            Vector2 endVel = entity.Velocity;
-            endVel += entity.MOVEMENT_SPEED * entity.Velocity * deltaTime;
+            player.Position += player.Velocity * deltaTime;
 
-            endVel.Y += GRAVITY;
+            if(player.CollidedVertically)
+            {
+                player.Velocity.Y = 0;
+                player.CollidedVertically = false;
+            } 
+            if(player.CollidedHorizontally)
+            {
+                // TODO
+            }
+            else
+            {
+                player.Velocity.Y += GRAVITY * deltaTime;
+            }
 
-            entity.Position += endVel;
+            // update hitbox
+            entity.HitBox = new Rectangle(((int)player.Position.X - ((int)player.Size.X / 2)),
+                                            ((int)player.Position.Y - (int)player.Size.Y / 2),
+                                            (int)player.Size.X,
+                                            (int)player.Size.Y);
 
-            entity.HitBox = new Rectangle(((int)entity.Position.X - ((int)entity.Size.X / 2)),
-                                            ((int)entity.Position.Y - (int)entity.Size.Y / 2),
-                                            (int)entity.Size.X,
-                                            (int)entity.Size.Y);
-
+            // clamp position to screen bounds
             //world.resolveCollisions(entity.Position, entity.HitBox);
-            entity.Position = Vector2.Clamp(entity.Position, entity.Size / 2, TKGame.ScreenSize - entity.Size / 2);
+            player.Position = Vector2.Clamp(player.Position, player.Size / 2, TKGame.ScreenSize - entity.Size / 2);
 
             // The world should own all of the Stage stuff & entities
             // so we would call it here within the PhysicsComponent instead of
