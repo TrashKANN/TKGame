@@ -21,14 +21,14 @@ namespace TKGame.Content.Weapons
         public bool isActiveAxe = false;
         public Color color = Color.White;
         public int damageStat;
-
+        public Entity currentEntity;
         public Vector2 size;
         /// <summary>
         /// Function to Damage Enemy
         /// </summary>
         /// <param name="weapon"></param>
         /// <returns></returns>
-        public int DamageEnemy(List<Entity> entities)
+        public void DamageEnemy(List<Entity> entities)
         {
             foreach (Entity entity in entities)
             {
