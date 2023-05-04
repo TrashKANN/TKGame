@@ -14,16 +14,17 @@ namespace TKGame.Components.Concrete
         GraphicsComponent weaponGraphics = new Weapon_GraphicsComponent();
         void GraphicsComponent.Update(Entity entity)
         {
-            Player player = entity as Player;
+            //Player player = entity as Player;
+            Player player = Player.Instance;
 
-            weaponGraphics.Update(entity);
-            if (entity.Velocity.X > 0)
+            weaponGraphics.Update(player);
+            if (player.Velocity.X > 0)
             {
-                entity.Orientation = SpriteEffects.None;
+                player.Orientation = SpriteEffects.None;
             }
-            else if (entity.Velocity.X < 0)
+            else if (player.Velocity.X < 0)
             {
-                entity.Orientation = SpriteEffects.FlipHorizontally;
+                player.Orientation = SpriteEffects.FlipHorizontally;
             }
 
             if (player.isCrouched)
