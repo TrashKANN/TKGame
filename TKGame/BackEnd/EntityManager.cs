@@ -115,26 +115,33 @@ namespace TKGame.BackEnd
             }
         }
 
+        /// <summary>
+        /// Draws entity health bar
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="entity"></param>
         public static void DrawHealth(SpriteBatch spriteBatch, Entity entity)
         {
-            if (entity.needsHealth)
+            if (entity.needsHealth) //Makes sure that items don't get health bars
             {
                 entity.healthTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-                entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, 100 * (entity.health / entity.originalHealth), 10);
+                entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, 100, 10);
                 entity.healthTexture.SetData(new Color[] { Color.Red });
                 spriteBatch.Draw(entity.healthTexture, entity.healthBar, Color.White);
             }
         }
-
+        
+        /// <summary>
+        /// Function To run through entities and damage any touching the player
+        /// </summary>
         public static void DamageEnemy()
         {
             foreach (Entity entity in entities)
             {
-                if (entities[0].entityTexture == Art.PlayerSwordTexture)
+                if (entities[0].entityTexture == Art.PlayerSwordTexture) //Checks if player has sword out
                 {
-                    if (entities[0].hitBox.Intersects(entity.hitBox) && entity != entities[0])
+                    if (entities[0].hitBox.Intersects(entity.hitBox) && entity != entities[0]) //Checks if hitboxes intersect and is not the player
                     {
-
                         entity.health -= (int)(entities[0].weapon.damageStat);
                     }
                 }
