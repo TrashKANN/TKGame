@@ -21,5 +21,6 @@ namespace TKGame
         protected Texture2D enemyTexture;
         public Vector2 position, velocity;
         public SpriteEffects orientation;
+        public bool isEnemy = true;
     }
 }

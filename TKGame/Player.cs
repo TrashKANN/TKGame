@@ -85,13 +85,5 @@ namespace TKGame
         {
             base.Draw(spriteBatch);
         }
-
-        public void DamageEnemy(Entity entity)
-        {
-            if(hitBox.Contains(entity.hitBox))
-            {
-                entity.health -= weapon.damageStat;
-            }
-        }
     }
 }
