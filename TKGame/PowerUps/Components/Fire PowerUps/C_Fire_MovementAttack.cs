@@ -19,9 +19,9 @@ namespace TKGame.PowerUps.Components.FirePowerUps
         private readonly float BURNING_DURATION = 8f;
         private readonly float BURNING_TICK_INTERVAL = 0.5f;
         private readonly float BURNING_DAMAGE_PER_TICK = 1.5f;
-        private readonly float DashSpeed = 800f;
-        private readonly float DashDuration = 0.3f;
-        private readonly float FireSpawnInterval = 0.05f;
+        private readonly float DASH_SPEED = 800f;
+        private readonly float DASH_DURATION = 0.3f;
+        private readonly float FIRE_SPAWN_INTERVAL = 0.05f;
         #endregion Constants
         ComponentType IComponent.Type => ComponentType.AttackMovement;
         public string NameID { get; private set; }
@@ -66,7 +66,7 @@ namespace TKGame.PowerUps.Components.FirePowerUps
 
                 DashUpdate(TKGame.GameTime, entity);
 
-                if (ElapsedTime >= DashDuration)
+                if (ElapsedTime >= DASH_DURATION)
                 {
                     isAttacking = false;
                 }
@@ -85,9 +85,9 @@ namespace TKGame.PowerUps.Components.FirePowerUps
             TimeSinceFireSpawned += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             int direction = Player.Instance.isLookingLeft ? -1 : 1;
-            entity.Position.X += direction * DashSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            entity.Position.X += direction * DASH_SPEED * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (TimeSinceFireSpawned >= FireSpawnInterval)
+            if (TimeSinceFireSpawned >= FIRE_SPAWN_INTERVAL)
             {
                 // Instantiate a fire object and place it at the player's current position
                 Entity fire = new FireStep(5f, 5f, 1f, 0.5f, new C_FireStep_Physics(), new C_FireStep_Graphics()); // Replace with your fire entity instantiation logic

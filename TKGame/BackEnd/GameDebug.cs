@@ -38,8 +38,9 @@ namespace TKGame.BackEnd
         /// <summary>
         /// Draw bounding rectangle around a given rectangle.
         /// </summary>
-        public static void DrawBoundingBox(Rectangle rectangle, Color color, int lineWidth, SpriteBatch spriteBatch)
+        public static void DrawBoundingBox(Rectangle rectangle, Color color, int lineWidth)
         {
+            SpriteBatch spriteBatch = TKGame.SpriteBatch;
             if (HitboxTexture is null)
             {
                 HitboxTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);

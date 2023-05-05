@@ -15,9 +15,10 @@ namespace TKGame.PowerUps.RelatedEntities
 {
     public class FireStep : Entity
     {
-        private readonly float BURNING_DURATION = 8f;
-        private readonly float BURNING_TICK_INTERVAL = 0.5f;
-        private readonly float BURNING_DAMAGE_PER_TICK = 1.5f;
+        // Uses passed values instead of constants
+        //private readonly float BURNING_DURATION = 8f;
+        //private readonly float BURNING_TICK_INTERVAL = 0.5f;
+        //private readonly float BURNING_DAMAGE_PER_TICK = 1.5f;
         
         private float LifeTime { get; set; }
         private float Duration { get; set; }
