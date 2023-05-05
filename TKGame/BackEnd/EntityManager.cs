@@ -130,10 +130,13 @@ namespace TKGame.BackEnd
         {
             foreach (Entity entity in entities)
             {
-                if (entities[0].hitBox.Intersects(entity.hitBox) && entity != entities[0])
+                if (entities[0].entityTexture == Art.PlayerSwordTexture)
                 {
+                    if (entities[0].hitBox.Intersects(entity.hitBox) && entity != entities[0])
+                    {
 
-                    entity.health -= (int)(entities[0].weapon.damageStat);
+                        entity.health -= (int)(entities[0].weapon.damageStat);
+                    }
                 }
             }
         }
