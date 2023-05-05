@@ -20,15 +20,10 @@ namespace TKGame.Content.Weapons
         public bool isActiveSpear = false;
         public bool isActiveAxe = false;
         public Color color = Color.White;
-        public int damageStat;
-
+        public float damageStat;
+        public Entity currentEntity;
         public Vector2 size;
-        /// <summary>
-        /// Function to Damage Enemy
-        /// </summary>
-        /// <param name="weapon"></param>
-        /// <returns></returns>
-        public abstract int DamageEnemy(Weapon weapon);
+
         /// <summary>
         /// Function to draw Weapon Sprite
         /// </summary>

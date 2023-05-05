@@ -68,7 +68,7 @@ namespace TKGame.BackEnd
                 Width = (int)entity.HitBox.Width,
                 Height = (int)entity.HitBox.Height
             };
-            DrawBoundingBox(entityRect, color, lineWidth, TKGame.SpriteBatch);
+            DrawBoundingBox(entityRect, color, lineWidth);
         }
     }
 }

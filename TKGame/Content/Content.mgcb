@@ -121,6 +121,18 @@
 /processorParam:TextureFormat=Color
 /build:Art/Player.png
 
+#begin Art/PlayerCrouchingRightFacing.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Art/PlayerCrouchingRightFacing.png
+
 #begin Art/Potion.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -168,18 +180,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Art/SunBurstSprite.png
-
-#begin Art/Weapons/Axe.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Art/Weapons/Axe.png
 
 #begin Art/Weapons/IronSword.png
 /importer:TextureImporter

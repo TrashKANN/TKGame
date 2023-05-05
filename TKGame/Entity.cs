@@ -10,6 +10,8 @@ using TKGame.Status_Effects;
 using TKGame.BackEnd;
 using System.Linq;
 using System;
+using TKGame.Players;
+
 
 namespace TKGame
 {
@@ -39,6 +41,12 @@ namespace TKGame
         public EntityType entityType;
 
         public Weapon weapon;
+        public int health;
+        public Rectangle healthBar;
+        public Texture2D healthTexture;
+        public bool needsHealth = false;
+        public int originalHealth;
+        
 
         #region Properties
         public Vector2 Size
@@ -88,6 +96,13 @@ namespace TKGame
             return components.Values.SelectMany(x => x).OfType<IStatusComponent>().ToList();
         }
 
+        public bool isDead()
+        {
+            if (this.health <= 0)
+                this.IsExpired = true;
+            return this.IsExpired;
+        }
+
         /// <summary>
         /// Uses the Entity's hitbox and iterates through each hitbox passed to it and adjusts the Entity's position
         /// outside of the hitbox it collides with.
@@ -97,7 +112,6 @@ namespace TKGame
         {
 
             //TODO: Collide with other entities.
-
 
             foreach (var hitbox in collidables)
             {
@@ -129,11 +143,17 @@ namespace TKGame
                         {
                             // Player is above the wall
                             Position.Y -= (int)depth.Y;
+                            if(this is Player)
+                            {
+                                Player.Instance.CollidedVertically = true;
+                                Player.Instance.IsOnGround = true;
+                            }
                         }
                         else
                         {
                             // Player is below the wall
                             Position.Y += (int)depth.Y;
+                            if (this is Player) Player.Instance.CollidedVertically = true;
                         }
                     }
                 }

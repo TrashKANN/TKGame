@@ -27,10 +27,15 @@ namespace TKGame.Enemies
             Position = new Vector2(300, 800); // hard coded spawn position at the moment
             velocity = new Vector2((float)1.5, 1);
             HitBox = new Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
+
+            health = 10; //Base Health
+            originalHealth = health; //used for displaying healthbar
+            needsHealth = true;
+
             components = new Dictionary<ComponentType, List<IComponent>>
             {
-                { ComponentType.Physics, new List<IComponent> { new C_Knight_Physics() } },
-                { ComponentType.Graphics, new List<IComponent> { new C_Enemy_Graphics() } }
+                { ComponentType.Physics, new List<IComponent> { new C_KnightEnemy_Physics() } },
+                { ComponentType.Graphics, new List<IComponent> { new C_KnightEnemy_Graphics() } }
             };
         }
 

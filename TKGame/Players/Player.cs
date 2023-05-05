@@ -21,6 +21,11 @@ namespace TKGame.Players
 
         public bool isJumping = false;
         public bool isLookingLeft = false;
+        public bool isCrouched = false;
+        public bool IsOnGround { get; set; }
+        public bool CollidedVertically { get; set; }
+        public bool CollidedHorizontally { get; set; }
+        public int FramesSinceJump { get; set; }
 
         public static Player Instance
         {
@@ -33,7 +38,7 @@ namespace TKGame.Players
                     {
                         if (instance == null)
                             instance = new Player(new C_Player_Input(),
-                                                  new C_FireStep_Physics(),
+                                                  new C_Player_Physics(),
                                                   new C_Player_Graphics());
                     }
 
@@ -59,11 +64,18 @@ namespace TKGame.Players
                 { ComponentType.AttackMovement, new List<IComponent>() },
             };
 
+            health = 100; //Sets player health
+            originalHealth = health;
+            needsHealth = true;
             weapon = new Sword();
             weapon.Activate();
 
             entityTexture = Art.PlayerTexture;
             MOVEMENT_SPEED = 500f;
+            IsOnGround = false;
+            CollidedVertically = false;
+            CollidedHorizontally = false;
+            FramesSinceJump = 0;
             // Figure out how to not hard code for now
             // Starts at (1560, 450) at the middle on the floor level
             entityName = "player"; // name for player class

@@ -73,7 +73,6 @@ namespace TKGame.BackEnd
         public static void Update(GameTime gameTime)
         {
             Stage currentStage = TKGame.levelComponent.GetCurrentStage();
-
             IsUpdating = true;
             // HandleCollision();
 
@@ -95,7 +94,10 @@ namespace TKGame.BackEnd
 
             // Clears expired/despawned entities from the active entity list.
             // Will need to do this for all unique entity lists, i.e. enemies, projectiles, etc.
-            entities = entities.Where(x => !x.IsExpired).ToList();
+            entities = entities.Where(x => !x.IsExpired/* || x.health <= 0*/).ToList();
+
+            //Damages Enemies
+            DamageEnemy();
         }
 
 
@@ -107,7 +109,33 @@ namespace TKGame.BackEnd
         public static void Draw(SpriteBatch spriteBatch)
         {
             foreach (var entity in entities)
+            {
                 entity.Draw(spriteBatch);
+                DrawHealth(spriteBatch, entity);
+            }
+        }
+
+        public static void DrawHealth(SpriteBatch spriteBatch, Entity entity)
+        {
+            if (entity.needsHealth)
+            {
+                entity.healthTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, 100 * (entity.health / entity.originalHealth), 10);
+                entity.healthTexture.SetData(new Color[] { Color.Red });
+                spriteBatch.Draw(entity.healthTexture, entity.healthBar, Color.White);
+            }
+        }
+
+        public static void DamageEnemy()
+        {
+            foreach (Entity entity in entities)
+            {
+                if (entities[0].hitBox.Intersects(entity.hitBox) && entity != entities[0])
+                {
+
+                    entity.health -= (int)(entities[0].weapon.damageStat);
+                }
+            }
         }
     }
 }

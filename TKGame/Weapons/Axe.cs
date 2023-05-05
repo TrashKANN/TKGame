@@ -25,6 +25,7 @@ namespace TKGame.Weapons
         public Axe()
         {
             weaponsComponent= new C_Weapon_Graphics();
+            damageStat = 10; //Same Speed and Range Better Damage
             weaponTexture = Art.PlayerAxeTexture;
             position = new Vector2(815, 730);
             weaponRect = new Rectangle(815, 730, 85, 85);
@@ -50,16 +51,6 @@ namespace TKGame.Weapons
             //spriteBatch.Draw(weaponTexture, weaponRect, color);
         }
 
-        /// <summary>
-        /// Damage enemy function, will need to be implemented later
-        /// </summary>
-        /// <param name="weapon"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public override int DamageEnemy(Weapon weapon)
-        {
-            throw new NotImplementedException();
-        }
         /// <summary>
         /// Updates Sword, will need to be changed
         /// </summary>

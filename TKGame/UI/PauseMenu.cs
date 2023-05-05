@@ -117,7 +117,7 @@ namespace TKGame.UI
                 PAUSE_LABEL_TEXT_COLOR_VECTOR.Z,
                 (float)Math.Abs(Math.Sin(TKGame.GameTime.TotalGameTime.TotalSeconds))
             );
-            Debug.WriteLine($"{pauseLabel.TextColor.R} {pauseLabel.TextColor.G} {pauseLabel.TextColor.B} {pauseLabel.TextColor.A}");
+            //Debug.WriteLine($"{pauseLabel.TextColor.R} {pauseLabel.TextColor.G} {pauseLabel.TextColor.B} {pauseLabel.TextColor.A}");
         }
 
         private static TextButton ConstructMenuButton(string text, string styleName, int gridRow, int gridCol, int width)

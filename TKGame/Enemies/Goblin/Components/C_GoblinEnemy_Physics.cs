@@ -9,17 +9,18 @@ using TKGame.Components.Interface;
 using TKGame.BackEnd;
 using Myra.Graphics2D.UI;
 using System.Drawing;
+using TKGame.Players;
 
-namespace TKGame.Enemies.Knight.Components
+namespace TKGame.Enemies.Goblin.Components
 {
-    class C_Knight_Physics : IPhysicsComponent
+    class C_GoblinEnemy_Physics : IPhysicsComponent
     {
         ComponentType IComponent.Type => ComponentType.Physics;
         void IPhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)
         {
             Players.Player player = Players.Player.Instance;
-            entity.Velocity.X = 1;
-            entity.Velocity.Y = 1;
+            entity.Velocity.X = 2;
+            entity.Velocity.Y = 2;
 
             if (player != null)
             {
@@ -45,6 +46,8 @@ namespace TKGame.Enemies.Knight.Components
                 entity.hitBox.X = (int)entity.Position.X - (int)entity.Size.X / 2;
                 entity.hitBox.Y = (int)entity.Position.Y - (int)entity.Size.Y / 2;
                 entity.Position = Vector2.Clamp(entity.Position, entity.Size / 2, TKGame.ScreenSize - entity.Size / 2);
+
+                entity.isDead();
             }
         }
     }

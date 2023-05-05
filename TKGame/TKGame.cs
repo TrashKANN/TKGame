@@ -47,7 +47,7 @@ namespace TKGame
 
         public Desktop desktop;
 
-
+        public WeaponSystem weaponSystem;
         // TODO: Refactor out of the main TKGame class
         public static bool paused;
         private static bool hasLoaded = false;
@@ -73,14 +73,13 @@ namespace TKGame
             levelEditorComponent = new C_World_LevelEditor();
             levelComponent = new C_World_Level(new List<Level>());
             paused = true;
+            weaponSystem = new WeaponSystem();
         }
         protected override void Initialize()
         {
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
 
-            //Initializing WeaponSystem
-            WeaponSystem.Initialize();
 
             base.Initialize();
             hasInitialized = true;
@@ -178,7 +177,7 @@ namespace TKGame
             }
 
             // Updates Weapon System
-            WeaponSystem.Update();
+            //WeaponSystem.Update();
 
 
             // Update all menus
@@ -202,7 +201,7 @@ namespace TKGame
 
             //Draws the image into the Background
             spriteBatch.Draw(Art.BackgroundTexture, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
-
+            weaponSystem.Draw(spriteBatch);
 
             // Draw each wall to the screen
             // Update level editor
@@ -215,7 +214,7 @@ namespace TKGame
                     spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
                     if (GameDebug.DebugMode)
                     {
-                        GameDebug.DrawBoundingBox(wall.HitBox, Color.Lime, 5, SpriteBatch);
+                        GameDebug.DrawBoundingBox(wall.HitBox, Color.Lime, 5);
                     }
                 }
 
@@ -239,7 +238,7 @@ namespace TKGame
                         {
                             if (atk.isAttacking)
                             {
-                                GameDebug.DrawBoundingBox(atk.HitBox, Color.Red, 3, SpriteBatch);
+                                GameDebug.DrawBoundingBox(atk.HitBox, Color.Red, 3);
                             }
                         }
                     }

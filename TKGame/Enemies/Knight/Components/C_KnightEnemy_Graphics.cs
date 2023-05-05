@@ -11,9 +11,9 @@ using Myra.Graphics2D.UI;
 using System.Drawing;
 using TKGame.Players;
 
-namespace TKGame.Enemies
+namespace TKGame.Enemies.Knight.Components
 {
-    class C_Enemy_Graphics : IGraphicsComponent
+    class C_KnightEnemy_Graphics : IGraphicsComponent
     {
         ComponentType IComponent.Type => ComponentType.Graphics;
         void IGraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)

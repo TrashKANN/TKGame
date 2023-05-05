@@ -14,9 +14,6 @@ namespace TKGame.Content.Weapons
 {
     class Sword : Weapon
     {
-        private static readonly int WALK_ACCELERATION = 1;
-        private static readonly int JUMP_HEIGHT = -1;
-        private float MOVEMENT_SPEED = 500f;
 
         //Components
         IGraphicsComponent weaponGraphics;
@@ -33,7 +30,7 @@ namespace TKGame.Content.Weapons
             weaponTexture = Art.PlayerSwordTexture;
             position = new Vector2(815, 730);
             weaponRect = new Rectangle(815, 730, 85, 85);
-            damageStat = 1;
+            damageStat = 1f;
         }
 
         /// <summary>
@@ -52,16 +49,6 @@ namespace TKGame.Content.Weapons
         {
         }
 
-        /// <summary>
-        /// Damage enemy function, will need to be implemented later
-        /// </summary>
-        /// <param name="weapon"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public override int DamageEnemy(Weapon weapon)
-        {
-            throw new NotImplementedException();
-        }
         /// <summary>
         /// Updates Sword, will need to be changed
         /// </summary>

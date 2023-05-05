@@ -18,17 +18,7 @@ namespace TKGame.Items.Potion.Components
         ComponentType IComponent.Type => ComponentType.Graphics;
         void IGraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)
         {
-            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-            TKGame.SpriteBatch.Draw(entity.entityTexture,
-                                entity.Position,
-                                null,
-                                entity.color,
-                                0,
-                                entity.Size / 2f,
-                                1f,
-                                entity.Orientation,
-                                0);
-            //spriteBatch.End();
+
         }
     }
 }
