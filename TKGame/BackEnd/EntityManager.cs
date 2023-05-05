@@ -23,7 +23,6 @@ namespace TKGame.BackEnd
         public static int EntityCount { get { return entities.Count; } }
 
         public static List<Entity> GetEntities() { return entities; }
-
         /// <summary>
         /// Adds any entities to the current entity list if the entity count is currently being updated, otherwise add it to the being added lists.
         /// </summary>
@@ -55,7 +54,6 @@ namespace TKGame.BackEnd
         public static void Update(GameTime gameTime)
         {
             Stage currentStage = TKGame.levelComponent.GetCurrentStage();
-
             IsUpdating = true;
             // HandleCollision();
 
@@ -115,6 +113,7 @@ namespace TKGame.BackEnd
             {
                 if (entities[0].hitBox.Intersects(entity.hitBox) && entity != entities[0])
                 {
+
                     entity.health -= entities[0].weapon.damageStat;
                 }
             }
