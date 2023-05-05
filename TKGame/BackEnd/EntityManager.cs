@@ -114,7 +114,7 @@ namespace TKGame.BackEnd
                 if (entities[0].hitBox.Intersects(entity.hitBox) && entity != entities[0])
                 {
 
-                    entity.health -= entities[0].weapon.damageStat;
+                    entity.health -= (int)(entities[0].weapon.damageStat);
                 }
             }
         }

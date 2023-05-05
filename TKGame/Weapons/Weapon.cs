@@ -20,7 +20,7 @@ namespace TKGame.Content.Weapons
         public bool isActiveSpear = false;
         public bool isActiveAxe = false;
         public Color color = Color.White;
-        public int damageStat;
+        public float damageStat;
         public Entity currentEntity;
         public Vector2 size;
 
