@@ -89,7 +89,21 @@ namespace TKGame.BackEnd
         public static void Draw(SpriteBatch spriteBatch)
         {
             foreach (var entity in entities)
+            {
                 entity.Draw(spriteBatch);
+                DrawHealth(spriteBatch, entity);
+            }
+        }
+
+        public static void DrawHealth(SpriteBatch spriteBatch, Entity entity)
+        {
+            if (entity.needsHealth)
+            {
+                entity.healthTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, 100 * (entity.health / entity.originalHealth), 10);
+                entity.healthTexture.SetData(new Color[] { Color.Red });
+                spriteBatch.Draw(entity.healthTexture, entity.healthBar, Color.White);
+            }
         }
     }
 }

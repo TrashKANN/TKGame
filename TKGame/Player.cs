@@ -48,6 +48,8 @@ namespace TKGame
             graphics = graphics_;
 
             health = 100; //Sets player health
+            originalHealth = health;
+            needsHealth = true;
             weapon = new Sword();
             weapon.Activate();
 
@@ -82,6 +84,14 @@ namespace TKGame
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+        }
+
+        public void DamageEnemy(Entity entity)
+        {
+            if(hitBox.Contains(entity.hitBox))
+            {
+                entity.health -= weapon.damageStat;
+            }
         }
     }
 }

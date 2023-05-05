@@ -247,5 +247,10 @@ namespace TKGame
         {
             Exit();
         }
+
+        public void Damage_Enemy()
+        {
+            
+        }
     }
 }
