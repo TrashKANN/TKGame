@@ -9,7 +9,7 @@ using TKGame.Content.Weapons;
 namespace TKGame
 {
     public abstract class Entity : CollideComponent
-    {
+    { 
         internal Texture2D entityTexture;
 
         // Move to a Transform class later instead of having it only in the Entity class
@@ -22,6 +22,12 @@ namespace TKGame
         public string entityName; // to identify each entity by name
 
         public Weapon weapon;
+        public int health;
+        public Rectangle healthBar;
+        public Texture2D healthTexture;
+        public bool needsHealth = false;
+        public int originalHealth;
+        
 
         #region Properties
         public Vector2 Size
@@ -111,6 +117,6 @@ namespace TKGame
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(entityTexture, Position, null, color, 0, Size / 2f, 1f, Orientation, 0);
-        }
+        }        
     }
 }

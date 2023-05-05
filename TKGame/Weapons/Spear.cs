@@ -26,6 +26,7 @@ namespace TKGame.Weapons
         /// </summary>
         public Spear()
         {
+            damageStat = 5; //Same Damage Better Range
             weaponGraphics = new Weapon_GraphicsComponent();
             weaponTexture = Art.PlayerSpearTexture;
             position = new Vector2(815, 730);
@@ -50,16 +51,6 @@ namespace TKGame.Weapons
 
         }
 
-        /// <summary>
-        /// Damage enemy function, will need to be implemented later
-        /// </summary>
-        /// <param name="weapon"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public override int DamageEnemy(Weapon weapon)
-        {
-            throw new NotImplementedException();
-        }
         /// <summary>
         /// Updates Sword, will need to be changed
         /// </summary>
