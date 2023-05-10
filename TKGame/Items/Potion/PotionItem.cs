@@ -24,6 +24,8 @@ namespace TKGame.Items.Potion
         int x = rand.Next(900, 1200);
         public PotionItem()
         {
+            Name = "Potion"; // name for this item is "Potion"
+            Stats = 0;       // stats for this item is 0
             entityTexture = Art.PotionItemTexture;
             entityType = EntityType.Item;
             Position = new Vector2(x, 839); // random x-coor spawn

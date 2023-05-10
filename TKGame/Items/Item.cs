@@ -17,6 +17,9 @@ namespace TKGame.Items
 {
     public abstract class Item : Entity
     {
-
+        // uniquely identify each item by a name
+        public string Name { get; set; }
+        // integer for stats associated with each item
+        public int Stats { get; set; }
     }
 }
