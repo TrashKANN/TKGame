@@ -1,10 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Myra.Graphics2D.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TKGame.Components.Interface;
 
 namespace TKGame.Players.Components
@@ -20,18 +14,11 @@ namespace TKGame.Players.Components
 
             player.Position += player.Velocity * deltaTime;
 
-            if(player.CollidedVertically)
-            {
-                player.Velocity.Y = 0;
-                player.CollidedVertically = false;
-            } 
-            if(player.CollidedHorizontally)
+            resolveVerticalCollision(player, deltaTime);
+
+            if (player.CollidedHorizontally)
             {
                 // TODO
-            }
-            else
-            {
-                player.Velocity.Y += GRAVITY * deltaTime;
             }
 
             // update hitbox
@@ -49,6 +36,31 @@ namespace TKGame.Players.Components
             // in the EntitiyManager.
 
             // GameTime should be owned by World as well.
+        }
+
+        // Probably move this to Entity.cs
+        private void resolveVerticalCollision(Entity entity, float deltaTime)
+        {
+            if (entity.CollidedVertically)
+            {
+
+                // ground collision
+                if (entity.Velocity.Y > 0)
+                {
+                    entity.IsOnGround = true;
+                }
+                else
+                {
+                    entity.IsOnGround = false;
+                }
+                entity.Velocity.Y = 0;
+                entity.CollidedVertically = false;
+            }
+
+            if (!entity.IsOnGround)
+            {
+                entity.Velocity.Y += GRAVITY * deltaTime;
+            }
         }
     }
 }

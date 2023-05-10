@@ -40,6 +40,10 @@ namespace TKGame
         public string entityName; // to identify each entity by name
         public EntityType entityType;
 
+        public bool IsOnGround { get; set; }
+        public bool CollidedVertically { get; set; }
+        public bool CollidedHorizontally { get; set; }
+
         public Weapon weapon;
         public int health;
         public Rectangle healthBar;
