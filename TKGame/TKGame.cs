@@ -118,6 +118,8 @@ namespace TKGame
             Item potion = potionFactory.CreateItem();
             EntityManager.Add(potion);
 
+            // spawn potion using inventory
+
             hasLoaded = true;
         }
         protected override async void Update(GameTime gameTime)
