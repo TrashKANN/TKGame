@@ -13,7 +13,7 @@ using System.Drawing;
 
 namespace TKGame.Items.Potion.Components
 {
-    class C_Item_Graphics : IGraphicsComponent
+    class C_PoitionItem_Graphics : IGraphicsComponent
     {
         ComponentType IComponent.Type => ComponentType.Graphics;
         void IGraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)
