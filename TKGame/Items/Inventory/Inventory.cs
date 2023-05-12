@@ -15,7 +15,8 @@ using System.Threading.Tasks;
 
 namespace TKGame.Items
 {
-    // container class called 'Inventory' to hold items
+    // container class 'Inventory' 
+    // uses List<Item> '_items' to store items
     public class Inventory
     {
         // private list to store items

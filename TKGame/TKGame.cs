@@ -118,7 +118,19 @@ namespace TKGame
             Item potion = potionFactory.CreateItem();
             EntityManager.Add(potion);
 
-            // spawn potion using inventory
+            // test inventory
+            // create a new instance of the Inventory class
+            //Inventory inventory = new Inventory();
+            // add a item to the inventory
+            //inventory.AddItem(new Item(/*figure out what goes here*/));
+            // retrieve the list of items from the inventory
+            //List<Item> items = inventory.GetItems();
+            // loop throught the list of items and display each name
+            //foreach (Item item in items)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
+
 
             hasLoaded = true;
         }
