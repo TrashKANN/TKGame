@@ -21,6 +21,9 @@ namespace TKGame.BackEnd
         public static Texture2D KnightEnemyTexture { get; private set; }
         public static Texture2D GoblinEnemyTexture { get; private set; }
         public static Texture2D PotionItemTexture {  get; private set; }
+        public static Texture2D FireStoneItemTexture { get; private set; }
+        public static Texture2D IceItemTexture { get; private set; }
+        public static Texture2D PoisonItemTexture { get; private set; }
         public static Texture2D TransitionTexture { get; private set; }
         public static Texture2D WeaponTexture { get; private set; }
         public static Texture2D LoadTexture { get; private set; }
@@ -48,6 +51,9 @@ namespace TKGame.BackEnd
             BackgroundTexture = content.Load<Texture2D>(@"Art/Cobble");                     // Background image
             KnightEnemyTexture = content.Load<Texture2D>(@"Art/KnightLeftFacing");          // knight enemy
             PotionItemTexture = content.Load<Texture2D>(@"Art/Potion");                     // potion item
+            FireStoneItemTexture = content.Load<Texture2D>(@"Art/Firestone");               // firestone item
+            IceItemTexture = content.Load<Texture2D>(@"Art/Ice");                           // ice item
+            PoisonItemTexture = content.Load<Texture2D>(@"Art/Poison");                     // poison item
             LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");          
             GoblinEnemyTexture = content.Load<Texture2D>(@"Art/GoblinLeftFacing");          // goblin enemy
             TransitionTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
