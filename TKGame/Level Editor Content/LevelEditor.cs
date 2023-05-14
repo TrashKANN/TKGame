@@ -19,6 +19,7 @@ using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using TKGame.Players;
 using TKGame.Enemies;
+using System.Collections;
 
 namespace TKGame.Level_Editor_Content
 {
@@ -45,11 +46,26 @@ namespace TKGame.Level_Editor_Content
         public string action { get; set; }
     }
 
+    public class SpikeData
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int width { get; set; }
+        public int height { get; set; }
+    }
+
     public class StageData
     {
         public List<WallData> walls { get; set; }
         public List<EntityData> entities { get; set; }
         public List<TriggerData> triggers { get; set; }
+        public List<SpikeData> spikes { get; set; }
+    }
+
+    public enum StructureType
+    {
+        Wall,
+        Spikes,
     }
 
     static class LevelEditor
@@ -60,12 +76,34 @@ namespace TKGame.Level_Editor_Content
         private static readonly int GRID_SIZE = 32;
         private static List<Wall> deletedWalls= new List<Wall>();
 
+        // Selected wall, spike, etc.
+        public static StructureType selectedStructure { get; set; }
+        public static Color selectedColor { get; set; }
+
         /// <summary>
         /// Toggles the functionallity of the Level Editor
         /// </summary>
         public static void ToggleEditor()
         {
             EditMode = !EditMode;
+            selectedStructure = StructureType.Wall;
+            selectedColor = Color.White;
+        }
+
+        public static void BuildWall(Stage stage)
+        {
+            Wall newWall = new Wall(OutlineBuilding(stage), selectedColor);
+
+            if (newWall.HitBox.Width > 0 && newWall.HitBox.Height > 0)
+                stage.StageWalls.Add(newWall);
+        }
+
+        public static void BuildSpikes(Stage stage)
+        {
+            Spikes newSpike = new Spikes(OutlineBuilding(stage));
+            
+            if (newSpike.HitBox.Width > 0 && newSpike.HitBox.Height > 0)
+                stage.StageSpikes.Add(newSpike);
         }
 
         /// <summary>
@@ -76,13 +114,15 @@ namespace TKGame.Level_Editor_Content
         /// <param name="stage"></param>
         /// <param name="graphics"></param>
         /// <param name="spriteBatch"></param>
-        public static void BuildWall(Stage stage)
+        private static Rectangle OutlineBuilding(Stage stage)
         {
             MouseState currentMouseState = Mouse.GetState();
             
             // Can be simiplified to Vector2 ... = new(); since we know the type. Style guide discussion required.
             Vector2 topLeftPosition = new Vector2();
             Vector2 size = new Vector2();
+
+            Rectangle alignedRect = new Rectangle();
 
             // If the left mouse button WAS NOT pressed last update AND IS pressed this update, store coordinates
             if (previousMouseState.LeftButton == ButtonState.Released &&
@@ -114,18 +154,16 @@ namespace TKGame.Level_Editor_Content
                 size = new Vector2(Math.Abs(startPosition.X - endPosition.X), Math.Abs(startPosition.Y - endPosition.Y));
 
                 // Align the rectangle to the grid
-                Rectangle alignedRect = AlignRectToGrid(new Rectangle(
-                                                        (int)topLeftPosition.X, 
-                                                        (int)topLeftPosition.Y, 
-                                                        (int)size.X, 
-                                                        (int)size.Y), 
-                                                        GRID_SIZE);
-
-                Wall newWall = new Wall(alignedRect, Color.White, TKGame.Graphics.GraphicsDevice);
-
-                stage.StageWalls.Add(newWall);
+                alignedRect = AlignRectToGrid(new Rectangle(
+                                             (int)topLeftPosition.X, 
+                                             (int)topLeftPosition.Y, 
+                                             (int)size.X, 
+                                             (int)size.Y), 
+                                             GRID_SIZE);
             }
             previousMouseState = currentMouseState;
+
+            return alignedRect;
         }
 
         /// <summary>

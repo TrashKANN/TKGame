@@ -25,6 +25,9 @@ namespace TKGame.Components.Interface
         Editor,
         Level,
         Item,
+        Wall,
+        Spikes,
+        Door,
     }
     public interface IComponent
     {

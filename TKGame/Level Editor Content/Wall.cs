@@ -12,10 +12,10 @@ namespace TKGame.Level_Editor_Content
     public class Wall : ICollideComponent
     {
         public Rectangle hitBox;
-        public Rectangle HitBox { get { return hitBox; } set { hitBox = value; } }
+        public Rectangle HitBox { get; set; }
         public Texture2D Texture { get; private set; }
 
-        public ComponentType Type => throw new NotImplementedException();
+        public ComponentType Type => ComponentType.Wall;
 
         /// <summary>
         /// Generates a (rectangular) wall that can be drawn to the screen. x/y represent position of
@@ -33,10 +33,10 @@ namespace TKGame.Level_Editor_Content
             Texture.SetData(new Color[] { color  });
         }
 
-        public Wall(Rectangle rect, Color color, GraphicsDevice graphicsDevice)
+        public Wall(Rectangle rect, Color color)
         {
             HitBox = rect;
-            Texture = new Texture2D(graphicsDevice, 1, 1);
+            Texture = new Texture2D(TKGame.Graphics.GraphicsDevice, 1, 1);
             Texture.SetData(new Color[] { color });
         }
     }

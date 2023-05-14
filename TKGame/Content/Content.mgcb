@@ -169,6 +169,18 @@
 /processorParam:TextureFormat=Color
 /build:Art/Screens/LoadSpriteSheet.png
 
+#begin Art/Spikes.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Art/Spikes.png
+
 #begin Art/SunBurstSprite.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -17,6 +17,7 @@ namespace TKGame.Level_Editor_Content
         private List<Wall> stageWalls;
         private List<Entity> stageEntities;
         private List<Trigger> stageTriggers;
+        private List<Spikes> stageSpikes;
         private Background background;
         public string stageName;
 
@@ -27,6 +28,7 @@ namespace TKGame.Level_Editor_Content
         public List<Wall> StageWalls { get { return stageWalls; } }
         public List<Entity> StageEntities { get { return stageEntities; } }
         public List<Trigger> StageTriggers { get { return stageTriggers; } }
+        public List<Spikes> StageSpikes { get { return stageSpikes; } }
         public Background Background { get { return background; } }
 
         public Stage()
@@ -35,6 +37,7 @@ namespace TKGame.Level_Editor_Content
             this.stageWalls = new List<Wall>() { };
             this.stageEntities = new List<Entity>() { };
             this.stageTriggers = new List<Trigger>() { };
+            this.stageSpikes = new List<Spikes>() { };
             this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
             this.stageEntities.Add(Player.Instance);
         }
@@ -44,6 +47,7 @@ namespace TKGame.Level_Editor_Content
             this.stageWalls = new List<Wall>() { };
             this.stageEntities = new List<Entity>() { };
             this.stageTriggers = new List<Trigger>() { };
+            this.stageSpikes = new List<Spikes>() { };
             this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
             this.stageEntities.Add(Player.Instance);
             this.Initialize();
@@ -64,6 +68,7 @@ namespace TKGame.Level_Editor_Content
             stageEntities = loaded.stageEntities;
             stageWalls = loaded.stageWalls;
             stageTriggers = loaded.stageTriggers;
+            stageSpikes = loaded.stageSpikes;
 
             EntityManager.GetEntities().Clear();
             foreach (Entity entity in stageEntities)

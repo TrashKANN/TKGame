@@ -119,7 +119,14 @@ namespace TKGame
 
             foreach (var hitbox in collidables)
             {
-                if (HitBox.Intersects(hitbox.HitBox) && this.entityType != EntityType.PowerUp)
+                // TODO: Make this more efficient
+                if (HitBox.Intersects(hitbox.HitBox) && hitbox is Spikes)
+                {
+                    this.health -= 0.01f;
+                    this.healthBar.Width = (int)(this.health / this.originalHealth * 100);
+                }
+
+                if (HitBox.Intersects(hitbox.HitBox) && this.entityType != EntityType.PowerUp && hitbox is not Spikes)
                 {
                     // Calculate the depth of the intersection between Player and each Wall
                     Rectangle intersection = Rectangle.Intersect(HitBox, hitbox.HitBox);

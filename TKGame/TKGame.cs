@@ -218,6 +218,15 @@ namespace TKGame
                     }
                 }
 
+                foreach (Spikes spike in levelComponent.GetCurrentStage().StageSpikes)
+                {
+                    spriteBatch.Draw(spike.Texture, spike.HitBox, WALL_COLOR);
+                    if (GameDebug.DebugMode)
+                    {
+                        GameDebug.DrawBoundingBox(spike.HitBox, Color.Lime, 5);
+                    }
+                }
+
                 foreach (Trigger trigger in levelComponent.GetCurrentStage().StageTriggers)
                 {
                     spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);

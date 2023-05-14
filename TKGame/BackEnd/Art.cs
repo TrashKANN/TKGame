@@ -24,6 +24,7 @@ namespace TKGame.BackEnd
         public static Texture2D TransitionTexture { get; private set; }
         public static Texture2D WeaponTexture { get; private set; }
         public static Texture2D LoadTexture { get; private set; }
+        public static Texture2D SpikesTexture { get; private set; }
 
         #region Status Effects
         public static Texture2D BurningTexture { get; private set; }
@@ -51,6 +52,8 @@ namespace TKGame.BackEnd
             LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");          
             GoblinEnemyTexture = content.Load<Texture2D>(@"Art/GoblinLeftFacing");          // goblin enemy
             TransitionTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
+
+            SpikesTexture = content.Load<Texture2D>(@"Art/Spikes");
 
             BurningTexture = content.Load<Texture2D>(@"Art/BurningSprite");
             ScorchedTexture = content.Load<Texture2D>(@"Art/ScorchedSprite");
