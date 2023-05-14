@@ -45,11 +45,11 @@ namespace TKGame
         public bool CollidedHorizontally { get; set; }
 
         public Weapon weapon;
-        public int health;
+        public float health;
         public Rectangle healthBar;
         public Texture2D healthTexture;
         public bool needsHealth = false;
-        public int originalHealth;
+        public float originalHealth;
         
 
         #region Properties

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.Components.Interface;
 
-namespace TKGame
+namespace TKGame.Level_Editor_Content
 {
     public class Wall : ICollideComponent
     {

@@ -48,7 +48,7 @@ namespace TKGame.Status_Effects
             {
                 //IHealthComponent healthComponent = EntityManager.GetComponent<IHealthComponent>(SourceEntity);
                 //healthComponent.TakeDamage(DamagePerTick);
-                entity.health -= (int)DamagePerTick;
+                entity.health -= DamagePerTick;
                 TimeSinceLastTick = 0f;
             }
         }
