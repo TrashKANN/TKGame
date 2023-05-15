@@ -6,7 +6,10 @@ namespace TKGame.Items.Ice
 {
     public class IceItem : Item
     {
-        public IceItem() { }
+        public IceItem() 
+        {
+            
+        }
 
         public override void Update(GameTime gameTime)
         {

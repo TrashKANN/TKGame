@@ -6,7 +6,10 @@ namespace TKGame.Items.Poison
 {
     public class PoisonItem : Item
     {
-        public PoisonItem() { }
+        public PoisonItem() 
+        {
+            
+        }
 
         public override void Update(GameTime gameTime)
         {
