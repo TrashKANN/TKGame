@@ -9,13 +9,14 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Level_Editor_Content
 {
-    public class Wall : ICollideComponent
+    public class Wall : IBlock
     {
         public Rectangle hitBox;
         public Rectangle HitBox { get; set; }
-        public Texture2D Texture { get; private set; }
 
         public ComponentType Type => ComponentType.Wall;
+
+        public Texture2D Texture { get; set; }
 
         /// <summary>
         /// Generates a (rectangular) wall that can be drawn to the screen. x/y represent position of

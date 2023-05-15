@@ -10,10 +10,10 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Level_Editor_Content
 {
-    public class Spikes : ICollideComponent
+    public class Spikes : IBlock
     {
         public Rectangle HitBox { get; set; }
-        public Texture2D Texture { get; private set; }
+        public Texture2D Texture { get; set; }
 
         public ComponentType Type => ComponentType.Spikes;
 

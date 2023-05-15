@@ -80,8 +80,7 @@ namespace TKGame.BackEnd
             foreach (var entity in entities)
             {
                 entity.Update(gameTime);
-                entity.Collide(currentStage.StageWalls);
-                entity.Collide(currentStage.StageSpikes);
+                entity.Collide(currentStage.StageBlocks);
             }
 
             IsUpdating = false;
@@ -95,7 +94,7 @@ namespace TKGame.BackEnd
 
             // Clears expired/despawned entities from the active entity list.
             // Will need to do this for all unique entity lists, i.e. enemies, projectiles, etc.
-            entities = entities.Where(x => !x.IsExpired || !x.isDead()).ToList();
+            entities = entities.Where(x => !x.IsExpired).ToList();
 
             //Damages Enemies
             DamageEnemy();

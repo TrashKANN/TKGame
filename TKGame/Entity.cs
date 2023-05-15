@@ -122,7 +122,7 @@ namespace TKGame
                 // TODO: Make this more efficient
                 if (HitBox.Intersects(hitbox.HitBox) && hitbox is Spikes)
                 {
-                    this.health -= 0.01f;
+                    this.health -= 0.1f;
                     this.healthBar.Width = (int)(this.health / this.originalHealth * 100);
                 }
 

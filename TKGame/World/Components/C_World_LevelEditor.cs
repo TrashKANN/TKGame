@@ -32,17 +32,17 @@ namespace TKGame.World.Components
             // D (Hold) + LClick = Mark; + RClick = UnMark; + Enter = Delete Mar
             else if (Input.KeyboardState.IsKeyDown(Keys.D))
             {
-                LevelEditor.DeleteWall(currentStage.StageWalls);
+                LevelEditor.DeleteBlock(currentStage.StageBlocks);
             }
             // Ctrl + Z = Undo last wall deleted
             else if (Input.KeyboardState.IsKeyDown(Keys.LeftControl) && Input.WasKeyPressed(Keys.Z))
             {
-                LevelEditor.UndoDeletedWall(currentStage.StageWalls);
+                LevelEditor.UndoDeletedWall(currentStage.StageBlocks);
             }
             // Ctrl + Y = Redo last wall deleted
             else if (Input.KeyboardState.IsKeyDown(Keys.LeftControl) && Input.WasKeyPressed(Keys.Y))
             {
-                LevelEditor.RedoDeletedWall(currentStage.StageWalls);
+                LevelEditor.RedoDeletedWall(currentStage.StageBlocks);
             }
             else if (Input.KeyboardState.IsKeyDown(Keys.LeftControl) && Input.WasKeyPressed(Keys.S))
             {
