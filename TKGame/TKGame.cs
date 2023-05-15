@@ -118,7 +118,9 @@ namespace TKGame
             Item potion = potionFactory.CreateItem();
             EntityManager.Add(potion);
             // Spawn a firestone item
-            
+            ItemFactory fireStoneFactory = new FireStoneItemFactory();
+            Item fireStone = fireStoneFactory.CreateItem();
+            EntityManager.Add(fireStone);
 
             // test inventory
             // create a new instance of the Inventory class
