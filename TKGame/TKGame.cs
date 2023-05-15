@@ -200,7 +200,12 @@ namespace TKGame
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
             //Draws the image into the Background
-            spriteBatch.Draw(Art.BackgroundTexture, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
+            if(levelComponent.GetCurrentStage().stageName == "room0.json")
+                spriteBatch.Draw(Art.BackgroundTexture1, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
+            else if (levelComponent.GetCurrentStage().stageName == "room1.json")
+                spriteBatch.Draw(Art.BackgroundTexture2, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
+            else
+                spriteBatch.Draw(Art.BackgroundTexture3, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
             weaponSystem.Draw(spriteBatch);
 
             // Draw each wall to the screen
