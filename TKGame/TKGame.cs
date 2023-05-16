@@ -52,6 +52,7 @@ namespace TKGame
         public static bool paused;
         private static bool hasLoaded = false;
         private static bool hasInitialized = false;
+
         #endregion
 
         #region Components
@@ -108,6 +109,7 @@ namespace TKGame
             EnemyFactory knightFactory = new KnightEnemyFactory();
             Enemy knight = knightFactory.CreateEnemy();
             EntityManager.Add(knight);
+
             // Spawn a goblin enemy
             EnemyFactory goblinFactory = new GoblinEnemyFactory();
             Enemy goblin = goblinFactory.CreateEnemy();
@@ -117,25 +119,12 @@ namespace TKGame
             ItemFactory potionFactory = new PotionItemFactory();
             Item potion = potionFactory.CreateItem();
             EntityManager.Add(potion);
+
             // Spawn a firestone item
             ItemFactory fireStoneFactory = new FireStoneItemFactory();
             Item fireStone = fireStoneFactory.CreateItem();
             EntityManager.Add(fireStone);
-
-            // test inventory
-            // create a new instance of the Inventory class
-            //Inventory inventory = new Inventory();
-            // add a item to the inventory
-            //inventory.AddItem(new Item(/*figure out what goes here*/));
-            // retrieve the list of items from the inventory
-            //List<Item> items = inventory.GetItems();
-            // loop throught the list of items and display each name
-            //foreach (Item item in items)
-            //{
-            //    Console.WriteLine(item.Name);
-            //}
-
-
+            
             hasLoaded = true;
         }
         protected override async void Update(GameTime gameTime)
