@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.Items.FireStone;
 using TKGame.Items.Potion;
+using TKGame.Items.Ice;
+using TKGame.Items.Poison;
 
 namespace TKGame.Items
 {
@@ -25,6 +27,26 @@ namespace TKGame.Items
         public override Item CreateItem()
         {
             return new FireStoneItem();
+        }
+    }
+
+    // concrete ice item factory
+    public class IceItemFactory : ItemFactory
+    {
+        // returns new item of type ice
+        public override Item CreateItem()
+        {
+            return new IceItem();
+        }
+    }
+
+    // concrete poison item factory
+    public class PoisonItemFactory : ItemFactory
+    {
+        // returns new item of type poison
+        public override Item CreateItem()
+        {
+            return new PoisonItem();
         }
     }
 }

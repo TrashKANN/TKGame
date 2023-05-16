@@ -5,9 +5,9 @@ using System.Drawing;
 using TKGame.PowerUps.Components;
 using TKGame.Players;
 
-namespace TKGame.Items.FireStone.Components
+namespace TKGame.Items.Poison.Components
 {
-    class C_FireStoneItem_Physics : IPhysicsComponent
+    class C_PoisonItem_Physics : IPhysicsComponent
     {
         public ComponentType Type => throw new System.NotImplementedException();
 
