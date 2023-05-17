@@ -30,7 +30,7 @@ namespace TKGame.UI
             menus = new Dictionary<MenuState, IMenu>()
             {
                 { MenuState.MAIN_MENU,      new MainMenu()     },
-                { MenuState.GAME_MENU,      new DebugMenu()    },
+                { MenuState.GAME_MENU,      new GameMenu()     },
                 { MenuState.SETTINGS_MENU,  new SettingsMenu() },
                 { MenuState.PAUSE_MENU,     new PauseMenu()    },
             };
