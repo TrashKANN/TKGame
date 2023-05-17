@@ -48,11 +48,11 @@ namespace TKGame.BackEnd
             PlayerRightCrouch = content.Load<Texture2D>(@"Art/PlayerCrouchingRightFacing"); // player crouching facing right
             PlayerSwordTexture = content.Load<Texture2D>(@"Art/Player_Sword");              // player holding sword
             WeaponTexture = content.Load<Texture2D>(@"Art/Weapons/IronSword");              // Sword Weapon image    
-            BackgroundTexture1 = content.Load<Texture2D>(@"/Art/Cobble");                     // Background images
+            BackgroundTexture1 = content.Load<Texture2D>(@"Art/Cobble");                     // Background images
             BackgroundTexture2 = content.Load<Texture2D>(@"Art/Ruins");
             BackgroundTexture3 = content.Load<Texture2D>(@"Art/Dungeon");
             KnightEnemyTexture = content.Load<Texture2D>(@"Art/KnightLeftFacing");          // knight enemy
-            PotionItemTexture = content.Load<Texture2D>(@"/Art/Potion");                     // potion item
+            PotionItemTexture = content.Load<Texture2D>(@"Art/Potion");                     // potion item
             LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");          
             GoblinEnemyTexture = content.Load<Texture2D>(@"Art/GoblinLeftFacing");          // goblin enemy
             TransitionTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");

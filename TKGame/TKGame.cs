@@ -199,13 +199,9 @@ namespace TKGame
             // Deferred rendering means things are drawn in the ordered they're called
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
-            //Draws the image into the Background
-            if(levelComponent.GetCurrentStage().stageName == "room0.json")
-                spriteBatch.Draw(Art.BackgroundTexture1, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
-            else if (levelComponent.GetCurrentStage().stageName == "room1.json")
-                spriteBatch.Draw(Art.BackgroundTexture2, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
-            else
-                spriteBatch.Draw(Art.BackgroundTexture3, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
+            //Draw Stage Backgrounds
+            levelComponent.GetCurrentStage().Draw(spriteBatch);
+
             weaponSystem.Draw(spriteBatch);
 
             // Draw each wall to the screen

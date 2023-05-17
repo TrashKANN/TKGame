@@ -9,6 +9,7 @@ using System.Collections;
 using TKGame.BackEnd;
 using System.IO;
 using TKGame.Players;
+using TKGame.Components.Interface;
 
 namespace TKGame.Level_Editor_Content
 {
@@ -83,6 +84,17 @@ namespace TKGame.Level_Editor_Content
                     changeStage(trigger);
                 }
             }   
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            //Draws the image into the Background
+            if (stageName == "room0.json")
+                spriteBatch.Draw(Art.BackgroundTexture1, Background.BackgroundRect, Color.White);
+            else if (stageName == "room1.json")
+                spriteBatch.Draw(Art.BackgroundTexture2, Background.BackgroundRect, Color.White);
+            else
+                spriteBatch.Draw(Art.BackgroundTexture3, Background.BackgroundRect, Color.White);
         }
 
         private void changeStage(Trigger triggered)
