@@ -17,7 +17,7 @@ namespace TKGame.Components.Concrete
     {
         public ComponentType Type { get; }
         public Texture2D weaponTexture = Art.PlayerTexture;
-        private VerticalSplitPane VSP { get; set; }
+        private WeaponSystem weaponSystem = new WeaponSystem();
 
 
         void IGraphicsComponent.Update(Entity entity)
@@ -60,23 +60,23 @@ namespace TKGame.Components.Concrete
                 else if (entity.weapon.isActiveAxe)
                     entity.weapon.weaponTexture = Art.RevAxeTexture;
             }
-
+            weaponSystem.weaponTexture = entity.weapon.weaponTexture;
             if (entity.Orientation == SpriteEffects.None)
             {
-                entity.weapon.hitbox.X = (int)entity.Position.X + entity.weapon.xoff - 50;
+                entity.weapon.hitbox.X = (int)entity.Position.X + entity.weapon.xoff - 45;
                 entity.weapon.hitbox.Y = (int)entity.Position.Y - entity.weapon.yoff;
                 entity.weapon.isReversed = false;
 
             }
             else if (entity.Orientation == SpriteEffects.FlipHorizontally)
             {
-                entity.weapon.hitbox.X = (int)entity.Position.X - entity.weapon.xoff - 50;
+                entity.weapon.hitbox.X = (int)entity.Position.X - entity.weapon.xoff - 45;
                 entity.weapon.hitbox.Y = (int)entity.Position.Y - entity.weapon.yoff;
                 entity.weapon.isReversed= true;
             }
 
 
-
+            
         }
     }
 }

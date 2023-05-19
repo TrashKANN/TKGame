@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TKGame.BackEnd;
+using TKGame.Weapons;
 
 namespace TKGame.Content.Weapons
 {
@@ -27,6 +28,7 @@ namespace TKGame.Content.Weapons
         public int xoff = 50;
         public int yoff = 60;
         public bool isReversed = false;
+        public WeaponSystem weaponSystem = new WeaponSystem();
 
         /// <summary>
         /// Function to draw Weapon Sprite
@@ -34,8 +36,12 @@ namespace TKGame.Content.Weapons
         /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if (Input.KeyboardState.CapsLock) 
+
+            if (Input.KeyboardState.CapsLock)
+            {
+                spriteBatch.Draw(weaponTexture, weaponSystem.weaponRectangle, color);
                 spriteBatch.Draw(weaponTexture, hitbox, color);
+            }
         }
 
 

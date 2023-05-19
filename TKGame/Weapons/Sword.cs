@@ -26,7 +26,7 @@ namespace TKGame.Content.Weapons
         public Sword()
         {
             weaponGraphics = new C_Weapon_Graphics();
-            weaponTexture = Art.PlayerSwordTexture;
+            weaponTexture = Art.SwordTexture;
             position = new Vector2(815, 730);
             hitbox = new Rectangle(650, 730, 85, 85);
             damageStat = 1.0f;
