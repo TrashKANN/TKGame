@@ -22,6 +22,7 @@ using TKGame.Weapons;
 using TKGame.World.Components;
 using TKGame.Enemies;
 using TKGame.Items;
+using TKGame.Content.Weapons;
 
 namespace TKGame
 {
@@ -47,7 +48,6 @@ namespace TKGame
 
         public Desktop desktop;
 
-        public WeaponSystem weaponSystem;
         // TODO: Refactor out of the main TKGame class
         public static bool paused;
         private static bool hasLoaded = false;
@@ -73,7 +73,7 @@ namespace TKGame
             levelEditorComponent = new C_World_LevelEditor();
             levelComponent = new C_World_Level(new List<Level>());
             paused = true;
-            weaponSystem = new WeaponSystem();
+
         }
         protected override void Initialize()
         {
@@ -87,13 +87,9 @@ namespace TKGame
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             Art.LoadContent(Content);
             Music.LoadContent(Content, 0.069f);
 
-            // Load Weapon System Content
-            // TODO: Put VSP in WeaponSystem
-            //WeaponSystem.LoadContent(VSP);
 
             // Add and Load Default Level
             levelComponent.AddLevel(new Level(new Dictionary<string, Stage>
@@ -176,9 +172,6 @@ namespace TKGame
                 levelComponent.GetCurrentLevel().transition.Update(GameTime);
             }
 
-            // Updates Weapon System
-            //WeaponSystem.Update();
-
 
             // Update all menus
             MenuHandler.UpdateMenus();
@@ -199,10 +192,10 @@ namespace TKGame
             // Deferred rendering means things are drawn in the ordered they're called
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
+
             //Draw Stage Backgrounds
             levelComponent.GetCurrentStage().Draw(spriteBatch);
 
-            weaponSystem.Draw(spriteBatch);
 
             // Draw each wall to the screen
             // Update level editor
@@ -244,7 +237,6 @@ namespace TKGame
                         }
                     }
                 }
-
 
                 // Draw the New Wall last so that the outline appears above all other images
                 if (LevelEditor.EditMode)

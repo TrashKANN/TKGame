@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using TKGame.BackEnd;
 using TKGame.Components.Interface;
 using TKGame.Content.Weapons;
-
+using TKGame.Weapons;
 
 namespace TKGame.Components.Concrete
 {
@@ -17,10 +17,11 @@ namespace TKGame.Components.Concrete
     {
         public ComponentType Type { get; }
         public Texture2D weaponTexture = Art.PlayerTexture;
-        private VerticalSplitPane VSP { get; set; }
+        private WeaponSystem weaponSystem = new WeaponSystem();
+
+
         void IGraphicsComponent.Update(Entity entity)
         {
-
             //Adds Weapon To Player Sprite
             if (Input.KeyboardState.IsKeyDown(Keys.D1))
             {
@@ -28,44 +29,54 @@ namespace TKGame.Components.Concrete
                 entity.weapon.isActiveSpear = false;
                 entity.weapon.isActiveAxe = false;
             }
-            //else if (Input.KeyboardState.IsKeyDown(Keys.D2))      // Will Crash if you use the number keys, some problem with moving spritebatch draw into player graphics component;
-            //{
-            //    entity.weapon.isActiveSword = false;
-            //    entity.weapon.isActiveSpear = true;
-            //    entity.weapon.isActiveAxe = false;
-            //}
-            //else if (Input.KeyboardState.IsKeyDown(Keys.D3))
-            //{
-            //    entity.weapon.isActiveSword = false;
-            //    entity.weapon.isActiveSpear = false;
-            //    entity.weapon.isActiveAxe = true;
-            //}
+            else if(Input.KeyboardState.IsKeyDown(Keys.D2))
+            {
+                entity.weapon.isActiveSword = false;
+                entity.weapon.isActiveSpear = true;
+                entity.weapon.isActiveAxe = false;
+            }
+            else if (Input.KeyboardState.IsKeyDown(Keys.D3))
+            {
+                entity.weapon.isActiveSword = false;
+                entity.weapon.isActiveSpear = false;
+                entity.weapon.isActiveAxe = true;
+            }
 
-            if (Input.KeyboardState.CapsLock)
+            if (Input.KeyboardState.CapsLock && !entity.weapon.isReversed)
             {
                 if (entity.weapon.isActiveSword)
-                    entity.entityTexture = Art.PlayerSwordTexture;
+                    entity.weapon.weaponTexture = Art.SwordTexture;
                 else if (entity.weapon.isActiveSpear)
-                    entity.entityTexture = Art.PlayerSpearTexture;
+                    entity.weapon.weaponTexture = Art.SpearTexture;
                 else if (entity.weapon.isActiveAxe)
-                    entity.entityTexture = Art.PlayerAxeTexture;
-                else
-                    entity.entityTexture = Art.PlayerTexture;
+                    entity.weapon.weaponTexture = Art.AxeTexture;
             }
-            else
+            else if (Input.KeyboardState.CapsLock && entity.weapon.isReversed)
             {
-                entity.entityTexture = Art.PlayerTexture;
+                if (entity.weapon.isActiveSword)
+                    entity.weapon.weaponTexture = Art.RevSwordTexture;
+                else if (entity.weapon.isActiveSpear)
+                    entity.weapon.weaponTexture = Art.RevSpearTexture;
+                else if (entity.weapon.isActiveAxe)
+                    entity.weapon.weaponTexture = Art.RevAxeTexture;
             }
-            
-            if (entity.Velocity.X > 0)
+            weaponSystem.weaponTexture = entity.weapon.weaponTexture;
+            if (entity.Orientation == SpriteEffects.None)
             {
-                entity.Orientation = SpriteEffects.None;
+                entity.weapon.hitbox.X = (int)entity.Position.X + entity.weapon.xoff - 45;
+                entity.weapon.hitbox.Y = (int)entity.Position.Y - entity.weapon.yoff;
+                entity.weapon.isReversed = false;
+
             }
-            else if (entity.Velocity.X < 0)
+            else if (entity.Orientation == SpriteEffects.FlipHorizontally)
             {
-                entity.Orientation = SpriteEffects.FlipHorizontally;
+                entity.weapon.hitbox.X = (int)entity.Position.X - entity.weapon.xoff - 45;
+                entity.weapon.hitbox.Y = (int)entity.Position.Y - entity.weapon.yoff;
+                entity.weapon.isReversed= true;
             }
 
+
+            
         }
     }
 }

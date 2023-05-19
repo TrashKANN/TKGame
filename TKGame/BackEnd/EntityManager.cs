@@ -138,9 +138,9 @@ namespace TKGame.BackEnd
         {
             foreach (Entity entity in entities)
             {
-                if (entities[0].entityTexture == Art.PlayerSwordTexture) //Checks if player has sword out
+                if (entities[0].entityTexture == Art.PlayerTexture) //Checks if player has sword out
                 {
-                    if (entities[0].hitBox.Intersects(entity.hitBox) && entity != entities[0]) //Checks if hitboxes intersect and is not the player
+                    if (entities[0].weapon.hitbox.Intersects(entity.hitBox) && entity != entities[0]) //Checks if hitboxes intersect and is not the player
                     {
                         entity.health -= (int)(entities[0].weapon.damageStat);
                     }

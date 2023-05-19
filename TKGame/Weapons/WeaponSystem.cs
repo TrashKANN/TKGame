@@ -18,6 +18,7 @@ namespace TKGame.Weapons
     public class WeaponSystem
     {
         #region member variables
+        public Texture2D weaponTexture { get; set; }
         public Vector2 weaponPosition;
         public Rectangle weaponRectangle;
         #endregion
@@ -25,12 +26,13 @@ namespace TKGame.Weapons
         public WeaponSystem()
         {
             weaponRectangle = new Rectangle(1450, 50, 100, 100);
-
+            weaponTexture = Art.SwordTexture;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, Texture2D weaponTexture)
         {
-            spriteBatch.Draw(Art.WeaponTexture, weaponRectangle, Color.White);        
+            if(Input.KeyboardState.CapsLock)
+                spriteBatch.Draw(weaponTexture, weaponRectangle, Color.White);        
         }
     }
 }
