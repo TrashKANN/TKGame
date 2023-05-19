@@ -12,9 +12,9 @@ namespace TKGame.Content.Weapons
     public abstract class Weapon
     { 
 
-        protected Texture2D weaponTexture;
+        public Texture2D weaponTexture;
         public Vector2 position, velocity;
-        public Rectangle weaponRect;
+        public Rectangle hitbox;
         public SpriteEffects orientation;
         public bool isActiveSword = true;
         public bool isActiveSpear = false;
@@ -23,6 +23,7 @@ namespace TKGame.Content.Weapons
         public float damageStat;
         public Entity currentEntity;
         public Vector2 size;
+        public int xoff, yoff;
 
         /// <summary>
         /// Function to draw Weapon Sprite

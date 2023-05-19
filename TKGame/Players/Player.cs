@@ -139,6 +139,7 @@ namespace TKGame.Players
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
+            weapon.Draw(spriteBatch);
             base.Draw(spriteBatch);
         }
     }

@@ -25,12 +25,11 @@ namespace TKGame.Content.Weapons
         /// </summary>
         public Sword()
         {
-
             weaponGraphics = new C_Weapon_Graphics();
             weaponTexture = Art.PlayerSwordTexture;
             position = new Vector2(815, 730);
-            weaponRect = new Rectangle(815, 730, 85, 85);
-            damageStat = 1f;
+            hitbox = new Rectangle(815, 730, 85, 85);
+            damageStat = 1.0f;
         }
 
         /// <summary>
@@ -47,6 +46,7 @@ namespace TKGame.Content.Weapons
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(Art.WeaponTexture, hitbox, Color.White);
         }
 
         /// <summary>
