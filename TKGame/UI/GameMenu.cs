@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using Microsoft.Xna.Framework;
@@ -24,11 +20,13 @@ namespace TKGame.UI
         private HorizontalStackPanel panelHsp;
         private FontSystem fontSystem;
         private Label playerHealthLabel;
+        private bool playerGotPowerup;
 
 		private readonly int numCols = 1;
         private readonly int numRows = 2;
         private readonly int fontSize = 24;
         private readonly int playerHpFontSize = 48;
+        private readonly string weaponImageId = "weapon";
 
 
         public GameMenu()
@@ -44,6 +42,7 @@ namespace TKGame.UI
             panel = new Panel();
             panelHsp = new HorizontalStackPanel();
             playerHealthLabel = new Label();
+            playerGotPowerup = false;
 
 			byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
 			fontSystem = new FontSystem();
@@ -75,10 +74,10 @@ namespace TKGame.UI
             playerHealthLabel.Font = fontSystem.GetFont(playerHpFontSize);
             AddWidgetToHeaderPanel(playerHealthLabel, "HP");
             
-            AddWidgetToHeaderPanel(CreateImageWidget(Art.WeaponTexture, 60, 60), "Weapon");
-			AddWidgetToHeaderPanel(CreateImageWidget(Art.FireBallTexture, 60, 35), "Q");
-			AddWidgetToHeaderPanel(CreateImageWidget(Art.SunBurstTexture, 60, 35, new Rectangle(0, 0, 400, 153)), "R");
-			AddWidgetToHeaderPanel(CreateImageWidget(Art.BurningTexture, 60, 60), "Shift");
+            AddWidgetToHeaderPanel(CreateImageWidget(Art.WeaponTexture, 60, 60, weaponImageId), "Weapon");
+			AddWidgetToHeaderPanel(CreateImageWidget(Art.FireBallTexture, 60, 35), "Q", false);
+			AddWidgetToHeaderPanel(CreateImageWidget(Art.SunBurstTexture, 60, 35, new Rectangle(0, 0, 400, 153)), "E", false);
+			AddWidgetToHeaderPanel(CreateImageWidget(Art.BurningTexture, 60, 60), "Shift", false);
 
 
 			(debugMenu.Container as VerticalStackPanel).GridRow = 1;
@@ -87,22 +86,25 @@ namespace TKGame.UI
 
         }
 
-        private Image CreateImageWidget(Texture2D texture, int width, int height)
+        private Image CreateImageWidget(Texture2D texture, int width, int height, string name = null)
         {
-            return CreateImageWidget(texture, width, height, new Rectangle(0, 0, texture.Width, texture.Height));
+            return CreateImageWidget(texture, width, height, new Rectangle(0, 0, texture.Width, texture.Height), name);
         }
 
-		private Image CreateImageWidget(Texture2D texture, int width, int height, Rectangle textureBounds)
+		private Image CreateImageWidget(Texture2D texture, int width, int height, Rectangle textureBounds, string name = null)
 		{
 			Image image = new Image();
 			image.Renderable = new TextureRegion(texture, textureBounds);
 			image.Width = width;
 			image.Height = height;
 
+            if(name is not null) 
+                image.Id = name;
+
 			return image;
 		}
 
-		private void AddWidgetToHeaderPanel(Widget widget, string text = null)
+		private void AddWidgetToHeaderPanel(Widget widget, string text = null, bool isVisible = true)
         {
             Grid newGrid = new Grid();
 
@@ -121,6 +123,7 @@ namespace TKGame.UI
             newGrid.BorderThickness = new Myra.Graphics2D.Thickness(0, 0, 2, 2);
             newGrid.Padding = new Myra.Graphics2D.Thickness(5);
 			newGrid.Background = new SolidBrush(new Color(Color.Black, 50));
+            newGrid.Visible = isVisible;
 
 
 			widget.GridColumn = 0;
@@ -150,6 +153,31 @@ namespace TKGame.UI
 
 			playerHealthLabel.Text = playerHp.ToString();
             playerHealthLabel.TextColor = (playerHp > 0) ? Color.LimeGreen : Color.Red;
+
+            if (!playerGotPowerup && Player.Instance.GetAttackComponents().Count > 0)
+            {
+                playerGotPowerup = true;
+                EnableAttackComponentWidgets();
+            }
+        }
+
+        private void EnableAttackComponentWidgets()
+        {
+            foreach (Widget widget in panelHsp.Widgets.Where(w => !w.Visible))
+                widget.Visible = true;
+        }
+
+        public void ChangeWeaponTexture(Texture2D texture)
+        {
+            foreach (Widget widget in panelHsp.Widgets.Where(w => w is Grid))
+            {
+
+                if ((widget as Grid).Widgets.Any(w => w is Image && w.Id == weaponImageId))
+                {
+                    Image image = (widget as Grid).Widgets.First(w => w is Image && w.Id == weaponImageId) as Image;
+                    image.Renderable = new TextureRegion(texture, new Rectangle(0, 0, texture.Width, texture.Height));
+                }
+            }
         }
     }
 }

@@ -24,6 +24,7 @@ namespace TKGame.UI
         public static Desktop Desktop { get; private set; } = new Desktop();
         public static MenuState CurrentMenuState { get; private set; }
         private static Dictionary<MenuState, IMenu> menus;
+        public static Dictionary<MenuState, IMenu> Menus { get { return menus; } }
 
         static MenuHandler()
         {
