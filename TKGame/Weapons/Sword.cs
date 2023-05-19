@@ -46,7 +46,7 @@ namespace TKGame.Content.Weapons
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Art.WeaponTexture, hitbox, Color.White);
+            base.Draw(spriteBatch);
         }
 
         /// <summary>

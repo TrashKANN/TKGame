@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.BackEnd;
 
 namespace TKGame.Content.Weapons
 {
@@ -23,13 +24,20 @@ namespace TKGame.Content.Weapons
         public float damageStat;
         public Entity currentEntity;
         public Vector2 size;
-        public int xoff, yoff;
+        public int xoff = 0;
+        public int yoff = 60;
+        
 
         /// <summary>
         /// Function to draw Weapon Sprite
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            if (Input.KeyboardState.CapsLock) 
+                spriteBatch.Draw(UpdateTexture(), hitbox, color);
+        }
+
 
         /// <summary>
         /// Activates Weapon
@@ -41,5 +49,15 @@ namespace TKGame.Content.Weapons
         /// </summary>
         /// <param name="w"></param>
         public abstract void Update(Entity E);
+
+        private Texture2D UpdateTexture()
+        {
+            if (isActiveSpear)
+                return Art.SpearTexture;
+            else if (isActiveAxe)
+                return Art.AxeTexture;
+            else
+                return Art.SwordTexture;
+        }
     }
 }

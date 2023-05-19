@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using TKGame.BackEnd;
 using TKGame.Components.Interface;
 using TKGame.Content.Weapons;
-
+using TKGame.Weapons;
 
 namespace TKGame.Components.Concrete
 {
@@ -18,6 +18,8 @@ namespace TKGame.Components.Concrete
         public ComponentType Type { get; }
         public Texture2D weaponTexture = Art.PlayerTexture;
         private VerticalSplitPane VSP { get; set; }
+
+
         void IGraphicsComponent.Update(Entity entity)
         {
             //Adds Weapon To Player Sprite
@@ -67,8 +69,8 @@ namespace TKGame.Components.Concrete
 
             if (entity.Orientation == SpriteEffects.None)
             {
-                entity.weapon.position.X = entity.Position.X + entity.weapon.xoff;
-                entity.weapon.position.Y = entity.Position.Y - entity.weapon.yoff;
+                entity.weapon.hitbox.X = (int)entity.Position.X + entity.weapon.xoff;
+                entity.weapon.hitbox.Y = (int)entity.Position.Y - entity.weapon.yoff;
 
             }
             else if (entity.Orientation == SpriteEffects.FlipHorizontally)
@@ -76,6 +78,8 @@ namespace TKGame.Components.Concrete
                 entity.weapon.position.X = entity.Position.X - entity.weapon.xoff;
                 entity.weapon.position.Y = entity.Position.Y - entity.weapon.yoff;
             }
+
+
 
         }
     }

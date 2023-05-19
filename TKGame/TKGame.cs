@@ -49,7 +49,6 @@ namespace TKGame
         public Desktop desktop;
 
         public WeaponSystem weaponSystem;
-        public Weapon sword;
         // TODO: Refactor out of the main TKGame class
         public static bool paused;
         private static bool hasLoaded = false;
@@ -76,7 +75,6 @@ namespace TKGame
             levelComponent = new C_World_Level(new List<Level>());
             paused = true;
             weaponSystem = new WeaponSystem();
-            sword = new Sword();
         }
         protected override void Initialize()
         {
@@ -209,8 +207,6 @@ namespace TKGame
             else
                 spriteBatch.Draw(Art.BackgroundTexture3, levelComponent.GetCurrentStage().Background.BackgroundRect, Color.White);
             weaponSystem.Draw(spriteBatch);
-
-            sword.Draw(spriteBatch);
             
 
             // Draw each wall to the screen
