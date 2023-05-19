@@ -30,6 +30,7 @@ namespace TKGame.BackEnd
         /// <param name="height"></param>
         public Background(int width, int height)
         {
+            BackgroundTexture = new Texture2D(TKGame.Graphics.GraphicsDevice, width, height);
             BackgroundRect = new Rectangle(0, 0, width, height);
         }
 

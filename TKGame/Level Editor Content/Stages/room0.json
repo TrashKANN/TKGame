@@ -52,5 +52,10 @@
       "height": 195,
       "action": "goNext"
     }
+  ],
+  "stageBackground": [
+    {
+      "BackgroundTexture": "Art.BackgroundTexture1"
+    }
   ]
 }

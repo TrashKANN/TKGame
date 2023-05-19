@@ -50,10 +50,12 @@ namespace TKGame.Level_Editor_Content
         public List<WallData> walls { get; set; }
         public List<EntityData> entities { get; set; }
         public List<TriggerData> triggers { get; set; }
+        public Background stageBackground { get; set; }
     }
 
     static class LevelEditor
     {
+        public static Background levelBackground = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
         public static bool EditMode = false;
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
@@ -262,6 +264,7 @@ namespace TKGame.Level_Editor_Content
             stageData.walls = new List<WallData>();
             stageData.entities = new List<EntityData>();
             stageData.triggers = new List<TriggerData>();
+            stageData.stageBackground = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
 
             // For each wall, Add the data to the WallData list
             foreach (Wall wall in stage.StageWalls)
@@ -311,7 +314,14 @@ namespace TKGame.Level_Editor_Content
                     stageData.triggers.Add(triggerdata);
                 }
             }
-  
+
+            if (stage.stageName == "room0.json")
+                stageData.stageBackground.BackgroundTexture = Art.BackgroundTexture1;
+            else if (stage.stageName == "room1.json")
+                stageData.stageBackground.BackgroundTexture = Art.BackgroundTexture2;
+            else
+                stageData.stageBackground.BackgroundTexture = Art.BackgroundTexture3; 
+
             // Serializes the data set. The Options make the output human-readable.
             string json = JsonSerializer.Serialize(stageData, new JsonSerializerOptions
             {
@@ -376,6 +386,12 @@ namespace TKGame.Level_Editor_Content
             {
                 newStage.StageTriggers.Add(new Trigger(triggerData.X, triggerData.Y, triggerData.width, triggerData.height, triggerData.action));
             }
+
+            newStage.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
+            if (levelData.stageBackground.BackgroundTexture == null)
+                newStage.background.BackgroundTexture = Art.BackgroundTexture1;
+            else
+                newStage.background.BackgroundTexture = levelData.stageBackground.BackgroundTexture;
 
             return newStage;
         }
