@@ -23,7 +23,7 @@ namespace TKGame.BackEnd
         public static void LoadContent(ContentManager Content, float vol)
         {
             //Song is just temporary until Keegan makes us a basedAF soundtrack
-            backgroundSong = Content.Load<Song>(@"C:/Users/Greywater/GIT/Backgrounds/TKGame/TKGame/Content/bin/DesktopGL/Audio/Break-Out-Loop");
+            backgroundSong = Content.Load<Song>(@"Audio/Break-Out-Loop");
             MediaPlayer.Play(backgroundSong);
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = vol; //1.0f is full volume 0.0f is silent

@@ -53,9 +53,7 @@
       "action": "goNext"
     }
   ],
-  "stageBackground": [
-    {
-      "BackgroundTexture": "Art.BackgroundTexture1"
-    }
-  ]
+  "background": {
+    "texture": "cobble"
+  }
 }

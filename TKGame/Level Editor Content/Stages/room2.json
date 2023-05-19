@@ -88,5 +88,8 @@
       "height": 195,
       "action": "goPrevious"
     }
-  ]
+  ],
+  "background": {
+    "texture": "dungeon"
+  }
 }

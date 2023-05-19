@@ -45,12 +45,18 @@ namespace TKGame.Level_Editor_Content
         public string action { get; set; }
     }
 
+    public class BackgroundData//For Json Background Data
+    {
+        public string texture { get; set; } // To identify chosen texture
+    }
+
+
     public class StageData
     {
         public List<WallData> walls { get; set; }
         public List<EntityData> entities { get; set; }
         public List<TriggerData> triggers { get; set; }
-        public Background stageBackground { get; set; }
+        public BackgroundData background { get; set; }//For Json Background Data
     }
 
     static class LevelEditor
@@ -264,7 +270,6 @@ namespace TKGame.Level_Editor_Content
             stageData.walls = new List<WallData>();
             stageData.entities = new List<EntityData>();
             stageData.triggers = new List<TriggerData>();
-            stageData.stageBackground = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
 
             // For each wall, Add the data to the WallData list
             foreach (Wall wall in stage.StageWalls)
@@ -316,11 +321,26 @@ namespace TKGame.Level_Editor_Content
             }
 
             if (stage.stageName == "room0.json")
-                stageData.stageBackground.BackgroundTexture = Art.BackgroundTexture1;
-            else if (stage.stageName == "room1.json")
-                stageData.stageBackground.BackgroundTexture = Art.BackgroundTexture2;
+            {
+                stageData.background = new BackgroundData()
+                {
+                    texture = "cobble",
+                };
+            }
+            else if (stage.stageName == "room1.json") {
+                stageData.background = new BackgroundData()
+                {
+                    texture = "ruins",
+                };
+            }
             else
-                stageData.stageBackground.BackgroundTexture = Art.BackgroundTexture3; 
+            {
+                stageData.background = new BackgroundData()
+                {
+                    texture = "dungeon",
+                };
+            }
+                
 
             // Serializes the data set. The Options make the output human-readable.
             string json = JsonSerializer.Serialize(stageData, new JsonSerializerOptions
@@ -328,6 +348,11 @@ namespace TKGame.Level_Editor_Content
                 WriteIndented= true,
             });
 
+            //string backgroundJson = JsonSerializer.Serialize(stageBackground.BackgroundTexture, new JsonSerializerOptions
+            //{
+            //    WriteIndented = true,
+            //});
+       
             // Saves the json into the Level Editor Content Folder for now.
             string directory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Level Editor Content/Stages"));
             // = "[Your path into TKGames]\\TKGames\\TKGame\\Level Editor Content\\Stages\\"
@@ -387,11 +412,13 @@ namespace TKGame.Level_Editor_Content
                 newStage.StageTriggers.Add(new Trigger(triggerData.X, triggerData.Y, triggerData.width, triggerData.height, triggerData.action));
             }
 
-            newStage.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
-            if (levelData.stageBackground.BackgroundTexture == null)
-                newStage.background.BackgroundTexture = Art.BackgroundTexture1;
+            newStage.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);//Creates new Background Object
+            if (levelData.background.texture == "cobble") //identifies chosen background
+                newStage.background.BackgroundTexture = Art.BackgroundTexture1;//sets new stage background
+            else if (levelData.background.texture == "ruins")
+                newStage.background.BackgroundTexture = Art.BackgroundTexture2;
             else
-                newStage.background.BackgroundTexture = levelData.stageBackground.BackgroundTexture;
+                newStage.background.BackgroundTexture = Art.BackgroundTexture3;
 
             return newStage;
         }
