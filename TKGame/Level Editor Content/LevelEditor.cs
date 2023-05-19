@@ -82,6 +82,7 @@ namespace TKGame.Level_Editor_Content
             selectedColor = Color.White;
         }
 
+        // TODO: refactor into a factory/use IBlocks instead of hard coded types
         public static void BuildWall(Stage stage)
         {
             Wall newWall = new Wall(OutlineBuilding(stage), selectedColor);
