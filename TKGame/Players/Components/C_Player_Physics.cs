@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using TKGame.Components.Interface;
+using TKGame.Level_Editor_Content;
 
 namespace TKGame.Players.Components
 {
@@ -36,15 +37,17 @@ namespace TKGame.Players.Components
             // in the EntitiyManager.
 
             // GameTime should be owned by World as well.
+            entity.isDead();
         }
 
         // Probably move this to Entity.cs
         private void resolveVerticalCollision(Entity entity, float deltaTime)
         {
+            bool wasGrounded = entity.IsOnGround; // Store the previous grounded state
+
             if (entity.CollidedVertically)
             {
-
-                // ground collision
+                // Ground collision
                 if (entity.Velocity.Y > 0)
                 {
                     entity.IsOnGround = true;
@@ -57,10 +60,46 @@ namespace TKGame.Players.Components
                 entity.CollidedVertically = false;
             }
 
-            if (!entity.IsOnGround)
+            // Apply gravity only if the entity is not on the ground and was not previously grounded
+            if (!isOnGround(entity) && !wasGrounded)
             {
                 entity.Velocity.Y += GRAVITY * deltaTime;
             }
         }
+
+
+
+        private bool isOnGround(Entity player)
+        {
+            Rectangle extendedHitBox = new Rectangle(player.HitBox.Left + 1, player.HitBox.Bottom, player.HitBox.Width - 2, 10);
+
+            foreach (IBlock block in TKGame.levelComponent.GetCurrentLevel().currentStage.StageBlocks)
+            {
+                if (extendedHitBox.Intersects(block.HitBox))
+                {
+                    // Only consider the player grounded if the collision is from below
+                    if (player.Velocity.Y >= 0)
+                    {
+                        player.IsOnGround = true;
+                        return true;
+                    }
+                    else if (player.Velocity.Y < 0 && player is Player)
+                    {
+                        // Check if the top of the wall is within reach to allow climbing
+                        if (player.HitBox.Bottom - block.HitBox.Top <= player.Velocity.Y)
+                        {
+                            player.IsOnGround = true;
+                            player.Velocity.Y = 0;
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            player.IsOnGround = false; // Reset grounded state if no collision is found
+            return false;
+        }
+
+
     }
 }

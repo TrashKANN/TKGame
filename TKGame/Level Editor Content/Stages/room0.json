@@ -1,36 +1,42 @@
 {
-  "walls": [
+  "blocks": [
     {
+      "type": "Wall",
       "X": 0,
       "Y": 0,
       "width": 32,
       "height": 640
     },
     {
+      "type": "Wall",
       "X": 32,
       "Y": 0,
       "width": 1536,
       "height": 32
     },
     {
+      "type": "Wall",
       "X": 1568,
       "Y": 0,
       "width": 32,
       "height": 640
     },
     {
+      "type": "Wall",
       "X": 800,
       "Y": 448,
       "width": 256,
       "height": 256
     },
     {
+      "type": "Wall",
       "X": 640,
       "Y": 576,
       "width": 128,
       "height": 64
     },
     {
+      "type": "Wall",
       "X": 0,
       "Y": 864,
       "width": 1600,
