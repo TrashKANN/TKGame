@@ -30,7 +30,7 @@ namespace TKGame.Weapons
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Art.WeaponTexture, weaponRectangle, Color.White);        
+            //spriteBatch.Draw(Art.WeaponTexture, weaponRectangle, Color.White);        
         }
     }
 }

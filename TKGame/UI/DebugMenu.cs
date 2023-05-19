@@ -93,7 +93,7 @@ namespace TKGame.UI
         /// </summary>
         private static void LoadContent()
         {
-            VSP.Margin = new Myra.Graphics2D.Thickness(100, 100, 0, 0);
+            VSP.Margin = new Myra.Graphics2D.Thickness(100, 25, 0, 0);
 
             // Configure labels 
             foreach (var widget in UIWidgets)
