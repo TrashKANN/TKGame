@@ -11,6 +11,7 @@ using TKGame.BackEnd;
 using FontStashSharp;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
+using TKGame.Players;
 
 namespace TKGame.UI
 {
@@ -22,10 +23,12 @@ namespace TKGame.UI
         private Panel panel;
         private HorizontalStackPanel panelHsp;
         private FontSystem fontSystem;
+        private Label playerHealthLabel;
 
 		private readonly int numCols = 1;
         private readonly int numRows = 2;
         private readonly int fontSize = 24;
+        private readonly int playerHpFontSize = 48;
 
 
         public GameMenu()
@@ -37,11 +40,10 @@ namespace TKGame.UI
         private void Initialize()
         {
             grid = new Grid();
-            grid.ShowGridLines = true;
             debugMenu = new DebugMenu();
             panel = new Panel();
             panelHsp = new HorizontalStackPanel();
-            panelHsp.ShowGridLines = true;
+            playerHealthLabel = new Label();
 
 			byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
 			fontSystem = new FontSystem();
@@ -60,8 +62,6 @@ namespace TKGame.UI
                 grid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
             }
 
-
-            //panel.Background = new SolidBrush(Color.Beige);
             panel.GridRow = 0;
             panel.GridColumn = 0;
             panel.Height = 125;
@@ -72,10 +72,13 @@ namespace TKGame.UI
             panelHsp.Spacing = 10;
             panel.Widgets.Add(panelHsp);
 
+            playerHealthLabel.Font = fontSystem.GetFont(playerHpFontSize);
+            AddWidgetToHeaderPanel(playerHealthLabel, "HP");
             
-            AddWidgetToHeaderPanel(CreateImageWidget(Art.WeaponTexture, 70, 70), "Weapon");
+            AddWidgetToHeaderPanel(CreateImageWidget(Art.WeaponTexture, 60, 60), "Weapon");
 			AddWidgetToHeaderPanel(CreateImageWidget(Art.FireBallTexture, 60, 35), "Q");
 			AddWidgetToHeaderPanel(CreateImageWidget(Art.SunBurstTexture, 60, 35, new Rectangle(0, 0, 400, 153)), "R");
+			AddWidgetToHeaderPanel(CreateImageWidget(Art.BurningTexture, 60, 60), "Shift");
 
 
 			(debugMenu.Container as VerticalStackPanel).GridRow = 1;
@@ -95,24 +98,35 @@ namespace TKGame.UI
 			image.Renderable = new TextureRegion(texture, textureBounds);
 			image.Width = width;
 			image.Height = height;
-			image.VerticalAlignment = VerticalAlignment.Bottom;
 
 			return image;
 		}
 
 		private void AddWidgetToHeaderPanel(Widget widget, string text = null)
         {
-            
             Grid newGrid = new Grid();
 
             newGrid.ColumnsProportions.Add(new Proportion(ProportionType.Auto));
-            newGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
+            newGrid.RowsProportions.Add(
+                new Proportion() 
+                {
+                    Type = ProportionType.Pixels,
+                    Value = 60
+                });
             newGrid.RowsProportions.Add(new Proportion(ProportionType.Auto));
             newGrid.RowSpacing = 10;
+            newGrid.ColumnSpacing = 10;
             newGrid.VerticalAlignment = VerticalAlignment.Bottom;
+            newGrid.Border = new SolidBrush(Color.White);
+            newGrid.BorderThickness = new Myra.Graphics2D.Thickness(0, 0, 2, 2);
+            newGrid.Padding = new Myra.Graphics2D.Thickness(5);
+			newGrid.Background = new SolidBrush(new Color(Color.Black, 50));
 
-            widget.GridColumn = 0;
+
+			widget.GridColumn = 0;
             widget.GridRow = 0;
+            widget.HorizontalAlignment = HorizontalAlignment.Center;
+            widget.VerticalAlignment = VerticalAlignment.Bottom;
             newGrid.Widgets.Add(widget);
 
             if (text is not null)
@@ -128,6 +142,14 @@ namespace TKGame.UI
             }
 
 			panelHsp.Widgets.Add(newGrid);
+        }
+
+        public void Update()
+        {
+            int playerHp = Player.Instance.health;
+
+			playerHealthLabel.Text = playerHp.ToString();
+            playerHealthLabel.TextColor = (playerHp > 0) ? Color.LimeGreen : Color.Red;
         }
     }
 }

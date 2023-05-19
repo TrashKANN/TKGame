@@ -54,6 +54,7 @@ namespace TKGame.UI
         {
             DebugMenu.Update();
             PauseMenu.Update();
+            (menus[MenuState.GAME_MENU] as GameMenu).Update();
         }
     }
 }
