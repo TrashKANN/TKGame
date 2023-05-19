@@ -42,41 +42,37 @@ namespace TKGame.Components.Concrete
                 entity.weapon.isActiveAxe = true;
             }
 
-            if (Input.KeyboardState.CapsLock)
+            if (Input.KeyboardState.CapsLock && !entity.weapon.isReversed)
             {
                 if (entity.weapon.isActiveSword)
                     entity.weapon.weaponTexture = Art.SwordTexture;
                 else if (entity.weapon.isActiveSpear)
                     entity.weapon.weaponTexture = Art.SpearTexture;
                 else if (entity.weapon.isActiveAxe)
-                    entity.weapon.weaponTexture = Art.PlayerAxeTexture;
-                else
-                    entity.weapon.weaponTexture = Art.SwordTexture;
+                    entity.weapon.weaponTexture = Art.AxeTexture;
             }
-            else
+            else if (Input.KeyboardState.CapsLock && entity.weapon.isReversed)
             {
-                entity.entityTexture = Art.PlayerTexture;
-            }
-            
-            if (entity.Velocity.X > 0)
-            {
-                entity.weapon.orientation = SpriteEffects.None;
-            }
-            else if (entity.Velocity.X < 0)
-            {
-                entity.weapon.orientation = SpriteEffects.FlipHorizontally;
+                if (entity.weapon.isActiveSword)
+                    entity.weapon.weaponTexture = Art.RevSwordTexture;
+                else if (entity.weapon.isActiveSpear)
+                    entity.weapon.weaponTexture = Art.RevSpearTexture;
+                else if (entity.weapon.isActiveAxe)
+                    entity.weapon.weaponTexture = Art.RevAxeTexture;
             }
 
             if (entity.Orientation == SpriteEffects.None)
             {
-                entity.weapon.hitbox.X = (int)entity.Position.X + entity.weapon.xoff;
+                entity.weapon.hitbox.X = (int)entity.Position.X + entity.weapon.xoff - 50;
                 entity.weapon.hitbox.Y = (int)entity.Position.Y - entity.weapon.yoff;
+                entity.weapon.isReversed = false;
 
             }
             else if (entity.Orientation == SpriteEffects.FlipHorizontally)
             {
-                entity.weapon.position.X = entity.Position.X - entity.weapon.xoff;
-                entity.weapon.position.Y = entity.Position.Y - entity.weapon.yoff;
+                entity.weapon.hitbox.X = (int)entity.Position.X - entity.weapon.xoff - 50;
+                entity.weapon.hitbox.Y = (int)entity.Position.Y - entity.weapon.yoff;
+                entity.weapon.isReversed= true;
             }
 
 

@@ -24,9 +24,9 @@ namespace TKGame.Content.Weapons
         public float damageStat;
         public Entity currentEntity;
         public Vector2 size;
-        public int xoff = 0;
+        public int xoff = 50;
         public int yoff = 60;
-        
+        public bool isReversed = false;
 
         /// <summary>
         /// Function to draw Weapon Sprite
@@ -35,7 +35,7 @@ namespace TKGame.Content.Weapons
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (Input.KeyboardState.CapsLock) 
-                spriteBatch.Draw(UpdateTexture(), hitbox, color);
+                spriteBatch.Draw(weaponTexture, hitbox, color);
         }
 
 
@@ -50,14 +50,15 @@ namespace TKGame.Content.Weapons
         /// <param name="w"></param>
         public abstract void Update(Entity E);
 
-        private Texture2D UpdateTexture()
-        {
-            if (isActiveSpear)
-                return Art.SpearTexture;
-            else if (isActiveAxe)
-                return Art.AxeTexture;
-            else
-                return Art.SwordTexture;
-        }
+        //private Texture2D UpdateTexture()
+        //{
+        //    if (isActiveSpear)
+        //        weaponTexture = Art.SpearTexture;
+        //    else if (isActiveAxe)
+        //        weaponTexture = Art.AxeTexture;
+        //    else 
+        //        weaponTexture = Art.SwordTexture;
+        //    return weaponTexture;
+        //}
     }
 }

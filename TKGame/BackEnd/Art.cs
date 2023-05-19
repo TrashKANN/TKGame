@@ -13,8 +13,12 @@ namespace TKGame.BackEnd
         public static Texture2D PlayerSpearTexture { get; private set; }
         public static Texture2D PlayerAxeTexture { get; private set; }
         public static Texture2D SwordTexture { get; private set; }
+        public static Texture2D RevSwordTexture { get; private set; }
         public static Texture2D SpearTexture { get; private set; }
+        public static Texture2D RevSpearTexture { get; private set; }
         public static Texture2D AxeTexture {get; private set; }
+        public static Texture2D RevAxeTexture { get; private set; }
+        public static Texture2D BlankTexture { get; private set; }
         //Background Textures
         public static Texture2D BackgroundTexture1 { get; private set; }
         public static Texture2D BackgroundTexture2 { get; private set; }
@@ -48,9 +52,13 @@ namespace TKGame.BackEnd
             PlayerRightCrouch = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/PlayerCrouchingRightFacing"); // player crouching facing right
             PlayerSwordTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Player_Sword");              // player holding sword
             WeaponTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/IronSword");              // current weapon image
-            SwordTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/IronSword");                // Sword Weapon image
-            SpearTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/Spear");                    // Spear Weapon image
-            AxeTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/Axe");                        // Axe Weapon Image
+            SwordTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/IronSword");                // Sword Weapon images
+            RevSwordTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/IronSwordRev");
+            SpearTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/Spear");                       // Spear Weapon images
+            RevSpearTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/SpearRev"); 
+            AxeTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/Axe");                        // Axe Weapon Images
+            RevAxeTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/AxeRev");
+            BlankTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/blank");                    //Blank Weapon Image
             BackgroundTexture1 = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Cobble");                     // Background images
             BackgroundTexture2 = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Ruins");
             BackgroundTexture3 = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\TKDemo\TKGame\TKGame\Content\bin\DesktopGL\Art/Dungeon");
