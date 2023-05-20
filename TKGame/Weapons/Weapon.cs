@@ -6,15 +6,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TKGame.BackEnd;
+using TKGame.Weapons;
 
 namespace TKGame.Content.Weapons
 {
     public abstract class Weapon
     { 
 
-        protected Texture2D weaponTexture;
+        public Texture2D weaponTexture;
         public Vector2 position, velocity;
-        public Rectangle weaponRect;
+        public Rectangle hitbox;
         public SpriteEffects orientation;
         public bool isActiveSword = true;
         public bool isActiveSpear = false;
@@ -23,12 +25,25 @@ namespace TKGame.Content.Weapons
         public float damageStat;
         public Entity currentEntity;
         public Vector2 size;
+        public int xoff = 50;
+        public int yoff = 60;
+        public bool isReversed = false;
+        public WeaponSystem weaponSystem = new WeaponSystem();
 
         /// <summary>
         /// Function to draw Weapon Sprite
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+
+            if (Input.KeyboardState.CapsLock)
+            {
+                spriteBatch.Draw(weaponTexture, weaponSystem.weaponRectangle, color);
+                spriteBatch.Draw(weaponTexture, hitbox, color);
+            }
+        }
+
 
         /// <summary>
         /// Activates Weapon
@@ -40,5 +55,16 @@ namespace TKGame.Content.Weapons
         /// </summary>
         /// <param name="w"></param>
         public abstract void Update(Entity E);
+
+        //private Texture2D UpdateTexture()
+        //{
+        //    if (isActiveSpear)
+        //        weaponTexture = Art.SpearTexture;
+        //    else if (isActiveAxe)
+        //        weaponTexture = Art.AxeTexture;
+        //    else 
+        //        weaponTexture = Art.SwordTexture;
+        //    return weaponTexture;
+        //}
     }
 }
