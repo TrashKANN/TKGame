@@ -204,7 +204,7 @@ namespace TKGame.UI
         /// </summary>
         public void Update()
         {
-            int playerHp = Player.Instance.health;
+            float playerHp = Player.Instance.health;
 
 			playerHealthLabel.Text = playerHp.ToString();
             playerHealthLabel.TextColor = (playerHp > 0) ? Color.LimeGreen : Color.Red;
