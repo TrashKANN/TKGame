@@ -58,5 +58,8 @@
       "height": 195,
       "action": "goNext"
     }
-  ]
+  ],
+  "background": {
+    "texture": "cobble"
+  }
 }

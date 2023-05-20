@@ -18,9 +18,8 @@ namespace TKGame.Level_Editor_Content
         private List<IBlock> stageBlocks;
         private List<Entity> stageEntities;
         private List<Trigger> stageTriggers;
-        private Background background;
         public string stageName;
-
+        public Background background;
         public string prevStageName { get; set; }
         public string nextStageName { get; set; }
 
@@ -28,7 +27,6 @@ namespace TKGame.Level_Editor_Content
         public List<IBlock> StageBlocks { get { return stageBlocks; } }
         public List<Entity> StageEntities { get { return stageEntities; } }
         public List<Trigger> StageTriggers { get { return stageTriggers; } }
-        public Background Background { get { return background; } }
 
         public Stage()
         {
@@ -65,7 +63,7 @@ namespace TKGame.Level_Editor_Content
             stageEntities = loaded.stageEntities;
             stageBlocks = loaded.stageBlocks;
             stageTriggers = loaded.stageTriggers;
-
+            background = loaded.background;
             EntityManager.GetEntities().Clear();
             foreach (Entity entity in stageEntities)
             {
@@ -89,12 +87,8 @@ namespace TKGame.Level_Editor_Content
         public void Draw(SpriteBatch spriteBatch)
         {
             //Draws the image into the Background
-            if (stageName == "room0.json")
-                spriteBatch.Draw(Art.BackgroundTexture1, Background.BackgroundRect, Color.White);
-            else if (stageName == "room1.json")
-                spriteBatch.Draw(Art.BackgroundTexture2, Background.BackgroundRect, Color.White);
-            else
-                spriteBatch.Draw(Art.BackgroundTexture3, Background.BackgroundRect, Color.White);
+                spriteBatch.Draw(background.BackgroundTexture, background.BackgroundRect, Color.White);
+           
         }
 
         private void changeStage(Trigger triggered)
