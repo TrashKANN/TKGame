@@ -28,9 +28,13 @@ namespace TKGame.BackEnd
         public static Texture2D KnightEnemyTexture { get; private set; }
         public static Texture2D GoblinEnemyTexture { get; private set; }
         public static Texture2D PotionItemTexture {  get; private set; }
+        public static Texture2D FireStoneItemTexture { get; private set; }
+        public static Texture2D IceItemTexture { get; private set; }
+        public static Texture2D PoisonItemTexture { get; private set; }
         public static Texture2D TransitionTexture { get; private set; }
         public static Texture2D WeaponTexture { get; private set; }
         public static Texture2D LoadTexture { get; private set; }
+        public static Texture2D SpikesTexture { get; private set; }
 
         #region Status Effects
         public static Texture2D BurningTexture { get; private set; }
@@ -64,9 +68,16 @@ namespace TKGame.BackEnd
             BackgroundTexture3 = content.Load<Texture2D>(@"Art/Dungeon");
             KnightEnemyTexture = content.Load<Texture2D>(@"Art/KnightLeftFacing");          // knight enemy
             PotionItemTexture = content.Load<Texture2D>(@"Art/Potion");                     // potion item
+            FireStoneItemTexture = content.Load<Texture2D>(@"Art/Firestone");               // firestone item
+            IceItemTexture = content.Load<Texture2D>(@"Art/Ice");                           // ice item
+            PoisonItemTexture = content.Load<Texture2D>(@"Art/Poison");                     // poison item
             LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");          
             GoblinEnemyTexture = content.Load<Texture2D>(@"Art/GoblinLeftFacing");          // goblin enemy
             TransitionTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
+
+
+            SpikesTexture = content.Load<Texture2D>(@"Art/Spikes");
+
             BurningTexture = content.Load<Texture2D>(@"Art/BurningSprite");
             ScorchedTexture = content.Load<Texture2D>(@"Art/ScorchedSprite");
             SunBurstTexture = content.Load<Texture2D>(@"Art/SunBurstSprite");

@@ -31,8 +31,12 @@ namespace TKGame.Weapons
 
         public virtual void Draw(SpriteBatch spriteBatch, Texture2D weaponTexture)
         {
+
             if(Input.KeyboardState.CapsLock)
                 spriteBatch.Draw(weaponTexture, weaponRectangle, Color.White);        
+
+            //spriteBatch.Draw(Art.WeaponTexture, weaponRectangle, Color.White);        
+
         }
     }
 }

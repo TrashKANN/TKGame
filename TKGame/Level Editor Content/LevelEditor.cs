@@ -19,11 +19,13 @@ using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using TKGame.Players;
 using TKGame.Enemies;
+using System.Collections;
 
 namespace TKGame.Level_Editor_Content
 {
-    public class WallData
+    public class BlockData
     {
+        public string type { get; set; }
         public int X { get; set;}
         public int Y { get; set;}
         public int width { get; set;}
@@ -47,9 +49,15 @@ namespace TKGame.Level_Editor_Content
 
     public class StageData
     {
-        public List<WallData> walls { get; set; }
+        public List<BlockData> blocks { get; set; }
         public List<EntityData> entities { get; set; }
         public List<TriggerData> triggers { get; set; }
+    }
+
+    public enum StructureType
+    {
+        Wall,
+        Spikes,
     }
 
     static class LevelEditor
@@ -58,7 +66,11 @@ namespace TKGame.Level_Editor_Content
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
         private static readonly int GRID_SIZE = 32;
-        private static List<Wall> deletedWalls= new List<Wall>();
+        private static List<IBlock> deletedBlocks= new List<IBlock>();
+
+        // Selected wall, spike, etc.
+        public static StructureType selectedStructure { get; set; }
+        public static Color selectedColor { get; set; }
 
         /// <summary>
         /// Toggles the functionallity of the Level Editor
@@ -66,6 +78,25 @@ namespace TKGame.Level_Editor_Content
         public static void ToggleEditor()
         {
             EditMode = !EditMode;
+            selectedStructure = StructureType.Wall;
+            selectedColor = Color.White;
+        }
+
+        // TODO: refactor into a factory/use IBlocks instead of hard coded types
+        public static void BuildWall(Stage stage)
+        {
+            Wall newWall = new Wall(OutlineBuilding(stage), selectedColor);
+
+            if (newWall.HitBox.Width > 0 && newWall.HitBox.Height > 0)
+                stage.StageBlocks.Add(newWall);
+        }
+
+        public static void BuildSpikes(Stage stage)
+        {
+            Spikes newSpike = new Spikes(OutlineBuilding(stage));
+            
+            if (newSpike.HitBox.Width > 0 && newSpike.HitBox.Height > 0)
+                stage.StageBlocks.Add(newSpike);
         }
 
         /// <summary>
@@ -76,13 +107,15 @@ namespace TKGame.Level_Editor_Content
         /// <param name="stage"></param>
         /// <param name="graphics"></param>
         /// <param name="spriteBatch"></param>
-        public static void BuildWall(Stage stage)
+        private static Rectangle OutlineBuilding(Stage stage)
         {
             MouseState currentMouseState = Mouse.GetState();
             
             // Can be simiplified to Vector2 ... = new(); since we know the type. Style guide discussion required.
             Vector2 topLeftPosition = new Vector2();
             Vector2 size = new Vector2();
+
+            Rectangle alignedRect = new Rectangle();
 
             // If the left mouse button WAS NOT pressed last update AND IS pressed this update, store coordinates
             if (previousMouseState.LeftButton == ButtonState.Released &&
@@ -114,18 +147,16 @@ namespace TKGame.Level_Editor_Content
                 size = new Vector2(Math.Abs(startPosition.X - endPosition.X), Math.Abs(startPosition.Y - endPosition.Y));
 
                 // Align the rectangle to the grid
-                Rectangle alignedRect = AlignRectToGrid(new Rectangle(
-                                                        (int)topLeftPosition.X, 
-                                                        (int)topLeftPosition.Y, 
-                                                        (int)size.X, 
-                                                        (int)size.Y), 
-                                                        GRID_SIZE);
-
-                Wall newWall = new Wall(alignedRect, Color.White, TKGame.Graphics.GraphicsDevice);
-
-                stage.StageWalls.Add(newWall);
+                alignedRect = AlignRectToGrid(new Rectangle(
+                                             (int)topLeftPosition.X, 
+                                             (int)topLeftPosition.Y, 
+                                             (int)size.X, 
+                                             (int)size.Y), 
+                                             GRID_SIZE);
             }
             previousMouseState = currentMouseState;
+
+            return alignedRect;
         }
 
         /// <summary>
@@ -133,37 +164,37 @@ namespace TKGame.Level_Editor_Content
         /// Any walls marked when "D" is held down and "Enter" is pressed will be deleted from the stage
         /// and added to the deletedWalls list for the purposes of Undo/Redo
         /// </summary>
-        /// <param name="walls"></param>
-        public static void DeleteWall(List<Wall> walls)
+        /// <param name="blocks"></param>
+        public static void DeleteBlock(List<IBlock> blocks)
         {
-            foreach (var wall in walls)
+            foreach (var block in blocks)
             {
                 // Check each wall to see if the mouse is over it
-                if (wall.HitBox.Contains(Input.MouseState.Position))
+                if (block.HitBox.Contains(Input.MouseState.Position))
                 {
                     // If the Left mouse button was clicked, highlight it with a different color and add it to to be deleted walls
-                    if (Input.MouseState.LeftButton == ButtonState.Pressed && !deletedWalls.Contains(wall))
+                    if (Input.MouseState.LeftButton == ButtonState.Pressed && !deletedBlocks.Contains(block))
                     {
-                        wall.Texture.SetData<Color>(new Color[] { Color.Red });
-                        deletedWalls.Add(wall);
+                        block.Texture.SetData<Color>(new Color[] { Color.Red });
+                        deletedBlocks.Add(block);
                     }
                     // If Right clicked, return the color to White and remove it from to be deleted walls
-                    else if (Input.MouseState.RightButton == ButtonState.Pressed && deletedWalls.Contains(wall))
+                    else if (Input.MouseState.RightButton == ButtonState.Pressed && deletedBlocks.Contains(block))
                     {
-                        wall.Texture.SetData<Color>(new Color[] { Color.White });
-                        deletedWalls.Remove(wall);
+                        block.Texture.SetData<Color>(new Color[] { Color.White });
+                        deletedBlocks.Remove(block);
                     }
                 }
             }
             // Upon pressing Enter, remove all the highlighted walls. Save in deleted list for Undoing
             if (Input.WasKeyPressed(Keys.Enter))
             {
-                walls.RemoveAll(x => deletedWalls.Contains(x));
+                blocks.RemoveAll(x => deletedBlocks.Contains(x));
 
                 // reset wall colors for newly deleted walls
-                foreach (var wall in deletedWalls.Where(x => !walls.Contains(x)))
+                foreach (var block in deletedBlocks.Where(x => !blocks.Contains(x)))
                 {
-                    wall.Texture.SetData<Color>(new Color[] { Color.White });
+                    block.Texture.SetData(new Color[] { Color.White });
                 }
             }
         }
@@ -173,13 +204,13 @@ namespace TKGame.Level_Editor_Content
         /// to the stage walls.
         /// Remove the last wall from the deleteWalls list.
         /// </summary>
-        /// <param name="walls"></param>
-        public static void UndoDeletedWall(List<Wall> walls)
+        /// <param name="blocks"></param>
+        public static void UndoDeletedWall(List<IBlock> blocks)
         {
-            if (deletedWalls.Count > 0)
+            if (deletedBlocks.Count > 0)
             {
-                walls.Add(deletedWalls.LastOrDefault());
-                deletedWalls.Remove(deletedWalls.LastOrDefault());
+                blocks.Add(deletedBlocks.LastOrDefault());
+                deletedBlocks.Remove(deletedBlocks.LastOrDefault());
             }
         }
 
@@ -188,13 +219,13 @@ namespace TKGame.Level_Editor_Content
         /// walls. Use carefully.
         /// Walls are additionally removed from the stage walls.
         /// </summary>
-        /// <param name="walls"></param>
-        public static void RedoDeletedWall(List<Wall> walls)
+        /// <param name="blocks"></param>
+        public static void RedoDeletedWall(List<IBlock> blocks)
         {
-            if (walls.Count > 0)
+            if (blocks.Count > 0)
             {
-                deletedWalls.Add(walls.LastOrDefault());
-                walls.Remove(deletedWalls.LastOrDefault());
+                deletedBlocks.Add(blocks.LastOrDefault());
+                blocks.Remove(deletedBlocks.LastOrDefault());
             }
         }
 
@@ -259,24 +290,24 @@ namespace TKGame.Level_Editor_Content
             var stageData = new StageData();
 
             // Initialize the lists of each type of data
-            stageData.walls = new List<WallData>();
+            stageData.blocks = new List<BlockData>();
             stageData.entities = new List<EntityData>();
             stageData.triggers = new List<TriggerData>();
 
             // For each wall, Add the data to the WallData list
-            foreach (Wall wall in stage.StageWalls)
+            foreach (IBlock block in stage.StageBlocks)
             {
-                if (wall.HitBox.Width != 0 && wall.HitBox.Height != 0)
+                if (block.HitBox.Width != 0 && block.HitBox.Height != 0)
                 {
-                    WallData walldata = new WallData()
+                    BlockData blockdata = new BlockData()
                     {
-                        X = wall.HitBox.X,
-                        Y = wall.HitBox.Y,
-                        width = wall.HitBox.Width,
-                        height = wall.HitBox.Height,
+                        X = block.HitBox.X,
+                        Y = block.HitBox.Y,
+                        width = block.HitBox.Width,
+                        height = block.HitBox.Height,
                     };
 
-                    stageData.walls.Add(walldata);
+                    stageData.blocks.Add(blockdata);
                 }
             }
 
@@ -360,10 +391,27 @@ namespace TKGame.Level_Editor_Content
 
             StageData levelData = JsonSerializer.Deserialize<StageData>(jsonString);
 
-            foreach (WallData wallData in levelData.walls)
+            foreach (BlockData blockData in levelData.blocks)
             {
-                Wall newWall = new Wall(wallData.X, wallData.Y, wallData.width, wallData.height, Color.White);
-                newStage.StageWalls.Add(newWall);
+                IBlock newBlock;
+                if (blockData.type == "Wall")
+                {
+                    newBlock = new Wall(blockData.X, blockData.Y, blockData.width, blockData.height, Color.White);
+                }
+                else if (blockData.type == "Spikes")
+                {
+                    newBlock = new Spikes(blockData.X, blockData.Y, blockData.width, blockData.height);
+                }
+                // TODO:
+                //else if (blockData.type == "Platform")
+                //{
+                //    newBlock = new Platform(blockData.X, blockData.Y, blockData.width, blockData.height, Color.White);
+                //}
+                else
+                {
+                    newBlock = new Wall(blockData.X, blockData.Y, blockData.width, blockData.height, Color.White);
+                }
+                newStage.StageBlocks.Add(newBlock);
             }
 
             foreach (EntityData entityData in levelData.entities)

@@ -10,23 +10,25 @@ using Microsoft.Xna.Framework.Graphics;
 using TKGame.BackEnd;
 using TKGame.Components.Concrete;
 using TKGame.Components.Interface;
-using TKGame.Items.Potion.Components;
+using TKGame.Items.FireStone.Components;
 using TKGame.PowerUps;
 using TKGame.Status_Effects;
 
-namespace TKGame.Items.Potion
+// base class for firestone item
+namespace TKGame.Items.FireStone
 {
-    class PotionItem : Item
+    public class FireStoneItem : Item
     {
-        private IPhysicsComponent potionItemPhysics = new C_PotionItem_Physics();
-        private IGraphicsComponent potionItemGraphics = new C_PoitionItem_Graphics();
+        private IPhysicsComponent fireStoneItemPhysics = new C_FireStoneItem_Physics();
+        private IGraphicsComponent fireStoneItemGraphics = new C_FireStoneItem_Graphics();
         static Random rand = new Random();
         int x = rand.Next(900, 1200);
-        public PotionItem()
+
+        public FireStoneItem() 
         {
-            Name = "Potion"; // name for this item is "Potion"
+            Name = "FireStone"; // name for this item is "FireStone"
             Stats = 0;       // stats for this item is 0
-            entityTexture = Art.PotionItemTexture;
+            entityTexture = Art.FireStoneItemTexture;
             entityType = EntityType.Item;
             Position = new Vector2(x, 839); // random x-coor spawn
             HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
@@ -38,13 +40,12 @@ namespace TKGame.Items.Potion
 
         public override void Update(GameTime gameTime)
         {
-            potionItemPhysics.Update(this, gameTime/*, world*/);
+            fireStoneItemPhysics.Update(this, gameTime/*, world*/);
         }
 
         public void Draw()
         {
-            potionItemGraphics.Update(this);
+            fireStoneItemGraphics.Update(this);
         }
     }
 }
-

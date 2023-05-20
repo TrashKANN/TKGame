@@ -15,7 +15,7 @@ namespace TKGame.Level_Editor_Content
 {
     public class Stage : IEnumerable<Stage>
     {
-        private List<Wall> stageWalls;
+        private List<IBlock> stageBlocks;
         private List<Entity> stageEntities;
         private List<Trigger> stageTriggers;
         private Background background;
@@ -25,7 +25,7 @@ namespace TKGame.Level_Editor_Content
         public string nextStageName { get; set; }
 
 
-        public List<Wall> StageWalls { get { return stageWalls; } }
+        public List<IBlock> StageBlocks { get { return stageBlocks; } }
         public List<Entity> StageEntities { get { return stageEntities; } }
         public List<Trigger> StageTriggers { get { return stageTriggers; } }
         public Background Background { get { return background; } }
@@ -33,7 +33,7 @@ namespace TKGame.Level_Editor_Content
         public Stage()
         {
             stageName = "defaultStage.json";
-            this.stageWalls = new List<Wall>() { };
+            this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
             this.stageTriggers = new List<Trigger>() { };
             this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
@@ -42,7 +42,7 @@ namespace TKGame.Level_Editor_Content
         public Stage(string name) 
         {
             stageName = name + ".json";
-            this.stageWalls = new List<Wall>() { };
+            this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
             this.stageTriggers = new List<Trigger>() { };
             this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
@@ -63,7 +63,7 @@ namespace TKGame.Level_Editor_Content
             Stage loaded = LevelEditor.LoadStageDataFromJSON(stageName);
 
             stageEntities = loaded.stageEntities;
-            stageWalls = loaded.stageWalls;
+            stageBlocks = loaded.stageBlocks;
             stageTriggers = loaded.stageTriggers;
 
             EntityManager.GetEntities().Clear();

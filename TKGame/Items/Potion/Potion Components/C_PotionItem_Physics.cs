@@ -8,7 +8,7 @@ using TKGame.PowerUps.Components.FirePowerUps;
 
 namespace TKGame.Items.Potion.Components
 {
-    class C_Item_Physics : IPhysicsComponent
+    class C_PotionItem_Physics : IPhysicsComponent
     {
         ComponentType IComponent.Type => ComponentType.Physics;
         void IPhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)

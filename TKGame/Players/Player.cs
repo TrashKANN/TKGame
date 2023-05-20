@@ -22,9 +22,7 @@ namespace TKGame.Players
         public bool isJumping = false;
         public bool isLookingLeft = false;
         public bool isCrouched = false;
-        public bool IsOnGround { get; set; }
-        public bool CollidedVertically { get; set; }
-        public bool CollidedHorizontally { get; set; }
+
         public int FramesSinceJump { get; set; }
 
         public static Player Instance

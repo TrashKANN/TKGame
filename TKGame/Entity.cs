@@ -40,12 +40,16 @@ namespace TKGame
         public string entityName; // to identify each entity by name
         public EntityType entityType;
 
+        public bool IsOnGround { get; set; }
+        public bool CollidedVertically { get; set; }
+        public bool CollidedHorizontally { get; set; }
+
         public Weapon weapon;
-        public int health;
+        public float health;
         public Rectangle healthBar;
         public Texture2D healthTexture;
         public bool needsHealth = false;
-        public int originalHealth;
+        public float originalHealth;
         
 
         #region Properties
@@ -115,7 +119,14 @@ namespace TKGame
 
             foreach (var hitbox in collidables)
             {
-                if (HitBox.Intersects(hitbox.HitBox) && this.entityType != EntityType.PowerUp)
+                // TODO: Make this more efficient
+                if (HitBox.Intersects(hitbox.HitBox) && hitbox is Spikes)
+                {
+                    this.health -= 0.1f;
+                    this.healthBar.Width = (int)(this.health / this.originalHealth * 100);
+                }
+
+                if (HitBox.Intersects(hitbox.HitBox) && this.entityType != EntityType.PowerUp && hitbox is not Spikes)
                 {
                     // Calculate the depth of the intersection between Player and each Wall
                     Rectangle intersection = Rectangle.Intersect(HitBox, hitbox.HitBox);

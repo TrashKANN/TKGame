@@ -52,6 +52,7 @@ namespace TKGame
         public static bool paused;
         private static bool hasLoaded = false;
         private static bool hasInitialized = false;
+
         #endregion
 
         #region Components
@@ -96,7 +97,8 @@ namespace TKGame
             {
                 { "room0", new Stage("room0") },
                 { "room1", new Stage("room1") },
-                { "room2", new Stage("room2") }
+                { "room2", new Stage("room2") },
+                { "room3", new Stage("room3") },
             }
             ));
 
@@ -108,12 +110,23 @@ namespace TKGame
             EnemyFactory goblinFactory = new GoblinEnemyFactory();
             Enemy goblin = goblinFactory.CreateEnemy();
             EntityManager.Add(goblin);
-
             // Spawn a potion item
             ItemFactory potionFactory = new PotionItemFactory();
             Item potion = potionFactory.CreateItem();
             EntityManager.Add(potion);
-
+            // Spawn a firestone item
+            ItemFactory fireStoneFactory = new FireStoneItemFactory();
+            Item fireStone = fireStoneFactory.CreateItem();
+            EntityManager.Add(fireStone);
+            // Spawn an ice item
+            ItemFactory iceItemFactory = new IceItemFactory();
+            Item ice = iceItemFactory.CreateItem();
+            EntityManager.Add(ice);
+            // Spawn a poison item
+            ItemFactory poisonItemFactory = new PoisonItemFactory();
+            Item poison = poisonItemFactory.CreateItem();
+            EntityManager.Add(poison);
+            
             hasLoaded = true;
         }
         protected override async void Update(GameTime gameTime)
@@ -203,12 +216,12 @@ namespace TKGame
             if (hasLoaded && hasInitialized)
             {
 
-                foreach (Wall wall in levelComponent.GetCurrentStage().StageWalls)
+                foreach (IBlock block in levelComponent.GetCurrentStage().StageBlocks)
                 {
-                    spriteBatch.Draw(wall.Texture, wall.HitBox, WALL_COLOR);
+                    spriteBatch.Draw(block.Texture, block.HitBox, WALL_COLOR);
                     if (GameDebug.DebugMode)
                     {
-                        GameDebug.DrawBoundingBox(wall.HitBox, Color.Lime, 5);
+                        GameDebug.DrawBoundingBox(block.HitBox, Color.Lime, 5);
                     }
                 }
 

@@ -24,13 +24,14 @@ namespace TKGame.UI
         public static Desktop Desktop { get; private set; } = new Desktop();
         public static MenuState CurrentMenuState { get; private set; }
         private static Dictionary<MenuState, IMenu> menus;
+        public static Dictionary<MenuState, IMenu> Menus { get { return menus; } }
 
         static MenuHandler()
         {
             menus = new Dictionary<MenuState, IMenu>()
             {
                 { MenuState.MAIN_MENU,      new MainMenu()     },
-                { MenuState.GAME_MENU,      new DebugMenu()    },
+                { MenuState.GAME_MENU,      new GameMenu()     },
                 { MenuState.SETTINGS_MENU,  new SettingsMenu() },
                 { MenuState.PAUSE_MENU,     new PauseMenu()    },
             };
@@ -54,6 +55,7 @@ namespace TKGame.UI
         {
             DebugMenu.Update();
             PauseMenu.Update();
+            (menus[MenuState.GAME_MENU] as GameMenu).Update();
         }
     }
 }
