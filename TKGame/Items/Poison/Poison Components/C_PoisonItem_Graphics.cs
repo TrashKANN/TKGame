@@ -11,9 +11,10 @@ using TKGame.BackEnd;
 using Myra.Graphics2D.UI;
 using System.Drawing;
 
-namespace TKGame.Items.Potion.Components
+// graphics component class for poison item
+namespace TKGame.Items.Poison.Components
 {
-    class C_Item_Graphics : IGraphicsComponent
+    class C_PoisonItem_Graphics : IGraphicsComponent
     {
         ComponentType IComponent.Type => ComponentType.Graphics;
         void IGraphicsComponent.Update(Entity entity/*, SpriteBatch spriteBatch*/)

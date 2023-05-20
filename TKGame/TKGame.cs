@@ -52,6 +52,7 @@ namespace TKGame
         public static bool paused;
         private static bool hasLoaded = false;
         private static bool hasInitialized = false;
+
         #endregion
 
         #region Components
@@ -113,12 +114,23 @@ namespace TKGame
             EnemyFactory goblinFactory = new GoblinEnemyFactory();
             Enemy goblin = goblinFactory.CreateEnemy();
             EntityManager.Add(goblin);
-
             // Spawn a potion item
             ItemFactory potionFactory = new PotionItemFactory();
             Item potion = potionFactory.CreateItem();
             EntityManager.Add(potion);
-
+            // Spawn a firestone item
+            ItemFactory fireStoneFactory = new FireStoneItemFactory();
+            Item fireStone = fireStoneFactory.CreateItem();
+            EntityManager.Add(fireStone);
+            // Spawn an ice item
+            ItemFactory iceItemFactory = new IceItemFactory();
+            Item ice = iceItemFactory.CreateItem();
+            EntityManager.Add(ice);
+            // Spawn a poison item
+            ItemFactory poisonItemFactory = new PoisonItemFactory();
+            Item poison = poisonItemFactory.CreateItem();
+            EntityManager.Add(poison);
+            
             hasLoaded = true;
         }
         protected override async void Update(GameTime gameTime)
