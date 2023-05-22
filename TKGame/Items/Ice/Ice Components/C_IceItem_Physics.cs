@@ -21,12 +21,9 @@ namespace TKGame.Items.Ice.Components
             //    Vector2 playerPosition = player.Position;
 
             //    // if player is within pickup range
-            //    // This is mainly for testing purposes. I will make powerup items soon
             //    if (player.HitBox.Intersects(entity.HitBox))
             //    {
-            //        Player.Instance.PickUpPowerUp(new C_Fire_SpecialAttack());
             //        Player.Instance.PickUpPowerUp(new C_Fire_UltimateAttack());
-            //        Player.Instance.PickUpPowerUp(new C_Fire_MovementAttack());
             //    }
             //}
             entity.HitBox = new Microsoft.Xna.Framework.Rectangle((int)entity.Position.X - (int)entity.Size.X / 2,
