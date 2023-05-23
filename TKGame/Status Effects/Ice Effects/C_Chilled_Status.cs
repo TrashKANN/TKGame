@@ -10,10 +10,10 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Status_Effects
 {
-    public class C_Frozen_Status : IStatusComponent
+    public class C_Chilled_Status : IStatusComponent
     {
-        public ComponentType Type => ComponentType.Frozen;
-        public StatusType StatusType => StatusType.Frozen;
+        public ComponentType Type => ComponentType.Chilled;
+        public StatusType StatusType => StatusType.Chilled;
         public float Duration { get; set; }
         public float TickInterval { get; set; }
         public float DamagePerTick { get; set; }
@@ -21,7 +21,7 @@ namespace TKGame.Status_Effects
         public float ElapsedTime { get; set; }
         public float TimeSinceLastTick { get; set; }
 
-        public C_Frozen_Status(float duration, float tickInterval, float damagePerTick, Entity sourceEntity)
+        public C_Chilled_Status(float duration, float tickInterval, float damagePerTick, Entity sourceEntity)
         {
             Duration = duration;
             TickInterval = tickInterval;
@@ -53,7 +53,7 @@ namespace TKGame.Status_Effects
         public Texture2D GetEffectTexture()
         {
             // TODO: add the texture to the project
-            //return Art.FrozenTexture;
+            //return Art.ChilledTexture;
             throw new NotImplementedException();
         }
 
