@@ -23,7 +23,7 @@ namespace TKGame.Items.Ice.Components
             //    // if player is within pickup range
             //    if (player.HitBox.Intersects(entity.HitBox))
             //    {
-            //        Player.Instance.PickUpPowerUp(new C_Fire_UltimateAttack());
+            //        Player.Instance.PickUpPowerUp(new C_Ice_UltimateAttack());
             //    }
             //}
             entity.HitBox = new Microsoft.Xna.Framework.Rectangle((int)entity.Position.X - (int)entity.Size.X / 2,

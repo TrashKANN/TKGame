@@ -36,10 +36,16 @@ namespace TKGame.PowerUps.Components.IcePowerUps
             /// TODO: put in input component
             
             // if attack key is pressed
-            // set attacking boolean to true
-            // otherwise set attacking boolean to false
+            if (Input.WasKeyPressed(Keys.E)) 
+            {
+                // set attacking boolean to true
+                isAttacking = true;
+                // and set entity to new attack entity
 
-            throw new NotImplementedException();
+            }
+            // otherwise set attacking boolean to false
+            else
+                isAttacking = false;
         }
         public void OnHit(Entity source, Entity target)
         {
