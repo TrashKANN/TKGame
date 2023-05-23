@@ -52,6 +52,7 @@ namespace TKGame.Status_Effects
         }
         public Texture2D GetEffectTexture()
         {
+            // TODO: add the texture to the project
             //return Art.FreezingTexture;
             throw new NotImplementedException();
         }

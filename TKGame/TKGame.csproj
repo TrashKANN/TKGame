@@ -34,7 +34,6 @@
     <Folder Include="Content\Art\Weapons\" />
     <Folder Include="Content\bin\DesktopGL\Art\" />
     <Folder Include="Core\" />
-    <Folder Include="PowerUps\Components\Ice PowerUps\Related Entities\" />
     <Folder Include="PowerUps\Components\Lightning PowerUps\" />
   </ItemGroup>
   <ItemGroup>

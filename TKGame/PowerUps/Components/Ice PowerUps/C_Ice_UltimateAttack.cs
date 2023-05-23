@@ -40,7 +40,7 @@ namespace TKGame.PowerUps.Components.IcePowerUps
             {
                 // set attacking boolean to true
                 isAttacking = true;
-                // and set entity to new attack entity
+                // TODO: set entity to new attack entity
 
             }
             // otherwise set attacking boolean to false
@@ -49,7 +49,7 @@ namespace TKGame.PowerUps.Components.IcePowerUps
         }
         public void OnHit(Entity source, Entity target)
         {
-            // add component to target passing new status
+            // TODO: add component to target passing new status
             throw new NotImplementedException();
         }
     }
