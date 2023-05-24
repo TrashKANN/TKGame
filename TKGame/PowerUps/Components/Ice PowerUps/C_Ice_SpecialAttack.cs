@@ -13,10 +13,9 @@ using TKGame.Status_Effects;
 
 namespace TKGame.PowerUps.Components.IcePowerUps
 {
-    class C_Ice_SpecialAttack : IUltimateAttackComponent
+    class C_Ice_SpecialAttack : ISpecialAttackComponent
     {
-        // constants
-        ComponentType IComponent.Type => ComponentType.AttackUltimate;
+        ComponentType IComponent.Type => ComponentType.AttackSpecial;
         public string NameID { get; private set; }
         public Rectangle HitBox { get; set; }
         public AttackType AttackType { get; }
@@ -24,32 +23,14 @@ namespace TKGame.PowerUps.Components.IcePowerUps
 
         public C_Ice_SpecialAttack()
         {
-            // name
-            NameID = "IceSpecialAttack";
-            // attack type
-            AttackType = AttackType.Ultimate;
-            // hitbox
-            HitBox = new Rectangle(/*0,0,width,height*/);
+            throw new NotImplementedException();
         }
         public void Update(Entity entity)
         {
-            /// TODO: put in input component
-
-            // if attack key is pressed
-            if (Input.WasKeyPressed(Keys.K))
-            {
-                // set attacking boolean to true
-                isAttacking = true;
-                // TODO: set entity to new attack entity
-
-            }
-            // otherwise set attacking boolean to false
-            else
-                isAttacking = false;
+            throw new NotImplementedException();
         }
         public void OnHit(Entity source, Entity target)
         {
-            // TODO: add component to target passing new status
             throw new NotImplementedException();
         }
     }

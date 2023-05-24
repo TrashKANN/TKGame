@@ -10,6 +10,7 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Status_Effects
 {
+    // TODO: enemies have chilled status removed and cannot move for 1.5 seconds
     public class C_Frozen_Status : IStatusComponent
     {
         public ComponentType Type => ComponentType.Frozen;

@@ -28,18 +28,68 @@ namespace TKGame.PowerUps.RelatedEntities
                         IPhysicsComponent physics_,
                         IGraphicsComponent graphics_)
         {
-            // TODO
+            components = new Dictionary<ComponentType, List<IComponent>>
+            {
+                { ComponentType.Physics,        new List<IComponent> { physics_ } },
+                { ComponentType.Graphics,       new List<IComponent> { graphics_ } },
+            };
+
+            LifeTime = lifeTime;
+            Duration = duration;
+            TickInterval = tickInterval;
+            DamagePerTick = damagePerTick;
+
+            //entityTexture = Art.ChilledTexture;
+
+            entityName = "Chilled"; // name for player class
+            entityType = EntityType.PowerUp;
+            Position = new Vector2(Player.Instance.HitBox.X - 150, Player.Instance.HitBox.Y);
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y, 185, 150);
+            //Size = HitBox.Size;
         }
+
         public override void Update(GameTime gameTime)
         {
-            // TODO
-            throw new NotImplementedException();
+            ConfigureHitBox();
+            components[ComponentType.Physics].OfType<IPhysicsComponent>().First().Update(this, gameTime);
+
+            ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (ElapsedTime >= LifeTime)
+            {
+                this.IsExpired = true;
+                return;
+            }
+
+            List<Entity> entities = EntityManager.GetEntities();
+
+            foreach (Entity e in entities)
+            {
+                if (e != this && HitBox.Intersects(e.HitBox) && e != Player.Instance)
+                {
+                    OnHit(this, e);
+                }
+            }
+
+            components[ComponentType.Graphics].OfType<IGraphicsComponent>().First().Update(this);
         }
+
         public void OnHit(Entity source, Entity target)
         {
-            // TODO
-            throw new NotImplementedException();
+            target.AddComponent(new C_Chilled_Status(Duration, TickInterval, DamagePerTick, source));
         }
+
+        private void ConfigureHitBox()
+        {
+            int offset = Player.Instance.HitBox.Center.X - Player.Instance.HitBox.X;
+
+            if (Player.Instance.isLookingLeft)
+            {
+                offset = offset * -1 - HitBox.Width;
+            }
+            HitBox = new Rectangle(Player.Instance.HitBox.Center.X + offset, Player.Instance.HitBox.Y, HitBox.Width, HitBox.Height);
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

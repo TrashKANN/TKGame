@@ -10,6 +10,7 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Status_Effects
 {
+    // TODO: enemies move at 80% speed and have 20% chance of taking on frozen status
     public class C_Chilled_Status : IStatusComponent
     {
         public ComponentType Type => ComponentType.Chilled;

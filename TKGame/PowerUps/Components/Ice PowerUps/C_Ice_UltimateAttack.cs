@@ -15,7 +15,6 @@ namespace TKGame.PowerUps.Components.IcePowerUps
 {
     class C_Ice_UltimateAttack : IUltimateAttackComponent
     {
-        // constants
         ComponentType IComponent.Type => ComponentType.AttackUltimate;
         public string NameID { get; private set; }
         public Rectangle HitBox { get; set; }
@@ -24,32 +23,14 @@ namespace TKGame.PowerUps.Components.IcePowerUps
 
         public C_Ice_UltimateAttack()
         {
-            // name
-            NameID = "IceUltimateAttack";
-            // attack type
-            AttackType = AttackType.Ultimate;
-            // hitbox
-            HitBox = new Rectangle(/*0,0,width,height*/);
+            throw new NotImplementedException();
         }
         public void Update(Entity entity)
         {
-            /// TODO: put in input component
-            
-            // if attack key is pressed
-            if (Input.WasKeyPressed(Keys.J)) 
-            {
-                // set attacking boolean to true
-                isAttacking = true;
-                // TODO: set entity to new attack entity
-
-            }
-            // otherwise set attacking boolean to false
-            else
-                isAttacking = false;
+            throw new NotImplementedException();
         }
         public void OnHit(Entity source, Entity target)
         {
-            // TODO: add component to target passing new status
             throw new NotImplementedException();
         }
     }
