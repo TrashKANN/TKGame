@@ -225,11 +225,6 @@ namespace TKGame
                     }
                 }
 
-                foreach (Trigger trigger in levelComponent.GetCurrentStage().StageTriggers)
-                {
-                    spriteBatch.Draw(trigger.Texture, trigger.HitBox, Color.White);
-                }
-
                 EntityManager.Draw(spriteBatch);
 
                 if (GameDebug.DebugMode)

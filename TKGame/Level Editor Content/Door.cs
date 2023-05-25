@@ -7,18 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TKGame.Animations;
+using TKGame.Components.Interface;
 using TKGame.Players;
 
 namespace TKGame.Level_Editor_Content
 {
-    public class Trigger
+    public class Door : IBlock
     {
         #region Member Variables
         public Rectangle HitBox { get; set; }
         public Texture2D Texture { get; set; }
         public string Action { get; set; }
 
-        private ScreenTransition transition;
+        public ComponentType Type => ComponentType.Door;
 
         private DateTime timeSinceTriggered = DateTime.MinValue;
         private TimeSpan timeBetweenTriggers = TimeSpan.FromMilliseconds(5000);
@@ -32,13 +33,12 @@ namespace TKGame.Level_Editor_Content
         /// <param name="ypos"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public Trigger(int xpos, int ypos, int width, int height, string action)
+        public Door(int xpos, int ypos, int width, int height, string action)
         {
             HitBox = new Rectangle(xpos, ypos, width, height);
             Texture = new Texture2D(TKGame.Graphics.GraphicsDevice, 1, 1);
             Texture.SetData(new Color[] { Color.Yellow });
             Action = action;
-            transition = new ScreenTransition();
         }
         #endregion
 

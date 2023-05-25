@@ -11,5 +11,6 @@ namespace TKGame.Level_Editor_Content
     public interface IBlock : ICollideComponent
     {
         Texture2D Texture { get; set; }
+        string Action { get; set; }
     }
 }

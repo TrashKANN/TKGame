@@ -30,21 +30,13 @@ namespace TKGame.Level_Editor_Content
         public int Y { get; set;}
         public int width { get; set;}
         public int height { get; set;}
+        public string action { get; set; }
     }
     public class EntityData
     {
         public string type { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
-    }
-
-    public class TriggerData
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
-        public string action { get; set; }
     }
 
     public class BackgroundData//For Json Background Data
@@ -57,7 +49,6 @@ namespace TKGame.Level_Editor_Content
     {
         public List<BlockData> blocks { get; set; }
         public List<EntityData> entities { get; set; }
-        public List<TriggerData> triggers { get; set; }
         public BackgroundData background { get; set; }//For Json Background Data
     }
 
@@ -65,6 +56,7 @@ namespace TKGame.Level_Editor_Content
     {
         Wall,
         Spikes,
+        Door,
     }
 
     static class LevelEditor
@@ -300,7 +292,6 @@ namespace TKGame.Level_Editor_Content
             // Initialize the lists of each type of data
             stageData.blocks = new List<BlockData>();
             stageData.entities = new List<EntityData>();
-            stageData.triggers = new List<TriggerData>();
 
             // For each wall, Add the data to the WallData list
             foreach (IBlock block in stage.StageBlocks)
@@ -313,6 +304,7 @@ namespace TKGame.Level_Editor_Content
                         Y = block.HitBox.Y,
                         width = block.HitBox.Width,
                         height = block.HitBox.Height,
+                        action = block.Action,
                     };
 
                     stageData.blocks.Add(blockdata);
@@ -334,22 +326,6 @@ namespace TKGame.Level_Editor_Content
                 }
             }
 
-            // For each trigger, Add the data to the TriggerData list
-            foreach (Trigger trigger in stage.StageTriggers)
-            {
-                if (trigger.HitBox.Width != 0 && trigger.HitBox.Height != 0)
-                {
-                    TriggerData triggerdata = new TriggerData()
-                    {
-                        X = trigger.HitBox.X,
-                        Y = trigger.HitBox.Y,
-                        width = trigger.HitBox.Width,
-                        height = trigger.HitBox.Height,
-                        action = trigger.Action,
-                    };
-                    stageData.triggers.Add(triggerdata);
-                }
-            }
 
             if (stage.stageName == "room0.json")
             {
@@ -437,6 +413,10 @@ namespace TKGame.Level_Editor_Content
                 {
                     newBlock = new Spikes(blockData.X, blockData.Y, blockData.width, blockData.height);
                 }
+                else if (blockData.type == "Door")
+                {
+                    newBlock = new Door(blockData.X, blockData.Y, blockData.width, blockData.height, blockData.action);
+                }
                 // TODO:
                 //else if (blockData.type == "Platform")
                 //{
@@ -453,11 +433,6 @@ namespace TKGame.Level_Editor_Content
             {
                 //TODO: Refactor for factories
                 newStage.StageEntities.Add(new KnightEnemy());
-            }
-
-            foreach (TriggerData triggerData in levelData.triggers)
-            {
-                newStage.StageTriggers.Add(new Trigger(triggerData.X, triggerData.Y, triggerData.width, triggerData.height, triggerData.action));
             }
 
             newStage.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);//Creates new Background Object
