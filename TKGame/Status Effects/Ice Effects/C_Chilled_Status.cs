@@ -10,7 +10,6 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Status_Effects
 {
-    // TODO: enemies move at 80% speed and have 20% chance of taking on frozen status
     public class C_Chilled_Status : IStatusComponent
     {
         public ComponentType Type => ComponentType.Chilled;
@@ -47,15 +46,14 @@ namespace TKGame.Status_Effects
             {
                 //IHealthComponent healthComponent = EntityManager.GetComponent<IHealthComponent>(SourceEntity);
                 //healthComponent.TakeDamage(DamagePerTick);
-                entity.health -= DamagePerTick;
+                // currently permanent 80% reduction in speed for effected entity
+                entity.Velocity = entity.Velocity / 5;
                 TimeSinceLastTick = 0f;
             }
         }
         public Texture2D GetEffectTexture()
         {
-            // TODO: add the texture to the project
-            //return Art.ChilledTexture;
-            throw new NotImplementedException();
+            return Art.ChilledTexture;
         }
 
     }

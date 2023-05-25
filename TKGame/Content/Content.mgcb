@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:Art/BurningSprite.png
 
+#begin Art/Chilled.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Art/Chilled.png
+
 #begin Art/Cobble.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -276,18 +288,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Art/Weapons/AxeRev.png
-
-#begin Art/Weapons/blank.jpg
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Art/Weapons/blank.jpg
 
 #begin Art/Weapons/blank.jpg
 /importer:TextureImporter

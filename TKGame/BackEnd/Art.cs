@@ -83,7 +83,7 @@ namespace TKGame.BackEnd
             SunBurstTexture = content.Load<Texture2D>(@"Art/SunBurstSprite");
             FireBallTexture = content.Load<Texture2D>(@"Art/FireBallSprite");
 
-            //ChilledTexture = content.Load<Texture2D>(@"Art/ChilledSprite");
+            ChilledTexture = content.Load<Texture2D>(@"Art/Chilled");
             //ShockedTexture = content.Load<Texture2D>(@"Art/ShockedSprite");
         }
 
