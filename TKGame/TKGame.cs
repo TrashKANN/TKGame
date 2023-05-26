@@ -52,6 +52,8 @@ namespace TKGame
         public static bool paused;
         private static bool hasLoaded = false;
         private static bool hasInitialized = false;
+        public static readonly float GRAVITY = 1100.0f;
+
 
         #endregion
 
@@ -104,15 +106,12 @@ namespace TKGame
             }
             ));
 
-            // Generate a new stage and save it to a JSON file
-            
-
             // load the first level
             levelComponent.GetCurrentStage().Initialize();
             
             hasLoaded = true;
         }
-        protected override async void Update(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
             GameTime = gameTime;
             Input.Update();

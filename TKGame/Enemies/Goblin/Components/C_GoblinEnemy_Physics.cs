@@ -26,7 +26,8 @@ namespace TKGame.Enemies.Goblin.Components
             Players.Player player = Players.Player.Instance;
             float velocity = GetRandomVelocity();
             entity.Velocity.X = velocity;
-            entity.Velocity.Y = velocity;
+            //entity.Velocity.Y = velocity;
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (player != null)
             {
@@ -48,6 +49,11 @@ namespace TKGame.Enemies.Goblin.Components
                 //{
                 //    entity.Position.Y += entity.Velocity.Y;
                 //}
+
+                entity.Position.Y += entity.Velocity.Y * deltaTime;
+
+                entity.resolveVerticalCollision(entity, deltaTime);
+
 
                 entity.hitBox.X = (int)entity.Position.X - (int)entity.Size.X / 2;
                 entity.hitBox.Y = (int)entity.Position.Y - (int)entity.Size.Y / 2;

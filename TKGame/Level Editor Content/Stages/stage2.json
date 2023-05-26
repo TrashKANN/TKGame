@@ -66,60 +66,92 @@
     },
     {
       "type": "Spikes",
-      "X": 1099,
-      "Y": 693,
-      "width": 90,
-      "height": 185,
+      "X": 777,
+      "Y": 413,
+      "width": 149,
+      "height": 41,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 1203,
-      "Y": 444,
-      "width": 168,
-      "height": 48,
+      "X": 34,
+      "Y": 119,
+      "width": 109,
+      "height": 221,
       "action": "None"
     },
     {
       "type": "Spikes",
-      "X": 234,
-      "Y": 358,
-      "width": 200,
-      "height": 212,
+      "X": 721,
+      "Y": 575,
+      "width": 181,
+      "height": 51,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 1248,
-      "Y": 297,
-      "width": 95,
-      "height": 142,
+      "X": 791,
+      "Y": 320,
+      "width": 133,
+      "height": 179,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 679,
+      "Y": 538,
+      "width": 112,
+      "height": 170,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 226,
-      "Y": 338,
-      "width": 117,
-      "height": 172,
+      "X": 829,
+      "Y": 515,
+      "width": 215,
+      "height": 65,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 389,
+      "Y": 155,
+      "width": 180,
+      "height": 53,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 1101,
+      "Y": 608,
+      "width": 96,
+      "height": 170,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1136,
+      "Y": 75,
+      "width": 193,
+      "height": 102,
       "action": "None"
     }
   ],
   "entities": [
     {
       "type": "KnightEnemy",
-      "X": 427,
-      "Y": 484
+      "X": 730,
+      "Y": 691
     },
     {
       "type": "GoblinEnemy",
-      "X": 798,
-      "Y": 432
+      "X": 148,
+      "Y": 469
     },
     {
-      "type": "FireStoneItem",
-      "X": 1021,
-      "Y": 775
+      "type": "IceItem",
+      "X": 1324,
+      "Y": 756
     }
   ],
   "background": {

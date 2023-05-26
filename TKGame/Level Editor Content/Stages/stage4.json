@@ -65,85 +65,93 @@
       "action": "goNext"
     },
     {
-      "type": "Spikes",
-      "X": 271,
-      "Y": 728,
-      "width": 144,
-      "height": 127,
+      "type": "Wall",
+      "X": 324,
+      "Y": 632,
+      "width": 221,
+      "height": 246,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 41,
-      "Y": 522,
+      "X": 197,
+      "Y": 371,
       "width": 233,
-      "height": 78,
+      "height": 250,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 1145,
+      "Y": 613,
+      "width": 149,
+      "height": 142,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 1085,
+      "Y": 234,
+      "width": 121,
+      "height": 183,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 37,
+      "Y": 183,
+      "width": 168,
+      "height": 114,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 511,
-      "Y": 579,
-      "width": 114,
-      "height": 37,
-      "action": "None"
-    },
-    {
-      "type": "Spikes",
-      "X": 690,
-      "Y": 732,
-      "width": 122,
-      "height": 113,
-      "action": "None"
-    },
-    {
-      "type": "Spikes",
-      "X": 411,
-      "Y": 671,
-      "width": 158,
-      "height": 184,
-      "action": "None"
-    },
-    {
-      "type": "Spikes",
-      "X": 151,
-      "Y": 216,
-      "width": 182,
-      "height": 188,
+      "X": 935,
+      "Y": 768,
+      "width": 136,
+      "height": 231,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 988,
-      "Y": 366,
-      "width": 88,
-      "height": 160,
+      "X": 1210,
+      "Y": 108,
+      "width": 113,
+      "height": 219,
       "action": "None"
     },
     {
       "type": "Spikes",
-      "X": 1332,
-      "Y": 240,
-      "width": 203,
-      "height": 234,
+      "X": 64,
+      "Y": 460,
+      "width": 207,
+      "height": 248,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 1294,
+      "Y": 51,
+      "width": 221,
+      "height": 133,
       "action": "None"
     }
   ],
   "entities": [
     {
       "type": "KnightEnemy",
-      "X": 1373,
-      "Y": 669
+      "X": 1031,
+      "Y": 565
     },
     {
       "type": "GoblinEnemy",
-      "X": 410,
-      "Y": 550
+      "X": 1074,
+      "Y": 746
     },
     {
-      "type": "PoisonItem",
-      "X": 880,
-      "Y": 410
+      "type": "FireStoneItem",
+      "X": 376,
+      "Y": 407
     }
   ],
   "background": {
