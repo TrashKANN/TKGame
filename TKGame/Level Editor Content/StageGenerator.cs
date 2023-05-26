@@ -34,20 +34,7 @@ namespace TKGame.Level_Editor_Content
             // = "[Your path into TKGames]\\TKGames\\TKGame\\Level Editor Content\\Stages\\"
             // ^ So that we can change it later easily
 
-            // Creates the Directory if it doesn't exist.
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
             string path = Path.Combine(directory, filename);
-            for (int i = 1; i <= 100; i++)
-            {
-                if (File.Exists(path))
-                    path = Path.Combine(directory, filename + "_" + i.ToString() + ".json");
-                else
-                    break;
-            }
 
             File.WriteAllText(path, json);
             return filename;

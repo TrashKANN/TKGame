@@ -66,84 +66,76 @@
     },
     {
       "type": "Spikes",
-      "X": 484,
-      "Y": 155,
-      "width": 207,
-      "height": 224,
-      "action": "None"
-    },
-    {
-      "type": "Wall",
-      "X": 214,
-      "Y": 600,
-      "width": 190,
-      "height": 142,
-      "action": "None"
-    },
-    {
-      "type": "Wall",
-      "X": 38,
-      "Y": 322,
-      "width": 84,
-      "height": 203,
+      "X": 1004,
+      "Y": 390,
+      "width": 105,
+      "height": 239,
       "action": "None"
     },
     {
       "type": "Spikes",
-      "X": 359,
-      "Y": 588,
-      "width": 46,
-      "height": 213,
-      "action": "None"
-    },
-    {
-      "type": "Wall",
-      "X": 1009,
-      "Y": 421,
-      "width": 203,
-      "height": 156,
+      "X": 1142,
+      "Y": 672,
+      "width": 35,
+      "height": 242,
       "action": "None"
     },
     {
       "type": "Spikes",
-      "X": 1122,
-      "Y": 475,
-      "width": 87,
-      "height": 88,
-      "action": "None"
-    },
-    {
-      "type": "Wall",
-      "X": 1455,
-      "Y": 750,
-      "width": 250,
-      "height": 66,
+      "X": 481,
+      "Y": 339,
+      "width": 169,
+      "height": 162,
       "action": "None"
     },
     {
       "type": "Spikes",
-      "X": 170,
-      "Y": 365,
-      "width": 231,
-      "height": 236,
+      "X": 1333,
+      "Y": 429,
+      "width": 251,
+      "height": 132,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 20,
+      "Y": 792,
+      "width": 34,
+      "height": 146,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 685,
+      "Y": 393,
+      "width": 174,
+      "height": 191,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 113,
+      "Y": 325,
+      "width": 233,
+      "height": 190,
       "action": "None"
     }
   ],
   "entities": [
     {
       "type": "KnightEnemy",
-      "X": 1006,
-      "Y": 596
+      "X": 966,
+      "Y": 515
     },
     {
       "type": "GoblinEnemy",
-      "X": 1031,
-      "Y": 793
+      "X": 976,
+      "Y": 526
     },
     {
-      "type": "IceItem",
-      "X": 1190,
-      "Y": 452
+      "type": "PotionItem",
+      "X": 777,
+      "Y": 411
     }
   ],
   "background": {
