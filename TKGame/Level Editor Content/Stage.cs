@@ -17,7 +17,6 @@ namespace TKGame.Level_Editor_Content
     {
         private List<IBlock> stageBlocks;
         private List<Entity> stageEntities;
-        private List<Trigger> stageTriggers;
         public string stageName;
         public Background background;
         public string prevStageName { get; set; }
@@ -26,14 +25,12 @@ namespace TKGame.Level_Editor_Content
 
         public List<IBlock> StageBlocks { get { return stageBlocks; } }
         public List<Entity> StageEntities { get { return stageEntities; } }
-        public List<Trigger> StageTriggers { get { return stageTriggers; } }
 
         public Stage()
         {
             stageName = "defaultStage.json";
             this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
-            this.stageTriggers = new List<Trigger>() { };
             this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
             this.stageEntities.Add(Player.Instance);
         }
@@ -42,7 +39,6 @@ namespace TKGame.Level_Editor_Content
             stageName = name + ".json";
             this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
-            this.stageTriggers = new List<Trigger>() { };
             this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
             this.stageEntities.Add(Player.Instance);
             this.Initialize();
@@ -62,7 +58,6 @@ namespace TKGame.Level_Editor_Content
 
             stageEntities = loaded.stageEntities;
             stageBlocks = loaded.stageBlocks;
-            stageTriggers = loaded.stageTriggers;
             background = loaded.background;
             EntityManager.GetEntities().Clear();
             foreach (Entity entity in stageEntities)
@@ -74,12 +69,12 @@ namespace TKGame.Level_Editor_Content
         public void Update()
         {
             EntityManager.Update(TKGame.GameTime);
-            foreach (Trigger trigger in stageTriggers)
+            foreach (IBlock block in stageBlocks)
             {
-                if (trigger.checkTrigger())
+                if (block.Type == ComponentType.Door && (block as Door).checkTrigger())
                 {
                     TKGame.levelComponent.GetCurrentLevel().isTransitioning = true;
-                    changeStage(trigger);
+                    changeStage(block as Door);
                 }
             }   
         }
@@ -91,7 +86,7 @@ namespace TKGame.Level_Editor_Content
            
         }
 
-        private void changeStage(Trigger triggered)
+        private void changeStage(Door triggered)
         {
             switch (triggered.Action)
             {

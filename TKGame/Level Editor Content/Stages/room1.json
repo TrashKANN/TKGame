@@ -5,82 +5,91 @@
       "X": 1024,
       "Y": 416,
       "width": 352,
-      "height": 32
+      "height": 32,
+      "action": "None"
     },
     {
       "type": "Wall",
       "X": 1344,
       "Y": 192,
       "width": 32,
-      "height": 224
+      "height": 224,
+      "action": "None"
     },
     {
       "type": "Wall",
       "X": 800,
       "Y": 192,
       "width": 544,
-      "height": 32
+      "height": 32,
+      "action": "None"
     },
     {
       "type": "Wall",
       "X": 480,
       "Y": 224,
       "width": 64,
-      "height": 32
+      "height": 32,
+      "action": "None"
     },
     {
       "type": "Wall",
       "X": 512,
       "Y": 256,
       "width": 32,
-      "height": 128
+      "height": 128,
+      "action": "None"
     },
     {
       "type": "Wall",
       "X": 480,
       "Y": 384,
       "width": 96,
-      "height": 32
+      "height": 32,
+      "action": "None"
     },
     {
       "type": "Wall",
       "X": 736,
       "Y": 448,
       "width": 288,
-      "height": 256
+      "height": 256,
+      "action": "None"
     },
     {
       "type": "Wall",
       "X": 0,
       "Y": 864,
       "width": 1600,
-      "height": 32
+      "height": 32,
+      "action": "None"
     },
     {
       "type": "Wall",
       "X": 0,
       "Y": 0,
       "width": 32,
-      "height": 640
+      "height": 640,
+      "action": "None"
     },
     {
       "type": "Wall",
       "X": 1568,
       "Y": 0,
       "width": 32,
-      "height": 640
+      "height": 640,
+      "action": "None"
     },
     {
       "type": "Wall",
       "X": 32,
       "Y": 0,
       "width": 1536,
-      "height": 32
-    }
-  ],
-  "entities": [],
-  "triggers": [
+      "height": 32,
+      "action": "None"
+    },
     {
+      "type": "Door",
       "X": 0,
       "Y": 660,
       "width": 10,
@@ -88,6 +97,7 @@
       "action": "goPrevious"
     },
     {
+      "type": "Door",
       "X": 1590,
       "Y": 660,
       "width": 10,
@@ -95,6 +105,7 @@
       "action": "goNext"
     }
   ],
+  "entities": [],
   "background": {
     "texture": "ruins"
   }
