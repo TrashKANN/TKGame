@@ -102,30 +102,33 @@ namespace TKGame
             }
             ));
 
-            // Spawn a knight enemy
-            EnemyFactory knightFactory = new KnightEnemyFactory();
-            Enemy knight = knightFactory.CreateEnemy();
-            EntityManager.Add(knight);
-            // Spawn a goblin enemy
-            EnemyFactory goblinFactory = new GoblinEnemyFactory();
-            Enemy goblin = goblinFactory.CreateEnemy();
-            EntityManager.Add(goblin);
-            // Spawn a potion item
-            ItemFactory potionFactory = new PotionItemFactory();
-            Item potion = potionFactory.CreateItem();
-            EntityManager.Add(potion);
-            // Spawn a firestone item
-            ItemFactory fireStoneFactory = new FireStoneItemFactory();
-            Item fireStone = fireStoneFactory.CreateItem();
-            EntityManager.Add(fireStone);
-            // Spawn an ice item
-            ItemFactory iceItemFactory = new IceItemFactory();
-            Item ice = iceItemFactory.CreateItem();
-            EntityManager.Add(ice);
-            // Spawn a poison item
-            ItemFactory poisonItemFactory = new PoisonItemFactory();
-            Item poison = poisonItemFactory.CreateItem();
-            EntityManager.Add(poison);
+            // load the first level
+            levelComponent.GetCurrentStage().Initialize();
+
+            //// Spawn a knight enemy
+            //EnemyFactory knightFactory = new KnightEnemyFactory();
+            //Enemy knight = knightFactory.CreateEnemy();
+            //EntityManager.Add(knight);
+            //// Spawn a goblin enemy
+            //EnemyFactory goblinFactory = new GoblinEnemyFactory();
+            //Enemy goblin = goblinFactory.CreateEnemy();
+            //EntityManager.Add(goblin);
+            //// Spawn a potion item
+            //ItemFactory potionFactory = new PotionItemFactory();
+            //Item potion = potionFactory.CreateItem();
+            //EntityManager.Add(potion);
+            //// Spawn a firestone item
+            //ItemFactory fireStoneFactory = new FireStoneItemFactory();
+            //Item fireStone = fireStoneFactory.CreateItem();
+            //EntityManager.Add(fireStone);
+            //// Spawn an ice item
+            //ItemFactory iceItemFactory = new IceItemFactory();
+            //Item ice = iceItemFactory.CreateItem();
+            //EntityManager.Add(ice);
+            //// Spawn a poison item
+            //ItemFactory poisonItemFactory = new PoisonItemFactory();
+            //Item poison = poisonItemFactory.CreateItem();
+            //EntityManager.Add(poison);
             
             hasLoaded = true;
         }

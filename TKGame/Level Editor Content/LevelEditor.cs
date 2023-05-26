@@ -20,6 +20,7 @@ using System.Text.Json.Serialization;
 using TKGame.Players;
 using TKGame.Enemies;
 using System.Collections;
+using TKGame.Items;
 
 namespace TKGame.Level_Editor_Content
 {
@@ -61,7 +62,6 @@ namespace TKGame.Level_Editor_Content
 
     static class LevelEditor
     {
-        public static Background levelBackground = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
         public static bool EditMode = false;
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
@@ -326,28 +326,10 @@ namespace TKGame.Level_Editor_Content
                 }
             }
 
-
-            if (stage.stageName == "room0.json")
+            stageData.background = new BackgroundData()
             {
-                stageData.background = new BackgroundData()
-                {
-                    texture = "cobble",
-                };
-            }
-            else if (stage.stageName == "room1.json") {
-                stageData.background = new BackgroundData()
-                {
-                    texture = "ruins",
-                };
-            }
-            else
-            {
-                stageData.background = new BackgroundData()
-                {
-                    texture = "dungeon",
-                };
-            }
-                
+                texture = TKGame.levelComponent.GetCurrentStage().background.backgroundName,
+            };
 
             // Serializes the data set. The Options make the output human-readable.
             string json = JsonSerializer.Serialize(stageData, new JsonSerializerOptions
@@ -431,17 +413,76 @@ namespace TKGame.Level_Editor_Content
 
             foreach (EntityData entityData in levelData.entities)
             {
-                //TODO: Refactor for factories
-                newStage.StageEntities.Add(new KnightEnemy());
+                // TODO: make this not hard coded
+                switch (entityData.type)
+                {
+                    case "KnightEnemy":
+                        EnemyFactory knightFactory = new KnightEnemyFactory();
+                        Enemy knight = knightFactory.CreateEnemy();
+                        knight.Position.X = entityData.X;
+                        knight.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(knight);
+                        break;
+
+                    case "GoblinEnemy":
+                        EnemyFactory goblinFactory = new GoblinEnemyFactory();
+                        Enemy goblin = goblinFactory.CreateEnemy();
+                        goblin.Position.X = entityData.X;
+                        goblin.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(goblin);
+                        break;
+
+                    case "PotionItem":
+                        ItemFactory potionFactory = new PotionItemFactory();
+                        Item potion = potionFactory.CreateItem();
+                        potion.Position.X = entityData.X;
+                        potion.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(potion);
+                        break;
+
+                    case "FireStoneItem":
+                        ItemFactory fireStoneFactory = new FireStoneItemFactory();
+                        Item fireStone = fireStoneFactory.CreateItem();
+                        fireStone.Position.X = entityData.X;
+                        fireStone.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(fireStone);
+                        break;
+
+                    case "IceItem":
+                        ItemFactory iceItemFactory = new IceItemFactory();
+                        Item ice = iceItemFactory.CreateItem();
+                        ice.Position.X = entityData.X;
+                        ice.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(ice);
+                        break;
+
+                    case "PoisonItem":
+                        ItemFactory poisonItemFactory = new PoisonItemFactory();
+                        Item poison = poisonItemFactory.CreateItem();
+                        poison.Position.X = entityData.X;
+                        poison.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(poison);
+                        break;
+
+                    default:
+                        // TODO: Handle unrecognized entity type
+                        break;
+                }
             }
 
-            newStage.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);//Creates new Background Object
-            if (levelData.background.texture == "cobble") //identifies chosen background
-                newStage.background.BackgroundTexture = Art.BackgroundTexture1;//sets new stage background
-            else if (levelData.background.texture == "ruins")
-                newStage.background.BackgroundTexture = Art.BackgroundTexture2;
-            else
-                newStage.background.BackgroundTexture = Art.BackgroundTexture3;
+            newStage.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, levelData.background.texture);//Creates new Background Object
+            switch (newStage.background.backgroundName)
+            { 
+                case "cobble":
+                    newStage.background.BackgroundTexture = Art.BackgroundTexture1;
+                    break;
+                case "ruins":
+                    newStage.background.BackgroundTexture = Art.BackgroundTexture2;
+                    break;
+                default:
+                    newStage.background.BackgroundTexture = Art.BackgroundTexture3;
+                    break;
+            }
 
             return newStage;
         }

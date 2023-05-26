@@ -121,7 +121,28 @@
       "action": "goNext"
     }
   ],
-  "entities": [],
+  "entities": [
+    {
+      "type": "KnightEnemy",
+      "X": 200,
+      "Y": 800
+    },
+    {
+      "type": "KnightEnemy",
+      "X": 400,
+      "Y": 800
+    },
+    {
+      "type": "KnightEnemy",
+      "X": 500,
+      "Y": 800
+    },
+    {
+      "type": "KnightEnemy",
+      "X": 350,
+      "Y": 800
+    }
+  ],
   "background": {
     "texture": "dungeon"
   }

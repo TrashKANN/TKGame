@@ -97,7 +97,8 @@ namespace TKGame.BackEnd
             entities = entities.Where(x => !x.IsExpired).ToList();
 
             //Damages Enemies
-            DamageEnemy();
+            // TODO: Make this not run every frame, only when the player attacks
+            // DamageEnemy();
         }
 
 

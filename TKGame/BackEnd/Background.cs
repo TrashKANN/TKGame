@@ -22,16 +22,18 @@ namespace TKGame.BackEnd
         /// Texture to hold the Background Image
         /// </summary>
         public Texture2D BackgroundTexture { get; set; }
+        public string backgroundName { get; set; }
 
         /// <summary>
         /// Creates a new Rectangle and Texture2D the size of the provided width and height to store the image.
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public Background(int width, int height)
+        public Background(int width, int height, string backgroundName)
         {
             BackgroundTexture = new Texture2D(TKGame.Graphics.GraphicsDevice, width, height);
             BackgroundRect = new Rectangle(0, 0, width, height);
+            this.backgroundName = backgroundName;
         }
 
     }

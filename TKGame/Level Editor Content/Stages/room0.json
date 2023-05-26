@@ -59,9 +59,34 @@
   ],
   "entities": [
     {
-      "type": "knightEnemy",
+      "type": "KnightEnemy",
       "X": 300,
-      "Y": 800
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 500,
+      "Y": 839
+    },
+    {
+      "type": "FireStoneItem",
+      "X": 700,
+      "Y": 839
+    },
+    {
+      "type": "IceItem",
+      "X": 900,
+      "Y": 839
+    },
+    {
+      "type": "PoisonItem",
+      "X": 1100,
+      "Y": 839
+    },
+    {
+      "type": "PotionItem",
+      "X": 1300,
+      "Y": 839
     }
   ],
   "background": {

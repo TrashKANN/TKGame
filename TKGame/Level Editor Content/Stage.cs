@@ -31,7 +31,7 @@ namespace TKGame.Level_Editor_Content
             stageName = "defaultStage.json";
             this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
-            this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
+            //this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, background.backgroundName);
             this.stageEntities.Add(Player.Instance);
         }
         public Stage(string name) 
@@ -39,7 +39,7 @@ namespace TKGame.Level_Editor_Content
             stageName = name + ".json";
             this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
-            this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
+            //this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, background.backgroundName);
             this.stageEntities.Add(Player.Instance);
             this.Initialize();
         }
