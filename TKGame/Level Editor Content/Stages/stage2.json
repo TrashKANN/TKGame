@@ -1,0 +1,128 @@
+{
+  "blocks": [
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 32,
+      "Y": 0,
+      "width": 1536,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1568,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 800,
+      "Y": 448,
+      "width": 256,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 640,
+      "Y": 576,
+      "width": 128,
+      "height": 64,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 864,
+      "width": 1600,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Door",
+      "X": 0,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goPrevious"
+    },
+    {
+      "type": "Door",
+      "X": 1590,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goNext"
+    },
+    {
+      "type": "Wall",
+      "X": 280,
+      "Y": 42,
+      "width": 103,
+      "height": 172,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1255,
+      "Y": 160,
+      "width": 188,
+      "height": 241,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 512,
+      "Y": 80,
+      "width": 101,
+      "height": 162,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 98,
+      "Y": 613,
+      "width": 241,
+      "height": 123,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 429,
+      "Y": 225,
+      "width": 86,
+      "height": 139,
+      "action": "None"
+    }
+  ],
+  "entities": [
+    {
+      "type": "KnightEnemy",
+      "X": 983,
+      "Y": 782
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 531,
+      "Y": 506
+    },
+    {
+      "type": "FireStoneItem",
+      "X": 1307,
+      "Y": 460
+    }
+  ],
+  "background": {
+    "texture": "cobble"
+  }
+}

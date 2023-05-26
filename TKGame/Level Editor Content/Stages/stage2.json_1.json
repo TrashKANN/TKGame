@@ -1,0 +1,160 @@
+{
+  "blocks": [
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 32,
+      "Y": 0,
+      "width": 1536,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1568,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 800,
+      "Y": 448,
+      "width": 256,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 640,
+      "Y": 576,
+      "width": 128,
+      "height": 64,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 864,
+      "width": 1600,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Door",
+      "X": 0,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goPrevious"
+    },
+    {
+      "type": "Door",
+      "X": 1590,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goNext"
+    },
+    {
+      "type": "Spikes",
+      "X": 639,
+      "Y": 38,
+      "width": 96,
+      "height": 145,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 818,
+      "Y": 242,
+      "width": 238,
+      "height": 43,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1339,
+      "Y": 786,
+      "width": 188,
+      "height": 83,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 17,
+      "Y": 344,
+      "width": 235,
+      "height": 183,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 447,
+      "Y": 2,
+      "width": 198,
+      "height": 174,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 673,
+      "Y": 711,
+      "width": 91,
+      "height": 61,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 258,
+      "Y": 501,
+      "width": 97,
+      "height": 173,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 119,
+      "Y": 63,
+      "width": 255,
+      "height": 209,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 530,
+      "Y": 650,
+      "width": 214,
+      "height": 96,
+      "action": "None"
+    }
+  ],
+  "entities": [
+    {
+      "type": "KnightEnemy",
+      "X": 1487,
+      "Y": 572
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 1409,
+      "Y": 652
+    },
+    {
+      "type": "IceItem",
+      "X": 761,
+      "Y": 682
+    }
+  ],
+  "background": {
+    "texture": "cobble"
+  }
+}

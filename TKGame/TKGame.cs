@@ -95,15 +95,17 @@ namespace TKGame
             // Add and Load Default Level
             levelComponent.AddLevel(new Level(new Dictionary<string, Stage>
             {
-                { "room0", new Stage("room0") },
-                { "room1", new Stage("room1") },
-                { "room2", new Stage("room2") },
-                { "room3", new Stage("room3") },
+                { "stage0", new Stage("stage0.json") },
+                { "stage1", new Stage(StageGenerator.GenerateStage("stage1.json")) },
+                { "stage2", new Stage(StageGenerator.GenerateStage("stage2.json")) },
+                { "stage3", new Stage(StageGenerator.GenerateStage("stage3.json")) },
+                { "stage4", new Stage(StageGenerator.GenerateStage("stage4.json")) },
+                { "stage5", new Stage(StageGenerator.GenerateStage("stage5.json")) },
             }
             ));
 
             // Generate a new stage and save it to a JSON file
-            //StageGenerator.GenerateStage("stage1.json");
+            
 
             // load the first level
             levelComponent.GetCurrentStage().Initialize();

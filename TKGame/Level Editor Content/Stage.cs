@@ -36,7 +36,7 @@ namespace TKGame.Level_Editor_Content
         }
         public Stage(string name) 
         {
-            stageName = name + ".json";
+            stageName = name;
             this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
             //this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, background.backgroundName);
@@ -54,6 +54,10 @@ namespace TKGame.Level_Editor_Content
             stageName = File.Exists(stagePath)
                 ? stageName
                 : "defaultStage.json";
+            if (stageName == "defaultStage.json")
+            {
+                throw new Exception("DEFAULTED");
+            }
             Stage loaded = LevelEditor.LoadStageDataFromJSON(stageName);
 
             stageEntities = loaded.stageEntities;
