@@ -328,7 +328,7 @@ namespace TKGame.Level_Editor_Content
 
             stageData.background = new BackgroundData()
             {
-                texture = TKGame.levelComponent.GetCurrentStage().background.backgroundName,
+                texture = TKGame.levelComponent.GetCurrentStage().Background.BackgroundName,
             };
 
             // Serializes the data set. The Options make the output human-readable.
@@ -470,17 +470,17 @@ namespace TKGame.Level_Editor_Content
                 }
             }
 
-            newStage.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, levelData.background.texture);//Creates new Background Object
-            switch (newStage.background.backgroundName)
+            newStage.Background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, levelData.background.texture);//Creates new Background Object
+            switch (newStage.Background.BackgroundName)
             { 
                 case "cobble":
-                    newStage.background.BackgroundTexture = Art.BackgroundTexture1;
+                    newStage.Background.BackgroundTexture = Art.BackgroundTexture1;
                     break;
                 case "ruins":
-                    newStage.background.BackgroundTexture = Art.BackgroundTexture2;
+                    newStage.Background.BackgroundTexture = Art.BackgroundTexture2;
                     break;
                 default:
-                    newStage.background.BackgroundTexture = Art.BackgroundTexture3;
+                    newStage.Background.BackgroundTexture = Art.BackgroundTexture3;
                     break;
             }
 

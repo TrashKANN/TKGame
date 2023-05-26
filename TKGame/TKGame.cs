@@ -102,6 +102,9 @@ namespace TKGame
             }
             ));
 
+            // Generate a new stage and save it to a JSON file
+            //StageGenerator.GenerateStage("stage1.json");
+
             // load the first level
             levelComponent.GetCurrentStage().Initialize();
             

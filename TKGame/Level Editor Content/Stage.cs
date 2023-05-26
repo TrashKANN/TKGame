@@ -18,7 +18,7 @@ namespace TKGame.Level_Editor_Content
         private List<IBlock> stageBlocks;
         private List<Entity> stageEntities;
         public string stageName;
-        public Background background;
+        public Background Background;
         public string prevStageName { get; set; }
         public string nextStageName { get; set; }
 
@@ -58,7 +58,7 @@ namespace TKGame.Level_Editor_Content
 
             stageEntities = loaded.stageEntities;
             stageBlocks = loaded.stageBlocks;
-            background = loaded.background;
+            Background = loaded.Background;
             EntityManager.GetEntities().Clear();
             foreach (Entity entity in stageEntities)
             {
@@ -82,7 +82,7 @@ namespace TKGame.Level_Editor_Content
         public void Draw(SpriteBatch spriteBatch)
         {
             //Draws the image into the Background
-                spriteBatch.Draw(background.BackgroundTexture, background.BackgroundRect, Color.White);
+                spriteBatch.Draw(Background.BackgroundTexture, Background.BackgroundRect, Color.White);
            
         }
 
