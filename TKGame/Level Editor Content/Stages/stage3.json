@@ -66,76 +66,76 @@
     },
     {
       "type": "Spikes",
-      "X": 682,
-      "Y": 767,
-      "width": 83,
-      "height": 68,
+      "X": 992,
+      "Y": 544,
+      "width": 64,
+      "height": 96,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 230,
-      "Y": 199,
-      "width": 111,
-      "height": 219,
+      "X": 1248,
+      "Y": 128,
+      "width": 256,
+      "height": 64,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 708,
-      "Y": 226,
-      "width": 232,
-      "height": 123,
-      "action": "None"
-    },
-    {
-      "type": "Wall",
-      "X": 260,
-      "Y": 23,
-      "width": 83,
-      "height": 42,
+      "X": 416,
+      "Y": 352,
+      "width": 128,
+      "height": 128,
       "action": "None"
     },
     {
       "type": "Spikes",
-      "X": 789,
-      "Y": 270,
-      "width": 224,
-      "height": 123,
+      "X": 160,
+      "Y": 768,
+      "width": 128,
+      "height": 256,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 616,
-      "Y": 302,
-      "width": 176,
-      "height": 198,
+      "X": 672,
+      "Y": 768,
+      "width": 256,
+      "height": 224,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 448,
+      "Y": 576,
+      "width": 160,
+      "height": 96,
       "action": "None"
     },
     {
       "type": "Spikes",
-      "X": 1249,
-      "Y": 629,
-      "width": 140,
-      "height": 93,
+      "X": 576,
+      "Y": 640,
+      "width": 192,
+      "height": 224,
       "action": "None"
     }
   ],
   "entities": [
     {
       "type": "KnightEnemy",
-      "X": 1433,
-      "Y": 502
+      "X": 1238,
+      "Y": 735
     },
     {
       "type": "GoblinEnemy",
-      "X": 220,
-      "Y": 538
+      "X": 1455,
+      "Y": 568
     },
     {
-      "type": "IceItem",
-      "X": 1411,
-      "Y": 753
+      "type": "PoisonItem",
+      "X": 125,
+      "Y": 797
     }
   ],
   "background": {

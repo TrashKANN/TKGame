@@ -235,7 +235,7 @@ namespace TKGame.Level_Editor_Content
         /// <param name="rect"></param>
         /// <param name="gridSize"></param>
         /// <returns></returns>
-        private static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
+        public static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
         {
             // Calculate the position of the closest grid square
             int snappedX = (int)Math.Round((double)rect.X / gridSize) * gridSize;

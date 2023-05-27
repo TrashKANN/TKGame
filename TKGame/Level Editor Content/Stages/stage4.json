@@ -65,93 +65,77 @@
       "action": "goNext"
     },
     {
-      "type": "Wall",
-      "X": 324,
-      "Y": 632,
-      "width": 221,
-      "height": 246,
-      "action": "None"
-    },
-    {
-      "type": "Wall",
-      "X": 197,
-      "Y": 371,
-      "width": 233,
-      "height": 250,
-      "action": "None"
-    },
-    {
       "type": "Spikes",
-      "X": 1145,
-      "Y": 613,
-      "width": 149,
-      "height": 142,
-      "action": "None"
-    },
-    {
-      "type": "Spikes",
-      "X": 1085,
-      "Y": 234,
-      "width": 121,
-      "height": 183,
-      "action": "None"
-    },
-    {
-      "type": "Spikes",
-      "X": 37,
-      "Y": 183,
-      "width": 168,
-      "height": 114,
+      "X": 480,
+      "Y": 608,
+      "width": 64,
+      "height": 160,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 935,
-      "Y": 768,
-      "width": 136,
-      "height": 231,
+      "X": 1408,
+      "Y": 352,
+      "width": 224,
+      "height": 224,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 832,
+      "Y": 608,
+      "width": 192,
+      "height": 32,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 1210,
-      "Y": 108,
-      "width": 113,
-      "height": 219,
+      "X": 288,
+      "Y": 544,
+      "width": 96,
+      "height": 224,
       "action": "None"
     },
     {
       "type": "Spikes",
-      "X": 64,
-      "Y": 460,
-      "width": 207,
-      "height": 248,
+      "X": 352,
+      "Y": 128,
+      "width": 32,
+      "height": 256,
       "action": "None"
     },
     {
       "type": "Spikes",
-      "X": 1294,
-      "Y": 51,
-      "width": 221,
-      "height": 133,
+      "X": 1344,
+      "Y": 576,
+      "width": 128,
+      "height": 64,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 1504,
+      "Y": 320,
+      "width": 224,
+      "height": 192,
       "action": "None"
     }
   ],
   "entities": [
     {
       "type": "KnightEnemy",
-      "X": 1031,
-      "Y": 565
+      "X": 1312,
+      "Y": 773
     },
     {
       "type": "GoblinEnemy",
-      "X": 1074,
-      "Y": 746
+      "X": 1387,
+      "Y": 658
     },
     {
-      "type": "FireStoneItem",
-      "X": 376,
-      "Y": 407
+      "type": "PoisonItem",
+      "X": 1309,
+      "Y": 684
     }
   ],
   "background": {
