@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -136,13 +137,16 @@ namespace TKGame.BackEnd
         /// </summary>
         public static void DamageEnemy()
         {
-            foreach (Entity entity in entities)
+            if (Input.KeyboardState.CapsLock)
             {
-                if (entities[0].entityTexture == Art.PlayerTexture) //Checks if player has sword out
+                foreach (Entity entity in entities)
                 {
-                    if (entities[0].weapon.hitbox.Intersects(entity.hitBox) && entity != entities[0]) //Checks if hitboxes intersect and is not the player
+                    if (entities[0].entityTexture == Art.PlayerTexture) //Checks if player has sword out
                     {
-                        entity.health -= (int)(entities[0].weapon.damageStat);
+                        if (entities[0].weapon.hitbox.Intersects(entity.hitBox) && entity != entities[0]) //Checks if hitboxes intersect and is not the player
+                        {
+                            entity.health -= (int)(entities[0].weapon.damageStat);
+                        }
                     }
                 }
             }
