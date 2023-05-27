@@ -44,7 +44,7 @@ namespace TKGame.Players.Components
                 entity.Position.Y += 3;
             }
             else
-                entity.entityTexture = entity.entityTexture;
+                entity.entityTexture = Art.PlayerTexture;
         }
     }
 }
