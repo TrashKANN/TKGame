@@ -33,6 +33,9 @@ namespace TKGame.Status_Effects
         }
         public void Update(GameTime gameTime, Entity entity)
         {
+            // apply 80% reduction in speed for effected entity
+            entity.Velocity *= 0.2f;
+
             ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             TimeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -46,8 +49,6 @@ namespace TKGame.Status_Effects
             {
                 //IHealthComponent healthComponent = EntityManager.GetComponent<IHealthComponent>(SourceEntity);
                 //healthComponent.TakeDamage(DamagePerTick);
-                // permanent 80% reduction in speed for effected entity
-                entity.Velocity = entity.Velocity / 5;
                 TimeSinceLastTick = 0f;
             }
         }
