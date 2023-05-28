@@ -24,7 +24,7 @@ namespace TKGame.Items.Ice.Components
                 // if player is within pickup range
                 if (player.HitBox.Intersects(entity.HitBox))
                 {
-            //        Player.Instance.PickUpPowerUp(new C_Ice_PrimaryAttack());
+                    Player.Instance.PickUpPowerUp(new C_Ice_PrimaryAttack());
             //        Player.Instance.PickUpPowerUp(new C_Ice_SpecialAttack());
             //        Player.Instance.PickUpPowerUp(new C_Ice_UltimateAttack());
                 }

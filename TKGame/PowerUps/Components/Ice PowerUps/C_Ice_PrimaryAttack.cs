@@ -37,7 +37,7 @@ namespace TKGame.PowerUps.Components.IcePowerUps
         {
             // TODO: put in input component
 
-            if (Input.WasKeyPressed(Keys.L))
+            if (Input.WasKeyPressed(Keys.I))
             {
                 isAttacking = true;
                 Entity fireball = new Chilled(0.5f, CHILLED_DURATION, CHILLED_TICK_INTERVAL, CHILLED_DAMAGE_PER_TICK, new C_Chilled_Physics(), new C_Chilled_Graphics()); 
