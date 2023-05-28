@@ -39,7 +39,7 @@ namespace TKGame.PowerUps.RelatedEntities
             TickInterval = tickInterval;
             DamagePerTick = damagePerTick;
 
-            //entityTexture = Art.ChilledTexture;
+            entityTexture = Art.ChilledTexture;
 
             entityName = "Chilled"; // name for player class
             entityType = EntityType.PowerUp;

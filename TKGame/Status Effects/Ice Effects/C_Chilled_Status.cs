@@ -46,7 +46,7 @@ namespace TKGame.Status_Effects
             {
                 //IHealthComponent healthComponent = EntityManager.GetComponent<IHealthComponent>(SourceEntity);
                 //healthComponent.TakeDamage(DamagePerTick);
-                // currently permanent 80% reduction in speed for effected entity
+                // permanent 80% reduction in speed for effected entity
                 entity.Velocity = entity.Velocity / 5;
                 TimeSinceLastTick = 0f;
             }
