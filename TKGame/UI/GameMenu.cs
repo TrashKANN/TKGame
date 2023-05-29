@@ -99,6 +99,8 @@ namespace TKGame.UI
 			AddWidgetToHeaderPanel(CreateImageWidget(Art.BurningTexture, 60, 60), "Shift", false);
             // add ice primary attack for chill widget
             AddWidgetToHeaderPanel(CreateImageWidget(Art.ChilledTexture, 60, 35), "I", false);
+            // add firestone primary attack for shock widget
+            AddWidgetToHeaderPanel(CreateImageWidget(Art.ShockedTexture, 60, 35), "O", false);
 
             // Add debug menu to the game menu
 			(debugMenu.Container as VerticalStackPanel).GridRow = 1;

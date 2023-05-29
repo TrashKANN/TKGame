@@ -8,7 +8,16 @@ using TKGame.Components.Interface;
 
 namespace TKGame.PowerUps.RelatedEntities
 {
-    internal class C_Shocked_Physics
+    public class C_Shocked_Physics : IPhysicsComponent
     {
+        ComponentType IComponent.Type => ComponentType.Physics;
+        void IPhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)
+        {
+            entity.HitBox = new Rectangle(
+                                0,
+                                0,
+                                (int)entity.HitBox.Width,
+                                (int)entity.HitBox.Height);
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Drawing;
 using TKGame.PowerUps.Components;
 using TKGame.Players;
 using TKGame.PowerUps.Components.FirePowerUps;
+using TKGame.PowerUps.Components.FireStonePowerUps;
 using TKGame.PowerUps.Components.IcePowerUps;
 
 namespace TKGame.Items.Ice.Components

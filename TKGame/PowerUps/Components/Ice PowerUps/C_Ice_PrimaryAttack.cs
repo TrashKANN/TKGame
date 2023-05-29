@@ -31,7 +31,7 @@ namespace TKGame.PowerUps.Components.IcePowerUps
             NameID = "IcePrimaryAttack";
             AttackType = AttackType.Primary;
             // does player hitbox always move when attacking? If so, this isn't necessary
-            //HitBox = new Rectangle(new Point(Player.Instance.HitBox.X - 150, Player.Instance.HitBox.Y), new Point(150, 150));
+            HitBox = new Rectangle(new Point(Player.Instance.HitBox.X - 150, Player.Instance.HitBox.Y), new Point(150, 150));
         }
         public void Update(Entity entity)
         {
