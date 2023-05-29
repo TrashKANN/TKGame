@@ -20,6 +20,7 @@ namespace TKGame.Status_Effects
         public Entity SourceEntity { get; set; }
         public float ElapsedTime { get; set; }
         public float TimeSinceLastTick { get; set; }
+        private bool isChilled; // added for applying 
 
         public C_Chilled_Status(float duration, float tickInterval, float damagePerTick, Entity sourceEntity)
         {
@@ -33,15 +34,20 @@ namespace TKGame.Status_Effects
         }
         public void Update(GameTime gameTime, Entity entity)
         {
-            // apply 80% reduction in speed for effected entity
-            entity.Velocity *= 0.2f;
-
+            if (!isChilled)
+            {
+                // apply 80% reduction in speed for affected entity
+                entity.Velocity.X *= 0.2f;
+                isChilled = true;
+            }
+            
             ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             TimeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (ElapsedTime >= Duration)
+            if (ElapsedTime >= 10)
             {
                 entity.RemoveComponent(this);
+                isChilled = false;
                 return;
             }
 
