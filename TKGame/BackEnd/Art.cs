@@ -52,36 +52,36 @@ namespace TKGame.BackEnd
         public static void LoadContent(ContentManager content)
         {
 
-            PlayerTexture = content.Load<Texture2D>(@"Art/Player");                         // Will need to be modified when we create a better structure for our files.
-            PlayerRightCrouch = content.Load<Texture2D>(@"Art/PlayerCrouchingRightFacing"); // player crouching facing right
-            PlayerSwordTexture = content.Load<Texture2D>(@"Art/Player_Sword");              // player holding sword
-            WeaponTexture = content.Load<Texture2D>(@"Art/Weapons/IronSword");              // current weapon image
-            SwordTexture = content.Load<Texture2D>(@"Art/Weapons/IronSword");                // Sword Weapon images
-            RevSwordTexture = content.Load<Texture2D>(@"Art/Weapons/IronSwordRev");
-            SpearTexture = content.Load<Texture2D>(@"Art/Weapons/Spear");                       // Spear Weapon images
-            RevSpearTexture = content.Load<Texture2D>(@"Art/Weapons/SpearRev"); 
-            AxeTexture = content.Load<Texture2D>(@"Art/Weapons/Axe");                        // Axe Weapon Images
-            RevAxeTexture = content.Load<Texture2D>(@"Art/Weapons/AxeRev");
-            BlankTexture = content.Load<Texture2D>(@"Art/Weapons/blank");                    //Blank Weapon Image
-            BackgroundTexture1 = content.Load<Texture2D>(@"Art/Cobble");                     // Background images
-            BackgroundTexture2 = content.Load<Texture2D>(@"Art/Ruins");
-            BackgroundTexture3 = content.Load<Texture2D>(@"Art/Dungeon");
-            KnightEnemyTexture = content.Load<Texture2D>(@"Art/KnightLeftFacing");          // knight enemy
-            PotionItemTexture = content.Load<Texture2D>(@"Art/Potion");                     // potion item
-            FireStoneItemTexture = content.Load<Texture2D>(@"Art/Firestone");               // firestone item
-            IceItemTexture = content.Load<Texture2D>(@"Art/Ice");                           // ice item
-            PoisonItemTexture = content.Load<Texture2D>(@"Art/Poison");                     // poison item
-            LoadTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");          
-            GoblinEnemyTexture = content.Load<Texture2D>(@"Art/GoblinLeftFacing");          // goblin enemy
-            TransitionTexture = content.Load<Texture2D>(@"Art/Screens/LoadSpriteSheet");
+            PlayerTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Player");                         // Will need to be modified when we create a better structure for our files.
+            PlayerRightCrouch = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/PlayerCrouchingRightFacing"); // player crouching facing right
+            PlayerSwordTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Player_Sword");              // player holding sword
+            WeaponTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/IronSword");              // current weapon image
+            SwordTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/IronSword");                // Sword Weapon images
+            RevSwordTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/IronSwordRev");
+            SpearTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/Spear");                       // Spear Weapon images
+            RevSpearTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/SpearRev"); 
+            AxeTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/Axe");                        // Axe Weapon Images
+            RevAxeTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/AxeRev");
+            BlankTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Weapons/blank");                    //Blank Weapon Image
+            BackgroundTexture1 = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Cobble");                     // Background images
+            BackgroundTexture2 = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Ruins");
+            BackgroundTexture3 = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Dungeon");
+            KnightEnemyTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/KnightLeftFacing");          // knight enemy
+            PotionItemTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Potion");                     // potion item
+            FireStoneItemTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Firestone");               // firestone item
+            IceItemTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Ice");                           // ice item
+            PoisonItemTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Poison");                     // poison item
+            LoadTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Screens/LoadSpriteSheet");          
+            GoblinEnemyTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/GoblinLeftFacing");          // goblin enemy
+            TransitionTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Screens/LoadSpriteSheet");
 
 
-            SpikesTexture = content.Load<Texture2D>(@"Art/Spikes");
+            SpikesTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/Spikes");
 
-            BurningTexture = content.Load<Texture2D>(@"Art/BurningSprite");
-            ScorchedTexture = content.Load<Texture2D>(@"Art/ScorchedSprite");
-            SunBurstTexture = content.Load<Texture2D>(@"Art/SunBurstSprite");
-            FireBallTexture = content.Load<Texture2D>(@"Art/FireBallSprite");
+            BurningTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/BurningSprite");
+            ScorchedTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/ScorchedSprite");
+            SunBurstTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/SunBurstSprite");
+            FireBallTexture = content.Load<Texture2D>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Art/FireBallSprite");
 
             //ChilledTexture = content.Load<Texture2D>(@"Art/ChilledSprite");
             //ShockedTexture = content.Load<Texture2D>(@"Art/ShockedSprite");
