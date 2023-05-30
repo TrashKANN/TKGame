@@ -16,7 +16,7 @@ namespace TKGame.Players
         private static Player instance;
         private static object syncRoot = new object();
         #region Components
-
+        private static IGraphicsComponent weaponAttack;
         #endregion Components
 
         public bool isJumping = false;
@@ -66,6 +66,7 @@ namespace TKGame.Players
             originalHealth = health;
             needsHealth = true;
             weapon = new Sword();
+            weaponAttack = new C_Player_WeaponAttack(); //Instantiates WeaponAttack Component
             weapon.Activate();
 
             entityTexture = Art.PlayerTexture;
@@ -119,7 +120,9 @@ namespace TKGame.Players
             // It assumes the type of IComponent which DOES NOT have an Update method, but the IInputComponent, etc... does.
             components[ComponentType.Input].OfType<IInputComponent>().First().Update(this);
             components[ComponentType.Physics].OfType<IPhysicsComponent>().First().Update(this, gameTime);
+            weaponAttack.Update(this);
             weapon.Update(this);
+
 
             var attacks = GetAttackComponents();
             foreach (var attack in attacks)

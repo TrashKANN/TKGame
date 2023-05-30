@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace TKGame.Players.Components
     internal class C_Player_WeaponAttack : IGraphicsComponent
     {
         #region Variables
-        private int swordX = 20;
+        private int swordX = 100;
         private int swordY = 10;
         private int spearX = 30;
         private int spearY = 10;
@@ -23,7 +24,7 @@ namespace TKGame.Players.Components
 
         public void Update(Entity player)
         {
-            if(Input.MouseState.LeftButton == 0)
+            if(Input.MouseState.LeftButton == ButtonState.Pressed)
             {
                 if (player.weapon.isActiveSword)
                     SwordAttack(player);
