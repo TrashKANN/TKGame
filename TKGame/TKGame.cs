@@ -52,6 +52,8 @@ namespace TKGame
         public static bool paused;
         private static bool hasLoaded = false;
         private static bool hasInitialized = false;
+        public static readonly float GRAVITY = 1100.0f;
+
 
         #endregion
 
@@ -95,41 +97,21 @@ namespace TKGame
             // Add and Load Default Level
             levelComponent.AddLevel(new Level(new Dictionary<string, Stage>
             {
-                { "room0", new Stage("room0") },
-                { "room1", new Stage("room1") },
-                { "room2", new Stage("room2") },
-                { "room3", new Stage("room3") },
+                { "stage0", new Stage("stage0.json") },
+                { "stage1", new Stage(StageGenerator.GenerateStage("stage1.json")) },
+                { "stage2", new Stage(StageGenerator.GenerateStage("stage2.json")) },
+                { "stage3", new Stage(StageGenerator.GenerateStage("stage3.json")) },
+                { "stage4", new Stage(StageGenerator.GenerateStage("stage4.json")) },
+                { "stage5", new Stage(StageGenerator.GenerateStage("stage5.json")) },
             }
             ));
 
-            // Spawn a knight enemy
-            EnemyFactory knightFactory = new KnightEnemyFactory();
-            Enemy knight = knightFactory.CreateEnemy();
-            EntityManager.Add(knight);
-            // Spawn a goblin enemy
-            EnemyFactory goblinFactory = new GoblinEnemyFactory();
-            Enemy goblin = goblinFactory.CreateEnemy();
-            EntityManager.Add(goblin);
-            // Spawn a potion item
-            ItemFactory potionFactory = new PotionItemFactory();
-            Item potion = potionFactory.CreateItem();
-            EntityManager.Add(potion);
-            // Spawn a firestone item
-            ItemFactory fireStoneFactory = new FireStoneItemFactory();
-            Item fireStone = fireStoneFactory.CreateItem();
-            EntityManager.Add(fireStone);
-            // Spawn an ice item
-            ItemFactory iceItemFactory = new IceItemFactory();
-            Item ice = iceItemFactory.CreateItem();
-            EntityManager.Add(ice);
-            // Spawn a poison item
-            ItemFactory poisonItemFactory = new PoisonItemFactory();
-            Item poison = poisonItemFactory.CreateItem();
-            EntityManager.Add(poison);
+            // load the first level
+            levelComponent.GetCurrentStage().Initialize();
             
             hasLoaded = true;
         }
-        protected override async void Update(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
             GameTime = gameTime;
             Input.Update();

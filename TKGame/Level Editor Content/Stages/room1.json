@@ -105,7 +105,13 @@
       "action": "goNext"
     }
   ],
-  "entities": [],
+  "entities": [
+    {
+      "type": "GoblinEnemy",
+      "X": 500,
+      "Y": 800
+    }
+  ],
   "background": {
     "texture": "ruins"
   }

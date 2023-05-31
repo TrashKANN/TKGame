@@ -154,19 +154,96 @@
     },
     {
       "type": "Door",
+      "X": 0,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goPrevious"
+    },
+    {
+      "type": "Door",
       "X": 1590,
       "Y": 660,
       "width": 10,
       "height": 195,
       "action": "goNext"
     }
-
   ],
   "entities": [
     {
-      "type": "knightEnemy",
-      "X": 237,
-      "Y": 725
+      "type": "GoblinEnemy",
+      "X": 123,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 762,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 921,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 512,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 1346,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 234,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 1427,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 657,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 821,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 1138,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 289,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 1002,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 479,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 1439,
+      "Y": 839
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 746,
+      "Y": 839
     }
   ],
   "background": {

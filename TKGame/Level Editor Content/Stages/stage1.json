@@ -1,0 +1,128 @@
+{
+  "blocks": [
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 32,
+      "Y": 0,
+      "width": 1536,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1568,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 800,
+      "Y": 448,
+      "width": 256,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 640,
+      "Y": 576,
+      "width": 128,
+      "height": 64,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 864,
+      "width": 1600,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Door",
+      "X": 0,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goPrevious"
+    },
+    {
+      "type": "Door",
+      "X": 1590,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goNext"
+    },
+    {
+      "type": "Wall",
+      "X": 1312,
+      "Y": 224,
+      "width": 32,
+      "height": 96,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 992,
+      "Y": 704,
+      "width": 64,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 1312,
+      "Y": 736,
+      "width": 128,
+      "height": 128,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 1440,
+      "Y": 544,
+      "width": 224,
+      "height": 128,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 800,
+      "Y": 64,
+      "width": 128,
+      "height": 160,
+      "action": "None"
+    }
+  ],
+  "entities": [
+    {
+      "type": "KnightEnemy",
+      "X": 608,
+      "Y": 684
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 198,
+      "Y": 498
+    },
+    {
+      "type": "FireStoneItem",
+      "X": 996,
+      "Y": 459
+    }
+  ],
+  "background": {
+    "texture": "cobble"
+  }
+}

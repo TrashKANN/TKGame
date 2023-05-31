@@ -18,7 +18,7 @@ namespace TKGame.Level_Editor_Content
         private List<IBlock> stageBlocks;
         private List<Entity> stageEntities;
         public string stageName;
-        public Background background;
+        public Background Background;
         public string prevStageName { get; set; }
         public string nextStageName { get; set; }
 
@@ -31,15 +31,15 @@ namespace TKGame.Level_Editor_Content
             stageName = "defaultStage.json";
             this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
-            this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
+            //this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, background.backgroundName);
             this.stageEntities.Add(Player.Instance);
         }
         public Stage(string name) 
         {
-            stageName = name + ".json";
+            stageName = name;
             this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
-            this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
+            //this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, background.backgroundName);
             this.stageEntities.Add(Player.Instance);
             this.Initialize();
         }
@@ -54,11 +54,15 @@ namespace TKGame.Level_Editor_Content
             stageName = File.Exists(stagePath)
                 ? stageName
                 : "defaultStage.json";
+            if (stageName == "defaultStage.json")
+            {
+                throw new Exception("DEFAULTED");
+            }
             Stage loaded = LevelEditor.LoadStageDataFromJSON(stageName);
 
             stageEntities = loaded.stageEntities;
             stageBlocks = loaded.stageBlocks;
-            background = loaded.background;
+            Background = loaded.Background;
             EntityManager.GetEntities().Clear();
             foreach (Entity entity in stageEntities)
             {
@@ -82,7 +86,7 @@ namespace TKGame.Level_Editor_Content
         public void Draw(SpriteBatch spriteBatch)
         {
             //Draws the image into the Background
-                spriteBatch.Draw(background.BackgroundTexture, background.BackgroundRect, Color.White);
+                spriteBatch.Draw(Background.BackgroundTexture, Background.BackgroundRect, Color.White);
            
         }
 
