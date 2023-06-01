@@ -34,20 +34,26 @@ namespace TKGame.Status_Effects
         }
         public void Update(GameTime gameTime, Entity entity)
         {
-            if (!isChilled)
-            {
-                // apply 80% reduction in speed for affected entity
-                entity.Velocity.X *= 0.2f;
-                isChilled = true;
-            }
+            //if (!isChilled)
+            //{
+            //    // apply 80% reduction in speed for affected entity
+            //    entity.Velocity.X *= 0.2f;
+            //    isChilled = true;
+            //}
             
             ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             TimeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (ElapsedTime >= 10)
+            //if (ElapsedTime >= 10)
+            //{
+            //    entity.RemoveComponent(this);
+            //    isChilled = false;
+            //    return;
+            //}
+             
+            if (ElapsedTime >= Duration)
             {
                 entity.RemoveComponent(this);
-                isChilled = false;
                 return;
             }
 
@@ -55,6 +61,7 @@ namespace TKGame.Status_Effects
             {
                 //IHealthComponent healthComponent = EntityManager.GetComponent<IHealthComponent>(SourceEntity);
                 //healthComponent.TakeDamage(DamagePerTick);
+                entity.health -= DamagePerTick;
                 TimeSinceLastTick = 0f;
             }
         }

@@ -43,7 +43,7 @@ namespace TKGame.PowerUps.RelatedEntities
 
             entityName = "Shocked"; // name for player class
             entityType = EntityType.PowerUp;
-            Position = new Vector2(Player.Instance.HitBox.X - 150, Player.Instance.HitBox.Y + 50);
+            Position = new Vector2(Player.Instance.HitBox.X - 150, Player.Instance.HitBox.Y);
             HitBox = new Rectangle((int)Position.X, (int)Position.Y, 185, 150);
             //Size = HitBox.Size;
         }

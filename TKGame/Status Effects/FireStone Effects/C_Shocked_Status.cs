@@ -33,11 +33,26 @@ namespace TKGame.Status_Effects
         }
         public void Update(GameTime gameTime, Entity entity)
         {
-           throw new NotImplementedException();
+            ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            TimeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (ElapsedTime >= Duration)
+            {
+                entity.RemoveComponent(this);
+                return;
+            }
+
+            if (TimeSinceLastTick >= TickInterval)
+            {
+                //IHealthComponent healthComponent = EntityManager.GetComponent<IHealthComponent>(SourceEntity);
+                //healthComponent.TakeDamage(DamagePerTick);
+                entity.health -= DamagePerTick;
+                TimeSinceLastTick = 0f;
+            }
         }
         public Texture2D GetEffectTexture()
         {
-            throw new NotImplementedException();
+            return Art.ShockedTexture;
         }
     }
 }
