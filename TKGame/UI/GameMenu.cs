@@ -8,6 +8,9 @@ using FontStashSharp;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using TKGame.Players;
+using TKGame.Components.Interface;
+using System.Collections.Generic;
+using TKGame.PowerUps.Components.FirePowerUps;
 
 namespace TKGame.UI
 {
@@ -23,14 +26,14 @@ namespace TKGame.UI
         private HorizontalStackPanel panelHsp;
         private FontSystem fontSystem;
         private Label playerHealthLabel;
-        private bool playerGotPowerup;
+
+        private Dictionary<string, Grid> infoGridDict;
 
         // Private constants
 		private readonly int numCols = 1;
         private readonly int numRows = 2;
         private readonly int fontSize = 24;
         private readonly int playerHpFontSize = 48;
-        private readonly string weaponImageId = "weapon";
 
         /// <summary>
         /// Initialize and load content when the menu is constructed
@@ -51,7 +54,7 @@ namespace TKGame.UI
             panel = new Panel();
             panelHsp = new HorizontalStackPanel();
             playerHealthLabel = new Label();
-            playerGotPowerup = false;
+			infoGridDict = new Dictionary<string, Grid>();
 
 			byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
 			fontSystem = new FontSystem();
@@ -93,9 +96,9 @@ namespace TKGame.UI
             
             // Add weapon and powerup images to panel's hsp
             // Powerups are marked as not visible on startup
-            AddWidgetToHeaderPanel(CreateImageWidget(Art.WeaponTexture, 60, 60, weaponImageId), "Weapon");
-			AddWidgetToHeaderPanel(CreateImageWidget(Art.FireBallTexture, 60, 35), "E", false);
+            AddWidgetToHeaderPanel(CreateImageWidget(Art.WeaponTexture, 60, 60), "Weapon");
 			AddWidgetToHeaderPanel(CreateImageWidget(Art.SunBurstTexture, 60, 35, new Rectangle(0, 0, 400, 153)), "Q", false);
+			AddWidgetToHeaderPanel(CreateImageWidget(Art.FireBallTexture, 60, 35), "E", false);
 			AddWidgetToHeaderPanel(CreateImageWidget(Art.BurningTexture, 60, 60), "Shift", false);
 
             // Add debug menu to the game menu
@@ -113,9 +116,9 @@ namespace TKGame.UI
         /// <param name="height"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        private Image CreateImageWidget(Texture2D texture, int width, int height, string name = null)
+        private Image CreateImageWidget(Texture2D texture, int width, int height)
         {
-            return CreateImageWidget(texture, width, height, new Rectangle(0, 0, texture.Width, texture.Height), name);
+            return CreateImageWidget(texture, width, height, new Rectangle(0, 0, texture.Width, texture.Height));
         }
 
         /// <summary>
@@ -128,15 +131,12 @@ namespace TKGame.UI
         /// <param name="textureBounds"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-		private Image CreateImageWidget(Texture2D texture, int width, int height, Rectangle textureBounds, string name = null)
+		private Image CreateImageWidget(Texture2D texture, int width, int height, Rectangle textureBounds)
 		{
 			Image image = new Image();
 			image.Renderable = new TextureRegion(texture, textureBounds);
 			image.Width = width;
 			image.Height = height;
-
-            if(name is not null) 
-                image.Id = name;
 
 			return image;
 		}
@@ -193,6 +193,7 @@ namespace TKGame.UI
                 widgetLabel.GridRow = 1;
 
                 newGrid.Widgets.Add(widgetLabel);
+                infoGridDict[text] = newGrid;
             }
 
             // Add new grid to panel's hsp
@@ -209,21 +210,32 @@ namespace TKGame.UI
 			playerHealthLabel.Text = playerHp.ToString();
             playerHealthLabel.TextColor = (playerHp > 0) ? Color.LimeGreen : Color.Red;
 
-            if (!playerGotPowerup && Player.Instance.GetAttackComponents().Count > 0)
+            List<IAttackComponent> attackComponents = Player.Instance.GetAttackComponents();
+			if (attackComponents.Count > 0)
             {
-                playerGotPowerup = true;
-                EnableAttackComponentWidgets();
+                EnableAttackComponentWidgets(attackComponents);
             }
         }
 
         /// <summary>
         /// Show powerup images/labels 
         /// </summary>
-        private void EnableAttackComponentWidgets()
+        private void EnableAttackComponentWidgets(List<IAttackComponent> attackComponents)
         {
             // TODO: Make this more flexible for when other powerups are collected
-            foreach (Widget widget in panelHsp.Widgets.Where(w => !w.Visible))
-                widget.Visible = true;
+            foreach (IAttackComponent attackComponent in attackComponents) 
+            {
+                if      (attackComponent is C_Fire_SpecialAttack)  ShowWidget("Q");
+				else if (attackComponent is C_Fire_UltimateAttack) ShowWidget("E");
+				else if (attackComponent is C_Fire_MovementAttack) ShowWidget("Shift");
+				//else if (attackComponent is C_Ice_SpecialAttack) { }
+				//else if (attackComponent is C_Ice_UltimateAttack) { }
+			}
+		}
+
+        private void ShowWidget(string id)
+        {
+            infoGridDict[id].Visible = true;
         }
 
         /// <summary>
@@ -232,13 +244,11 @@ namespace TKGame.UI
         /// <param name="texture"></param>
         public void ChangeWeaponTexture(Texture2D texture)
         {
-            foreach (Widget widget in panelHsp.Widgets.Where(w => w is Grid))
+            foreach (Widget widget in infoGridDict["Weapon"].Widgets)
             {
-
-                if ((widget as Grid).Widgets.Any(w => w is Image && w.Id == weaponImageId))
+                if (widget is Image)
                 {
-                    Image image = (widget as Grid).Widgets.First(w => w is Image && w.Id == weaponImageId) as Image;
-                    image.Renderable = new TextureRegion(texture, new Rectangle(0, 0, texture.Width, texture.Height));
+                    (widget as Image).Renderable = new TextureRegion(texture, new Rectangle(0, 0, texture.Width, texture.Height));
                 }
             }
         }
