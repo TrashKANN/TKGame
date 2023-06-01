@@ -42,7 +42,6 @@ namespace TKGame.Status_Effects
             //    entity.RemoveComponent(this);
             //    return;
             //}
-
             //if (TimeSinceLastTick >= TickInterval)
             //{
             //    entity.health -= DamagePerTick;
