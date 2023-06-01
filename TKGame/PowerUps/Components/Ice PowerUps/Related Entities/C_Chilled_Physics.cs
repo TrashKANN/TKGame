@@ -13,11 +13,8 @@ namespace TKGame.PowerUps.RelatedEntities
         ComponentType IComponent.Type => ComponentType.Physics;
         void IPhysicsComponent.Update(Entity entity, GameTime gameTime/*, World &world*/)
         {
-            entity.HitBox = new Rectangle(
-                                0,
-                                0,
-                                (int)entity.HitBox.Width,
-                                (int)entity.HitBox.Height);
+            entity.Position.X = entity.HitBox.X + entity.HitBox.Width / 2;
+            entity.Position.Y = entity.HitBox.Y + entity.HitBox.Height / 2;
         }
     }
 }
