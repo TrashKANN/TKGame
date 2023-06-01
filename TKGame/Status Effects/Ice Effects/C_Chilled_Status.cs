@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.BackEnd;
 using TKGame.Components.Interface;
+using TKGame.Enemies;
 
 namespace TKGame.Status_Effects
 {
@@ -34,18 +35,15 @@ namespace TKGame.Status_Effects
         }
         public void Update(GameTime gameTime, Entity entity)
         {
-            ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            TimeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (ElapsedTime >= Duration)
+            // hacky way to simulate entity loosing movement speed
+            // only works for x plane movements and can be janky sometimes
+            if (entity.Orientation == SpriteEffects.FlipHorizontally) 
             {
-                entity.RemoveComponent(this);
-                return;
+                entity.Position.X = entity.Position.X - 0.01f;
             }
-
-            if (TimeSinceLastTick >= TickInterval)
+            if (entity.Orientation == SpriteEffects.None)
             {
-                TimeSinceLastTick = 0f;
+                entity.Position.X = entity.Position.X + 0.01f;
             }
         }
         public Texture2D GetEffectTexture()

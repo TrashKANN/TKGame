@@ -31,8 +31,9 @@ namespace TKGame.Status_Effects
             ElapsedTime = 0f;
             TimeSinceLastTick = 0f;
         }
+        // for now this just decrements affected entity health
         public void Update(GameTime gameTime, Entity entity)
-        {
+        { 
             ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             TimeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
