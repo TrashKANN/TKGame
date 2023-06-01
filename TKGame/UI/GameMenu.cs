@@ -101,6 +101,7 @@ namespace TKGame.UI
 			AddWidgetToHeaderPanel(CreateImageWidget(Art.FireBallTexture, 60, 35), "E", false);
 			AddWidgetToHeaderPanel(CreateImageWidget(Art.BurningTexture, 60, 60), "Shift", false);
             // AddWidgetToHeaderPanel(CreateImageWidget(Art.ChilledTexture, 60, 60), "I", false);
+            // AddWidgetToHeaderPanel(CreateImageWidget(Art.ShockedTexture, 60, 60), "O", false);
 
             // Add debug menu to the game menu
 			(debugMenu.Container as VerticalStackPanel).GridRow = 1;
@@ -232,6 +233,7 @@ namespace TKGame.UI
 				//else if (attackComponent is C_Ice_PrimaryAttack) ShowWidget("I");
 				//else if (attackComponent is C_Ice_SpecialAttack) { }
 				//else if (attackComponent is C_Ice_UltimateAttack) { }
+				//else if (attackComponent is C_FireStone_PrimaryAttack) ShowWidget("O");
 			}
 		}
 
