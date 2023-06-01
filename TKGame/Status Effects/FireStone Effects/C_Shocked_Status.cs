@@ -44,8 +44,6 @@ namespace TKGame.Status_Effects
 
             if (TimeSinceLastTick >= TickInterval)
             {
-                //IHealthComponent healthComponent = EntityManager.GetComponent<IHealthComponent>(SourceEntity);
-                //healthComponent.TakeDamage(DamagePerTick);
                 entity.health -= DamagePerTick;
                 TimeSinceLastTick = 0f;
             }
