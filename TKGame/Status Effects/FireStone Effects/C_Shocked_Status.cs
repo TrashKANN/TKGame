@@ -34,20 +34,20 @@ namespace TKGame.Status_Effects
         // for now this just decrements affected entity health
         public void Update(GameTime gameTime, Entity entity)
         { 
-            ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            TimeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //TimeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (ElapsedTime >= Duration)
-            {
-                entity.RemoveComponent(this);
-                return;
-            }
+            //if (ElapsedTime >= Duration)
+            //{
+            //    entity.RemoveComponent(this);
+            //    return;
+            //}
 
-            if (TimeSinceLastTick >= TickInterval)
-            {
-                entity.health -= DamagePerTick;
-                TimeSinceLastTick = 0f;
-            }
+            //if (TimeSinceLastTick >= TickInterval)
+            //{
+            //    entity.health -= DamagePerTick;
+            //    TimeSinceLastTick = 0f;
+            //}
         }
         public Texture2D GetEffectTexture()
         {

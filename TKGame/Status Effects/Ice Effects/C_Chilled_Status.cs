@@ -35,7 +35,7 @@ namespace TKGame.Status_Effects
         }
         public void Update(GameTime gameTime, Entity entity)
         {
-            // hacky way to simulate entity loosing movement speed
+            // hacky way to simulate entity losing movement speed
             // only works for x plane movements and can be janky sometimes
             if (entity.Orientation == SpriteEffects.FlipHorizontally) 
             {
