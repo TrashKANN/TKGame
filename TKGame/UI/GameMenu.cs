@@ -26,7 +26,7 @@ namespace TKGame.UI
         private HorizontalStackPanel panelHsp;
         private FontSystem fontSystem;
         private Label playerHealthLabel;
-
+        private Texture2D previousPlayerWeaponTexture;
         private Dictionary<string, Grid> infoGridDict;
 
         // Private constants
@@ -55,6 +55,7 @@ namespace TKGame.UI
             panelHsp = new HorizontalStackPanel();
             playerHealthLabel = new Label();
 			infoGridDict = new Dictionary<string, Grid>();
+            previousPlayerWeaponTexture = null;
 
 			byte[] ttfData = File.ReadAllBytes(@"Content/Fonts/Retro Gaming.ttf");
 			fontSystem = new FontSystem();
@@ -207,6 +208,13 @@ namespace TKGame.UI
         /// </summary>
         public void Update()
         {
+            Texture2D currentPlayerWeaponTexture = Player.Instance.weapon.weaponTexture;
+            if (previousPlayerWeaponTexture != currentPlayerWeaponTexture)
+            {
+                ChangeWeaponTexture(currentPlayerWeaponTexture);
+                previousPlayerWeaponTexture = currentPlayerWeaponTexture;
+			}
+
             float playerHp = Player.Instance.health;
 
 			playerHealthLabel.Text = playerHp.ToString();
