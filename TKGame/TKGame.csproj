@@ -11,6 +11,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="PowerUps\Components\Lightning PowerUps\**" />
+    <EmbeddedResource Remove="PowerUps\Components\Lightning PowerUps\**" />
+    <None Remove="PowerUps\Components\Lightning PowerUps\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Content\Retro Gaming.ttf" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
@@ -34,7 +39,6 @@
     <Folder Include="Content\Art\Weapons\" />
     <Folder Include="Content\bin\DesktopGL\Art\" />
     <Folder Include="Core\" />
-    <Folder Include="PowerUps\Components\Lightning PowerUps\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\Content.mgcb">

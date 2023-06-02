@@ -5,6 +5,8 @@ using System.Drawing;
 using TKGame.PowerUps.Components;
 using TKGame.Players;
 using TKGame.PowerUps.Components.FirePowerUps;
+using TKGame.PowerUps.Components.FireStonePowerUps;
+using TKGame.PowerUps.Components.IcePowerUps;
 
 namespace TKGame.Items.FireStone.Components
 {
@@ -23,9 +25,7 @@ namespace TKGame.Items.FireStone.Components
                 // if player is within pickup range
                 if (player.HitBox.Intersects(entity.HitBox))
                 {
-                    Player.Instance.PickUpPowerUp(new C_Fire_SpecialAttack());
-                    Player.Instance.PickUpPowerUp(new C_Fire_UltimateAttack());
-                    Player.Instance.PickUpPowerUp(new C_Fire_MovementAttack());
+                    Player.Instance.PickUpPowerUp(new C_FireStone_PrimaryAttack());
                 }
             }
             entity.HitBox = new Microsoft.Xna.Framework.Rectangle((int)entity.Position.X - (int)entity.Size.X / 2,
