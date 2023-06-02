@@ -5,6 +5,8 @@ using System.Drawing;
 using TKGame.PowerUps.Components;
 using TKGame.Players;
 using TKGame.PowerUps.Components.FirePowerUps;
+using TKGame.PowerUps.Components.FireStonePowerUps;
+using System;
 
 namespace TKGame.Items.Potion.Components
 {
@@ -23,8 +25,22 @@ namespace TKGame.Items.Potion.Components
                 // This is mainly for testing purposes. I will make powerup items soon
                 if (player.HitBox.Intersects(entity.HitBox))
                 {
-                    // TODO: Give player a potion
-                }
+                    Random random = new Random();
+					switch (random.Next(3))
+                    {
+                        case 0:
+					        Player.Instance.PickUpPowerUp(new C_Fire_MovementAttack());
+                            break;
+                        case 1:
+					        Player.Instance.PickUpPowerUp(new C_Fire_SpecialAttack());
+                            break;
+                        case 2:
+					        Player.Instance.PickUpPowerUp(new C_Fire_UltimateAttack());
+                            break;
+                        default:
+                            break;
+                    }
+				}
             }
             entity.HitBox = new Microsoft.Xna.Framework.Rectangle((int)entity.Position.X - (int)entity.Size.X / 2,
                                 (int)entity.Position.Y - (int)entity.Size.Y / 2,
