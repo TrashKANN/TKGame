@@ -19,7 +19,8 @@ namespace TKGame.Enemies.Knight.Components
         {
             Players.Player player = Players.Player.Instance;
             entity.Velocity.X = 1;
-            entity.Velocity.Y = 1;
+            //entity.Velocity.Y = 1;
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (player != null)
             {
@@ -41,6 +42,10 @@ namespace TKGame.Enemies.Knight.Components
                 //{
                 //    entity.Position.Y += entity.Velocity.Y;
                 //}
+
+                entity.Position.Y += entity.Velocity.Y * deltaTime;
+
+                entity.resolveVerticalCollision(entity, deltaTime);
 
                 entity.hitBox.X = (int)entity.Position.X - (int)entity.Size.X / 2;
                 entity.hitBox.Y = (int)entity.Position.Y - (int)entity.Size.Y / 2;

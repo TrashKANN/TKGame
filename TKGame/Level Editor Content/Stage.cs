@@ -17,33 +17,29 @@ namespace TKGame.Level_Editor_Content
     {
         private List<IBlock> stageBlocks;
         private List<Entity> stageEntities;
-        private List<Trigger> stageTriggers;
         public string stageName;
-        public Background background;
+        public Background Background;
         public string prevStageName { get; set; }
         public string nextStageName { get; set; }
 
 
         public List<IBlock> StageBlocks { get { return stageBlocks; } }
         public List<Entity> StageEntities { get { return stageEntities; } }
-        public List<Trigger> StageTriggers { get { return stageTriggers; } }
 
         public Stage()
         {
             stageName = "defaultStage.json";
             this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
-            this.stageTriggers = new List<Trigger>() { };
-            this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
+            //this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, background.backgroundName);
             this.stageEntities.Add(Player.Instance);
         }
         public Stage(string name) 
         {
-            stageName = name + ".json";
+            stageName = name;
             this.stageBlocks = new List<IBlock>() { };
             this.stageEntities = new List<Entity>() { };
-            this.stageTriggers = new List<Trigger>() { };
-            this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
+            //this.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, background.backgroundName);
             this.stageEntities.Add(Player.Instance);
             this.Initialize();
         }
@@ -58,12 +54,15 @@ namespace TKGame.Level_Editor_Content
             stageName = File.Exists(stagePath)
                 ? stageName
                 : "defaultStage.json";
+            if (stageName == "defaultStage.json")
+            {
+                throw new Exception("DEFAULTED");
+            }
             Stage loaded = LevelEditor.LoadStageDataFromJSON(stageName);
 
             stageEntities = loaded.stageEntities;
             stageBlocks = loaded.stageBlocks;
-            stageTriggers = loaded.stageTriggers;
-            background = loaded.background;
+            Background = loaded.Background;
             EntityManager.GetEntities().Clear();
             foreach (Entity entity in stageEntities)
             {
@@ -74,12 +73,12 @@ namespace TKGame.Level_Editor_Content
         public void Update()
         {
             EntityManager.Update(TKGame.GameTime);
-            foreach (Trigger trigger in stageTriggers)
+            foreach (IBlock block in stageBlocks)
             {
-                if (trigger.checkTrigger())
+                if (block.Type == ComponentType.Door && (block as Door).checkTrigger())
                 {
                     TKGame.levelComponent.GetCurrentLevel().isTransitioning = true;
-                    changeStage(trigger);
+                    changeStage(block as Door);
                 }
             }   
         }
@@ -87,11 +86,11 @@ namespace TKGame.Level_Editor_Content
         public void Draw(SpriteBatch spriteBatch)
         {
             //Draws the image into the Background
-                spriteBatch.Draw(background.BackgroundTexture, background.BackgroundRect, Color.White);
+                spriteBatch.Draw(Background.BackgroundTexture, Background.BackgroundRect, Color.White);
            
         }
 
-        private void changeStage(Trigger triggered)
+        private void changeStage(Door triggered)
         {
             switch (triggered.Action)
             {
