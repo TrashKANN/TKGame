@@ -128,7 +128,7 @@ namespace TKGame.BackEnd
             if (entity.needsHealth) //Makes sure that items don't get health bars
             {
                 entity.healthTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-                entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, 100, 10);
+                entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, (int)entity.health, 10);
                 entity.healthTexture.SetData(new Color[] { Color.Red });
                 spriteBatch.Draw(entity.healthTexture, entity.healthBar, Color.White);
             }
@@ -139,25 +139,45 @@ namespace TKGame.BackEnd
         /// </summary>
         public static void DamageEnemy()
         {
-            foreach (Entity entity in entities)
+            int count = 0;
+            foreach(Entity entity in entities)
             {
-                if (entities[0].entityTexture == Art.PlayerTexture) //Checks if player has sword out
+                if(entity.isEnemy && entity.hitBox.Intersects(entities[0].weapon.hitbox))
                 {
-                    if (entities[0].weapon.hitbox.Intersects(entity.hitBox) && entity != entities[0]) //Checks if hitboxes intersect and is not the player
+                    if (count % 240 == 0)
                     {
-                        entity.health -= (int)(entities[0].weapon.damageStat);
+                        if (entity == entities[1])
+                        {
+                            entities[1].health -= entities[0].weapon.damageStat;
+                        }
+                        else if(entity == entities[2])
+                        {
+                            entities[2].health -= entities[0].weapon.damageStat;
+                        }
+                        else if(entity == entities[3])
+                        {
+                            entities[3].health -= entities[0].weapon.damageStat;
+                        }
+
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Checks if the player hitbox intersects with any enemy hitboxes and then decrements player health
+        /// </summary>
         public static void EnemyDamage()
         {
+            int count = 0;
             foreach(Entity entity in entities)
             {
-                if (entity != entities[0] && entity.hitBox.Intersects(entities[0].hitBox) && entity.isEnemy)
+                if ( entity.hitBox.Intersects(entities[0].hitBox) && entity.isEnemy)
                 {
-                    entities[0].health -= 10;
+                    if (count % 240 == 0)
+                    {
+                        entities[0].health -= 1;
+                    }
                 }
             }
         }

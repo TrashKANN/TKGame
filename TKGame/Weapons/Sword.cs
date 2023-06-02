@@ -29,7 +29,7 @@ namespace TKGame.Content.Weapons
             weaponTexture = Art.SwordTexture;
             position = new Vector2(815, 730);
             hitbox = new Rectangle(650, 730, 85, 85);
-            damageStat = 1.0f;
+            damageStat = 5;
         }
 
         /// <summary>
