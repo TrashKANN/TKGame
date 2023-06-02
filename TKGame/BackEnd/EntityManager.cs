@@ -146,13 +146,13 @@ namespace TKGame.BackEnd
 
             foreach(Entity entity in entities)
             {
-                if(entity.isEnemy && entity.hitBox.Intersects(entities[0].weapon.hitbox))
+                if(entity.isEnemy && entity.hitBox.Intersects(entities[0].weapon.hitbox)) //checks if players weapon's hitbox intersects with entity's hitbox and if entity is an enemy
                 {
                     if (count % 30 == 0)
                     {
                         if (entity == entities[1])
                         {
-                            entities[1].health -= entities[0].weapon.damageStat;
+                            entities[1].health -= entities[0].weapon.damageStat; //For some reason, it wont change the graphical elements width if I use the entity variable from the foreach loop
                         }
                         else if (entity == entities[2])
                         {
@@ -163,7 +163,7 @@ namespace TKGame.BackEnd
                             entities[3].health -= entities[0].weapon.damageStat;
                         }
                     }
-                    playerCount++;
+                    playerCount++; //updates this loops counter 
                 }
             }
         }
@@ -176,13 +176,13 @@ namespace TKGame.BackEnd
         {
             foreach(Entity entity in entities)
             {
-                if ( entity.hitBox.Intersects(entities[0].hitBox) && entity.isEnemy)
+                if ( entity.hitBox.Intersects(entities[0].hitBox) && entity.isEnemy) //checks if player's hitbox intersects with enemy's hitbox
                 {
                     if (count % 80 == 0)
                     {
                         entities[0].health -= 1;
                     }
-                    enemyCount++;
+                    enemyCount++; //updates this loops counter
                 }
             }
 
