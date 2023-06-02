@@ -147,5 +147,16 @@ namespace TKGame.BackEnd
                 }
             }
         }
+
+        public static void EnemyDamage()
+        {
+            foreach(Entity entity in entities)
+            {
+                if (entity != entities[0] && entity.hitBox.Intersects(entities[0].hitBox))
+                {
+                    entities[0].health -= 10;
+                }
+            }
+        }
     }
 }
