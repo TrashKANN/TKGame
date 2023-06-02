@@ -32,6 +32,9 @@ namespace TKGame.Players.Components
                     SpearAttack(player);
                 if(player.weapon.isActiveAxe)
                     AxeAttack(player);
+                TKGame.SpriteBatch.Begin();
+                TKGame.SpriteBatch.Draw(player.weapon.weaponTexture, player.weapon.hitbox, player.weapon.color);
+                TKGame.SpriteBatch.End();
             }
         }
 
