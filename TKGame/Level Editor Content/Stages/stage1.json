@@ -65,61 +65,61 @@
       "action": "goNext"
     },
     {
-      "type": "Wall",
-      "X": 1312,
-      "Y": 224,
-      "width": 32,
+      "type": "Spikes",
+      "X": 480,
+      "Y": 480,
+      "width": 160,
+      "height": 64,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 96,
+      "Y": 800,
+      "width": 128,
       "height": 96,
       "action": "None"
     },
     {
       "type": "Spikes",
-      "X": 992,
-      "Y": 704,
+      "X": 864,
+      "Y": 256,
       "width": 64,
-      "height": 256,
+      "height": 192,
       "action": "None"
     },
     {
-      "type": "Spikes",
-      "X": 1312,
-      "Y": 736,
-      "width": 128,
-      "height": 128,
-      "action": "None"
-    },
-    {
-      "type": "Spikes",
-      "X": 1440,
-      "Y": 544,
-      "width": 224,
-      "height": 128,
-      "action": "None"
-    },
-    {
-      "type": "Spikes",
-      "X": 800,
-      "Y": 64,
-      "width": 128,
+      "type": "Wall",
+      "X": 320,
+      "Y": 160,
+      "width": 96,
       "height": 160,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 736,
+      "Y": 512,
+      "width": 128,
+      "height": 64,
       "action": "None"
     }
   ],
   "entities": [
     {
       "type": "KnightEnemy",
-      "X": 608,
-      "Y": 684
+      "X": 1066,
+      "Y": 718
     },
     {
       "type": "GoblinEnemy",
-      "X": 198,
-      "Y": 498
+      "X": 755,
+      "Y": 448
     },
     {
       "type": "FireStoneItem",
-      "X": 996,
-      "Y": 459
+      "X": 333,
+      "Y": 658
     }
   ],
   "background": {

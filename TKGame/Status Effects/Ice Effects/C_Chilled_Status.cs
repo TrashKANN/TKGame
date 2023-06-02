@@ -21,7 +21,6 @@ namespace TKGame.Status_Effects
         public Entity SourceEntity { get; set; }
         public float ElapsedTime { get; set; }
         public float TimeSinceLastTick { get; set; }
-        private bool isChilled; // added for applying 
 
         public C_Chilled_Status(float duration, float tickInterval, float damagePerTick, Entity sourceEntity)
         {
@@ -35,15 +34,26 @@ namespace TKGame.Status_Effects
         }
         public void Update(GameTime gameTime, Entity entity)
         {
-            // hacky way to simulate entity losing movement speed
-            // only works for x plane movements and can be janky sometimes
-            if (entity.Orientation == SpriteEffects.FlipHorizontally) 
+            ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            TimeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (ElapsedTime >= Duration)
             {
-                entity.Position.X = entity.Position.X - 0.01f;
+                entity.RemoveComponent(this);
+                return;
             }
-            if (entity.Orientation == SpriteEffects.None)
+            else
             {
-                entity.Position.X = entity.Position.X + 0.01f;
+                // hacky way to simulate entity losing movement speed
+                // only works for x plane movements and can be janky sometimes
+                if (entity.Orientation == SpriteEffects.FlipHorizontally)
+                {
+                    entity.Position.X = entity.Position.X - 0.01f;
+                }
+                if (entity.Orientation == SpriteEffects.None)
+                {
+                    entity.Position.X = entity.Position.X + 0.01f;
+                }
             }
         }
         public Texture2D GetEffectTexture()
