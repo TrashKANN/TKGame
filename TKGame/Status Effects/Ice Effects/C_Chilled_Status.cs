@@ -21,7 +21,6 @@ namespace TKGame.Status_Effects
         public Entity SourceEntity { get; set; }
         public float ElapsedTime { get; set; }
         public float TimeSinceLastTick { get; set; }
-        private bool isChilled; // added for applying 
 
         public C_Chilled_Status(float duration, float tickInterval, float damagePerTick, Entity sourceEntity)
         {

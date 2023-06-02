@@ -85,6 +85,18 @@
 /processorParam:TextureFormat=Color
 /build:Art/Firestone.png
 
+#begin Art/Frozen.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Art/Frozen.png
+
 #begin Art/GoblinLeftFacing.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -240,18 +252,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Art/Screens/LoadSpriteSheet.png
-
-#begin Art/Shocked.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Art/Shocked.png
 
 #begin Art/Shocked.png
 /importer:TextureImporter

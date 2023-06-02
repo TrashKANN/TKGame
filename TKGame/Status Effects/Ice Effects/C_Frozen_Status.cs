@@ -10,7 +10,6 @@ using TKGame.Components.Interface;
 
 namespace TKGame.Status_Effects
 {
-    // TODO: enemies have chilled status removed and cannot move for 1.5 seconds
     public class C_Frozen_Status : IStatusComponent
     {
         public ComponentType Type => ComponentType.Frozen;
@@ -34,28 +33,11 @@ namespace TKGame.Status_Effects
         }
         public void Update(GameTime gameTime, Entity entity)
         {
-            ElapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            TimeSinceLastTick += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (ElapsedTime >= Duration)
-            {
-                entity.RemoveComponent(this);
-                return;
-            }
-
-            if (TimeSinceLastTick >= TickInterval)
-            {
-                //IHealthComponent healthComponent = EntityManager.GetComponent<IHealthComponent>(SourceEntity);
-                //healthComponent.TakeDamage(DamagePerTick);
-                entity.health -= DamagePerTick;
-                TimeSinceLastTick = 0f;
-            }
+            
         }
         public Texture2D GetEffectTexture()
         {
-            // TODO: add the texture to the project
-            //return Art.FrozenTexture;
-            throw new NotImplementedException();
+            return Art.FrozenTexture;
         }
 
     }
