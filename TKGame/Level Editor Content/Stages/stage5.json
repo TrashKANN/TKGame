@@ -66,60 +66,84 @@
     },
     {
       "type": "Spikes",
-      "X": 608,
-      "Y": 32,
-      "width": 192,
-      "height": 192,
-      "action": "None"
-    },
-    {
-      "type": "Wall",
-      "X": 1120,
-      "Y": 704,
-      "width": 64,
-      "height": 192,
-      "action": "None"
-    },
-    {
-      "type": "Spikes",
-      "X": 768,
-      "Y": 512,
-      "width": 224,
-      "height": 256,
-      "action": "None"
-    },
-    {
-      "type": "Wall",
-      "X": 32,
-      "Y": 64,
-      "width": 192,
+      "X": 448,
+      "Y": 480,
+      "width": 160,
       "height": 224,
       "action": "None"
     },
     {
       "type": "Wall",
-      "X": 1344,
-      "Y": 224,
-      "width": 96,
+      "X": 480,
+      "Y": 480,
+      "width": 32,
       "height": 160,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 704,
+      "Y": 608,
+      "width": 224,
+      "height": 160,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 960,
+      "Y": 64,
+      "width": 160,
+      "height": 96,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 1056,
+      "Y": 256,
+      "width": 256,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 864,
+      "Y": 768,
+      "width": 32,
+      "height": 96,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 768,
+      "Y": 768,
+      "width": 96,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1376,
+      "Y": 416,
+      "width": 224,
+      "height": 192,
       "action": "None"
     }
   ],
   "entities": [
     {
       "type": "KnightEnemy",
-      "X": 348,
-      "Y": 450
+      "X": 755,
+      "Y": 594
     },
     {
       "type": "GoblinEnemy",
-      "X": 110,
-      "Y": 612
+      "X": 890,
+      "Y": 692
     },
     {
       "type": "PotionItem",
-      "X": 1486,
-      "Y": 461
+      "X": 1308,
+      "Y": 715
     }
   ],
   "background": {
