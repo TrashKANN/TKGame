@@ -17,7 +17,7 @@ namespace TKGame.BackEnd
     {
 
 # region components
-        public static C_Player_WeaponAttack weaponAttack = new C_Player_WeaponAttack();
+        public static C_Player_WeaponAttack weaponAttack = new C_Player_WeaponAttack(); //Only for use with player but needs to be in the EntityManagers Update functions.
 #endregion
 
 

@@ -26,21 +26,25 @@ namespace TKGame.Players.Components
         public void Update(Entity player)
         {
 
-            if (Input.MouseState.LeftButton == ButtonState.Pressed)
+            if (Input.MouseState.LeftButton == ButtonState.Pressed) //Checks if left mouse is pressed
             {
-                if (player.weapon.isActiveSword)
+                if (player.weapon.isActiveSword)//Checks if weapon is a sword
                     SwordAttack(player);
-                if(player.weapon.isActiveSpear)
+                if(player.weapon.isActiveSpear)//Checks if weapon is a spear
                     SpearAttack(player);
-                if(player.weapon.isActiveAxe)
+                if(player.weapon.isActiveAxe)// cheacks if weapon is an axe
                     AxeAttack(player);
             }
         }
 
+        /// <summary>
+        /// Move's players sword into attack position
+        /// </summary>
+        /// <param name="player"></param>
         public void SwordAttack(Entity player)
         {
-                if (player.Orientation == SpriteEffects.None)
-                {
+                if (player.Orientation == SpriteEffects.None)//Checks the sprites orientation
+            {
                     player.weapon.hitbox.X += swordX;
                     player.weapon.hitbox.Y += swordY;
 
@@ -52,10 +56,14 @@ namespace TKGame.Players.Components
                 }
         }
 
+        /// <summary>
+        /// Moves player's spear into attack position
+        /// </summary>
+        /// <param name="player"></param>
         public void SpearAttack(Entity player)
         {
 
-            if (player.Orientation == SpriteEffects.None)
+            if (player.Orientation == SpriteEffects.None) //Checks the sprites orientation
             {
                 player.weapon.hitbox.X += spearX;
                 player.weapon.hitbox.Y += spearY;
@@ -68,9 +76,13 @@ namespace TKGame.Players.Components
             }
         }
 
+        /// <summary>
+        /// Moves player's axe into attack position
+        /// </summary>
+        /// <param name="player"></param>
         public void AxeAttack(Entity player)
         {
-            if (player.Orientation == SpriteEffects.None)
+            if (player.Orientation == SpriteEffects.None)//Checks the sprites orientation
             {
                 player.weapon.hitbox.X += axeX;
                 player.weapon.hitbox.Y += axeY;
