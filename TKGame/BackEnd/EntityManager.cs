@@ -97,7 +97,10 @@ namespace TKGame.BackEnd
             entities = entities.Where(x => !x.IsExpired).ToList();
 
             //Damages Enemies
-            DamageEnemy();
+            if(Input.KeyboardState.CapsLock)
+                DamageEnemy();
+            //Check For Enemies Damaging Player
+            EnemyDamage();
         }
 
 
@@ -152,7 +155,7 @@ namespace TKGame.BackEnd
         {
             foreach(Entity entity in entities)
             {
-                if (entity != entities[0] && entity.hitBox.Intersects(entities[0].hitBox))
+                if (entity != entities[0] && entity.hitBox.Intersects(entities[0].hitBox) && entity.isEnemy)
                 {
                     entities[0].health -= 10;
                 }

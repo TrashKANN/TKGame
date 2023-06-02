@@ -50,7 +50,7 @@ namespace TKGame
         public Texture2D healthTexture;
         public bool needsHealth = false;
         public float originalHealth;
-        
+        public bool isEnemy = false;
 
         #region Properties
         public Vector2 Size

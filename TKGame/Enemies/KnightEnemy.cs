@@ -31,7 +31,7 @@ namespace TKGame.Enemies
             health = 10; //Base Health
             originalHealth = health; //used for displaying healthbar
             needsHealth = true;
-
+            isEnemy = true;
             components = new Dictionary<ComponentType, List<IComponent>>
             {
                 { ComponentType.Physics, new List<IComponent> { new C_KnightEnemy_Physics() } },
