@@ -14,12 +14,12 @@ namespace TKGame.Players.Components
     internal class C_Player_WeaponAttack : IGraphicsComponent
     {
         #region Variables
-        private int swordX = 40;
-        private int swordY = 10;
-        private int spearX = 100;
-        private int spearY = 10;
-        private int axeX = 40;
-        private int axeY = 10;
+        private const int swordX = 40;
+        private const int swordY = 10;
+        private const int spearX = 100;
+        private const int spearY = 10;
+        private const int axeX = 40;
+        private const int axeY = 10;
         #endregion
         public ComponentType Type => throw new NotImplementedException();
 
