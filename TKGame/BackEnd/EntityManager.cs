@@ -16,6 +16,9 @@ namespace TKGame.BackEnd
     {
         static List<Entity> entities = new List<Entity>();
 
+        private static int playerCount = 0;
+        private static int enemyCount = 0;
+
         static bool IsUpdating;
 
         // This will be all the entities that are added this frame
@@ -98,9 +101,9 @@ namespace TKGame.BackEnd
 
             //Damages Enemies
             if(Input.KeyboardState.CapsLock)
-                DamageEnemy();
+                DamageEnemy(playerCount);
             //Check For Enemies Damaging Player
-            EnemyDamage();
+            EnemyDamage(enemyCount);
         }
 
 
@@ -133,33 +136,34 @@ namespace TKGame.BackEnd
                 spriteBatch.Draw(entity.healthTexture, entity.healthBar, Color.White);
             }
         }
-        
+
         /// <summary>
         /// Function To run through entities and damage any touching the player
         /// </summary>
-        public static void DamageEnemy()
+        /// <param name="count"></param>
+        public static void DamageEnemy(int count)
         {
-            int count = 0;
+
             foreach(Entity entity in entities)
             {
                 if(entity.isEnemy && entity.hitBox.Intersects(entities[0].weapon.hitbox))
                 {
-                    if (count % 240 == 0)
+                    if (count % 30 == 0)
                     {
                         if (entity == entities[1])
                         {
                             entities[1].health -= entities[0].weapon.damageStat;
                         }
-                        else if(entity == entities[2])
+                        else if (entity == entities[2])
                         {
                             entities[2].health -= entities[0].weapon.damageStat;
                         }
-                        else if(entity == entities[3])
+                        else if (entity == entities[3])
                         {
                             entities[3].health -= entities[0].weapon.damageStat;
                         }
-
                     }
+                    playerCount++;
                 }
             }
         }
@@ -167,19 +171,21 @@ namespace TKGame.BackEnd
         /// <summary>
         /// Checks if the player hitbox intersects with any enemy hitboxes and then decrements player health
         /// </summary>
-        public static void EnemyDamage()
+        /// <param name="count"></param>
+        public static void EnemyDamage(int count)
         {
-            int count = 0;
             foreach(Entity entity in entities)
             {
                 if ( entity.hitBox.Intersects(entities[0].hitBox) && entity.isEnemy)
                 {
-                    if (count % 240 == 0)
+                    if (count % 80 == 0)
                     {
                         entities[0].health -= 1;
                     }
+                    enemyCount++;
                 }
             }
+
         }
     }
 }
