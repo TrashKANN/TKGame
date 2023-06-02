@@ -20,6 +20,7 @@ using System.Text.Json.Serialization;
 using TKGame.Players;
 using TKGame.Enemies;
 using System.Collections;
+using TKGame.Items;
 
 namespace TKGame.Level_Editor_Content
 {
@@ -30,21 +31,13 @@ namespace TKGame.Level_Editor_Content
         public int Y { get; set;}
         public int width { get; set;}
         public int height { get; set;}
+        public string action { get; set; }
     }
     public class EntityData
     {
         public string type { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
-    }
-
-    public class TriggerData
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
-        public string action { get; set; }
     }
 
     public class BackgroundData//For Json Background Data
@@ -57,7 +50,6 @@ namespace TKGame.Level_Editor_Content
     {
         public List<BlockData> blocks { get; set; }
         public List<EntityData> entities { get; set; }
-        public List<TriggerData> triggers { get; set; }
         public BackgroundData background { get; set; }//For Json Background Data
     }
 
@@ -65,11 +57,11 @@ namespace TKGame.Level_Editor_Content
     {
         Wall,
         Spikes,
+        Door,
     }
 
     static class LevelEditor
     {
-        public static Background levelBackground = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);
         public static bool EditMode = false;
         private static MouseState previousMouseState;
         private static Vector2 startPosition;
@@ -243,7 +235,7 @@ namespace TKGame.Level_Editor_Content
         /// <param name="rect"></param>
         /// <param name="gridSize"></param>
         /// <returns></returns>
-        private static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
+        public static Rectangle AlignRectToGrid(Rectangle rect, int gridSize)
         {
             // Calculate the position of the closest grid square
             int snappedX = (int)Math.Round((double)rect.X / gridSize) * gridSize;
@@ -300,7 +292,6 @@ namespace TKGame.Level_Editor_Content
             // Initialize the lists of each type of data
             stageData.blocks = new List<BlockData>();
             stageData.entities = new List<EntityData>();
-            stageData.triggers = new List<TriggerData>();
 
             // For each wall, Add the data to the WallData list
             foreach (IBlock block in stage.StageBlocks)
@@ -313,6 +304,7 @@ namespace TKGame.Level_Editor_Content
                         Y = block.HitBox.Y,
                         width = block.HitBox.Width,
                         height = block.HitBox.Height,
+                        action = block.Action,
                     };
 
                     stageData.blocks.Add(blockdata);
@@ -334,44 +326,10 @@ namespace TKGame.Level_Editor_Content
                 }
             }
 
-            // For each trigger, Add the data to the TriggerData list
-            foreach (Trigger trigger in stage.StageTriggers)
+            stageData.background = new BackgroundData()
             {
-                if (trigger.HitBox.Width != 0 && trigger.HitBox.Height != 0)
-                {
-                    TriggerData triggerdata = new TriggerData()
-                    {
-                        X = trigger.HitBox.X,
-                        Y = trigger.HitBox.Y,
-                        width = trigger.HitBox.Width,
-                        height = trigger.HitBox.Height,
-                        action = trigger.Action,
-                    };
-                    stageData.triggers.Add(triggerdata);
-                }
-            }
-
-            if (stage.stageName == "room0.json")
-            {
-                stageData.background = new BackgroundData()
-                {
-                    texture = "cobble",
-                };
-            }
-            else if (stage.stageName == "room1.json") {
-                stageData.background = new BackgroundData()
-                {
-                    texture = "ruins",
-                };
-            }
-            else
-            {
-                stageData.background = new BackgroundData()
-                {
-                    texture = "dungeon",
-                };
-            }
-                
+                texture = TKGame.levelComponent.GetCurrentStage().Background.BackgroundName,
+            };
 
             // Serializes the data set. The Options make the output human-readable.
             string json = JsonSerializer.Serialize(stageData, new JsonSerializerOptions
@@ -437,6 +395,10 @@ namespace TKGame.Level_Editor_Content
                 {
                     newBlock = new Spikes(blockData.X, blockData.Y, blockData.width, blockData.height);
                 }
+                else if (blockData.type == "Door")
+                {
+                    newBlock = new Door(blockData.X, blockData.Y, blockData.width, blockData.height, blockData.action);
+                }
                 // TODO:
                 //else if (blockData.type == "Platform")
                 //{
@@ -451,22 +413,76 @@ namespace TKGame.Level_Editor_Content
 
             foreach (EntityData entityData in levelData.entities)
             {
-                //TODO: Refactor for factories
-                newStage.StageEntities.Add(new KnightEnemy());
+                // TODO: make this not hard coded
+                switch (entityData.type)
+                {
+                    case "KnightEnemy":
+                        EnemyFactory knightFactory = new KnightEnemyFactory();
+                        Enemy knight = knightFactory.CreateEnemy();
+                        knight.Position.X = entityData.X;
+                        knight.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(knight);
+                        break;
+
+                    case "GoblinEnemy":
+                        EnemyFactory goblinFactory = new GoblinEnemyFactory();
+                        Enemy goblin = goblinFactory.CreateEnemy();
+                        goblin.Position.X = entityData.X;
+                        goblin.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(goblin);
+                        break;
+
+                    case "PotionItem":
+                        ItemFactory potionFactory = new PotionItemFactory();
+                        Item potion = potionFactory.CreateItem();
+                        potion.Position.X = entityData.X;
+                        potion.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(potion);
+                        break;
+
+                    case "FireStoneItem":
+                        ItemFactory fireStoneFactory = new FireStoneItemFactory();
+                        Item fireStone = fireStoneFactory.CreateItem();
+                        fireStone.Position.X = entityData.X;
+                        fireStone.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(fireStone);
+                        break;
+
+                    case "IceItem":
+                        ItemFactory iceItemFactory = new IceItemFactory();
+                        Item ice = iceItemFactory.CreateItem();
+                        ice.Position.X = entityData.X;
+                        ice.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(ice);
+                        break;
+
+                    case "PoisonItem":
+                        ItemFactory poisonItemFactory = new PoisonItemFactory();
+                        Item poison = poisonItemFactory.CreateItem();
+                        poison.Position.X = entityData.X;
+                        poison.Position.Y = entityData.Y;
+                        newStage.StageEntities.Add(poison);
+                        break;
+
+                    default:
+                        // TODO: Handle unrecognized entity type
+                        break;
+                }
             }
 
-            foreach (TriggerData triggerData in levelData.triggers)
-            {
-                newStage.StageTriggers.Add(new Trigger(triggerData.X, triggerData.Y, triggerData.width, triggerData.height, triggerData.action));
+            newStage.Background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight, levelData.background.texture);//Creates new Background Object
+            switch (newStage.Background.BackgroundName)
+            { 
+                case "cobble":
+                    newStage.Background.BackgroundTexture = Art.BackgroundTexture1;
+                    break;
+                case "ruins":
+                    newStage.Background.BackgroundTexture = Art.BackgroundTexture2;
+                    break;
+                default:
+                    newStage.Background.BackgroundTexture = Art.BackgroundTexture3;
+                    break;
             }
-
-            newStage.background = new Background(TKGame.ScreenWidth, TKGame.ScreenHeight);//Creates new Background Object
-            if (levelData.background.texture == "cobble") //identifies chosen background
-                newStage.background.BackgroundTexture = Art.BackgroundTexture1;//sets new stage background
-            else if (levelData.background.texture == "ruins")
-                newStage.background.BackgroundTexture = Art.BackgroundTexture2;
-            else
-                newStage.background.BackgroundTexture = Art.BackgroundTexture3;
 
             return newStage;
         }

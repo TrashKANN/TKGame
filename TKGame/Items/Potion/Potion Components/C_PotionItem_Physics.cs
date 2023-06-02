@@ -23,9 +23,7 @@ namespace TKGame.Items.Potion.Components
                 // This is mainly for testing purposes. I will make powerup items soon
                 if (player.HitBox.Intersects(entity.HitBox))
                 {
-                    Player.Instance.PickUpPowerUp(new C_Fire_SpecialAttack());
-                    Player.Instance.PickUpPowerUp(new C_Fire_UltimateAttack());
-                    Player.Instance.PickUpPowerUp(new C_Fire_MovementAttack());
+                    // TODO: Give player a potion
                 }
             }
             entity.HitBox = new Microsoft.Xna.Framework.Rectangle((int)entity.Position.X - (int)entity.Size.X / 2,

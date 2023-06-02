@@ -236,5 +236,67 @@ namespace TKGame
 
             return finalTexture;
         }
+
+        public void resolveVerticalCollision(Entity entity, float deltaTime)
+        {
+            bool wasGrounded = isOnGround(entity); // Store the previous grounded state
+
+            if (entity.CollidedVertically)
+            {
+                // Ground collision
+                if (entity.Velocity.Y > 0)
+                {
+                    entity.IsOnGround = true;
+                }
+                else
+                {
+                    entity.IsOnGround = false;
+                }
+                entity.Velocity.Y = 0;
+                entity.CollidedVertically = false;
+            }
+
+            // Apply gravity only if the entity is not on the ground and was not previously grounded
+            if (!isOnGround(entity) && !wasGrounded)
+            {
+                entity.Velocity.Y += TKGame.GRAVITY * deltaTime;
+            }
+            else
+            {
+                entity.Velocity.Y = 0;
+            }
+        }
+
+
+
+        private bool isOnGround(Entity entity)
+        {
+            Rectangle extendedHitBox = new Rectangle(entity.HitBox.Left + 1, entity.HitBox.Bottom, entity.HitBox.Width - 2, 10);
+
+            foreach (IBlock block in TKGame.levelComponent.GetCurrentLevel().currentStage.StageBlocks)
+            {
+                if (extendedHitBox.Intersects(block.HitBox))
+                {
+                    // Only consider the player grounded if the collision is from below
+                    if (entity.Velocity.Y >= 0)
+                    {
+                        entity.IsOnGround = true;
+                        return true;
+                    }
+                    else if (entity.Velocity.Y < 0 && entity is Player)
+                    {
+                        // Check if the top of the wall is within reach to allow climbing
+                        if (entity.HitBox.Bottom - block.HitBox.Top <= entity.Velocity.Y)
+                        {
+                            entity.IsOnGround = true;
+                            entity.Velocity.Y = 0;
+                        }
+                    }
+                }
+            }
+
+            entity.IsOnGround = false; // Reset grounded state if no collision is found
+            return false;
+        }
     }
 }
