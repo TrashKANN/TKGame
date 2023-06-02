@@ -142,7 +142,7 @@ namespace TKGame.BackEnd
                 {
                     if (entities[0].weapon.hitbox.Intersects(entity.hitBox) && entity != entities[0]) //Checks if hitboxes intersect and is not the player
                     {
-                        entity.health -= (int)(entities[0].weapon.damageStat);
+                        entity.health -= (int)(entities[0].weapon.damageStat); //Damages player
                     }
                 }
             }
