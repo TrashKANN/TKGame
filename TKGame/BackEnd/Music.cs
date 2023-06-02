@@ -24,9 +24,9 @@ namespace TKGame.BackEnd
         {
             //Song is just temporary until Keegan makes us a basedAF soundtrack
 
-            backgroundSong = Content.Load<Song>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Audio/Break-Out-Loop");
+            backgroundSong = Content.Load<Song>(@"Audio/Break-Out-Loop");
 
-            backgroundSong = Content.Load<Song>(@"C:\Users\Greywater\Documents\Git\Dev\TKGame\TKGame\Content\bin\DesktopGL\Audio/Break-Out-Loop");
+            backgroundSong = Content.Load<Song>(@"Audio/Break-Out-Loop");
 
             MediaPlayer.Play(backgroundSong);
             MediaPlayer.IsRepeating = true;

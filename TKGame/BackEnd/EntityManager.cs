@@ -8,12 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.Components.Interface;
 using TKGame.Level_Editor_Content;
+using TKGame.Players.Components;
 
 namespace TKGame.BackEnd
 {
     // Might change from static
     static class EntityManager
     {
+
+# region components
+        public static C_Player_WeaponAttack weaponAttack = new C_Player_WeaponAttack();
+#endregion
+
+
         static List<Entity> entities = new List<Entity>();
 
         static bool IsUpdating;
@@ -96,8 +103,11 @@ namespace TKGame.BackEnd
             // Will need to do this for all unique entity lists, i.e. enemies, projectiles, etc.
             entities = entities.Where(x => !x.IsExpired).ToList();
 
+            weaponAttack.Update(entities[0]);
+            
             //Damages Enemies
             DamageEnemy();
+
         }
 
 
