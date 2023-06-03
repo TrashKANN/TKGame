@@ -131,7 +131,10 @@ namespace TKGame.BackEnd
             if (entity.needsHealth) //Makes sure that items don't get health bars
             {
                 entity.healthTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-                entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, (int)entity.health, 10);
+                if(entity.entityName == "goblin")
+                    entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, (int)entity.health * 2, 10);
+                else
+                    entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, (int)entity.health, 10);
                 entity.healthTexture.SetData(new Color[] { Color.Red });
                 spriteBatch.Draw(entity.healthTexture, entity.healthBar, Color.White);
             }
@@ -150,18 +153,7 @@ namespace TKGame.BackEnd
                 {
                     if (count % 30 == 0)
                     {
-                        if (entity == entities[1])
-                        {
-                            entities[1].health -= entities[0].weapon.damageStat; //For some reason, it wont change the graphical elements width if I use the entity variable from the foreach loop
-                        }
-                        else if (entity == entities[2])
-                        {
-                            entities[2].health -= entities[0].weapon.damageStat;
-                        }
-                        else if (entity == entities[3])
-                        {
-                            entities[3].health -= entities[0].weapon.damageStat;
-                        }
+                        entity.health = entity.health - entities[0].weapon.damageStat; //don't know how, but this is working now
                     }
                     playerCount++; //updates this loops counter 
                 }
@@ -178,9 +170,9 @@ namespace TKGame.BackEnd
             {
                 if ( entity.hitBox.Intersects(entities[0].hitBox) && entity.isEnemy) //checks if player's hitbox intersects with enemy's hitbox
                 {
-                    if (count % 80 == 0)
+                    if (count % 30 == 0)
                     {
-                        entities[0].health -= 1;
+                        entities[0].health -= 2;
                     }
                     enemyCount++; //updates this loops counter
                 }
