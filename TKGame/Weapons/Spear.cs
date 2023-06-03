@@ -31,7 +31,7 @@ namespace TKGame.Weapons
             weaponTexture = Art.PlayerSpearTexture;
             position = new Vector2(815, 730);
             hitbox = new Rectangle(815, 730, 150, 85);
-            damageStat = 1;
+            damageStat = 55;
 
         }
 

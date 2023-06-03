@@ -174,7 +174,7 @@ namespace TKGame.BackEnd
                 {
                     if (count % 30 == 0)
                     {
-                        entities[0].health -= 2; //decrements player's health
+                        entities[0].health -= 1; //decrements player's health
                     }
                     enemyCount++; //updates this loops counter
                 }

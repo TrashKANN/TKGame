@@ -30,7 +30,7 @@ namespace TKGame.Weapons
             position = new Vector2(815, 730);
             
             hitbox = new Rectangle(815, 730, 85, 100);
-            damageStat = 1;
+            damageStat = 10;
         }
 
         /// <summary>
