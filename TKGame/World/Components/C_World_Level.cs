@@ -89,7 +89,7 @@ namespace TKGame.World.Components
                     currentLevel.isCurrentStageFinal = false;
 
                     int currentRoomNum = int.Parse(Regex.Match(currentLevel.currentStage.stageName, @"\d+").Value);
-                    string nextStageName = "room" + (currentRoomNum + 1).ToString();
+                    string nextStageName = "stage" + (currentRoomNum + 1).ToString();
 
                     currentLevel.nextStage = levelStages[nextStageName];
                 }
@@ -129,7 +129,7 @@ namespace TKGame.World.Components
                     currentLevel.isCurrentStageFirst = false;
 
                     int currentRoomNum = int.Parse(Regex.Match(currentLevel.currentStage.stageName, @"\d+").Value);
-                    string prevStageName = "room" + (currentRoomNum - 1).ToString();
+                    string prevStageName = "stage" + (currentRoomNum - 1).ToString();
 
                     currentLevel.prevStage = levelStages[prevStageName];
                 }
