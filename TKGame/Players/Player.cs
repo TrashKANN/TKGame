@@ -18,7 +18,7 @@ namespace TKGame.Players
         #region Components
 
         #endregion Components
-//public IGraphicsComponent weaponAttack;
+        public IGraphicsComponent weaponAttack;
         public bool isJumping = false;
         public bool isLookingLeft = false;
         public bool isCrouched = false;
@@ -66,7 +66,7 @@ namespace TKGame.Players
             originalHealth = health;
             needsHealth = true;
             weapon = new Sword();
-           // weaponAttack = new C_Player_WeaponAttack(); //Instantiates WeaponAttack Component
+            weaponAttack = new C_Player_WeaponAttack(); //Instantiates WeaponAttack Component
             weapon.Activate();
 
             entityTexture = Art.PlayerTexture;
@@ -132,6 +132,7 @@ namespace TKGame.Players
             }
 
             components[ComponentType.Graphics].OfType<IGraphicsComponent>().First().Update(this);
+            weaponAttack.Update(this);
         }
 
         /// <summary>

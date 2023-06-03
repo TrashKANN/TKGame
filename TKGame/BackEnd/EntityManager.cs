@@ -15,12 +15,6 @@ namespace TKGame.BackEnd
     // Might change from static
     static class EntityManager
     {
-
-# region components
-        public static C_Player_WeaponAttack weaponAttack = new C_Player_WeaponAttack(); //Only for use with player but needs to be in the EntityManagers Update functions.
-#endregion
-
-
         static List<Entity> entities = new List<Entity>();
 
         static bool IsUpdating;
@@ -103,7 +97,6 @@ namespace TKGame.BackEnd
             // Will need to do this for all unique entity lists, i.e. enemies, projectiles, etc.
             entities = entities.Where(x => !x.IsExpired).ToList();
 
-            weaponAttack.Update(entities[0]);
             
             //Damages Enemies
             DamageEnemy();
