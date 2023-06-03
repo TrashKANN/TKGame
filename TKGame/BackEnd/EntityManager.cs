@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.Components.Interface;
 using TKGame.Level_Editor_Content;
+using TKGame.Players.Components;
 
 namespace TKGame.BackEnd
 {
@@ -97,9 +98,10 @@ namespace TKGame.BackEnd
             // Will need to do this for all unique entity lists, i.e. enemies, projectiles, etc.
             entities = entities.Where(x => !x.IsExpired).ToList();
 
+            
             //Damages Enemies
-            // TODO: Make this not run every frame, only when the player attacks
-            // DamageEnemy();
+            DamageEnemy();
+
         }
 
 
@@ -132,22 +134,6 @@ namespace TKGame.BackEnd
                 spriteBatch.Draw(entity.healthTexture, entity.healthBar, Color.White);
             }
         }
-        
-        /// <summary>
-        /// Function To run through entities and damage any touching the player
-        /// </summary>
-        public static void DamageEnemy()
-        {
-            if (Input.KeyboardState.CapsLock)
-            {
-                foreach (Entity entity in entities)
-                {
-                    if (entities[0].entityTexture == Art.PlayerTexture) //Checks if player has sword out
-                    {
-                        if (entities[0].weapon.hitbox.Intersects(entity.hitBox) && entity != entities[0]) //Checks if hitboxes intersect and is not the player
-                        {
-                            entity.health -= (int)(entities[0].weapon.damageStat);
-                        }
                     }
                 }
             }
