@@ -30,8 +30,9 @@ namespace TKGame.Weapons
             damageStat = 5; //Same Damage Better Range
             weaponTexture = Art.PlayerSpearTexture;
             position = new Vector2(815, 730);
-            hitbox = new Rectangle(815, 730, 85, 85);
-            damageStat = 5;
+            hitbox = new Rectangle(815, 730, 150, 85);
+            damageStat = 1;
+
         }
 
         /// <summary>

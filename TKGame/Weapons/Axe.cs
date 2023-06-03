@@ -28,8 +28,9 @@ namespace TKGame.Weapons
             damageStat = 10; //Same Speed and Range Better Damage
             weaponTexture = Art.PlayerAxeTexture;
             position = new Vector2(815, 730);
-            hitbox = new Rectangle(815, 730, 85, 85);
-            damageStat = 10;
+            
+            hitbox = new Rectangle(815, 730, 85, 100);
+            damageStat = 1;
         }
 
         /// <summary>

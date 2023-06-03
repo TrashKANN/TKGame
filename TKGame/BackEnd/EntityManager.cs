@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TKGame.Components.Interface;
 using TKGame.Level_Editor_Content;
+using TKGame.Players.Components;
 
 namespace TKGame.BackEnd
 {
@@ -100,7 +101,7 @@ namespace TKGame.BackEnd
             // Will need to do this for all unique entity lists, i.e. enemies, projectiles, etc.
             entities = entities.Where(x => !x.IsExpired).ToList();
 
-            //Damages Enemies
+        
             if(Input.KeyboardState.CapsLock)
                 DamageEnemy(playerCount);
               
@@ -141,7 +142,7 @@ namespace TKGame.BackEnd
                 spriteBatch.Draw(entity.healthTexture, entity.healthBar, Color.White);
             }
         }
-
+      
         /// <summary>
         /// Function To run through entities and damage any touching the player
         /// </summary>
