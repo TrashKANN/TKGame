@@ -18,6 +18,9 @@ namespace TKGame.BackEnd
     {
         static List<Entity> entities = new List<Entity>();
 
+        private static int playerCount = 0;
+        private static int enemyCount = 0;
+
         static bool IsUpdating;
 
         // This will be all the entities that are added this frame
@@ -98,10 +101,12 @@ namespace TKGame.BackEnd
             // Will need to do this for all unique entity lists, i.e. enemies, projectiles, etc.
             entities = entities.Where(x => !x.IsExpired).ToList();
 
-            
-            //Damages Enemies
-            DamageEnemy();
-
+        
+            if(Input.KeyboardState.CapsLock)
+                DamageEnemy(playerCount);
+              
+            //Check For Enemies Damaging Player
+            EnemyDamage(enemyCount);
         }
 
 
@@ -129,14 +134,52 @@ namespace TKGame.BackEnd
             if (entity.needsHealth) //Makes sure that items don't get health bars
             {
                 entity.healthTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-                entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, 100, 10);
+                if(entity.entityName == "goblin")
+                    entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, (int)entity.health * 2, 10);
+                else
+                    entity.healthBar = new Rectangle((int)entity.Position.X - 50, (int)entity.Position.Y - 70, (int)entity.health, 10);
                 entity.healthTexture.SetData(new Color[] { Color.Red });
                 spriteBatch.Draw(entity.healthTexture, entity.healthBar, Color.White);
             }
         }
+      
+        /// <summary>
+        /// Function To run through entities and damage any touching the player
+        /// </summary>
+        /// <param name="count"></param>
+        public static void DamageEnemy(int count)
+        {
+            foreach(Entity entity in entities)
+            {
+                if(entity.isEnemy && entity.hitBox.Intersects(entities[0].weapon.hitbox)) //checks if players weapon's hitbox intersects with entity's hitbox and if entity is an enemy
+                {
+                    if (count % 30 == 0)
+                    {
+                        entity.health = entity.health - entities[0].weapon.damageStat; //don't know how, but this is working now
                     }
+                    playerCount++; //updates this loops counter 
                 }
             }
+        }
+
+        /// <summary>
+        /// Checks if the player hitbox intersects with any enemy hitboxes and then decrements player health
+        /// </summary>
+        /// <param name="count"></param>
+        public static void EnemyDamage(int count)
+        {
+            foreach(Entity entity in entities)
+            {
+                if ( entity.hitBox.Intersects(entities[0].hitBox) && entity.isEnemy) //checks if player's hitbox intersects with enemy's hitbox
+                {
+                    if (count % 30 == 0)
+                    {
+                        entities[0].health -= 2; //decrements player's health
+                    }
+                    enemyCount++; //updates this loops counter
+                }
+            }
+
         }
     }
 }

@@ -25,11 +25,11 @@ namespace TKGame.Enemies
             Position = new Vector2(200, 800); // hard coded spawn position at the moment
             velocity = new Vector2((float)1.5, 1);
             HitBox = new Microsoft.Xna.Framework.Rectangle((int)Position.X - (int)(Size.X / 2), (int)Position.Y - (int)(Size.Y / 2), (int)Size.X, (int)Size.Y);
-            
-            health = 10; //Base Health
+            entityName = "goblin";
+            health = 50; //Base Health
             originalHealth = health; //used for displaying healthbar
             needsHealth = true;
-
+            isEnemy = true;
             components = new Dictionary<ComponentType, List<IComponent>>
             {
                 { ComponentType.Physics, new List<IComponent> { new C_GoblinEnemy_Physics() } },
