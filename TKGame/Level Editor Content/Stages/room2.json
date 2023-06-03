@@ -1,0 +1,149 @@
+{
+  "blocks": [
+    {
+      "type": "Wall",
+      "X": 1024,
+      "Y": 416,
+      "width": 352,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1344,
+      "Y": 192,
+      "width": 32,
+      "height": 224,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 800,
+      "Y": 192,
+      "width": 544,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 448,
+      "Y": 256,
+      "width": 96,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 512,
+      "Y": 288,
+      "width": 32,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 480,
+      "Y": 320,
+      "width": 32,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 448,
+      "Y": 352,
+      "width": 32,
+      "height": 64,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 480,
+      "Y": 384,
+      "width": 64,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 768,
+      "Y": 448,
+      "width": 288,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 864,
+      "width": 1600,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 32,
+      "Y": 0,
+      "width": 1536,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1568,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Door",
+      "X": 0,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goPrevious"
+    },
+    {
+      "type":  "Door",
+      "X": 1590,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goNext"
+    }
+  ],
+  "entities": [
+    {
+      "type": "KnightEnemy",
+      "X": 200,
+      "Y": 800
+    },
+    {
+      "type": "KnightEnemy",
+      "X": 400,
+      "Y": 800
+    },
+    {
+      "type": "KnightEnemy",
+      "X": 500,
+      "Y": 800
+    },
+    {
+      "type": "KnightEnemy",
+      "X": 350,
+      "Y": 800
+    }
+  ],
+  "background": {
+    "texture": "dungeon"
+  }
+}
