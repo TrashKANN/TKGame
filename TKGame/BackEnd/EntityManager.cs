@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -102,6 +103,7 @@ namespace TKGame.BackEnd
             //Damages Enemies
             if(Input.KeyboardState.CapsLock)
                 DamageEnemy(playerCount);
+              
             //Check For Enemies Damaging Player
             EnemyDamage(enemyCount);
         }
@@ -146,7 +148,6 @@ namespace TKGame.BackEnd
         /// <param name="count"></param>
         public static void DamageEnemy(int count)
         {
-
             foreach(Entity entity in entities)
             {
                 if(entity.isEnemy && entity.hitBox.Intersects(entities[0].weapon.hitbox)) //checks if players weapon's hitbox intersects with entity's hitbox and if entity is an enemy
@@ -172,7 +173,7 @@ namespace TKGame.BackEnd
                 {
                     if (count % 30 == 0)
                     {
-                        entities[0].health -= 2;
+                        entities[0].health -= 2; //decrements player's health
                     }
                     enemyCount++; //updates this loops counter
                 }

@@ -1,0 +1,136 @@
+{
+  "blocks": [
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 32,
+      "Y": 0,
+      "width": 1536,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1568,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 800,
+      "Y": 448,
+      "width": 256,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 640,
+      "Y": 576,
+      "width": 128,
+      "height": 64,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 864,
+      "width": 1600,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Door",
+      "X": 0,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goPrevious"
+    },
+    {
+      "type": "Door",
+      "X": 1590,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goNext"
+    },
+    {
+      "type": "Spikes",
+      "X": 1088,
+      "Y": 448,
+      "width": 224,
+      "height": 160,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 992,
+      "Y": 352,
+      "width": 224,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1440,
+      "Y": 512,
+      "width": 192,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 1344,
+      "Y": 608,
+      "width": 32,
+      "height": 192,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1376,
+      "Y": 768,
+      "width": 192,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1376,
+      "Y": 736,
+      "width": 64,
+      "height": 128,
+      "action": "None"
+    }
+  ],
+  "entities": [
+    {
+      "type": "KnightEnemy",
+      "X": 261,
+      "Y": 767
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 393,
+      "Y": 668
+    },
+    {
+      "type": "IceItem",
+      "X": 1205,
+      "Y": 514
+    }
+  ],
+  "background": {
+    "texture": "cobble"
+  }
+}

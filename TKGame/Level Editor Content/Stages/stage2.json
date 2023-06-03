@@ -1,0 +1,136 @@
+{
+  "blocks": [
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 32,
+      "Y": 0,
+      "width": 1536,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 1568,
+      "Y": 0,
+      "width": 32,
+      "height": 640,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 800,
+      "Y": 448,
+      "width": 256,
+      "height": 256,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 640,
+      "Y": 576,
+      "width": 128,
+      "height": 64,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 0,
+      "Y": 864,
+      "width": 1600,
+      "height": 32,
+      "action": "None"
+    },
+    {
+      "type": "Door",
+      "X": 0,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goPrevious"
+    },
+    {
+      "type": "Door",
+      "X": 1590,
+      "Y": 660,
+      "width": 10,
+      "height": 195,
+      "action": "goNext"
+    },
+    {
+      "type": "Wall",
+      "X": 896,
+      "Y": 32,
+      "width": 192,
+      "height": 160,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 32,
+      "Y": 672,
+      "width": 256,
+      "height": 128,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 960,
+      "Y": 320,
+      "width": 128,
+      "height": 160,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 160,
+      "Y": 256,
+      "width": 128,
+      "height": 64,
+      "action": "None"
+    },
+    {
+      "type": "Spikes",
+      "X": 1248,
+      "Y": 32,
+      "width": 192,
+      "height": 96,
+      "action": "None"
+    },
+    {
+      "type": "Wall",
+      "X": 64,
+      "Y": 96,
+      "width": 128,
+      "height": 160,
+      "action": "None"
+    }
+  ],
+  "entities": [
+    {
+      "type": "KnightEnemy",
+      "X": 411,
+      "Y": 717
+    },
+    {
+      "type": "GoblinEnemy",
+      "X": 1484,
+      "Y": 723
+    },
+    {
+      "type": "FireStoneItem",
+      "X": 1274,
+      "Y": 766
+    }
+  ],
+  "background": {
+    "texture": "cobble"
+  }
+}
