@@ -83,7 +83,6 @@ namespace TKGame
             // Let Myra know what our Game object is so we can use it
             MyraEnvironment.Game = this;
 
-
             base.Initialize();
             hasInitialized = true;
         }
@@ -92,7 +91,6 @@ namespace TKGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Art.LoadContent(Content);
             Music.LoadContent(Content, 0.069f);
-
 
             // Add and Load Default Level
             levelComponent.AddLevel(new Level(new Dictionary<string, Stage>
@@ -123,7 +121,6 @@ namespace TKGame
                 levelComponent.Update();
             }
 
-
             // Switch menus or exit game depending on current menu when Escape is pressed
             if (Input.WasKeyPressed(Keys.Escape))
             {
@@ -151,7 +148,7 @@ namespace TKGame
             {
                 DebugMenu.ToggleVisibility();
             }
-
+            
             // Toggle Editing mode for levels, pauses the game to hault entity movement.
             if (Input.WasKeyPressed(Keys.L))
             {
